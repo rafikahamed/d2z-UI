@@ -1,0 +1,48 @@
+{
+  "name": "hms",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build -e prod"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^5.0.0",
+    "@angular/cdk": "^5.1.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/forms": "^5.0.0",
+    "@angular/http": "^5.0.0",
+    "@angular/material": "^5.1.0",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
+    "@angular/router": "^5.0.0",
+    "ag-grid": "^18.1.0",
+    "ag-grid-angular": "^18.1.0",
+    "angular-user-idle": "^1.1.0",
+    "angular2-csv": "^0.2.5",
+    "jquery": "^3.3.1",
+    "jquery-ui-dist": "^1.12.1",
+    "material-design-icons": "^3.0.1",
+    "material-design-lite": "^1.3.0",
+    "ngx-spinner": "^6.0.0",
+    "primeicons": "^1.0.0-beta.9",
+    "primeng": "^6.0.0",
+    "rxjs": "^5.5.2",
+    "ts-xlsx": "0.0.11",
+    "uglify-js": "^3.3.22",
+    "xlsx": "^0.13.1",
+    "zone.js": "^0.8.26"
+  },
+  "devDependencies": {
+    "@angular/cli": "^1.7.4",
+    "@angular/compiler-cli": "^5.0.0",
+    "@angular/language-service": "^5.0.0",
+    "@types/node": "~6.0.60",
+    "ts-node": "~3.2.0",
+    "typescript": "~2.4.2"
+  }
+}
