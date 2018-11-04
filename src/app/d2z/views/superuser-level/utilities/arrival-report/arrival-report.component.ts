@@ -23,7 +23,7 @@ export class SuperUserArrivalReportComponent implements OnInit{
   childmenuFour:boolean;
   childmenuFive:boolean;
   public importList = [];
-  FileHeading = ['Reference number'];
+  FileHeading = ['ConsignmentRef', 'Tracking', 'Status', 'ScannedDateTime'];
   manifestNumber: string;
   arrayBuffer:any;
   file:File;
@@ -50,12 +50,27 @@ export class SuperUserArrivalReportComponent implements OnInit{
     this.gridOptions.columnDefs = [
       {
         headerName: "Reference number",
-        field: "referenceNumber",
-        width: 500,
+        field: "connoteNo",
+        width: 300,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
         }
+      },
+      {
+        headerName: "Tracking Number",
+        field: "connoteNo",
+        width: 300
+      },
+      {
+        headerName: "Status",
+        field: "status",
+        width: 250
+      },
+      {
+        headerName: "Scanned Date Time",
+        field: "scannedDateTime",
+        width: 200
       }
     ];
     this.autoGroupColumnDef = {
@@ -80,16 +95,45 @@ export class SuperUserArrivalReportComponent implements OnInit{
   incomingfile(event) {
     this.rowData = [];
     this.file = event.target.files[0]; 
-    this.shipmentExport();
+    this.arrivalExport();
   }
 
-  shipmentExport(){
-    var worksheet;
+  arrivalExport(){
+      var worksheet;
       this.errorMsg = null;
       let fileReader = new FileReader();
       this.importList= [];
       fileReader.readAsArrayBuffer(this.file);
+
+      var today = new Date();
+      var day = today.getDate() + "";
+      var month = (today.getMonth() + 1) + "";
+      var year = today.getFullYear() + "";
+      var hour = today.getHours() + "";
+      var minutes = today.getMinutes() + "";
+      var seconds = today.getSeconds() + "";
+
+      day = checkZero(day);
+      month = checkZero(month);
+      year = checkZero(year);
+      hour = checkZero(hour);
+      minutes = checkZero(minutes);
+      seconds = checkZero(seconds);
+
+      function checkZero(data){
+          if(data.length == 1){
+            data = "0" + data;
+          }
+          return data;
+      }
+      var dateString = year+'-'+month+'-'+day+"-"+hour+':'+minutes+':'+seconds;
+
       let referenceNumber = 'referenceNumber';
+      let connoteNo = 'connoteNo';
+      let status = 'status';
+      let scannedDateTime = 'scannedDateTime';
+      let fileName = 'fileName';
+
       fileReader.onload = (e) => {
           this.arrayBuffer = fileReader.result;
             var data = new Uint8Array(this.arrayBuffer);
@@ -105,13 +149,16 @@ export class SuperUserArrivalReportComponent implements OnInit{
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
                 if(!this.FileHeading.includes(keyVal)){
-                  this.errorMsg = "***Invalid file format, Please check the field in given files Reference number, allowed fields are ['Reference Number']"
+                  this.errorMsg = "***Invalid file format, Please check the field in given files Reference number, allowed fields are ['ConsignmentRef', 'Tracking', 'Status', 'ScannedDateTime']"
                 }
               }
               if(this.errorMsg == null){
                 var importObj = (
                   importObj={}, 
-                  importObj[referenceNumber]= dataObj['Reference number'] != undefined ? dataObj['Reference number'] : '', importObj
+                  importObj[connoteNo]= dataObj['Tracking'] != undefined ? dataObj['Tracking'] : '', importObj,
+                  importObj[status]= dataObj['Status'] != undefined ? dataObj['Status'] : '', importObj,
+                  importObj[scannedDateTime]= dataObj['ScannedDateTime'] != undefined ? dataObj['ScannedDateTime'] : '', importObj,
+                  importObj[fileName]= this.file.name+'-'+dateString, importObj
                 );
               this.importList.push(importObj)
               this.rowData = this.importList;
@@ -120,29 +167,25 @@ export class SuperUserArrivalReportComponent implements OnInit{
         }
   }
 
-  allocateShipment(){
+  arrivalReport(){
     this.errorMsg = null;
     this.successMsg = '';
     var selectedRows = this.gridOptions.api.getSelectedRows();
-    var refrenceNumList = [];
-    for (var labelValue in selectedRows) {
-          var labelObj = selectedRows[labelValue];
-          refrenceNumList.push(labelObj.referenceNumber)
-    }
-    if(this.shipmentAllocateForm.value.shipmentNumber == null || this.shipmentAllocateForm.value.shipmentNumber == ''){
-      this.errorMsg = "**Please Enter the shipment number for the selected items";
-    }
+    
     if(selectedRows.length == 0){
-      this.errorMsg = "**Please select the below records to allocate the shipment";
+      this.errorMsg = "**Please select the below records to upload the Arrival Report";
     }
     if(selectedRows.length > 0 && this.errorMsg == null ){
         this.spinner.show();
-        this.trackingDataService.shipmentAllocation(refrenceNumList, this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
+        this.trackingDataService.superUserArrialUpload(this.importList, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
-          $('#allocateShipmentModal').modal('show');
-          if(!resp){
+          if(resp.status == 400 ){
+            this.successMsg = resp.error.errorMessage;
           }
+          if(resp.status == undefined ){
+            this.successMsg = resp.message;
+          }
+          $('#allocateShipmentModal').modal('show');
           setTimeout(() => {
             this.spinner.hide();
           }, 5000);

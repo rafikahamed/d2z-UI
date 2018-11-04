@@ -23,7 +23,7 @@ export class SuperUserUploadTrackingComponent implements OnInit{
   childmenuFour:boolean;
   childmenuFive:boolean;
   public importList = [];
-  FileHeading = ['Reference number'];
+  FileHeading = ['Reference Number', 'Article ID Number', 'Status', 'Status Time'];
   manifestNumber: string;
   arrayBuffer:any;
   file:File;
@@ -51,11 +51,26 @@ export class SuperUserUploadTrackingComponent implements OnInit{
       {
         headerName: "Reference number",
         field: "referenceNumber",
-        width: 500,
+        width: 300,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
         }
+      },
+      {
+        headerName: "Article Id Number",
+        field: "connoteNo",
+        width: 300
+      },
+      {
+        headerName: " Status",
+        field: "trackEventDetails",
+        width: 250
+      },
+      {
+        headerName: "Status Time",
+        field: "trackEventDateOccured",
+        width: 200
       }
     ];
     this.autoGroupColumnDef = {
@@ -80,16 +95,44 @@ export class SuperUserUploadTrackingComponent implements OnInit{
   incomingfile(event) {
     this.rowData = [];
     this.file = event.target.files[0]; 
-    this.shipmentExport();
+    this.uploadTracking();
   }
 
-  shipmentExport(){
+  uploadTracking(){
     var worksheet;
       this.errorMsg = null;
       let fileReader = new FileReader();
       this.importList= [];
       fileReader.readAsArrayBuffer(this.file);
       let referenceNumber = 'referenceNumber';
+      let connoteNo = 'connoteNo';
+      let trackEventDetails = 'trackEventDetails';
+      let trackEventDateOccured = 'trackEventDateOccured';
+      let fileName = 'fileName';
+
+      var today = new Date();
+      var day = today.getDate() + "";
+      var month = (today.getMonth() + 1) + "";
+      var year = today.getFullYear() + "";
+      var hour = today.getHours() + "";
+      var minutes = today.getMinutes() + "";
+      var seconds = today.getSeconds() + "";
+
+      day = checkZero(day);
+      month = checkZero(month);
+      year = checkZero(year);
+      hour = checkZero(hour);
+      minutes = checkZero(minutes);
+      seconds = checkZero(seconds);
+
+      function checkZero(data){
+          if(data.length == 1){
+            data = "0" + data;
+          }
+          return data;
+      }
+      var dateString = year+'-'+month+'-'+day+"-"+hour+':'+minutes+':'+seconds;
+
       fileReader.onload = (e) => {
           this.arrayBuffer = fileReader.result;
             var data = new Uint8Array(this.arrayBuffer);
@@ -111,7 +154,11 @@ export class SuperUserUploadTrackingComponent implements OnInit{
               if(this.errorMsg == null){
                 var importObj = (
                   importObj={}, 
-                  importObj[referenceNumber]= dataObj['Reference number'] != undefined ? dataObj['Reference number'] : '', importObj
+                  importObj[referenceNumber]= dataObj['Reference Number'] != undefined ? dataObj['Reference Number'] : '', importObj,
+                  importObj[connoteNo]= dataObj['Article ID Number'] != undefined ? dataObj['Article ID Number'] : '', importObj,
+                  importObj[trackEventDetails]= dataObj['Status'] != undefined ? dataObj['Status'] : '', importObj,
+                  importObj[trackEventDateOccured]= dataObj['Status Time'] != undefined ? dataObj['Status Time'] : '', importObj,
+                  importObj[fileName]= this.file.name+'-'+dateString, importObj
                 );
               this.importList.push(importObj)
               this.rowData = this.importList;
@@ -120,29 +167,24 @@ export class SuperUserUploadTrackingComponent implements OnInit{
         }
   }
 
-  allocateShipment(){
+  allocateTracking(){
     this.errorMsg = null;
     this.successMsg = '';
     var selectedRows = this.gridOptions.api.getSelectedRows();
-    var refrenceNumList = [];
-    for (var labelValue in selectedRows) {
-          var labelObj = selectedRows[labelValue];
-          refrenceNumList.push(labelObj.referenceNumber)
-    }
-    if(this.shipmentAllocateForm.value.shipmentNumber == null || this.shipmentAllocateForm.value.shipmentNumber == ''){
-      this.errorMsg = "**Please Enter the shipment number for the selected items";
-    }
     if(selectedRows.length == 0){
-      this.errorMsg = "**Please select the below records to allocate the shipment";
+      this.errorMsg = "**Please select the below records to upload the tracking details";
     }
     if(selectedRows.length > 0 && this.errorMsg == null ){
         this.spinner.show();
-        this.trackingDataService.shipmentAllocation(refrenceNumList, this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
+        this.trackingDataService.superUserUpoloadTracking(this.importList, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
-          $('#allocateShipmentModal').modal('show');
-          if(!resp){
+          if(resp.status == 400 ){
+            this.successMsg = resp.error.errorMessage;
           }
+          if(resp.status == undefined ){
+            this.successMsg = resp.message;
+          }
+          $('#allocateShipmentModal').modal('show');
           setTimeout(() => {
             this.spinner.hide();
           }, 5000);

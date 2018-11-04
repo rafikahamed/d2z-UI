@@ -1223,7 +1223,7 @@ Version:	1.1
 	right: 0px;
 	height: 100%;
 	top: 0px;
-	background: url(../../../assets/img/static-bg.jpg) no-repeat scroll center center / cover;
+	background: url(../../assets/img/static-bg.jpg) no-repeat scroll center center / cover;
 	width: 48%;
 	border-left: 5px solid #fff;
 	-webkit-transition:all 0.4s ease;

@@ -4,8 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-// const baseUrl = "http://18.216.201.118:8080/v1/d2z";
 const baseUrl = "https://www.d2z.com.au/v1/d2z";
+// const baseUrl = "http://localhost:8080/v1/d2z";
 
 @Injectable()
 export class TrackingDataService implements OnInit{
@@ -30,7 +30,7 @@ export class TrackingDataService implements OnInit{
             }, (error) => {
                 console.error(error);
             });
-  }
+  };
 
   manifestCreation( manifestNumber, refrenceNumber, callback): any {
         this.http.get(baseUrl+'/manifest-creation', {
@@ -45,7 +45,7 @@ export class TrackingDataService implements OnInit{
         }, (error) => {
           console.error(error);
         });
-  }
+  };
 
   trackPracel( referenceNumberList, callback): any {
     this.http.get(baseUrl+'/trackParcel/referenceNumber/'+referenceNumberList).subscribe((resp) => {
@@ -158,7 +158,52 @@ export class TrackingDataService implements OnInit{
     }, (error) => {
       console.error(error);
     });
-  }
+  };
+
+  exportConsignment( fromDate, toDate, callback): any {
+    this.http.get(baseUrl+'/superUser-level/export/consignment', {
+      params: { fromDate: fromDate, toDate: toDate }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      console.error(error);
+    });
+  };
+
+  exportDelete( fromDate, toDate, callback): any {
+    this.http.get(baseUrl+'/superUser-level/export/delete', {
+      params: { fromDate: fromDate, toDate: toDate }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      console.error(error);
+    });
+  };
+
+  exportShipment( fromDate, toDate, callback): any {
+    this.http.get(baseUrl+'/superUser-level/export/shipment', {
+      params: { fromDate: fromDate, toDate: toDate }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      console.error(error);
+    });
+  };
 
   fetchShipmentDetails( shipmentNumber, callback): any {
     this.http.get(baseUrl+'/consignments/shipment', {
@@ -172,7 +217,7 @@ export class TrackingDataService implements OnInit{
     }, (error) => {
       console.error(error);
     });
-  }
+  };
 
   fetchDirectInjectionDetails( companyName, callback): any {
     this.http.get(baseUrl+'/broker-level/direct-injection', {
@@ -214,6 +259,32 @@ export class TrackingDataService implements OnInit{
       console.error(error);
     });
   }
+
+  superUserUpoloadTracking(trackingDetails, callback) : any {
+    this.http.post(baseUrl+'/superUser-level/track-fileUpload', trackingDetails).subscribe((resp) => {
+    callback(resp);
+    if (resp) {
+      
+    } else {
+        console.error("Not Found!")
+     }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  superUserArrialUpload(arrivalDetails, callback) : any {
+    this.http.post(baseUrl+'/superUser-level/track-arrivalReportUpload', arrivalDetails).subscribe((resp) => {
+    callback(resp);
+    if (resp) {
+      
+    } else {
+        console.error("Not Found!")
+     }
+    }, (error) => {
+      callback(error);
+    });
+  };
 
 }
 

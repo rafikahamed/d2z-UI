@@ -88,7 +88,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
 
   onCompanyDropdownchange(event){
     this.companyName = event.value.value;
-  }
+  };
 
   companySearch(){
     this.spinner.show();

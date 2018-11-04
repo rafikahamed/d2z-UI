@@ -44,6 +44,7 @@ import { StepsModule } from 'primeng/steps';
 import { MenuItem } from 'primeng/api';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { SuperUserInvoiceComponent } from 'app/d2z/views/superuser-level/utilities/invoice-report/invoice-report.component'
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -84,7 +85,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/add-client", component : SuperUserAddClientComponent},
           { path: "superuser/update-client", component : SuperUserUpdateClientComponent},
           { path: "superuser/arrival-report", component : SuperUserArrivalReportComponent},
-          { path: "superuser/upload-tracking", component : SuperUserUploadTrackingComponent}
+          { path: "superuser/upload-tracking", component : SuperUserUploadTrackingComponent},
+          { path: "superuser/invoice-report", component: SuperUserInvoiceComponent}
     ], { useHash: true }),
     UiModule
   ],
@@ -118,7 +120,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserAddClientComponent,
     SuperUserUpdateClientComponent,
     SuperUserArrivalReportComponent,
-    SuperUserUploadTrackingComponent
+    SuperUserUploadTrackingComponent,
+    SuperUserInvoiceComponent
   ],
   entryComponents: [
     

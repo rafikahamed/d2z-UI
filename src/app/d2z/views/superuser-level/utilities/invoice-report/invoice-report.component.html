@@ -1,19 +1,19 @@
+
 <body class="nav-md" #maintoggle>
         <div class="container body">
           <div class="main_container">
+
             <div class="col-md-3 left_col">
               <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                   <a href="index.html" class="site_title">
-                    <!-- <i class="fa fa-paw"></i>  -->
                     <img src="../../../assets/img/d2z-logo.png"/>
                     <!-- <span>D2Z</span> -->
                   </a>
                 </div>
     
                 <div class="clearfix"></div>
-    
-                <!-- menu profile quick info -->
+
                 <div class="profile clearfix">
                   <div class="profile_pic">
                     <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
@@ -23,7 +23,7 @@
                     <h2>Chris Denham</h2>
                   </div>
                 </div>
-                <!-- /menu profile quick info -->
+               
                 <br/>
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="margin-top: -30px">
                   <div class="menu_section">
@@ -49,7 +49,7 @@
                           </li>
                       </ul>
                   </div>
-            </div>
+                </div>
               </div>
             </div>
     
@@ -156,19 +156,56 @@
                   <div class="row tile_count">
                       <div class="page-title">
                             <div class="title_left">
-                              <h3 style="margin-left: 10px;"> Utilities / Arrival Report </h3>
+                              <h3 style="margin-left: 10px;"> Utilities / Invoice Report </h3>
                             </div>
                       </div>
                   </div>
                   
                   <div class="delete_search">
-                      <div>
-                            <div style="float: left">
-                              <p style="float: left"> Select the File to upload Arrival Data: </p>
-                              <input type="file" style="display: inline-block; margin-left:25px" (change)="incomingfile($event)" 
-                                            placeholder="Upload file" accept=".xlsx">
-                            </div> 
+
+
+                      <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> Export Type : </p>
+                                <div>
+                                      <p-dropdown [options]="exportTypeDropdown" 
+                                        [(ngModel)]="selectedExportType" optionLabel="name" 
+                                      (onChange)="onExportTypeChange($event)">
+                                      </p-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <p > From Date : </p>
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+                                                (dateChange)="FromDateChange($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-3">
+                                <p > To Date : </p>
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="pickerTo" placeholder="Choose a date" 
+                                                            (dateChange)="ToDateChange($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerTo></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+
+                            <div class="col-md-3" style="margin-top:30px">
+                                 <button type="button" class="btn btn-info" (click)="exportSearch()"
+                                  style="background-color: #16A085; margin-left:30px">
+                                  Search
+                                </button>
+                            </div>
+
+                        </div>
                       </div>
+
                   </div>
 
                   <div class="delete_panel">
@@ -202,31 +239,32 @@
                         <p class="err_msg">{{errorMsg}}</p>
                       </div>
                       
-                      <!-- <div>
-                          <form [formGroup]="shipmentAllocateForm">
-                            <div class="ui-g-6 ui-md-2">
-                                <p style="float:left; margin-left:10px;"> Shipment Number : </p>
-                                  <div class="ui-inputgroup">
-                                      <input type="text" pInputText placeholder="Shipment Number" class="input-text"
-                                          formControlName="shipmentNumber">   
-                                        <button pButton type="button" icon="fa fa-superpowers" class="ui-button-warn">
-                                      </button>      
-                                  </div>
-                            </div> 
-                          </form>
-                      </div> -->
+                      <button *ngIf="consignmentFlag" type="button" class="btn btn-info" 
+                                    (click)="downloaExportedData()"
+                                    style="background-color: #16A085; float:right; margin-right:20px">
+                                    Download Export Consignment
+                      </button>
 
-                      <button type="button" class="btn btn-info" (click)="arrivalReport()"
-                          style="background-color: #16A085; float:right; margin-right:20px">Upload Arrival Data</button>
+                      <button *ngIf="deletedFlag" type="button" class="btn btn-info" 
+                                    (click)="downloadDeletedData()"
+                                    style="background-color: #16A085; float:right; margin-right:20px">
+                                    Download Export Delete
+                      </button>
+
+                      <button *ngIf="shipmentFlag" type="button" class="btn btn-info" 
+                                    (click)="downloadShipmentData()"
+                                    style="background-color: #16A085; float:right; margin-right:20px">
+                                    Download Export Shipment
+                      </button>
     
-                      <div style="padding:20px; margin-top:30px">
-                        <p> Please select the below records to upload the Arrival Data </p>
+                      <div *ngIf="consignmentFlag" style="padding:20px; margin-top:30px">
+                        <p> Please select the below records to download the Export Consignment </p>
                           <div>
                               <ag-grid-angular 
-                                        #agGrid style="width: 100%; height: 450px;" 
+                                        #agGrid style="width: 100%; height: 380px;" 
                                         class="ag-theme-balham" 
                                         [autoGroupColumnDef]="autoGroupColumnDef"
-                                        [rowData]="rowData"
+                                        [rowData]="rowDataConsignment"
                                         [enableSorting]="true"
                                         [enableFilter]="true"
                                         [suppressRowClickSelection]="true"
@@ -239,14 +277,71 @@
                                         [enableRangeSelection]="true"
                                         [pagination]="true"
                                         [defaultColDef]="defaultColDef"
-                                        [gridOptions]="gridOptions" 
+                                        [gridOptions]="gridOptionsConsignment" 
                                         [pagination]="true"
-                                        (selectionChanged)="onSelectionChange($event)">
+                                        (selectionChanged)="onConsignmentChange($event)">
                               </ag-grid-angular>
                           </div>
                       </div>
+
+                      <div *ngIf="deletedFlag" style="padding:20px; margin-top:30px">
+                          <p> Please select the below records to download the Deleted Consignment </p>
+                            <div>
+                                <ag-grid-angular 
+                                          #agGrid style="width: 80%; height: 380px;" 
+                                          class="ag-theme-balham" 
+                                          [autoGroupColumnDef]="autoGroupColumnDef"
+                                          [rowData]="rowDataDeleted"
+                                          [enableSorting]="true"
+                                          [enableFilter]="true"
+                                          [suppressRowClickSelection]="true"
+                                          [groupSelectsChildren]="true"
+                                          [debug]="true"
+                                          [rowSelection]="rowSelection"
+                                          [enableColResize]="true"
+                                          [rowGroupPanelShow]="rowGroupPanelShow"
+                                          [pivotPanelShow]="pivotPanelShow"
+                                          [enableRangeSelection]="true"
+                                          [pagination]="true"
+                                          [defaultColDef]="defaultColDef"
+                                          [gridOptions]="gridOptionsDeleted" 
+                                          [pagination]="true"
+                                          (selectionChanged)="onDeletedChange($event)">
+                                </ag-grid-angular>
+                            </div>
+                      </div>
+
+                      <div *ngIf="shipmentFlag" style="padding:20px; margin-top:30px">
+                          <p> Please select the below records to download the Shipment Consignment </p>
+                            <div>
+                                <ag-grid-angular 
+                                          #agGrid style="width: 100%; height: 380px;" 
+                                          class="ag-theme-balham" 
+                                          [autoGroupColumnDef]="autoGroupColumnDef"
+                                          [rowData]="rowDataShipment"
+                                          [enableSorting]="true"
+                                          [enableFilter]="true"
+                                          [suppressRowClickSelection]="true"
+                                          [groupSelectsChildren]="true"
+                                          [debug]="true"
+                                          [rowSelection]="rowSelection"
+                                          [enableColResize]="true"
+                                          [rowGroupPanelShow]="rowGroupPanelShow"
+                                          [pivotPanelShow]="pivotPanelShow"
+                                          [enableRangeSelection]="true"
+                                          [pagination]="true"
+                                          [defaultColDef]="defaultColDef"
+                                          [gridOptions]="gridOptionsShipment" 
+                                          [pagination]="true"
+                                          (selectionChanged)="onShipmentChange($event)">
+                                </ag-grid-angular>
+                            </div>
+                      </div>
+
                   </div>
                   <!-- /top tiles -->
+
+                 
             </div>
 
             <!-- Start Footer -->

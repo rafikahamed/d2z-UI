@@ -4,8 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-// const baseUrl = "http://18.216.201.118:8080/v1/d2z";
 const baseUrl = "https://www.d2z.com.au/v1/d2z";
+// const baseUrl = "http://localhost:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
