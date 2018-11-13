@@ -30,6 +30,8 @@ export class AllocateShipmentComponent implements OnInit{
   errorMsg: string;
   show: Boolean;
   successMsg: String;
+  userName: String;
+  role_id: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -195,6 +197,7 @@ export class AllocateShipmentComponent implements OnInit{
       this.childmenuFour  = false;
       this.childmenuFive = false;
       this.spinner.show();
+      this.getLoginDetails();
       this.trackingDataService.manifestList( (resp) => {
         this.spinner.hide();
         this.ManifestArray = resp;
@@ -203,7 +206,14 @@ export class AllocateShipmentComponent implements OnInit{
             this.errorMsg = "Invalid Credentials!";
         }  
       });
-  }
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
   
   onManifestChange(event){
     this.manifestNumber = event.value.value;
@@ -211,6 +221,8 @@ export class AllocateShipmentComponent implements OnInit{
 
   manifestDataSearch(){
     this.spinner.show();
+    this.shipmentAllocateForm.value.shipmentNumber = null;
+    this.successMsg = null;
     this.trackingDataService.fetchBrokerConsignment(this.manifestNumber, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
@@ -239,7 +251,7 @@ export class AllocateShipmentComponent implements OnInit{
         this.spinner.show();
         this.trackingDataService.shipmentAllocation(refrenceNumList, this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
+          this.successMsg = resp.responseMessage;
           $('#allocateShipmentModal').modal('show');
           if(!resp){
           }

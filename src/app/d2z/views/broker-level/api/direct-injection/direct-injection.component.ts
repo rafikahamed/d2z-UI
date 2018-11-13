@@ -30,6 +30,8 @@ export class DirectInjectionComponent implements OnInit{
   companyName: String;
   errorMsg: string;
   show: Boolean;
+  userName: String;
+  role_id: String;
   successMsg: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
@@ -101,6 +103,7 @@ export class DirectInjectionComponent implements OnInit{
       this.childmenuFour  = false;
       this.childmenuFive = false;
       this.spinner.show();
+      this.getLoginDetails();
       this.trackingDataService.companyList( (resp) => {
         this.spinner.hide();
         this.companyDropdown = resp;
@@ -109,7 +112,14 @@ export class DirectInjectionComponent implements OnInit{
             this.errorMsg = "Invalid Credentials!";
         }  
       });
-  }
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
   
   onCompanyDropdownchange(event){
     this.companyName = event.value.value;

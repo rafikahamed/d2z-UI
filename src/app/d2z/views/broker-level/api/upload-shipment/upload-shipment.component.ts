@@ -30,6 +30,8 @@ export class APIUploadShipmentComponent implements OnInit{
   errorMsg: string;
   show: Boolean;
   successMsg: String;
+  userName: String;
+  role_id: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -75,13 +77,21 @@ export class APIUploadShipmentComponent implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
-  }
+      this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
   
   incomingfile(event) {
     this.rowData = [];
     this.file = event.target.files[0]; 
     this.shipmentExport();
-  }
+  };
 
   shipmentExport(){
     var worksheet;
@@ -118,7 +128,7 @@ export class APIUploadShipmentComponent implements OnInit{
               }
           }
         }
-  }
+  };
 
   allocateShipment(){
     this.errorMsg = null;
@@ -148,7 +158,7 @@ export class APIUploadShipmentComponent implements OnInit{
           }, 5000);
         });
     }
-  }
+  };
 
   toggle(arrow) {
     this.childmenu = !this.childmenu;
@@ -160,7 +170,7 @@ export class APIUploadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   toggle_zebra(arrow) {
     this.childmenuTwo = !this.childmenuTwo;
@@ -172,8 +182,7 @@ export class APIUploadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
-
+  };
 
   toggle_pdf(arrow) {
     this.childmenuThree = !this.childmenuThree;
@@ -185,7 +194,7 @@ export class APIUploadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   toggle_utilities(arrow){
     this.childmenuFour = !this.childmenuFour;
@@ -197,7 +206,7 @@ export class APIUploadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   toggle_maniFest(arrow){
     this.childmenuFive = !this.childmenuFive;
@@ -209,7 +218,7 @@ export class APIUploadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   sidebartoggle(arrow) {
     this.childmenu = !this.childmenu;
@@ -221,12 +230,12 @@ export class APIUploadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'nav-md';
     }
-  }
+  };
 
   onSelectionChange() {
     var selectedRows = this.gridOptions.api.getSelectedRows();
     this.errorMsg = null;
-  }
+  };
  
 }
 

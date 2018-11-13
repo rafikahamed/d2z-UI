@@ -8,6 +8,8 @@ import { UiModule } from 'app/ui/ui.module';
 import { d2zComponent } from 'app/d2z/d2z.component';
 import { HomeComponent } from 'app/d2z/views/home/home.component';
 import { MainComponent } from 'app/d2z/views/main/main.component';
+import { PolicyComponent } from 'app/d2z/views/policy/policy.component'
+import { TrackParcelComponent } from 'app/d2z/views/track-parcel/track-parcel.component'
 import { LoginService } from 'app/d2z/service/login.service';
 import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { ZebraFileUpload } from 'app/d2z/views/consignment-zebra/file-upload/file-upload.component';
@@ -86,7 +88,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/update-client", component : SuperUserUpdateClientComponent},
           { path: "superuser/arrival-report", component : SuperUserArrivalReportComponent},
           { path: "superuser/upload-tracking", component : SuperUserUploadTrackingComponent},
-          { path: "superuser/invoice-report", component: SuperUserInvoiceComponent}
+          { path: "superuser/invoice-report", component: SuperUserInvoiceComponent},
+          { path: "policy", component: PolicyComponent},
+          { path: "track-parcel", component: TrackParcelComponent}
     ], { useHash: true }),
     UiModule
   ],
@@ -121,7 +125,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserUpdateClientComponent,
     SuperUserArrivalReportComponent,
     SuperUserUploadTrackingComponent,
-    SuperUserInvoiceComponent
+    SuperUserInvoiceComponent,
+    PolicyComponent,
+    TrackParcelComponent
   ],
   entryComponents: [
     

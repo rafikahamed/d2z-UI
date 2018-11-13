@@ -35,9 +35,11 @@
 										<li><a href="#about-us">About Us</a></li>
 										<!-- <li><a href="#our-skill">Our Skill</a></li> -->
 										<li><a href="#why-choose">Why Choose</a></li>
-										<!-- <li><a href="#portfolio">Portfolio</a></li>		 -->
+										<!-- <li><a href="#portfolio">Portfolio</a></li> -->
 										<li><a href="#blog">Blog</a></li>		
 										<li><a href="#location">Contact US</a></li>
+										<li><a routerLink="/policy">Legal</a></li>
+										<li><a routerLink="/track-parcel">Track Parcel</a></li>
 										<li><a href="" data-toggle="modal" data-target="#myModal">Login</a></li>
 									</ul>
 								</div>
@@ -50,16 +52,28 @@
 		</header>
 	<!--/ End Header -->
 
-  <!-- Modal -->
+  <!--Start Modal -->
+  <div class="modal fade" id="trackModal" role="dialog">
+    <div class="modal-dialog">
+	 
+		
+      <div class="modal-content" style="margin-top:150px; height:500px; width:900px; margin-left:-150px;">
+			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" style="text-align: center">Track Parcel</h4>
+	  		</div>
+			<div class="modal-body">
+			</div>
+	  </div>
+	  
+    </div>
+  </div>
+  <!--End Modal -->
+
+  <!--Start Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
       <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-        <!-- <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Login</h4>
-        </div> -->
         <div class="modal-body">
 			<div class="limiter">
 				<div class="container-login100">
@@ -94,14 +108,6 @@
 							<div>
 								<p class="error-msg">{{errorMsg}}</p>
 							</div>
-
-							<!-- <ngx-spinner
-								bdColor="rgba(51,51,51,0.8)"
-								size="medium"
-								color="#fff"
-								loadingText="Loading..."
-								type="ball-circus">
-							</ngx-spinner> -->
 							
 							<div class="container-login100-form-btn">
 								<button class="login100-form-btn" (click)="login()">
@@ -129,23 +135,27 @@
 				</div>
 			</div>
         </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div> -->
       </div>
-      
     </div>
   </div>
+
+   <ngx-spinner
+			bdColor="rgba(51,51,51,0.8)"
+			size="medium"
+			color="#fff"
+			loadingText="Loading..."
+			type="ball-clip-rotate-multiple">
+	</ngx-spinner>
+  <!--End Modal -->
 		
-		<!-- Start Slider -->
-		<section id="j-slider">
+	<!-- Start Slider -->
+	 <section id="j-slider">
 			<div class="slide-main">
-				<!-- Single Slider -->
 				<div class="single-slider" style="background-image:url(../../../assets/img/slider/slider-bg1.jpg);" >
 					<div class="container">
 						<div class="row">
 							<div class="col-md-8 col-sm-12 col-xs-12">
-								<!-- Slider Text -->
+								
 								<div class="slide-text left">
 									<div class="slider-inner">
 										<h1><span>D2Z</span>Global eCommerce specialists</h1>
@@ -155,39 +165,15 @@
 										</div>
 									</div>
 								</div>
-								<!--/ End Slider Text -->
 							</div>
 						</div>
 					</div>
 				</div>
-				<!--/ End Single Slider -->
-				<!-- Single Slider -->
-				<!-- <div class="single-slider" style="background-image:url(../../../assets/img/slider/slider-bg2.jpg);" >
+			
+				<div class="single-slider1" style="background-image:url(../../../assets/img/slider/slider-bg3.jpg);" >
 					<div class="container">
 						<div class="row">
 							<div class="col-md-8 col-sm-12 col-xs-12">
-								
-								<div class="slide-text left">
-									<div class="slider-inner">
-										<h1><span>D2Z Logistics</span>Global e-Commerce solutions provider</h1>
-										<p>Inbound AU Full Track SYD - SYD Injection AU-Wide</p>
-										<div class="slide-button">
-											<a href="#" class="button primary">Contact Us</a>
-										</div>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-				</div> -->
-				<!--/ End Single Slider -->
-				<!-- Single Slider -->
-				<div class="single-slider" style="background-image:url(../../../assets/img/slider/slider-bg3.jpg);" >
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 col-sm-12 col-xs-12">
-								<!-- Slider Text -->
 								<div class="slide-text left">
 									<div class="slider-inner">
 										<h1><span>D2Z</span>Global e-Commerce solutions provider</h1>
@@ -197,14 +183,12 @@
 										</div>
 									</div>
 								</div>
-								<!--/ End Slider Text -->
 							</div>
 						</div>
 					</div>
 				</div>
-				<!--/ End Single Slider -->
 			</div>
-		</section>
+		</section> 
 		<!--/ End Slider -->
 		
 		<!-- Start Service -->
@@ -213,7 +197,7 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
 						<div class="section-title center">
-							<h2>Our <span>Service</span></h2>
+							<h2>Our <span>Services</span></h2>
 							<p>Combining our range of services, we can tailor a solution to meet any logistical requirement.</p>
 						</div>
 					</div>
@@ -292,7 +276,7 @@
 											<div class="single-tab">
 												<i class="fa fa-check"></i>
 												<h4>Super Technology</h4>
-												<p>It has roots in a piece of classical Latin literature from 45 BC[..]</p>
+												
 											</div>
 											
 										</div>
@@ -301,7 +285,7 @@
 											<div class="single-tab">
 												<i class="fa fa-support"></i>
 												<h4>Live Support</h4>
-												<p>It has roots in a piece of classical Latin literature from 45 BC[..]</p>
+											
 											</div>
 											
 										</div>
@@ -310,7 +294,7 @@
 											<div class="single-tab">
 												<i class="fa fa-send"></i>
 												<h4>fast Delivery</h4>
-												<p>It has roots in a piece of classical Latin literature from 45 BC[..]</p>
+												
 											</div>
 											
 										</div>
@@ -319,7 +303,7 @@
 											<div class="single-tab">
 												<i class="fa fa-rocket"></i>
 												<h4>Speed Marketing</h4>
-												<p>It has roots in a piece of classical Latin literature from 45 BC[..]</p>
+												
 											</div>
 											
 										</div>
@@ -398,12 +382,6 @@
 								<p>Well integrated systems & individuals with global expertise dedicated  to making your supply chain efficient and cost effective.</p>
 							</div>
 							<ul class="info-list">
-								<!-- <li><i class="fa fa-check"></i>Ease of Use Operations.</li>
-								<li><i class="fa fa-check"></i>Modern Tracking Platform.</li>
-								<li><i class="fa fa-check"></i>In house designed Web-based System.</li>
-								<li><i class="fa fa-check"></i>Availability of  ready to integrate APIs.</li>
-								<li><i class="fa fa-check"></i>Pre-clearance before arrival.</li>
-								<li><i class="fa fa-check"></i>Customised  Logistics Solutions.</li> -->
 								<li><i class="fa fa-check"></i>Over thirty years of combined industry experience  and expertise.</li>
 								<li><i class="fa fa-check"></i>Best in class logistics solutions with  simplified and standardised processes.</li>
 								<li><i class="fa fa-check"></i>Highly driven by customer first motto and  committed to deliver best user experience.</li>
@@ -458,7 +436,8 @@
 		<!-- Why Choose Us -->
 		<div id="why-choose" class="section">
 			<div class="why-image">
-				<div class="video"><a href="https://www.youtube.com/watch?v=wZWiRoktNWA" class="video-play mfp-iframe wow zoomIn"><i class="fa fa-play"></i></a></div>
+				<div class="video"><a href="https://www.youtube.com/watch?v=wZWiRoktNWA" 
+								class="video-play mfp-iframe wow zoomIn"><i class="fa fa-play"></i></a></div>
 				<!-- <img src="../../../assets/img/video.png" alt=""> -->
 			</div>
 			<div class="container">
@@ -466,143 +445,11 @@
 					<div class="col-md-6 col-sm-12 col-xs-12 pull-right">
 						<h2>Why Choose Us?</h2>
 						<p>At D2Z we are with you the whole way. We are passionate about working with our customers to find a logistical solution for every eCommerce need and pride ourselves on consistently sourcing competitive rates. We provide real time customer support and always ensure the job is done. Utilise our services today and you’ll see why our existing customers are so loyal.</p>
-						<!-- <div class="row">
-							
-							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-								<div class="single-choose">
-									<i class="fa fa-check"></i>
-									<h4>100 Awards</h4>
-								</div>
-							</div>
-							
-							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
-								<div class="single-choose">
-									<i class="fa fa-facebook"></i>
-									<h4>500K Fans</h4>
-								</div>
-							</div>
-							
-							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-								<div class="single-choose">
-									<i class="fa fa-youtube"></i>
-									<h4>100K Subscriber</h4>
-								</div>
-							</div>
-							
-							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1s">
-								<div class="single-choose">
-									<i class="fa fa-support"></i>
-									<h4>24/7 Support</h4>
-								</div>
-							</div>
-							
-						</div> -->
 					</div>					
 				</div>
 			</div>
 		</div>	
 		<!--/ End Why Choose Us -->
-		
-		<!-- Start Team -->
-		<!-- <section id="team" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
-						<div class="section-title center">
-							<h2>Lovely <span>Team</span></h2>
-							<p>Coordinates for abs potioning the closest positioned parent box of the positioned abs qoning the closes for abs potioning the closest positioned parent.</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">	
-					<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-						
-						<div class="single-team">
-							<div class="team-head">
-								
-							</div>
-							<div class="team-info">
-								<div class="name">
-									<h4>Dwayne Penguilly<span>Managing Director</span></h4>
-								</div>
-								<p>Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
-								<ul class="team-social">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-								</ul>
-							</div>
-						</div>
-						
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s">	
-						
-						<div class="single-team">
-							<div class="team-head">
-								
-							</div>
-							<div class="team-info">
-								<div class="name">
-									<h4>Chris Denam<span>Sales Director</span></h4>
-								</div>
-								<p>Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
-								<ul class="team-social">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-								</ul>
-							</div>
-						</div>
-						
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-						
-						<div class="single-team active">
-							<div class="team-head">
-								
-							</div>
-							<div class="team-info">
-								<div class="name">
-									<h4>Haojie's (Jack)<span>operational Head</span></h4>
-								</div>
-								<p>Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
-								<ul class="team-social">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-								</ul>
-							</div>
-						</div>
-						
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1s">	
-						
-						<div class="single-team">
-							<div class="team-head">
-								
-							</div>
-							<div class="team-info">
-								<div class="name">
-									<h4>Lifae Hoadas<span>UI/UX Design</span></h4>
-								</div>
-								<p>Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
-								<ul class="team-social">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-								</ul>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-            </div>
-		</section>	  -->
-		<!--/ End Team -->		
 		
 		<!-- Start Testimonials -->
 		<section id="testimonial" class="section wow fadeIn">
@@ -617,286 +464,37 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="testimonial-carousel">	
-							<!-- Single Testimonial -->
 							<div class="single-testimonial">
 								<div class="testimonial-content">
-									<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, </p>
+									<p> Partnering with D2Z was a great move for my online business. We can now focus on what we do best
+										knowing our customers will receive our products safely and quickly. </p>
 								</div>
 								<div class="testimonial-info">
 									<div class="img">
 										<span class="arrow"></span>
-										<img src="images/testimonial1.jpg" class="img-circle" alt="">
+										<img src="../../../assets/img/img.jpg" class="img-circle" alt="">
 									</div>
-									<h6>Trom<span>Founder Hoadas</span></h6>
+									<h6>Daniel Curtis<span>Entrepreneur</span></h6>
 								</div>			
 							</div>
-							<!--/ End Single Testimonial -->
-							<!-- Single Testimonial -->
 							<div class="single-testimonial">
 								<div class="testimonial-content">
-									<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, </p>
+									<p> Excellent customer service, detail orientated and professional. D2Z are a must for logistical solutions </p>
 								</div>
 								<div class="testimonial-info">
 									<div class="img">
 										<span class="arrow"></span>
-										<img src="images/testimonial2.jpg" class="img-circle" alt="">
+										<img src="../../../assets/img/img.jpg" class="img-circle" alt="">
 									</div>
-									<h6>Trom<span>Founder Hoadas</span></h6>
+									<h6>Chris Randle<span>Online fashion distributor</span></h6>
 								</div>			
 							</div>
-							<!--/ End Single Testimonial -->
-							<!-- Single Testimonial -->
-							<div class="single-testimonial">
-								<div class="testimonial-content">
-									<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, </p>
-								</div>
-								<div class="testimonial-info">
-									<div class="img">
-										<span class="arrow"></span>
-										<img src="images/testimonial3.jpg" class="img-circle" alt="">
-									</div>
-									<h6>Trom<span>Founder Hoadas</span></h6>
-								</div>			
-							</div>
-							<!--/ End Single Testimonial -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!--/ End Testimonial -->
-
-		<!-- Start Portfolio -->
-		<!-- <section id="portfolio" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
-						<div class="section-title center">
-							<h2>Our <span>Portfolio</span></h2>
-							<p>Coordinates for abs potioning the closest positioned parent box of the positioned abs qoning the closes for abs potioning the closest positioned parent.</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="portfolio-carousel">
-							
-							<div class="portfolio-single">
-								<a href="images/portfolio/1.jpg" class="zoom">
-									<div class="portfolio-head">
-										
-										<i class="fa fa-search"></i>
-									</div>
-								</a>
-								<div class="text">
-									<h4><a href="portfolio-single.html">Portfolio 1</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum.</p>
-								</div>
-							</div>
-							
-							<div class="portfolio-single">
-								<a href="images/portfolio/2.jpg" class="zoom">
-									<div class="portfolio-head">
-										
-										<i class="fa fa-search"></i>
-									</div>
-								</a>
-								<div class="text">
-									<h4><a href="portfolio-single.html">Portfolio 2</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum.</p>
-								</div>
-							</div>
-							
-							<div class="portfolio-single">
-								<a href="images/portfolio/3.jpg" class="zoom">
-									<div class="portfolio-head">
-										
-										<i class="fa fa-search"></i>
-									</div>
-								</a>
-								<div class="text">
-									<h4><a href="portfolio-single.html">Portfolio 3</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum.</p>
-								</div>
-							</div>
-							
-							<div class="portfolio-single">
-								<a href="images/portfolio/4.jpg" class="zoom">
-									<div class="portfolio-head">
-										
-										<i class="fa fa-search"></i>
-									</div>
-								</a>
-								<div class="text">
-									<h4><a href="portfolio-single.html">Portfolio 4</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum.</p>
-								</div>
-							</div>
-							
-							<div class="portfolio-single">
-								<a href="images/portfolio/5.jpg" class="zoom">
-									<div class="portfolio-head">
-										<i class="fa fa-search"></i>
-									</div>
-								</a>
-								<div class="text">
-									<h4><a href="portfolio-single.html">Portfolio 5</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum.</p>
-								</div>
-							</div>
-							
-							<div class="portfolio-single">
-								<a href="images/portfolio/6.jpg" class="zoom">
-									<div class="portfolio-head">
-										
-										<i class="fa fa-search"></i>
-									</div>
-								</a>
-								<div class="text">
-									<h4><a href="portfolio-single.html">Portfolio 6</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum.</p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
-		
-		
-		<!-- Start Statics -->
-		<section id="statics" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-sm-12 col-xs-12">
-						<div class="row">
-							<div class="statics">	
-								<div class="col-md-12 col-sm-12 col-xs-12">
-									<h2>World Domination!</h2>
-									<p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</p>
-								</div>
-								<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-									<!-- Static Single -->
-									<div class="static-single">
-										<div class="number"><span class="counter">1300</span></div>
-										<p>Project Complete</p>
-									</div>
-								</div>
-								<!-- End Single -->	
-								<!-- Static Single -->
-								<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
-									<div class="static-single">
-										<div class="number"><span class="counter">123300</span></div>
-										<p>Support Tiket</p>
-									</div>
-								</div>
-								<!-- End Single -->	
-								<!-- Static Single -->
-								<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-									<div class="static-single">
-										<div class="number"><span class="counter">55300</span></div>
-										<p>Global Clients</p>
-									</div>
-								</div>
-								<!-- End Single -->	
-								<!-- Static Single -->
-								<div class="col-md-6 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1s">
-									<div class="static-single">
-										<div class="number"><span class="counter">40.99</span><span class="percent">%</span></div>
-										<p>World Domination</p>
-									</div>
-								</div>
-								<!-- End Single -->	
-							</div>
-						</div>
-					</div>					
-				</div>
-			</div>
-			<div class="static-image wow fadeIn"></div>
-		</section>	
-		<!--/ End Statics -->
-		
-		<!-- Start blog -->
-		<section id="blog" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12  wow fadeIn">
-						<div class="section-title center">
-							<h2>Our <span>Blog</span></h2>
-							<p>We are passionate about our industry and want to share that passion with our followers. Here you will find up to date information and commentary on industry trends, changes and forecasts. Follow our blog to stay up to date on the latest in the fast changing eCommerce world.</p>
-						</div>
-					</div>
-				</div>
-				<!-- <div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="blog">
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								
-								<div class="single-blog">
-									<div class="blog-head">
-										<img src="../../../assets/img/blog/1.jpg" alt="#">
-										<a href="blog-single.html" class="link"><i class="fa fa-link"></i></a>
-									</div>
-									<div class="blog-content">
-										<h2><a href="blog-single.html">We create one page business website</a></h2>
-										<div class="meta">
-											<span><i class="fa fa-user"></i>admin</span>
-											<span><i class="fa fa-calendar"></i>19 May</span>
-											<span><i class="fa fa-comments"></i>5 Comments</span>
-										</div>
-										<p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis.</p>
-										
-									</div>
-								</div>	
-								
-							</div>
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								
-								<div class="single-blog">
-									<div class="blog-head">
-										<img src="../../../assets/img/blog/2.jpg" alt="#">
-										<a href="blog-single.html" class="link"><i class="fa fa-link"></i></a>
-									</div>
-									<div class="blog-content">
-										<h2><a href="blog-single.html">Super,Clean HTML5 Templates ever you seen!</a></h2>
-										<div class="meta">
-											<span><i class="fa fa-user"></i>admin</span>
-											<span><i class="fa fa-calendar"></i>19 May</span>
-											<span><i class="fa fa-comments"></i>5 Comments</span>
-										</div>
-										<p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis.</p>
-									
-									</div>
-								</div>	
-								
-							</div>
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								
-								<div class="single-blog">
-									<div class="blog-head">
-										<img src="../../../assets/img/blog/3.jpg" alt="#">
-										<a href="blog-single.html" class="link"><i class="fa fa-link"></i></a>
-									</div>
-									<div class="blog-content">
-										<h2><a href="blog-single.html">Responsive Retina Ready Html template</a></h2>
-										<div class="meta">
-											<span><i class="fa fa-user"></i>admin</span>
-											<span><i class="fa fa-calendar"></i>19 May</span>
-											<span><i class="fa fa-comments"></i>5 Comments</span>
-										</div>
-										<p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis.</p>
-										
-									</div>
-								</div>	
-								
-							</div>
-						</div>
-					</div>
-				</div> -->
-			</div>
-		</section>
-		<!--/ End blog -->
 
 		<!-- Contact Us -->
 		<section id="contact" class="section">
@@ -1047,37 +645,6 @@
 	
 		<!-- Start Footer -->
 		<footer id="footer" class="wow fadeIn">
-			<!-- Footer Top -->
-			<!-- <div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 col-sm-12 col-xs-12 ">
-							
-							<div class="logo">
-								
-							</div>	
-							
-							<ul class="social">
-								<li class="active"><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-							</ul>	
-							
-							<ul class="nav">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="portfolio.html">Portfolio</a></li>
-								<li><a href="blog.html">Latest Blog</a></li>
-								<li><a href="#">Contact</a></li>
-							</ul>		
-							
-						</div>
-					</div>
-				</div>
-			</div> -->
-			<!--/ End Footer Top -->
-			
-			<!-- Copyright -->
 			<div class="copyright">
 				<div class="container">
 					<div class="row">
@@ -1089,6 +656,5 @@
 					</div>
 				</div>
 			</div>
-			<!--/ End Copyright -->
 		</footer>
 		<!--/ End Footer -->

@@ -5,12 +5,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 
 interface dropdownTemplate {
     name: string;
     value: string;
-}
+};
 
 @Component({
   selector: 'hms-update-client',
@@ -19,11 +20,11 @@ interface dropdownTemplate {
 })
 
 export class UpdateClientComponent implements OnInit{
-    childmenu: boolean;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
+      childmenu: boolean;
+      childmenuTwo:boolean;
+      childmenuThree:boolean;
+      childmenuFour:boolean;
+      childmenuFive:boolean;
       errorMsg: string;
       successMsg: String;
       companyName: String;
@@ -34,10 +35,13 @@ export class UpdateClientComponent implements OnInit{
       selectedCompany: dropdownTemplate;
       show: Boolean;
       categories: any[];
+      userName: String;
+      role_id: String;
       constructor(
          public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
-         private spinner: NgxSpinnerService
+         private spinner: NgxSpinnerService,
+         public consignmenrServices: ConsigmentUploadService
       ){
         this.companyDropdown = [];
         this.show = false;
@@ -80,12 +84,20 @@ export class UpdateClientComponent implements OnInit{
         {name: '3PA', value: '3PA'},
         {name: '4PA', value: '4PA'},
         {name: '5PA', value: '5PA'}
-    ]
-  }
+    ];
+    this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
+  };
 
   onCompanyDropdownchange(event){
     this.companyName = event.value.value;
-  }
+  };
 
   companySearch(){
     this.spinner.show();

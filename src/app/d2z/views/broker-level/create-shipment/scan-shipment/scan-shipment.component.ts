@@ -30,6 +30,8 @@ export class ScanShipmentComponent implements OnInit{
   errorMsg: string;
   successMsg: String;
   show: Boolean;
+  userName: String;
+  role_id: String;
   ManifestArray: dropdownTemplate[];  
   selectedManifest: dropdownTemplate;
   constructor(
@@ -51,7 +53,15 @@ export class ScanShipmentComponent implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
-  }
+      this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
 
   scanShipment(){
     this.errorMsg = null;

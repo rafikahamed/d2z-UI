@@ -30,6 +30,8 @@ export class SuperUserArrivalReportComponent implements OnInit{
   errorMsg: string;
   show: Boolean;
   successMsg: String;
+  userName: String;
+  role_id: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -37,7 +39,7 @@ export class SuperUserArrivalReportComponent implements OnInit{
   private defaultColDef;
   shipmentAllocateForm: FormGroup;
   constructor(
-    public consigmentUploadService: ConsigmentUploadService,
+    public consignmenrServices: ConsigmentUploadService,
     public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService
@@ -90,7 +92,15 @@ export class SuperUserArrivalReportComponent implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
-  }
+      this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
+  };
   
   incomingfile(event) {
     this.rowData = [];

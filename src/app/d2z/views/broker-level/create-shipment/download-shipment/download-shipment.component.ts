@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/filter';
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { BrokerService } from 'app/d2z/service/broker/broker.service';
@@ -13,7 +12,7 @@ declare var $: any;
 interface dropdownTemplate {
   name: string;
   value: string;
-}
+};
 
 @Component({
   selector: 'hms-download-shipment',
@@ -21,29 +20,44 @@ interface dropdownTemplate {
   styleUrls: ['./download-shipment.component.css']
 })
 export class DownloadShipmentComponent implements OnInit{
-
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
   childmenuFour:boolean;
   childmenuFive:boolean;
   shipmentNumber: string;
+  templateType: String;
   errorMsg: string;
   successMsg: String;
+  template1: Boolean;
+  template2: Boolean;
+  userName: String;
+  role_id: String;
   private gridOptions: GridOptions;
+  private gridOptionsTemplate1: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowData: any[];
   private defaultColDef;
   ShipmentArray: dropdownTemplate[];  
+  templateArray: dropdownTemplate[];
   selectedShipment: dropdownTemplate;
+  selectedTemplate: dropdownTemplate;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
-    public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService
   ) {
     this.ShipmentArray = [];
+    this.autoGroupColumnDef = {
+      headerCheckboxSelection: true,
+      cellRenderer: "agGroupCellRenderer",
+      cellRendererParams: { checkbox: true }
+    };      
+    this.rowGroupPanelShow = "always";
+    this.defaultColDef = {
+      editable: true
+    };
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptions.columnDefs = [
       {
@@ -201,15 +215,164 @@ export class DownloadShipmentComponent implements OnInit{
         width: 250
       }
     ];
-    this.autoGroupColumnDef = {
-      headerCheckboxSelection: true,
-      cellRenderer: "agGroupCellRenderer",
-      cellRendererParams: { checkbox: true }
-    };      
-    this.rowGroupPanelShow = "always";
-    this.defaultColDef = {
-      editable: true
-    };
+
+    this.gridOptionsTemplate1 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsTemplate1.columnDefs = [
+      {
+        headerName: "Reference number",
+        field: "reference_number",
+        width: 180,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "CONNOTE NO",
+        field: "barcodelabelNumber",
+        width: 150
+      },
+      {
+        headerName: "Weight",
+        field: "weight",
+        width: 150
+      },
+      {
+        headerName: "Consignee Name",
+        field: "consignee_name",
+        width: 200
+      },
+      {
+        headerName: "Consignee Phone",
+        field: "consignee_Phone",
+        width: 100
+      },
+      {
+        headerName: "Consignee Address",
+        field: "consignee_addr1",
+        width: 100
+      },
+      {
+        headerName: "Consignee Suburb",
+        field: "consignee_Suburb",
+        width: 150
+      },
+      {
+        headerName: "Consignee State",
+        field: "consignee_State",
+        width: 160
+      },
+      {
+        headerName: "Consignee Postcode",
+        field: "consignee_Postcode",
+        width: 100
+      },
+      {
+        headerName: "Consignee  Company",
+        field: "consigneeCompany",
+        width: 100
+      },
+      {
+        headerName: "destination",
+        field: "destination",
+        width: 150
+      },
+      {
+        headerName: "quantity",
+        field: "shippedQuantity",
+        width: 100
+      },
+      {
+        headerName: "commodity",
+        field: "product_Description",
+        width: 100
+      },
+      {
+        headerName: "value",
+        field: "value",
+        width: 100
+      },
+      {
+        headerName: "cmeter",
+        field: "cmeter",
+        width: 100
+      },
+      {
+        headerName: "shipperName",
+        field: "shipper_Name",
+        width: 100
+      },
+      {
+        headerName: "shipperAddress",
+        field: "shipper_Addr1",
+        width: 140
+      },
+      {
+        headerName: "shipperCity",
+        field: "shipper_City",
+        width: 140
+      },
+      {
+        headerName: "shipperState",
+        field: "shipper_State",
+        width: 140
+      },
+      {
+        headerName: "shipperPostcode",
+        field: "shipper_Postcode",
+        width: 140
+      },
+      {
+        headerName: "shipperCountry",
+        field: "shipper_Country",
+        width: 140
+      },
+      {
+        headerName: "shipperContact",
+        field: "airwayBill",
+        width: 140
+      },
+      {
+        headerName: "insurance",
+        field: "insurance",
+        width: 140
+      },
+      {
+        headerName: "clear",
+        field: "clear",
+        width: 140
+      },
+      {
+        headerName: "invoiceRef",
+        field: "invoiceRef",
+        width: 250
+      },
+      {
+        headerName: "importerAbn",
+        field: "importerAbn",
+        width: 250
+      },
+      {
+        headerName: "vendorId",
+        field: "vendorId",
+        width: 250
+      },
+      {
+        headerName: "consignorTin",
+        field: "consignorTin",
+        width: 250
+      },
+      {
+        headerName: "fbapo",
+        field: "fbapo",
+        width: 250
+      },
+      {
+        headerName: "fbashipmentID",
+        field: "fbashipmentID",
+        width: 250
+      }
+    ];
   }
 
   ngOnInit() {
@@ -219,38 +382,81 @@ export class DownloadShipmentComponent implements OnInit{
       this.childmenuFour  = false;
       this.childmenuFive = false;
       this.spinner.show();
+      this.template1 = true;
+      this.getLoginDetails();
+      this.templateArray = [
+        { "name": "Export Template 1", "value": "export-template-1" },
+        { "name": "Export Template 2", "value": "export-template-2" }
+      ];
+      this.selectedTemplate = this.templateArray[0];
+      this.templateType = this.templateArray[0].value;
       this.trackingDataService.shipmentList( (resp) => {
         this.spinner.hide();
         this.ShipmentArray = resp;
+        this.selectedShipment = this.ShipmentArray[0];
         this.shipmentNumber = this.ShipmentArray[0].value;
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
       });
-  }
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
   
   onShipmentChange(event){
     this.shipmentNumber = event.value.value;
+  };
+
+  onTemplateChange(event){
+    this.templateType = event.value.value;
+    if(event.value.value == 'export-template-2'){
+      this.template1 = false;
+      this.template2 = true;
+      this.rowData = null;
+    }else if(event.value.value == 'export-template-1'){
+      this.template1 = true;
+      this.template2 = false;
+      this.rowData = null;
+    } 
   }
 
   downLoadSearch(){
-    this.spinner.show();
-    this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, (resp) => {
-      this.spinner.hide();
-      this.rowData = resp;
-      setTimeout(() => {
+    this.rowData=null;
+    if(this.templateType == 'export-template-1'){
+      this.spinner.show();
+      this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, (resp) => {
         this.spinner.hide();
-      }, 5000);
-    })
+        this.rowData = resp;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+      });
+    }else if(this.templateType == 'export-template-2'){
+      this.spinner.show();
+      this.trackingDataService.fetchShipmentDetailsTempalte2(this.shipmentNumber, (resp) => {
+        this.spinner.hide();
+        this.rowData = resp;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+      });
+    }
   }
 
   downloadShipmentDetails(){
-    var selectedRows = this.gridOptions.api.getSelectedRows();
-    if(selectedRows.length > 0 ){
+    this.errorMsg = null;
+    if(this.template1){
+      var selectedRowsTemplate1 = this.gridOptions.api.getSelectedRows();
+      if(selectedRowsTemplate1.length > 0){
         var currentTime = new Date();
         var shipmentList = [];
         var fileName = '';
-            fileName = "Shipment_Details"+"-"+currentTime.toLocaleDateString();
+            fileName = "Shipment_Details_Template1"+"-"+currentTime.toLocaleDateString();
           var options = { 
             fieldSeparator: ',',
             quoteStrings: '"',
@@ -301,8 +507,8 @@ export class DownloadShipmentComponent implements OnInit{
           let VENDOR_ID = 'VENDOR_ID';
           let CONSIGNOR_TIN = 'CONSIGNOR_TIN';
       
-          for (var importVal in selectedRows) {
-              var adminObj = selectedRows[importVal];
+          for (var importVal in selectedRowsTemplate1) {
+              var adminObj = selectedRowsTemplate1[importVal];
               var importObj = (
                   importObj={}, 
                   importObj[CUSTOMER_REF]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', importObj,
@@ -346,10 +552,167 @@ export class DownloadShipmentComponent implements OnInit{
               );
               shipmentList.push(importObj)
           }
-        new Angular2Csv(shipmentList, fileName, options);        
-      }else{
-        this.errorMsg = "**Please select the below records to download the Shipment details";
-      } 
+        new Angular2Csv(shipmentList, fileName, options); 
+        }else{
+             this.errorMsg = "**Please select the below records to download the Shipment details";
+        };
+      };
+    
+    //Template 2 File Download
+    if(this.template2){
+        var selectedRowsTemplate2 = this.gridOptionsTemplate1.api.getSelectedRows();
+        if(selectedRowsTemplate2.length > 0){
+          var currentTime = new Date();
+          var shipmentTemplateList = [];
+          var fileName = '';
+              fileName = "Shipment_Details_Template2"+"-"+currentTime.toLocaleDateString();
+            var options = { 
+              fieldSeparator: ',',
+              quoteStrings: '"',
+              decimalseparator: '.',
+              showLabels: true, 
+              useBom: true,
+              headers: ["Level Number",	"House Airwaybill Number (NO MORE THAN 21 DIGITS)",	"Mawb Reference",	"Debtor Code",	"Shipper", 
+                "Shipper Address 1 (NO MORE THAN 49 CHARACTERS)",	"Shipper Address 2 (NO MORE THAN 49 CHARACTERS)",	"City",	"UNLOCODE",	"Country",
+                "Shipper Address 4",	"Shipper Address 5",	"Shipper Contact",	"Consignee (FULL NAME PLEASE)",	"Consignee Address 1 (ADDRESS ONLY)",
+                "Suburb",	"POSTCODE",	"STATE",	"COUNTRY",	"Consignee Contact",	"Consignee Phone",	"Consignee Email",	"Origin",	"Destination",
+                "Actual Weight",	"Weight Measure",	"Number of Pieces",	"Service Type",	"HAWB Reference",	
+                "Alternate Reference",	"Description of Goods (NO MORE THAN 35 CHARACTERS PLEASE)",	"Customs Value",	"Customs Value Currency",
+                "Clearance Reference",	"Length",	"Width",	"Height",	"Cubic Measure",	"Cubic Measure Unit",	"Cubic Weight",
+              	"COD Amount",	"COD Amount Currency",	"Origin Station",	"Origin Member",	"Bag Number",
+                "Notes",	"Shipper Address Location",	"Shipper Address State",	"Shipper Address Postcode",	"Shipper Address Country",
+                "Shipper Phone", "Shipper Email",	"Consignee Address Location",	"Consignee Address State", "Consignee Address Postcode",
+                "Consignee Address Country",	"Vendor ID", "Importer ID"]
+            };
+            let Level_Number = 'Level_Number';
+            let Airwaybill_Number = 'Airwaybill_Number';
+            let Mawb_Reference = 'Mawb_Reference';
+            let Debtor_Code = 'Debtor_Code';
+            let Shipper = 'Shipper';
+            let Shipper_Address_1 = 'Shipper_Address_1';
+            let Shipper_Address_2 = 'Shipper_Address_2';
+            let City = 'City';
+            let UNLOCODE = 'UNLOCODE';
+            let Country = 'Country';
+            let Shipper_Address_4 = 'Shipper_Address_4';
+            let Shipper_Address_5 = 'Shipper Address 5';
+            let Shipper_Contact = 'Shipper_Contact';
+            let Consignee_Name = 'Consignee_Name';
+            let Consignee_Address_1 = 'Consignee_Address_1';
+            let Suburb = 'Suburb';
+            let POSTCODE = 'POSTCODE';
+            let STATE = 'STATE';
+            let COUNTRY = 'COUNTRY';
+            let Consignee_Contact = 'Consignee_Contact';
+            let Consignee_Phone = 'Consignee_Phone';
+            let Consignee_Email = 'Consignee_Email';
+            let Origin = 'Origin';
+            let Destination = 'Destination';
+            let Actual_Weight = 'Actual_Weight';
+            let Weight_Measure = 'Weight_Measure';
+            let Number_of_Pieces = 'Number_of_Pieces';
+            let Service_Type = 'Service_Type';
+            let HAWB_Reference = 'HAWB_Reference';
+            let Alternate_Reference = 'Alternate_Reference';
+            let Description_of_Goods = 'Description_of_Goods';
+            let Customs_Value = 'Customs_Value';
+            let Customs_Value_Currency = 'Customs_Value_Currency';
+            let Clearance_Reference = 'Clearance_Reference';
+            let Length = 'Length';
+            let Width = 'Width';
+            let Height = 'Height';
+            let Cubic_Measure = 'Cubic_Measure';
+            let Cubic_Measure_Unit = 'Cubic_Measure_Unit';
+            let Cubic_Weight = 'Cubic_Weight';
+            let COD_Amount = 'COD_Amount';
+            let COD_Amount_Currency = 'COD_Amount_Currency';
+            let Origin_Station = 'Origin_Station';
+            let Origin_Member = 'Origin_Member';
+            let Bag_Number = 'Bag_Number';
+            let Notes = 'Notes';
+            let Shipper_Address_Location = 'Shipper_Address_Location';
+            let Shipper_Address_State = 'Shipper_Address_State';
+            let Shipper_Address_Postcode = 'Shipper_Address_Postcode';
+            let Shipper_Address_Country = 'Shipper_Address_Country';
+            let Shipper_Phone = 'Shipper_Phone';
+            let Shipper_Email = 'Shipper_Email';
+            let Consignee_Address_Location = 'Consignee_Address_Location';
+            let Consignee_Address_State = 'Consignee_Address_State';
+            let Consignee_Address_Postcode = 'Consignee_Address_Postcode';
+            let Consignee_Address_Country = 'Consignee_Address_Country';
+            let Vendor_ID = 'Vendor_ID';
+            let Importer_ID = 'Importer_ID';
+
+            for (var importVal in selectedRowsTemplate2) {
+              var adminObj = selectedRowsTemplate2[importVal];
+              var importObj = (
+                  importObj={}, 
+                  importObj[Level_Number]= adminObj.level_Number != null ? adminObj.level_Number: 2, importObj,
+                  importObj[Airwaybill_Number]= adminObj.barcodelabelNumber != null ? adminObj.barcodelabelNumber.substring(18, 29) : '', importObj,
+                  importObj[Mawb_Reference]= adminObj.airwayBill != null ? adminObj.airwayBill : '', importObj,
+                  importObj[Debtor_Code]= adminObj.debtor_Code != null ? adminObj.debtor_Code : 1, importObj,
+                  importObj[Shipper] = adminObj.shipper_Name != null ? adminObj.shipper_Name : '', importObj,
+                  importObj[Shipper_Address_1]= adminObj.shipper_Addr1 != null ? adminObj.shipper_Addr1 : '', importObj,
+                  importObj[Shipper_Address_2]= adminObj.shipper_Addr2 != null ? adminObj.shipper_Addr2 : '', importObj,
+                  importObj[City]= adminObj.shipper_City != null ? adminObj.shipper_City : '', importObj,
+                  importObj[UNLOCODE]= adminObj.unlCode != null ? adminObj.unlCode : '', importObj,
+                  importObj[Country]= adminObj.shipper_Country != null ? adminObj.shipper_Country : '',  importObj,
+                  importObj[Shipper_Address_4]= adminObj.shipper_Postcode != null ? adminObj.shipper_Postcode : '', importObj,
+                  importObj[Shipper_Address_5]= 'FOB', importObj,
+                  importObj[Shipper_Contact]= 'Y', importObj,
+                  importObj[Consignee_Name]= adminObj.consignee_name != null ? adminObj.consignee_name : '', importObj,
+                  importObj[Consignee_Address_1] = adminObj.consignee_addr1 != null ? adminObj.consignee_addr1 : '', importObj,
+                  importObj[Suburb]= adminObj.consignee_Suburb != null ? adminObj.consignee_Suburb : '', importObj,
+                  importObj[POSTCODE]= adminObj.consignee_Postcode != null ? adminObj.consignee_Postcode: '', importObj,
+                  importObj[STATE]= adminObj.consignee_State != null ? adminObj.consignee_State : '', importObj,
+                  importObj[COUNTRY]= 'AU', importObj,
+                  importObj[Consignee_Contact]= adminObj.consignee_name != null ? adminObj.consignee_name : '',  importObj,
+                  importObj[Consignee_Phone]= adminObj.consignee_Phone != null ? adminObj.consignee_Phone : '', importObj,
+                  importObj[Consignee_Email]= adminObj.consignee_Email != null ? adminObj.consignee_Email : '', importObj,
+                  importObj[Origin]= 'HKHKG', importObj,
+                  importObj[Destination]= 'AUSYD', importObj,
+                  importObj[Actual_Weight] = adminObj.weight != null ? adminObj.weight : '', importObj,
+                  importObj[Weight_Measure]= 'KG', importObj,
+                  importObj[Number_of_Pieces]= adminObj.shippedQuantity != null ? adminObj.shippedQuantity : '', importObj,
+                  importObj[Service_Type]=  'PKG', importObj,
+                  importObj[HAWB_Reference]= adminObj.reference_number != null ? adminObj.reference_number : '',  importObj,
+                  importObj[Alternate_Reference]= adminObj.alternate_reference != null ? adminObj.alternate_reference : '', importObj,
+                  importObj[Description_of_Goods]= adminObj.Description_of_Goods != null ? adminObj.product_Description : '', adminObj,
+                  importObj[Customs_Value]= adminObj.value != null ? adminObj.value : '', importObj,
+                  importObj[Customs_Value_Currency]= adminObj.currency !=null ? adminObj.currency :'', importObj,
+                  importObj[Clearance_Reference]= adminObj.clearance_reference != null ? adminObj.clearance_reference : '', importObj,
+                  importObj[Length] = 1, importObj,
+                  importObj[Width]= 1, importObj,
+                  importObj[Height]= 1, importObj,
+                  importObj[Cubic_Measure]= 1, importObj,
+                  importObj[Cubic_Measure_Unit]= 'CC', importObj,
+                  importObj[Cubic_Weight]=  1,  importObj,
+                  importObj[COD_Amount]= adminObj.COD_Amount != null ? adminObj.COD_Amount : '', importObj,
+                  importObj[COD_Amount_Currency]= adminObj.COD_Amount_Currency != null ? adminObj.COD_Amount_Currency : '', importObj,
+                  importObj[Origin_Station]= adminObj.Origin_Station != null ? adminObj.Origin_Station : '', importObj,
+                  importObj[Origin_Member]= adminObj.Origin_Member != null ? adminObj.Origin_Member : '', importObj,
+                  importObj[Bag_Number] = '', importObj,
+                  importObj[Notes]= adminObj.Notes != null ? adminObj.Notes : '', importObj,
+                  importObj[Shipper_Address_Location]= '', importObj,
+                  importObj[Shipper_Address_State]= adminObj.Shipper_Address_State != null ? adminObj.Shipper_Address_State : '', importObj,
+                  importObj[Shipper_Address_Postcode]= adminObj.Shipper_Address_Postcode != null ? adminObj.Shipper_Address_Postcode : '',  importObj,
+                  importObj[Shipper_Address_Country]= adminObj.Shipper_Address_Country != null ? adminObj.Shipper_Address_Country : '', importObj,
+                  importObj[Shipper_Phone]= adminObj.Shipper_Phone != null ? adminObj.Shipper_Phone : '', importObj,
+                  importObj[Shipper_Email]= adminObj.Shipper_Email !=null ? adminObj.Shipper_Email :'', importObj,
+                  importObj[Consignee_Address_Location]= adminObj.Consignee_Address_Location != null ? adminObj.Consignee_Address_Location : '', importObj,
+                  importObj[Consignee_Address_State]= adminObj.Consignee_Address_State != null ? adminObj.Consignee_Address_State : '', importObj,
+                  importObj[Consignee_Address_Postcode]= adminObj.Consignee_Address_Postcode != null ? adminObj.Consignee_Address_Postcode : '',  importObj,
+                  importObj[Consignee_Address_Country]= adminObj.Consignee_Address_Country != null ? adminObj.Consignee_Address_Country : '', importObj,
+                  importObj[Vendor_ID]= adminObj.Vendor_ID != null ? adminObj.Vendor_ID : '', importObj,
+                  importObj[Importer_ID]= adminObj.Importer_ID !=null ? adminObj.Importer_ID :'', importObj
+              );
+              shipmentTemplateList.push(importObj)
+          };
+          new Angular2Csv(shipmentTemplateList, fileName, options); 
+        }else{
+          this.errorMsg = "**Please select the below records to download the Shipment details";
+        };
+      };
   }
 
   toggle(arrow) {
@@ -362,7 +725,7 @@ export class DownloadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   toggle_zebra(arrow) {
     this.childmenuTwo = !this.childmenuTwo;
@@ -374,7 +737,7 @@ export class DownloadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
 
   toggle_pdf(arrow) {
@@ -387,7 +750,7 @@ export class DownloadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   toggle_utilities(arrow){
     this.childmenuFour = !this.childmenuFour;
@@ -399,7 +762,7 @@ export class DownloadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   toggle_maniFest(arrow){
     this.childmenuFive = !this.childmenuFive;
@@ -411,7 +774,7 @@ export class DownloadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
-  }
+  };
 
   sidebartoggle(arrow) {
     this.childmenu = !this.childmenu;
@@ -423,12 +786,17 @@ export class DownloadShipmentComponent implements OnInit{
       arrow.className = '';
       arrow.className = 'nav-md';
     }
-  }
+  };
 
   onSelectionChange() {
     var selectedRows = this.gridOptions.api.getSelectedRows();
     this.errorMsg = null;
-  }
+  };
+
+  onSelectionTemplateChange(){
+    var selectedRows = this.gridOptionsTemplate1.api.getSelectedRows();
+    this.errorMsg = null;
+  };
  
 }
 

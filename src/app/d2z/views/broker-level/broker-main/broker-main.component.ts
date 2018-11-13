@@ -1,8 +1,8 @@
 import { Component, AfterContentChecked, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/filter';
 import { LoginService } from 'app/d2z/service/login.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 declare const require: any;
 
@@ -19,7 +19,11 @@ export class BrokerMainComponent implements OnInit {
   childmenuThree:boolean;
   childmenuFour:boolean;
   childmenuFive:boolean;
-  constructor(){}
+  userName: String;
+  role_id: String;
+  constructor(
+    public consignmenrServices: ConsigmentUploadService
+  ){}
 
   ngOnInit() {
     this.childmenuOne = false;
@@ -27,10 +31,17 @@ export class BrokerMainComponent implements OnInit {
     this.childmenuThree = false;
     this.childmenuFour  = false;
     this.childmenuFive = false;
-  }
+    this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
+  };
 
   toggle(arrow) {
-    // debugger
     this.childmenuOne = !this.childmenuOne;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -43,7 +54,6 @@ export class BrokerMainComponent implements OnInit {
   }
 
   toggle_zebra(arrow) {
-    // debugger
     this.childmenuTwo = !this.childmenuTwo;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -57,7 +67,6 @@ export class BrokerMainComponent implements OnInit {
 
 
   toggle_pdf(arrow) {
-    // debugger
     this.childmenuThree = !this.childmenuThree;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';

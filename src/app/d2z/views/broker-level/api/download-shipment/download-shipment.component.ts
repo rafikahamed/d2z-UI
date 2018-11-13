@@ -21,7 +21,6 @@ interface dropdownTemplate {
   styleUrls: ['./download-shipment.component.css']
 })
 export class APIDownloadShipmentComponent implements OnInit{
-
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -30,6 +29,8 @@ export class APIDownloadShipmentComponent implements OnInit{
   shipmentNumber: string;
   errorMsg: string;
   show: Boolean;
+  userName: String;
+  role_id: String;
   successMsg: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
@@ -221,6 +222,7 @@ export class APIDownloadShipmentComponent implements OnInit{
       this.childmenuFour  = false;
       this.childmenuFive = false;
       this.spinner.show();
+      this.getLoginDetails();
       this.trackingDataService.apiShipmentList( (resp) => {
         this.spinner.hide();
         this.ShipmentArray = resp;
@@ -229,7 +231,14 @@ export class APIDownloadShipmentComponent implements OnInit{
             this.errorMsg = "Invalid Credentials!";
         }  
       });
-  }
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
   
   onShipmentChange(event){
     this.shipmentNumber = event.value.value;

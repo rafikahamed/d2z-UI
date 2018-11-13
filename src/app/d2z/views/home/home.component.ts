@@ -85,13 +85,17 @@ export class HomeComponent implements OnInit{
     if(this.loginForm.status == 'VALID'){
       this.spinner.show();
       this.consigmentUploadService.authenticate(this.loginForm.value, (resp) => {
-        console.log(resp.role_Id)
+        this.userMessage = resp;
+        this.spinner.hide();
         if(resp.role_Id == 3){
             this.router.navigate(['/main/']);
+            this.consigmentUploadService.getLoginDetails(this.userMessage);
         }else if(resp.role_Id == 2){
             this.router.navigate(['/broker-main/']);
+            this.consigmentUploadService.getLoginDetails(this.userMessage);
         }else if(resp.role_Id == 1){
             this.router.navigate(['/superuser-main/']);
+            this.consigmentUploadService.getLoginDetails(this.userMessage);
         }
         this.userMessage = resp;
         setTimeout(() => {
@@ -105,9 +109,16 @@ export class HomeComponent implements OnInit{
 }
 
 export interface userMessage {
-  message,
-  userName,
-  access,
-  companyName,
-  userCode
+    contactName,
+    address,
+    suburb,
+    state,
+    postCode,
+    country,
+    emailAddress,
+    userName,
+    serviceType,
+    contactPhoneNumber,
+    role_Id,
+    companyName
 }

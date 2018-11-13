@@ -35,12 +35,14 @@ export class SuperUserUploadTrackingComponent implements OnInit{
   private rowGroupPanelShow;
   private rowData: any[];
   private defaultColDef;
+  userName: String;
+  role_id: String;
   shipmentAllocateForm: FormGroup;
   constructor(
-    public consigmentUploadService: ConsigmentUploadService,
     public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public consignmenrServices: ConsigmentUploadService
   ) {
     this.show = false;
     this.shipmentAllocateForm = new FormGroup({
@@ -90,7 +92,15 @@ export class SuperUserUploadTrackingComponent implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
+      this.getLoginDetails();
   }
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
+  };
   
   incomingfile(event) {
     this.rowData = [];
@@ -178,10 +188,12 @@ export class SuperUserUploadTrackingComponent implements OnInit{
         this.spinner.show();
         this.trackingDataService.superUserUpoloadTracking(this.importList, (resp) => {
           this.spinner.hide();
+          console.log(resp)
           if(resp.status == 400 ){
-            this.successMsg = resp.error.errorMessage;
-          }
-          if(resp.status == undefined ){
+            this.successMsg = resp.error.message;
+          }else if(resp.status == 500 ){
+            this.successMsg = resp.error.message;
+          }else{
             this.successMsg = resp.message;
           }
           $('#allocateShipmentModal').modal('show');

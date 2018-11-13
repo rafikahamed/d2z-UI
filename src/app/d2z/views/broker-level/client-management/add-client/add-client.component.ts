@@ -5,12 +5,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 
 interface City {
     name: string;
     value: string;
-}
+};
 
 @Component({
   selector: 'hms-add-client',
@@ -26,11 +27,14 @@ export class AddClientComponent implements OnInit{
       serviceTypeDeletedArray: any[];
       cities2: City[];  
       show: Boolean;
+      userName: String;
+      role_id: String;
       categories: any[];
       constructor(
          public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
-         private spinner: NgxSpinnerService
+         private spinner: NgxSpinnerService,
+         public consignmenrServices: ConsigmentUploadService
       ){
         this.cities2 = [];
         this.show = false;
@@ -62,15 +66,22 @@ export class AddClientComponent implements OnInit{
         {name: 'United Kingdom', value: 'gb'},
         {name: 'United States', value: 'us'}
     ];
-
     this.categories = [
         {name: '1PA', value: '1PA'},
         {name: '2PA', value: '2PA'},
         {name: '3PA', value: '3PA'},
         {name: '4PA', value: '4PA'},
         {name: '5PA', value: '5PA'}
-    ]
-  }
+    ];
+    this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
+  };
 
   addClient(){
       let companyName = 'companyName';

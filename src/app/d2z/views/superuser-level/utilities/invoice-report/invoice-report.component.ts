@@ -6,6 +6,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { GridOptions } from "ag-grid";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import * as XLSX from 'xlsx';
 declare var $: any;
 
@@ -36,6 +37,8 @@ export class SuperUserInvoiceComponent implements OnInit{
   successMsg: String;
   fromDate: String;
   toDate: String;
+  userName: String;
+  role_id: String;
   private gridOptionsConsignment: GridOptions;
   private gridOptionsDeleted: GridOptions;
   private gridOptionsShipment: GridOptions;
@@ -51,7 +54,8 @@ export class SuperUserInvoiceComponent implements OnInit{
   exportFileType: String;
   constructor(
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public consignmenrServices: ConsigmentUploadService
   ) {
     this.show = false;
     this.consignmentFlag = true;
@@ -561,6 +565,14 @@ export class SuperUserInvoiceComponent implements OnInit{
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.exportFileType = this.exportTypeDropdown[0].value;
+      this.getLoginDetails();
+  };
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
   };
 
   FromDateChange(event){
@@ -747,7 +759,7 @@ export class SuperUserInvoiceComponent implements OnInit{
                   importObj[native_Description]= adminObj.native_Description != null ? adminObj.native_Description : '', importObj,
                   importObj[goods_Description]= adminObj.product_Description != null ? adminObj.product_Description : '', importObj,
                   importObj[shipping_Instructions]= adminObj.shipping_Instructions != null ? adminObj.shipping_Instructions : '', importObj,
-                  importObj[total_Weight]= adminObj.Weight != null ? adminObj.Weight : '', importObj,
+                  importObj[total_Weight]= adminObj.weight != null ? adminObj.weight : '', importObj,
                   importObj[total_Weight_Unit]= 'KG',  importObj,
                   importObj[dimension_Unit]=  'cm', importObj,
                   importObj[length]= adminObj.dimensions_Length != null ? adminObj.dimensions_Length : '', importObj,
@@ -812,11 +824,11 @@ export class SuperUserInvoiceComponent implements OnInit{
           let reference_No = 'reference_No';
           let article_Id = 'article_Id';
           for (var importVal in deletedSelectedRows) {
-              var adminObj = deletedSelectedRows[importVal];
+              var deleteObj = deletedSelectedRows[importVal];
               var importObj = (
                   importObj={},
-                  importObj[reference_No]= adminObj.reference_number != null ? adminObj.reference_number: '', importObj,
-                  importObj[article_Id]= adminObj.barcodelabelNumber != null ? adminObj.barcodelabelNumber.substring(18, 41) : '', importObj
+                  importObj[reference_No]= deleteObj.reference_number != null ? deleteObj.reference_number: '', deleteObj,
+                  importObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteObj
               );
               deletedList.push(importObj)
           }
@@ -874,36 +886,37 @@ export class SuperUserInvoiceComponent implements OnInit{
           let ABN_ARN = 'ABN_ARN';
 
           for (var importVal in shipmentSelectedRows) {
-              var adminObj = shipmentSelectedRows[importVal];
+              var shipmentObj = shipmentSelectedRows[importVal];
               var importObj = (
                   importObj={},
-                  importObj[invoice_number]= adminObj.reference_number != null ? adminObj.reference_number: '', importObj,
-                  importObj[value]= adminObj.value != null ? adminObj.value: '', importObj,
-                  importObj[shipped_quantity]= adminObj.shippedQuantity != null ? adminObj.shippedQuantity: '', importObj,
-                  importObj[delname]= adminObj.consignee_name != null ? adminObj.consignee_name: '', importObj,
-                  importObj[deladdr1]= adminObj.consignee_addr1 != null ? adminObj.consignee_addr1: '', importObj,
-                  importObj[deladdr2]= adminObj.consignee_Suburb != null ? adminObj.consignee_Suburb: '', importObj,
-                  importObj[deladdr3]= adminObj.consignee_State != null ? adminObj.consignee_State: '', importObj,
-                  importObj[deladdr4]= adminObj.consignee_country != null ? adminObj.consignee_country: 'AU', importObj,
-                  importObj[postcode]= adminObj.consignee_Postcode != null ? adminObj.consignee_Postcode: '', importObj,
-                  importObj[email]= adminObj.email != null ? adminObj.email: '', importObj,
-                  importObj[telephone]= adminObj.consignee_Phone != null ? adminObj.consignee_Phone: '', importObj,
-                  importObj[product_description]= adminObj.product_Description != null ? adminObj.product_Description: '', importObj,
-                  importObj[origin]= adminObj.origin != null ? adminObj.origin: 'AU', importObj,
-                  importObj[weight]= adminObj.weight != null ? adminObj.weight: '', importObj,
-                  importObj[tracking_template]= adminObj.tracking_template != null ? adminObj.tracking_template: '', importObj,
-                  importObj[tracking_number]= adminObj.barcodelabelNumber != null ? adminObj.barcodelabelNumber: '', importObj,
-                  importObj[inventory_short_name]= adminObj.inventory_short_name != null ? adminObj.inventory_short_name: '', importObj,
-                  importObj[supplier]= adminObj.supplier != null ? adminObj.supplier: '', importObj,
-                  importObj[bill_me]= adminObj.bill_me != null ? adminObj.bill_me: 1, importObj,
-                  importObj[ServiceType]= adminObj.servicetype != null ? adminObj.servicetype: '', importObj,
-                  importObj[BagName]= adminObj.BagName != null ? adminObj.BagName: 1, importObj,
-                  importObj[Length]= adminObj.dimensions_Length != null ? adminObj.dimensions_Length: '', importObj,
-                  importObj[Width]= adminObj.dimensions_Width != null ? adminObj.dimensions_Width: '', importObj,
-                  importObj[Height]= adminObj.dimensions_Height != null ? adminObj.dimensions_Height: '', importObj,
-                  importObj[Cost_Freight]= adminObj.Cost_Freight != null ? adminObj.Cost_Freight: '', importObj,
-                  importObj[Cost_Insurance]= adminObj.Cost_Insurance != null ? adminObj.Cost_Insurance: '', importObj,
-                  importObj[ABN_ARN]= adminObj.ABN_ARN != null ? adminObj.ABN_ARN: '', importObj
+                  importObj[invoice_number]= shipmentObj.reference_number != null ? shipmentObj.reference_number: '', importObj,
+                  importObj[value]= shipmentObj.value != null ? shipmentObj.value: '', importObj,
+                  importObj[shipped_quantity]= shipmentObj.shippedQuantity != null ? shipmentObj.shippedQuantity: '', importObj,
+                  importObj[delname]= shipmentObj.consignee_name != null ? shipmentObj.consignee_name: '', importObj,
+                  importObj[deladdr1]= shipmentObj.consignee_addr1 != null ? shipmentObj.consignee_addr1: '', importObj,
+                  importObj[deladdr2]= shipmentObj.consignee_Suburb != null ? shipmentObj.consignee_Suburb: '', importObj,
+                  importObj[deladdr3]= shipmentObj.consignee_State != null ? shipmentObj.consignee_State: '', importObj,
+                  importObj[deladdr4]= shipmentObj.consignee_country != null ? shipmentObj.consignee_country: 'AU', importObj,
+                  importObj[postcode]= shipmentObj.consignee_Postcode != null ? shipmentObj.consignee_Postcode: '', importObj,
+                  importObj[email]= shipmentObj.email != null ? shipmentObj.email: '', importObj,
+                  importObj[telephone]= shipmentObj.consignee_Phone != null ? shipmentObj.consignee_Phone: '', importObj,
+                  importObj[product_description]= shipmentObj.product_Description != null ? shipmentObj.product_Description: '', importObj,
+                  importObj[origin]= shipmentObj.shipper_Country != null ? shipmentObj.shipper_Country: '', importObj,
+                  importObj[weight]= shipmentObj.weight != null ? shipmentObj.weight: '', importObj,
+                  importObj[tracking_template]= shipmentObj.tracking_template != null ? shipmentObj.tracking_template: '', importObj,
+                  importObj[tracking_number]= shipmentObj.barcodelabelNumber != null ? shipmentObj.barcodelabelNumber: '', importObj,
+                  importObj[inventory_short_name]= shipmentObj.inventory_short_name != null ? shipmentObj.inventory_short_name: '', importObj,
+                  importObj[supplier]= shipmentObj.supplier != null ? shipmentObj.supplier: '', importObj,
+                  importObj[bill_me]= shipmentObj.bill_me != null ? shipmentObj.bill_me: 1, importObj,
+                  importObj[ServiceType]= shipmentObj.servicetype != null ? shipmentObj.servicetype: '', importObj,
+                  importObj[BagName]= shipmentObj.BagName != null ? shipmentObj.BagName: 1, importObj,
+                  importObj[Length]= shipmentObj.dimensions_Length != null ? shipmentObj.dimensions_Length: '', importObj,
+                  importObj[Width]= shipmentObj.dimensions_Width != null ? shipmentObj.dimensions_Width: '', importObj,
+                  importObj[Height]= shipmentObj.dimensions_Height != null ? shipmentObj.dimensions_Height: '', importObj,
+                  importObj[Currency]= shipmentObj.currency != null ? shipmentObj.currency: '', importObj,
+                  importObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', importObj,
+                  importObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', importObj,
+                  importObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', importObj
 
               );
               shipmentList.push(importObj)

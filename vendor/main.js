@@ -70,34 +70,34 @@ Version:	1.1
 	/*======================================
 	// Main Slider
 	======================================*/ 
-	$(".slide-main").owlCarousel({
-		loop:true,
-		autoplay:true,
-		autoplayHoverPause:true,
-		smartSpeed: 1000,
-		autoplayTimeout:4000,
-		mouseDrag: true,
-		items:1,
-		animateIn: 'fadeIn',
-		animateOut: 'fadeOut',
-		nav:true,
-		dots:false,
-		navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-		responsive:{
-			300: {
-				nav:false,
-            },
-            480: {
-				nav:false,
-            },
-            768: {
-				nav:false,
-            },
-            1170: {
-				nav:true,
-            },
-		}
-	});
+	// $(".slide-main").owlCarousel({
+	// 	loop:true,
+	// 	autoplay:true,
+	// 	autoplayHoverPause:true,
+	// 	smartSpeed: 1000,
+	// 	autoplayTimeout:4000,
+	// 	mouseDrag: true,
+	// 	items:1,
+	// 	animateIn: 'fadeIn',
+	// 	animateOut: 'fadeOut',
+	// 	nav:true,
+	// 	dots:false,
+	// 	navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+	// 	responsive:{
+	// 		300: {
+	// 			nav:false,
+    //         },
+    //         480: {
+	// 			nav:false,
+    //         },
+    //         768: {
+	// 			nav:false,
+    //         },
+    //         1170: {
+	// 			nav:true,
+    //         },
+	// 	}
+	// });
 	
 	/*======================================
 	// Team Hover

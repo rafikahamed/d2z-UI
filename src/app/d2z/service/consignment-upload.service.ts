@@ -2,14 +2,15 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
-const baseUrl = "https://www.d2z.com.au/v1/d2z";
-// const baseUrl = "http://localhost:8080/v1/d2z";
+// const baseUrl = "https://www.d2z.com.au/v1/d2z";
+const baseUrl = "http://localhost:8080/v1/d2z";
+// const baseUrl = "http://18.216.201.118:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
-
+  public newUserSubject = new Subject<any>();
   userMessage: userMessage;
   constructor(
       private http: HttpClient, 
@@ -17,6 +18,11 @@ export class ConsigmentUploadService implements OnInit{
   ){}
 
   ngOnInit(){}
+
+  getLoginDetails(data){
+    this.userMessage = data;
+    this.newUserSubject.next(data);
+  };
 
   authenticate( loginObject, callback): any {
     this.http.get(baseUrl+'/login', {
@@ -126,9 +132,16 @@ export class ConsigmentUploadService implements OnInit{
 }
 
 export interface userMessage {
-  message,
+  contactName,
+  address,
+  suburb,
+  state,
+  postCode,
+  country,
+  emailAddress,
   userName,
-  access,
-  companyName,
-  userCode
+  serviceType,
+  contactPhoneNumber,
+  role_Id,
+  companyName
 }

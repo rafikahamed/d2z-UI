@@ -29,6 +29,8 @@ export class BrokerPdfComponent implements OnInit{
   manifestNumber: string;
   errorMsg: string;
   successMsg: String;
+  userName: String;
+  role_id: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -188,6 +190,7 @@ export class BrokerPdfComponent implements OnInit{
       this.childmenuFour  = false;
       this.childmenuFive = false;
       this.spinner.show();
+      this.getLoginDetails();
       this.trackingDataService.manifestList( (resp) => {
         this.spinner.hide();
         this.ManifestArray = resp;
@@ -196,7 +199,14 @@ export class BrokerPdfComponent implements OnInit{
             this.errorMsg = "Invalid Credentials!";
         }  
       });
-  }
+  };
+
+  getLoginDetails(){
+    if(this.consigmentUploadService.userMessage != undefined){
+      this.userName = this.consigmentUploadService.userMessage.userName;
+      this.role_id = this.consigmentUploadService.userMessage.role_Id;
+    }
+  };
   
   onManifestChange(event){
     this.manifestNumber = event.value.value;

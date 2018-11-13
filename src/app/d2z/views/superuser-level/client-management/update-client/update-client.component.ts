@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 
 interface dropdownTemplate {
@@ -19,18 +20,21 @@ interface dropdownTemplate {
 })
 
 export class SuperUserUpdateClientComponent implements OnInit{
-    childmenu: boolean;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
-    oneFlag: boolean;
-    twoFlag: boolean;
-    threeFlag: boolean;
-    fourFlag: boolean;
-    fiveFlag: boolean;
-    sixFlag: boolean;
+      childmenu: boolean;
+      childmenuTwo:boolean;
+      childmenuThree:boolean;
+      childmenuFour:boolean;
+      childmenuFive:boolean;
+      oneFlag: boolean;
+      twoFlag: boolean;
+      threeFlag: boolean;
+      fourFlag: boolean;
+      fiveFlag: boolean;
+      sixFlag: boolean;
+      disableUpdate: boolean;
       errorMsg: string;
+      userName: String;
+      role_id: String;
       successMsg: String;
       companyName: String;
       brokerAddClientForm: FormGroup;
@@ -44,6 +48,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       constructor(
          public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
+         public consignmenrServices: ConsigmentUploadService, 
          private spinner: NgxSpinnerService
       ){
         this.companyDropdown = [];
@@ -51,6 +56,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
         this.serviceTypeArray = [];
         this.serviceTypeDeletedArray = [];
         this.errorMsg = null;
+        this.disableUpdate = true;
         this.brokerAddClientForm = new FormGroup({
             companyName: new FormControl(),
             addressLine1: new FormControl(),
@@ -73,18 +79,27 @@ export class SuperUserUpdateClientComponent implements OnInit{
     this.childmenuFour  = false;
     this.childmenuFive = false;
     this.spinner.show();
+    this.getLoginDetails();
     this.trackingDataService.brokerCompanyList( (resp) => {
       this.spinner.hide();
       this.companyDropdown = resp;
       if(this.companyDropdown.length > 0)
-        this.companyName = this.companyDropdown[0].value;
+        this.selectedCompany = this.companyDropdown[0];
+        this.companyName =  this.companyDropdown[0].value;
       if(!resp){
           this.errorMsg = "Invalid Credentials!";
       }  
     });
     this.categories = [];
     this.directCategories = [];
-  }
+  };
+
+  getLoginDetails(){
+    if(this.consignmenrServices.userMessage != undefined){
+      this.userName = this.consignmenrServices.userMessage.userName;
+      this.role_id = this.consignmenrServices.userMessage.role_Id;
+    }
+  };
 
   onCompanyDropdownchange(event){
     this.companyName = event.value.value;
@@ -102,7 +117,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       this.fourFlag = resp.serviceType.includes('4PA') ? true : false;
       this.fiveFlag = resp.serviceType.includes('5PA') ? true : false;
       this.sixFlag = resp.serviceType.includes('UnTracked') ? true : false;
-
+      this.disableUpdate = false;
       this.brokerAddClientForm.controls['companyName'].setValue(resp.companyName);
       this.brokerAddClientForm.controls['addressLine1'].setValue(resp.address);
       this.brokerAddClientForm.controls['country'].setValue(resp.country);
@@ -121,6 +136,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
   }
 
   updateClient(){
+    console.log(this.consignmenrServices.userMessage)
       let companyName = 'companyName';
       let contactName = 'contactName';
       let address = 'address';
@@ -134,6 +150,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       let serviceType = 'serviceType';
       let deletedServiceTypes = 'deletedServiceTypes';
       let contactPhoneNumber = 'contactPhoneNumber';
+      let role_Id = 'role_Id';
       var importObj = (
         importObj={}, 
         importObj[companyName]= this.brokerAddClientForm.value.companyName != undefined ? this.brokerAddClientForm.value.companyName : '', importObj,
@@ -148,9 +165,11 @@ export class SuperUserUpdateClientComponent implements OnInit{
         importObj[userName]= this.brokerAddClientForm.value.userName != undefined ? this.brokerAddClientForm.value.userName : '', importObj,
         importObj[password]= this.brokerAddClientForm.value.password != undefined ? this.brokerAddClientForm.value.password : '', importObj,
         importObj[serviceType]= this.serviceTypeArray, importObj,
+        importObj[role_Id]= 2,
         importObj[deletedServiceTypes]= this.serviceTypeDeletedArray, importObj,
         importObj[contactPhoneNumber]= this.brokerAddClientForm.value.PhoneNumber, importObj
     );
+    console.log(importObj)
      this.spinner.show();
      this.trackingDataService.updateClient(importObj, (resp) => {
         this.spinner.hide();
@@ -166,17 +185,19 @@ export class SuperUserUpdateClientComponent implements OnInit{
   }
 
   onChange(e) {
-    console.log(e.target.checked)
-    console.log(e.target.value)
     if(e.target.checked) {
-      this.serviceTypeArray.push(e.target.value)
+      if(this.serviceTypeArray.indexOf(e.target.checked) == -1){
+        this.serviceTypeArray.push(e.target.value)
+        let index = this.serviceTypeDeletedArray.indexOf(e.target.value);
+        this.serviceTypeDeletedArray.splice(index,1);
+      }else{
+        
+      }    
     } else {
       let index = this.serviceTypeArray.indexOf(e.target.value);
       this.serviceTypeArray.splice(index,1);
       this.serviceTypeDeletedArray.push(e.target.value);
     }
-    console.log(this.serviceTypeArray);
-    console.log(this.serviceTypeDeletedArray);
   }
   
 }
