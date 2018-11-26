@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/filter';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginService } from 'app/d2z/service/login.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -13,7 +12,6 @@ declare var $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-
   errorMsg: string;
   loginForm: FormGroup;
   userMessage: userMessage;

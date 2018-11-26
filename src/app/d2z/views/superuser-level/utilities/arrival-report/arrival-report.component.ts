@@ -23,7 +23,7 @@ export class SuperUserArrivalReportComponent implements OnInit{
   childmenuFour:boolean;
   childmenuFive:boolean;
   public importList = [];
-  FileHeading = ['ConsignmentRef', 'Tracking', 'Status', 'ScannedDateTime'];
+  FileHeading = ['ConsignmentRef', 'Tracking', 'Status', 'ScannedDateTime', 'Count', 'Manifested' ];
   manifestNumber: string;
   arrayBuffer:any;
   file:File;
@@ -52,7 +52,7 @@ export class SuperUserArrivalReportComponent implements OnInit{
     this.gridOptions.columnDefs = [
       {
         headerName: "Reference number",
-        field: "connoteNo",
+        field: "referenceNumber",
         width: 300,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
@@ -72,6 +72,16 @@ export class SuperUserArrivalReportComponent implements OnInit{
       {
         headerName: "Scanned Date Time",
         field: "scannedDateTime",
+        width: 200
+      },
+      {
+        headerName: "Count",
+        field: "count",
+        width: 100
+      },
+      {
+        headerName: "Manifested",
+        field: "manifested",
         width: 200
       }
     ];
@@ -143,6 +153,8 @@ export class SuperUserArrivalReportComponent implements OnInit{
       let status = 'status';
       let scannedDateTime = 'scannedDateTime';
       let fileName = 'fileName';
+      let count = 'count';
+      let manifested = 'manifested';
 
       fileReader.onload = (e) => {
           this.arrayBuffer = fileReader.result;
@@ -159,18 +171,21 @@ export class SuperUserArrivalReportComponent implements OnInit{
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
                 if(!this.FileHeading.includes(keyVal)){
-                  this.errorMsg = "***Invalid file format, Please check the field in given files Reference number, allowed fields are ['ConsignmentRef', 'Tracking', 'Status', 'ScannedDateTime']"
+                  this.errorMsg = "***Invalid file format, Please check the field in given files Reference number, allowed fields are ['ConsignmentRef', 'Tracking', 'Status', 'ScannedDateTime', 'Count', 'Manifested']"
                 }
               }
               if(this.errorMsg == null){
-                var importObj = (
-                  importObj={}, 
-                  importObj[connoteNo]= dataObj['Tracking'] != undefined ? dataObj['Tracking'] : '', importObj,
-                  importObj[status]= dataObj['Status'] != undefined ? dataObj['Status'] : '', importObj,
-                  importObj[scannedDateTime]= dataObj['ScannedDateTime'] != undefined ? dataObj['ScannedDateTime'] : '', importObj,
-                  importObj[fileName]= this.file.name+'-'+dateString, importObj
+                var  arrivalObj = (
+                  arrivalObj={}, 
+                  arrivalObj[referenceNumber]= dataObj['ConsignmentRef'] != undefined ? dataObj['ConsignmentRef'] : '', arrivalObj,
+                  arrivalObj[connoteNo]= dataObj['Tracking'] != undefined ? dataObj['Tracking'] : '', arrivalObj,
+                  arrivalObj[status]= dataObj['Status'] != undefined ? dataObj['Status'] : '', arrivalObj,
+                  arrivalObj[scannedDateTime]= dataObj['ScannedDateTime'] != undefined ? dataObj['ScannedDateTime'] : '', arrivalObj,
+                  arrivalObj[fileName]= this.file.name+'-'+dateString, arrivalObj,
+                  arrivalObj[count]= dataObj['Count'] != undefined ? dataObj['Count'] : '', arrivalObj,
+                  arrivalObj[manifested]= dataObj['Manifested'] != undefined ? dataObj['Manifested'] :'', arrivalObj
                 );
-              this.importList.push(importObj)
+              this.importList.push(arrivalObj)
               this.rowData = this.importList;
               }
           }
@@ -191,8 +206,9 @@ export class SuperUserArrivalReportComponent implements OnInit{
           this.spinner.hide();
           if(resp.status == 400 ){
             this.successMsg = resp.error.errorMessage;
-          }
-          if(resp.status == undefined ){
+          }else if(resp.status == 500 ){
+            this.successMsg = resp.error.message;
+          }else{
             this.successMsg = resp.message;
           }
           $('#allocateShipmentModal').modal('show');

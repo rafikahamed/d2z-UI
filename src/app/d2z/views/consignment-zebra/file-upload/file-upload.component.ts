@@ -245,7 +245,7 @@ export class ZebraFileUpload implements OnInit{
             var exportData = XLSX.utils.sheet_to_json(worksheet);
             for (var importVal in exportData) {
               var dataObj = exportData[importVal];
-
+              console.log(dataObj)
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
                 if(!this.FileHeading.includes(keyVal)){

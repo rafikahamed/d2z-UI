@@ -417,17 +417,17 @@ export class SuperUserInvoiceComponent implements OnInit{
       {
         headerName: "Value",
         field: "value",
-        width: 200
+        width: 100
       },
       {
         headerName: "Shipped Quantity",
         field: "shippedQuantity",
-        width: 200
+        width: 100
       },
       {
         headerName: "Del Name",
         field: "consignee_name",
-        width: 200
+        width: 150
       },
       {
         headerName: "Del Addr1",
@@ -442,17 +442,17 @@ export class SuperUserInvoiceComponent implements OnInit{
       {
         headerName: "Del Addr3 (state)",
         field: "consignee_State",
-        width: 200
+        width: 150
       },
       {
         headerName: "deladdr4 (country)",
         field: "consignee_country",
-        width: 200
+        width: 100
       },
       {
         headerName: "Postcode",
         field: "consignee_Postcode",
-        width: 200
+        width: 100
       },
       {
         headerName: "Email",
@@ -467,11 +467,11 @@ export class SuperUserInvoiceComponent implements OnInit{
       {
         headerName: "Product Description",
         field: "product_Description",
-        width: 400
+        width: 300
       },
       {
         headerName: "Origin",
-        field: "origin",
+        field: "shipper_Country",
         width: 150
       },
       {
@@ -482,12 +482,12 @@ export class SuperUserInvoiceComponent implements OnInit{
       {
         headerName: "Tracking Template",
         field: "tracking_template",
-        width: 400
+        width: 300
       },
       {
         headerName: "Tracking Number",
         field: "barcodelabelNumber",
-        width: 400
+        width: 300
       },
       {
         headerName: "Inventory Short Name",
@@ -823,14 +823,14 @@ export class SuperUserInvoiceComponent implements OnInit{
           };
           let reference_No = 'reference_No';
           let article_Id = 'article_Id';
-          for (var importVal in deletedSelectedRows) {
-              var deleteObj = deletedSelectedRows[importVal];
-              var importObj = (
-                  importObj={},
-                  importObj[reference_No]= deleteObj.reference_number != null ? deleteObj.reference_number: '', deleteObj,
-                  importObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteObj
+          for (var delketeVal in deletedSelectedRows) {
+              var deleteObj = deletedSelectedRows[delketeVal];
+              var deleteMainObj = (
+                deleteMainObj={},
+                deleteMainObj[reference_No]= deleteObj.reference_number != null ? deleteObj.reference_number: '', deleteMainObj,
+                deleteMainObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteMainObj
               );
-              deletedList.push(importObj)
+              deletedList.push(deleteMainObj)
           }
         new Angular2Csv(deletedList, fileName, options);        
       }else{
@@ -887,39 +887,38 @@ export class SuperUserInvoiceComponent implements OnInit{
 
           for (var importVal in shipmentSelectedRows) {
               var shipmentObj = shipmentSelectedRows[importVal];
-              var importObj = (
-                  importObj={},
-                  importObj[invoice_number]= shipmentObj.reference_number != null ? shipmentObj.reference_number: '', importObj,
-                  importObj[value]= shipmentObj.value != null ? shipmentObj.value: '', importObj,
-                  importObj[shipped_quantity]= shipmentObj.shippedQuantity != null ? shipmentObj.shippedQuantity: '', importObj,
-                  importObj[delname]= shipmentObj.consignee_name != null ? shipmentObj.consignee_name: '', importObj,
-                  importObj[deladdr1]= shipmentObj.consignee_addr1 != null ? shipmentObj.consignee_addr1: '', importObj,
-                  importObj[deladdr2]= shipmentObj.consignee_Suburb != null ? shipmentObj.consignee_Suburb: '', importObj,
-                  importObj[deladdr3]= shipmentObj.consignee_State != null ? shipmentObj.consignee_State: '', importObj,
-                  importObj[deladdr4]= shipmentObj.consignee_country != null ? shipmentObj.consignee_country: 'AU', importObj,
-                  importObj[postcode]= shipmentObj.consignee_Postcode != null ? shipmentObj.consignee_Postcode: '', importObj,
-                  importObj[email]= shipmentObj.email != null ? shipmentObj.email: '', importObj,
-                  importObj[telephone]= shipmentObj.consignee_Phone != null ? shipmentObj.consignee_Phone: '', importObj,
-                  importObj[product_description]= shipmentObj.product_Description != null ? shipmentObj.product_Description: '', importObj,
-                  importObj[origin]= shipmentObj.shipper_Country != null ? shipmentObj.shipper_Country: '', importObj,
-                  importObj[weight]= shipmentObj.weight != null ? shipmentObj.weight: '', importObj,
-                  importObj[tracking_template]= shipmentObj.tracking_template != null ? shipmentObj.tracking_template: '', importObj,
-                  importObj[tracking_number]= shipmentObj.barcodelabelNumber != null ? shipmentObj.barcodelabelNumber: '', importObj,
-                  importObj[inventory_short_name]= shipmentObj.inventory_short_name != null ? shipmentObj.inventory_short_name: '', importObj,
-                  importObj[supplier]= shipmentObj.supplier != null ? shipmentObj.supplier: '', importObj,
-                  importObj[bill_me]= shipmentObj.bill_me != null ? shipmentObj.bill_me: 1, importObj,
-                  importObj[ServiceType]= shipmentObj.servicetype != null ? shipmentObj.servicetype: '', importObj,
-                  importObj[BagName]= shipmentObj.BagName != null ? shipmentObj.BagName: 1, importObj,
-                  importObj[Length]= shipmentObj.dimensions_Length != null ? shipmentObj.dimensions_Length: '', importObj,
-                  importObj[Width]= shipmentObj.dimensions_Width != null ? shipmentObj.dimensions_Width: '', importObj,
-                  importObj[Height]= shipmentObj.dimensions_Height != null ? shipmentObj.dimensions_Height: '', importObj,
-                  importObj[Currency]= shipmentObj.currency != null ? shipmentObj.currency: '', importObj,
-                  importObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', importObj,
-                  importObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', importObj,
-                  importObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', importObj
-
+              var shipmentMainObj = (
+                shipmentMainObj={},
+                shipmentMainObj[invoice_number]= shipmentObj.reference_number != null ? shipmentObj.reference_number: '', shipmentMainObj,
+                shipmentMainObj[value]= shipmentObj.value != null ? shipmentObj.value: '', shipmentMainObj,
+                shipmentMainObj[shipped_quantity]= shipmentObj.shippedQuantity != null ? shipmentObj.shippedQuantity: '', shipmentMainObj,
+                shipmentMainObj[delname]= shipmentObj.consignee_name != null ? shipmentObj.consignee_name: '', shipmentMainObj,
+                shipmentMainObj[deladdr1]= shipmentObj.consignee_addr1 != null ? shipmentObj.consignee_addr1: '', shipmentMainObj,
+                shipmentMainObj[deladdr2]= shipmentObj.consignee_Suburb != null ? shipmentObj.consignee_Suburb: '', shipmentMainObj,
+                shipmentMainObj[deladdr3]= shipmentObj.consignee_State != null ? shipmentObj.consignee_State: '', shipmentMainObj,
+                shipmentMainObj[deladdr4]= shipmentObj.consignee_country != null ? shipmentObj.consignee_country: 'AU', shipmentMainObj,
+                shipmentMainObj[postcode]= shipmentObj.consignee_Postcode != null ? shipmentObj.consignee_Postcode: '', shipmentMainObj,
+                shipmentMainObj[email]= shipmentObj.email != null ? shipmentObj.email: '', shipmentMainObj,
+                shipmentMainObj[telephone]= shipmentObj.consignee_Phone != null ? shipmentObj.consignee_Phone: '', shipmentMainObj,
+                shipmentMainObj[product_description]= shipmentObj.product_Description != null ? shipmentObj.product_Description: '', shipmentMainObj,
+                shipmentMainObj[origin]= shipmentObj.shipper_Country != null ? shipmentObj.shipper_Country: '', shipmentMainObj,
+                shipmentMainObj[weight]= shipmentObj.weight != null ? shipmentObj.weight: '', shipmentMainObj,
+                shipmentMainObj[tracking_template]= shipmentObj.tracking_template != null ? shipmentObj.tracking_template: '', shipmentMainObj,
+                shipmentMainObj[tracking_number]= shipmentObj.barcodelabelNumber != null ? shipmentObj.barcodelabelNumber: '', shipmentMainObj,
+                shipmentMainObj[inventory_short_name]= shipmentObj.inventory_short_name != null ? shipmentObj.inventory_short_name: '', shipmentMainObj,
+                shipmentMainObj[supplier]= shipmentObj.supplier != null ? shipmentObj.supplier: '', shipmentMainObj,
+                shipmentMainObj[bill_me]= shipmentObj.bill_me != null ? shipmentObj.bill_me: 1, shipmentMainObj,
+                shipmentMainObj[ServiceType]= shipmentObj.servicetype != null ? shipmentObj.servicetype: '', shipmentMainObj,
+                shipmentMainObj[BagName]= shipmentObj.BagName != null ? shipmentObj.BagName: 1, shipmentMainObj,
+                shipmentMainObj[Length]= shipmentObj.dimensions_Length != null ? shipmentObj.dimensions_Length: '', shipmentMainObj,
+                shipmentMainObj[Width]= shipmentObj.dimensions_Width != null ? shipmentObj.dimensions_Width: '', shipmentMainObj,
+                shipmentMainObj[Height]= shipmentObj.dimensions_Height != null ? shipmentObj.dimensions_Height: '', shipmentMainObj,
+                shipmentMainObj[Currency]= shipmentObj.currency != null ? shipmentObj.currency: '', shipmentMainObj,
+                shipmentMainObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', shipmentMainObj,
+                shipmentMainObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', shipmentMainObj,
+                shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj
               );
-              shipmentList.push(importObj)
+              shipmentList.push(shipmentMainObj)
           }
         new Angular2Csv(shipmentList, fileName, options);        
       }else{
@@ -930,7 +929,6 @@ export class SuperUserInvoiceComponent implements OnInit{
   exportSearch(){
     this.errorMsg = null;
     this.successMsg = '';
-    console.log(this.exportFileType+ " " +this.fromDate +" "+ this.toDate)
     if(this.errorMsg == null && this.exportFileType === 'export-consignment'){
         this.spinner.show();
         this.trackingDataService.exportConsignment(this.fromDate, this.toDate, (resp) => {

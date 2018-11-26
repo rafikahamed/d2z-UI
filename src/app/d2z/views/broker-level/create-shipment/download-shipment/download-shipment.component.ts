@@ -677,7 +677,7 @@ export class DownloadShipmentComponent implements OnInit{
                   importObj[Service_Type]=  'PKG', importObj,
                   importObj[HAWB_Reference]= adminObj.reference_number != null ? adminObj.reference_number : '',  importObj,
                   importObj[Alternate_Reference]= adminObj.alternate_reference != null ? adminObj.alternate_reference : '', importObj,
-                  importObj[Description_of_Goods]= adminObj.Description_of_Goods != null ? adminObj.product_Description : '', adminObj,
+                  importObj[Description_of_Goods]= adminObj.product_Description != null ? adminObj.product_Description.substring(0, 35) : '', adminObj,
                   importObj[Customs_Value]= adminObj.value != null ? adminObj.value : '', importObj,
                   importObj[Customs_Value_Currency]= adminObj.currency !=null ? adminObj.currency :'', importObj,
                   importObj[Clearance_Reference]= adminObj.clearance_reference != null ? adminObj.clearance_reference : '', importObj,

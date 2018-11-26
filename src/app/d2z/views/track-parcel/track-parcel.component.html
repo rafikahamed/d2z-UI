@@ -34,7 +34,85 @@
         </div>
 </header>
 <!--/ End Header -->
-    
+  
+<!--Start Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+		<div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+			<div class="modal-body">
+				<div class="limiter">
+					<div class="container-login100">
+						<div class="wrap-login100">
+							<div class="login100-pic js-tilt" data-tilt>
+								<img src="../../../assets/img/d2z-logo-login.png" alt="IMG">
+							</div>
+			
+							<form class="login100-form validate-form" [formGroup]="loginForm">
+								<span class="login100-form-title">
+									D2Z Login
+								</span>
+			
+								<div class="wrap-input100 validate-input" data-validate = "UserName is required">
+									<input class="input100" type="text" name="UserName" placeholder="UserName"
+																	formControlName="userName">
+									<span class="focus-input100"></span>
+									<span class="symbol-input100">
+										<i class="fa fa-envelope" aria-hidden="true"></i>
+									</span>
+								</div>
+			
+								<div class="wrap-input100 validate-input" data-validate = "Password is required">
+									<input class="input100" type="password" name="pass" placeholder="Password"
+															formControlName="passWord">
+									<span class="focus-input100"></span>
+									<span class="symbol-input100">
+										<i class="fa fa-lock" aria-hidden="true"></i>
+									</span>
+								</div>
+
+								<div>
+									<p class="error-msg">{{errorMsg}}</p>
+								</div>
+								
+								<div class="container-login100-form-btn">
+									<button class="login100-form-btn" (click)="login()">
+										Login
+									</button>
+								</div>
+			
+								<div class="text-center p-t-12">
+									<span class="txt1">
+										Forgot
+									</span>
+									<a class="txt2" href="#">
+										Username / Password?
+									</a>
+								</div>
+			
+								<!-- <div class="text-center p-t-136">
+									<a class="txt2" href="#">
+										Create your Account
+										<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+									</a>
+								</div> -->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+</div>
+<!--End Modal -->
+
+<ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        loadingText="Loading..."
+        type="ball-clip-rotate-multiple">
+</ngx-spinner>
+
 <!-- Page Content -->
 <div class="container" class="article-service">
         <section id="our-skill" class="section" style="padding:0px">
@@ -87,8 +165,8 @@
                   bdColor="rgba(51,51,51,0.8)"
                   size="medium"
                   color="#fff"
-                            loadingText="Loading..."
-                            type="ball-clip-rotate-multiple">
+                  loadingText="Loading..."
+                  type="ball-clip-rotate-multiple">
             </ngx-spinner>
 
             <div *ngIf="trackFalg" class="container" class="search-panel"> 
@@ -123,7 +201,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="text">
-                            <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a href="https://themewagon.com/" target="_blank">D2Z</a> Logistics</p>
+                            <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> Logistics</p>
                         </div>
                     </div>
                 </div>
