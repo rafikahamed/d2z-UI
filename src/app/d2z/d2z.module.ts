@@ -39,6 +39,7 @@ import { SuperUserAddClientComponent } from 'app/d2z/views/superuser-level/clien
 import { SuperUserUpdateClientComponent } from 'app/d2z/views/superuser-level/client-management/update-client/update-client.component';
 import { SuperUserArrivalReportComponent } from 'app/d2z/views/superuser-level/utilities/arrival-report/arrival-report.component';
 import { SuperUserUploadTrackingComponent } from 'app/d2z/views/superuser-level/utilities/upload-tracking/upload-tracking.component';
+import { EtowerTrackingComponent } from 'app/d2z/views/superuser-level/utilities/etower/etower.component';
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
@@ -89,6 +90,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/arrival-report", component : SuperUserArrivalReportComponent},
           { path: "superuser/upload-tracking", component : SuperUserUploadTrackingComponent},
           { path: "superuser/invoice-report", component: SuperUserInvoiceComponent},
+          { path: "superuser/etrack", component: EtowerTrackingComponent},
           { path: "policy", component: PolicyComponent},
           { path: "track-parcel", component: TrackParcelComponent}
     ], { useHash: true }),
@@ -127,7 +129,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserUploadTrackingComponent,
     SuperUserInvoiceComponent,
     PolicyComponent,
-    TrackParcelComponent
+    TrackParcelComponent,
+    EtowerTrackingComponent
   ],
   entryComponents: [
     

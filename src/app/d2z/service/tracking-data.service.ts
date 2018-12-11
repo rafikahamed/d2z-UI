@@ -4,13 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-// const baseUrl = "https://www.d2z.com.au/v1/d2z";
-const baseUrl = "http://localhost:8080/v1/d2z";
+const baseUrl = "https://www.d2z.com.au/v1/d2z";
+// const baseUrl = "http://localhost:8080/v1/d2z";
 // const baseUrl = "http://18.216.201.118:8080/v1/d2z";
 
 @Injectable()
 export class TrackingDataService implements OnInit{
-
   userMessage: userMessage;
   constructor(
       private http: HttpClient, 
@@ -48,7 +47,7 @@ export class TrackingDataService implements OnInit{
         });
   };
 
-  trackPracel( referenceNumberList, callback): any {
+  trackPracel(referenceNumberList, callback): any {
     this.http.get(baseUrl+'/trackParcel/referenceNumber/'+referenceNumberList).subscribe((resp) => {
       callback(resp);
       if (resp) {
@@ -59,7 +58,20 @@ export class TrackingDataService implements OnInit{
     }, (error) => {
       console.error(error);
     });
-  }
+  };
+  
+  etrackDetails(referenceNumberList, callback): any {
+    this.http.get(baseUrl+'/superUser-level/track/etower/'+referenceNumberList).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      console.error(error);
+    });
+  };
 
   //Broker Service call
   clientCreation( addClientData, callback): any {
