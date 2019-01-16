@@ -1,0 +1,120 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+          <div class="main_container">
+            
+            <client-header> </client-header>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                  <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px;"> Manifest / Creation </h3>
+                                </div>
+                        </div>
+                  </div>
+
+                  <div class="manifest_search">
+                      <div>
+                        <form [formGroup]="manifestForm">
+                            <p style="float:left"> Select File To Update the Manifest : </p>
+                          
+                            <div style="margin-left:20px; float: left">
+                              <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name" 
+                              (onChange)="onFileChange($event)" formControlName="manifestFile">
+                              </p-dropdown>
+                            </div>
+      
+                            <div class="ui-g-6 ui-md-2">
+                                <div class="ui-inputgroup">
+                                    <input type="text" pInputText placeholder="Manifest Number" class="input-text"
+                                        formControlName="manifestNumber">   
+                                    <button pButton type="button" icon="fa fa-superpowers" class="ui-button-warn">
+                                    </button>      
+                                </div>
+                            </div>                          
+                            
+                            <div>
+                                <button type="button" class="btn btn-info" (click)="manifestSearch()"
+                                        style="background-color: #16A085; margin-left:30px">Search</button>
+                            </div>
+                        </form>
+                      </div>
+                  </div>
+    
+                  <div class="manifest_panel">
+                      <ngx-spinner
+                                bdColor="rgba(51,51,51,0.8)"
+                                size="medium"
+                                color="#fff"
+                                loadingText="Loading..."
+                                type="ball-circus">
+                      </ngx-spinner>
+                      
+                      <div style="margin-top: 30px">
+                            <div style="margin-bottom:-20px;">
+                                <p class="success-msg">{{successMsg}}</p>
+                            </div>
+
+                            <div>
+                                <p class="err-msg">{{errorMsg}}</p>
+                            </div>
+                      </div>
+
+                      <button type="button" class="btn btn-info" (click)="manifestCreation()"
+                          style="background-color: #16A085; float:right; margin-right:20px">
+                          Manifest Allocation
+                      </button>
+    
+                      <div style="padding:20px">
+                        <p> Please select the below records to update the manifest entry on D2Z System </p>
+                          <div>
+                              <ag-grid-angular 
+                                        #agGrid style="width: 100%; height: 450px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowData"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="gridOptions" 
+                                        [pagination]="true"
+                                        (selectionChanged)="onSelectionChange($event)">
+                              </ag-grid-angular>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /top tiles -->    
+            </div>
+
+            <!-- Start Footer -->
+            <footer id="footer" class="wow fadeIn">
+                <!-- Copyright -->
+                <div class="copyright">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="text">
+                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ End Copyright -->
+            </footer>
+             <!--/ End Footer -->
+
+          </div>
+        </div>
+      </body>
+    

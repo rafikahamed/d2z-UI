@@ -1,0 +1,109 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+          <div class="main_container">
+           
+            <client-header> </client-header>
+    
+            <!-- page content -->
+            <div class="right_col" role="main">
+                  <!-- top tiles -->
+                  <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px;"> Utilities / Tracking Details </h3>
+                                </div>
+                        </div>
+                  </div>
+                  
+                  <div class="downlaodtrack_search">
+                      <div>
+                        <p style="float: left"> Select File to tarck the details: </p>
+
+                        <div style="margin-left:20px; float: left">
+                          <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name" 
+                          (onChange)="onFileChange($event)">
+                          </p-dropdown>
+                        </div>
+
+                        <button type="button" class="btn btn-info" (click)="trackingList()"
+                                style="background-color: #16A085; margin-left:30px">Search</button>
+
+                      </div>
+                  </div>
+
+                  <div class="downloadtrack_panel">
+                      <ngx-spinner
+                                bdColor="rgba(51,51,51,0.8)"
+                                size="medium"
+                                color="#fff"
+                                loadingText="Loading..."
+                                type="ball-clip-rotate-multiple">
+                      </ngx-spinner>
+
+                      <div>
+                          <p style="color:green; font-size: 15px;font-weight: 500;">{{successMsg}}</p>
+                      </div>
+
+                      <div>
+                          <p style="color: #ca2929; font-size:15px; font-weight:500;">{{errorMsg}}</p>
+                      </div>
+                     
+                      <button type="button" class="btn btn-info" (click)="downloadTracking()"
+                          style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                          Download Tracking Details</button>
+    
+                      <div style="padding:20px">
+                          
+                        <p> Please select the below records to download the tracking details </p>
+                        
+                          <div>
+                              <ag-grid-angular 
+                                        #agGrid style="width: 100%; height: 500px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowData"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="gridOptions" 
+                                        [pagination]="true"
+                                        (selectionChanged)="onSelectionChange($event)">
+                              </ag-grid-angular>
+                          </div>
+                      </div>
+    
+                  </div>
+                <!-- /top tiles -->
+            </div>
+
+            <!-- Start Footer -->
+            <footer id="footer" class="wow fadeIn">
+                <!-- Copyright -->
+                <div class="copyright">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="text">
+                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ End Copyright -->
+            </footer>
+            <!--/ End Footer -->
+
+          </div>
+        </div>
+      </body>
+    

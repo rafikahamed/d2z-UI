@@ -1,0 +1,56 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+          <div class="main_container">
+           
+           <client-header> </client-header>
+    
+           <!-- page content -->
+           <div class="right_col" role="main">
+              <div class="row tile_count">
+                    <div class="page-title">
+                            <div class="title_left">
+                              <h3 style="margin-left: 10px;"> Utilities / Zebra Scan PDF </h3>
+                            </div>
+                    </div>
+              </div>
+
+              <div class="col-md-12 utlities_pdf_search">
+                  <ngx-spinner
+                      bdColor="rgba(51,51,51,0.8)"
+                      size="medium"
+                      color="#fff"
+                      loadingText="Loading..."
+                      type="ball-clip-rotate-multiple">
+                  </ngx-spinner>
+                  
+                  <div style="margin-top: 20px;">
+                        <p style="color:green; font-size: 14px;font-weight: 500;">{{successMsg}}</p>
+                  </div>
+
+                  <div style="margin-top: 20px;">
+                      <p style="color: #ca2929; font-size:14px; font-weight:500;">{{errorMsg}}</p>
+                  </div>
+
+                  <form [formGroup]="trackingPrintForm">
+                    <div class="row">
+                      <div class="col-md-4" style="font-size: 16px"> BarCode Label or Reference Number:</div>
+                      <div class="col-md-4"> 
+                          <textarea rows="4" cols="50" id="pdf-Util" style="border: 1px solid #ccc" formControlName="refBarNum"
+                          (input)="downloadLable()"></textarea>
+                      </div>
+                      <!-- <div class="col-md-2">
+                          <button type="button" class="btn btn-info" (click)="downloadLable()"
+                              style="background-color: #16A085; float:right; margin-top: 40px;">
+                              Download Labels</button>
+                      </div> -->
+                    </div>
+                  </form>
+                
+              </div>
+
+           </div>
+          
+          </div>
+        </div>
+      </body>
+    

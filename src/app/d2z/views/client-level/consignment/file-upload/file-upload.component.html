@@ -1,0 +1,143 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+          <div class="main_container">
+            
+            <client-header> </client-header>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+              <!-- top tiles -->
+              <div class="row tile_count">
+                    <div class="page-title">
+                            <div class="title_left">
+                              <h3 style="margin-left: 10px;">Consignment / File Upload</h3>
+                            </div>
+                    </div>
+              </div>
+              <!-- /top tiles -->
+            </div>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+            
+              <ngx-spinner
+                bdColor="rgba(51,51,51,0.8)"
+                size="medium"
+                color="#fff"
+                loadingText="Loading..."
+                type="ball-circus">
+              </ngx-spinner>
+
+              <!-- Modal -->
+              <div class="modal fade" id="fileUploadModal" role="dialog">
+                      <div class="modal-dialog">
+                      
+                        <!-- Modal content-->
+                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}} {{errorMsg}}</h4>
+                          </div>
+                            <div *ngIf="show">
+                              <a style="float: left; margin-left: 20px; margin-top: 12px;">Click icon to download the refrence number :</a>
+                               <i class="fa fa-file-excel-o" (click)="downLoad()"
+                                  style="margin:10px; color: green; font-size:25px !important; cursor: pointer;"aria-hidden="true"></i>
+                            </div>
+                            <div class="modal-body">
+                              <div>
+                               <p class="err_msg" style="word-wrap: break-word">{{errorDetails1}}</p>
+                              </div>
+                            </div>
+                          <div class="modal-footer">
+                          </div>
+                        </div>
+                      </div>
+              </div>
+
+              <div class="fileupload_search">
+                  <div style="padding-right: 15px; margin-bottom:40px">
+                      <a href="/assets/forms/D2Z Upload File.xlsx" class="fa fa-file-excel-o" 
+                          style="color: darkgreen; font-size:17px; float: left;" download>
+                                **Please click here to download the template for File Upload
+                      </a>
+
+                      <a href="/assets/forms/D2Z Upload File Sample Data.xlsx" class="fa fa-file-excel-o" 
+                      style="color: darkgreen; font-size:17px; float: right;" download>
+                            **Please click here to download the sample Upload File
+                      </a>
+                  </div>
+
+                  <div>
+                    <p style="float: left"> Select File : </p>
+                    <input type="file" style="display: inline-block; margin-left:25px" (change)="incomingfile($event)" 
+                                  placeholder="Upload file" accept=".xlsx">
+                  </div>
+              </div>
+
+              <div class="fileupload_panel">
+                        <div style="margin-top: 20px;">
+                            <p class="success_msg">{{successMsg}}</p>
+                        </div>
+      
+                        <div style="margin-top: 20px;">
+                            <p class="err_msg">{{errorMsg}}</p>
+                        </div>
+                     
+                      <button type="button" 
+                              class="btn btn-info" 
+                              (click)="zibraUpload()"
+                              style="background-color: #16A085; float:right; margin-right:20px">Upload Records</button>
+
+                      <div style="padding:20px">
+                        <p> Please select the below records to upload the file to D2Z System: </p>
+                          <div>
+                              <ag-grid-angular 
+                                        #agGrid style="width: 100%; height: 450px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowData"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="gridOptions" 
+                                        [pagination]="true"
+                                        (selectionChanged)="onSelectionChange($event)">
+                              </ag-grid-angular>
+                          </div>
+                      </div>
+              </div>
+              
+            </div>
+            <!-- /page content -->
+
+            <!-- Start Footer -->
+            <footer id="footer" class="wow fadeIn">
+                <!-- Copyright -->
+                <div class="copyright">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="text">
+                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ End Copyright -->
+            </footer>
+             <!--/ End Footer -->
+            
+          </div>
+        </div>
+      </body>
+    

@@ -1,0 +1,124 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+      <div class="navbar nav_title" style="border: 0;">
+        <a href="index.html" class="site_title">
+          <img src="../../../assets/img/d2z-logo.png"/>
+        </a>
+      </div>
+
+      <div class="clearfix"></div>
+        <div class="profile clearfix">
+          <div class="profile_pic">
+            <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
+          </div>
+          <div class="profile_info">
+            <span>Welcome,</span>
+            <h2>Chris Denham</h2>
+          </div>
+        </div>
+        
+        
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="margin-top: -30px">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                <li>
+                    <a *ngIf="englishFlag" (click)="toggle(arrow)">
+                        <i class="fa fa-home"></i> HOME <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <a *ngIf="chinessFlag" (click)="toggle(arrow)">
+                        <i class="fa fa-home"></i> 家 <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
+                      <li *ngIf="englishFlag"><a routerLink="/main">Information</a></li>
+                      <li *ngIf="chinessFlag"><a routerLink="/main">信息</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a *ngIf="englishFlag" (click)="toggle_zebra(arrow)">
+                        <i class="fa fa-edit"></i> CONSIGNMENT <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <a *ngIf="chinessFlag" (click)="toggle_zebra(arrow)">
+                            <i class="fa fa-edit"></i> 托运 <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuTwo ? 'block' : 'none'}">
+                    <li *ngIf="englishFlag"><a routerLink="/consignment/fileUpload">File Upload</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/consignment/fileUpload">上传文件</a></li>
+                    <li *ngIf="englishFlag"><a routerLink="/consignment/delete">Delete</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/consignment/delete">删除</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a *ngIf="englishFlag" (click)="toggle_pdf(arrow)">
+                        <i class="fa fa-desktop"></i> PRINT LABELS 
+                        <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <a *ngIf="chinessFlag" (click)="toggle_pdf(arrow)">
+                            <i class="fa fa-desktop"></i> 打印标签 
+                            <span class="fa fa-chevron-down" #arrow></span>
+                        </a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuThree ? 'block' : 'none'}">
+                    <li *ngIf="englishFlag"><a routerLink="/printLabels/zebra">ZEBRA</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/printLabels/zebra">斑马</a></li>
+                    <li *ngIf="englishFlag"><a routerLink="/printLabels/pdf">PDF</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/printLabels/pdf">PDF</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a *ngIf="englishFlag" (click)="toggle_utilities(arrow)">
+                        <i class="fa fa-table"></i> UTILITIES 
+                        <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <a *ngIf="chinessFlag" (click)="toggle_utilities(arrow)">
+                            <i class="fa fa-table"></i> 公用事业 
+                            <span class="fa fa-chevron-down" #arrow></span>
+                        </a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuFour ? 'block' : 'none'}">
+                    <li *ngIf="englishFlag"><a routerLink="/utilities/trackingNumber">Download tracking numbers</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/utilities/trackingNumber">下载跟踪号码</a></li>
+                    <li *ngIf="englishFlag"><a routerLink="/utilities/trackParcel">Track Parcels</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/utilities/trackParcel">跟踪包裹</a></li>
+                    <li *ngIf="englishFlag"><a routerLink="/utilities/scanPrintLabels">Scan & Print Labels - Zebra</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/utilities/scanPrintLabels">扫描和打印标签 -  Zebra</a></li>
+                    <li *ngIf="englishFlag"><a routerLink="/utilities/scanPdf">Scan & Print Labels - PDF</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/utilities/scanPdf">扫描和打印标签 -  PDF</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a *ngIf="englishFlag" (click)="toggle_maniFest(arrow)">
+                        <i class="fa fa-bar-chart-o"></i> MANIFEST CREATION <span class="fa fa-chevron-down" #arrow>
+                        </span>
+                    </a>
+                    <a *ngIf="chinessFlag" (click)="toggle_maniFest(arrow)">
+                            <i class="fa fa-bar-chart-o"></i> 清晰的创造 <span class="fa fa-chevron-down" #arrow>
+                            </span>
+                    </a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuFive ? 'block' : 'none'}">
+                        <li *ngIf="englishFlag"><a routerLink="/manifest/creation">Create Manifest</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/manifest/creation">创建清单</a></li>
+                    </ul>
+                </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <ul class="nav navbar-nav navbar-right">
+                  <div class="language">
+                      <button type="button" 
+                              class="btn btn-success en-flag"
+                              (click)="englishVer()">
+                      </button>
+                      <button type="button" 
+                              class="btn btn-danger chn-flag"
+                              (click)="chinessVer()">
+                      </button>
+                  </div>
+                </ul>
+            </nav>
+        </div>
+</div>
