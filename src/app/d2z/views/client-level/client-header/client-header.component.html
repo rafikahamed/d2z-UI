@@ -12,7 +12,8 @@
             <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
           </div>
           <div class="profile_info">
-            <span>Welcome,</span>
+            <span *ngIf="englishFlag">Welcome,</span>
+            <span *ngIf="chinessFlag">欢迎,</span>
             <h2>Chris Denham</h2>
           </div>
         </div>
@@ -96,6 +97,10 @@
                         <li *ngIf="englishFlag"><a routerLink="/manifest/creation">Create Manifest</a></li>
                         <li *ngIf="chinessFlag"><a routerLink="/manifest/creation">创建清单</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a *ngIf="englishFlag" routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
+                    <a *ngIf="chinessFlag" routerLink="/home"><i class="fa fa-sign-out"></i> 登出</a>
                 </li>
                 
                 </ul>
