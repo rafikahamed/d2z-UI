@@ -28,6 +28,7 @@ export class UtilitiesTracking implements OnInit{
   childmenuFive:boolean;
   fileName: string;
   errorMsg: string;
+  user_Id: String;
   successMsg: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
@@ -37,33 +38,15 @@ export class UtilitiesTracking implements OnInit{
   file:File;
   cities2: City[];  
   selectedCity2: City;
+  englishFlag:boolean;
+  chinessFlag:boolean;
+
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService
   ) {
     this.cities2 = [];
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
-    this.gridOptions.columnDefs = [
-      {
-        headerName: "Reference number",
-        field: "refrenceNumber",
-        width: 250,
-        checkboxSelection: true,
-        headerCheckboxSelection: function(params) {
-          return params.columnApi.getRowGroupColumns().length === 0;
-        }
-      },
-      {
-        headerName: "Name",
-        field: "consigneeName",
-        width: 250
-      },
-      {
-        headerName: "Barcode Label Number",
-        field: "barCodeLabelNumber",
-        width: 500
-      }
-    ];
     this.autoGroupColumnDef = {
       headerCheckboxSelection: true,
       cellRenderer: "agGroupCellRenderer",
@@ -82,14 +65,64 @@ export class UtilitiesTracking implements OnInit{
       this.childmenuFour  = false;
       this.childmenuFive = false;
       this.spinner.show();
-      this.consigmentUploadService.fileList( (resp) => {
+      this.user_Id= this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
+      var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
+      this.englishFlag = lanObject.englishFlag;
+      this.chinessFlag = lanObject.chinessFlag;
+      if(this.englishFlag){
+          this.gridOptions.columnDefs = [
+            {
+              headerName: "Reference number",
+              field: "refrenceNumber",
+              width: 250,
+              checkboxSelection: true,
+              headerCheckboxSelection: function(params) {
+                return params.columnApi.getRowGroupColumns().length === 0;
+              }
+            },
+            {
+              headerName: "Name",
+              field: "consigneeName",
+              width: 250
+            },
+            {
+              headerName: "Barcode Label Number",
+              field: "barCodeLabelNumber",
+              width: 500
+            }
+          ]
+      } 
+      if(this.chinessFlag){
+          this.gridOptions.columnDefs = [
+            {
+              headerName: "参考编号",
+              field: "refrenceNumber",
+              width: 250,
+              checkboxSelection: true,
+              headerCheckboxSelection: function(params) {
+                return params.columnApi.getRowGroupColumns().length === 0;
+              }
+            },
+            {
+              headerName: "名称",
+              field: "consigneeName",
+              width: 250
+            },
+            {
+              headerName: "条形码标签号",
+              field: "barCodeLabelNumber",
+              width: 500
+            }
+          ]
+      }
+      this.consigmentUploadService.fileList(this.user_Id, (resp) => {
         this.spinner.hide();
         this.cities2 = resp;
         this.fileName = this.cities2[0].value;
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
-      });
+      })
   }
   
   onFileChange(event){
@@ -120,7 +153,6 @@ export class UtilitiesTracking implements OnInit{
   }
 
   toggle_zebra(arrow) {
-    // debugger
     this.childmenuTwo = !this.childmenuTwo;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -134,7 +166,6 @@ export class UtilitiesTracking implements OnInit{
 
 
   toggle_pdf(arrow) {
-    // debugger
     this.childmenuThree = !this.childmenuThree;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -170,18 +201,6 @@ export class UtilitiesTracking implements OnInit{
     }
   }
 
-  sidebartoggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
-    }
-  }
-
   downloadTracking(){
     var selectedRows = this.gridOptions.api.getSelectedRows();
     if(selectedRows.length > 0 ){
@@ -198,7 +217,11 @@ export class UtilitiesTracking implements OnInit{
           };
         new Angular2Csv(selectedRows, fileName, options);        
       }else{
-        this.errorMsg = "**Please select the below records to download the tracking details";
+        if(this.englishFlag){
+          this.errorMsg = "**Please select the below records to download the tracking details";
+        }else if(this.chinessFlag){
+          this.errorMsg = "**请选择以下记录以下载跟踪详细信息";
+        }
       } 
   } 
 

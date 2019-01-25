@@ -1,6 +1,8 @@
-import { Component, AfterContentChecked, OnInit } from '@angular/core';
+import { Component, AfterContentChecked, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import 'rxjs/add/operator/filter';
 import { LoginService } from 'app/d2z/service/login.service';
 declare var $: any;
@@ -12,13 +14,18 @@ declare const require: any;
   styleUrls: ['./client-home.component.css']
 })
 export class ClientHomeComponent implements OnInit {
-
   childmenuOne: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
   childmenuFour:boolean;
   childmenuFive:boolean;
-  constructor(){}
+  englishFlag:boolean;
+  chinessFlag:boolean;
+
+  constructor(
+    public consigmentUploadService: ConsigmentUploadService,
+    private spinner: NgxSpinnerService
+  ){}
 
   ngOnInit() {
     this.childmenuOne = false;
@@ -26,10 +33,12 @@ export class ClientHomeComponent implements OnInit {
     this.childmenuThree = false;
     this.childmenuFour  = false;
     this.childmenuFive = false;
+    var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
+    this.englishFlag = lanObject.englishFlag;
+    this.chinessFlag = lanObject.chinessFlag;
   }
 
   toggle(arrow) {
-    // debugger
     this.childmenuOne = !this.childmenuOne;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -42,7 +51,6 @@ export class ClientHomeComponent implements OnInit {
   }
 
   toggle_zebra(arrow) {
-    // debugger
     this.childmenuTwo = !this.childmenuTwo;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -54,9 +62,7 @@ export class ClientHomeComponent implements OnInit {
     }
   }
 
-
   toggle_pdf(arrow) {
-    // debugger
     this.childmenuThree = !this.childmenuThree;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';

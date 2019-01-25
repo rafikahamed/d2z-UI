@@ -4,18 +4,16 @@
             
             <client-header> </client-header>
     
-            <!-- page content -->
             <div class="right_col" role="main">
               <div class="row">
-                  <!-- top tiles -->
                   <div class="row tile_count">
                       <div class="page-title">
                               <div class="title_left">
-                                <h3 style="margin-left: 20px;"> Utilities / Tracking Details </h3>
+                                <h3 style="margin-left: 20px" *ngIf="englishFlag"> Utilities / Tracking Details </h3>
+                                <h3 style="margin-left: 20px" *ngIf="chinessFlag"> 公用事业 / 跟踪细节 </h3>
                               </div>
                       </div>
                   </div>
-                  <!-- /top tiles -->
 
                   <div class="col-md-12 track_search_area">
                         <ngx-spinner
@@ -25,28 +23,55 @@
                               loadingText="Loading..."
                               type="ball-clip-rotate-multiple">
                         </ngx-spinner>
+                        
+                        <div>
+                            <p style="color: #ca2929; font-size:14px; font-weight:500;">{{errorMsg}}</p>
+                        </div>
+
                         <div>
                             <p style="color:green; font-size: 14px;font-weight: 500;">{{successMsg}}</p>
                         </div>
-                        <div>
-                          <p style="color: #ca2929; font-size:14px; font-weight:500;">{{errorMsg}}</p>
-                        </div>
+                        
                         <form [formGroup]="trackParcelForm">
-                            <div class="col-md-2" style="font-size: 16px"> Reference Number:</div>
+                            <div class="col-md-2" style="font-size: 16px" *ngIf="englishFlag"> Reference Number: </div>
+                            <div class="col-md-2" style="font-size: 16px" *ngIf="chinessFlag"> 参考编号 : </div>
+
                             <div class="col-md-4"> 
                                 <textarea rows="4" cols="50" style="border: 1px solid #ccc" 
-                                placeholder="you can search 30 items, please provide the reference number in next line" formControlName="trackingNumber">
+                                            *ngIf="englishFlag"
+                                            placeholder="you can search 30 items, please provide the reference number in next line" 
+                                            formControlName="trackingNumber">
+                                </textarea>
+
+                                <textarea rows="4" cols="50" style="border: 1px solid #ccc" 
+                                            *ngIf="chinessFlag"
+                                            placeholder="您可以搜索30个项目，请在下一行提供参考编号" 
+                                            formControlName="trackingNumber">
                                 </textarea>
                             </div>
+
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-info" (click)="trackParcel()"
-                                    style="background-color: #16A085; float:right; margin-top:40px;">
-                                    Search</button>
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                        *ngIf="englishFlag"
+                                        (click)="trackParcel()"
+                                        style="background-color: #16A085; float:right; margin-top:40px;">
+                                        Search
+                                </button>
+
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                        *ngIf="chinessFlag"
+                                        (click)="trackParcel()"
+                                        style="background-color: #16A085; float:right; margin-top:40px;">
+                                        搜索
+                                </button>
                             </div>
                         </form>
                   </div>
 
-                  <h3 class="page-title" style="margin-left: 10px;"> Tracking Events:</h3>
+                  <h3 class="page-title" style="margin-left: 15px" *ngIf="englishFlag"> Tracking Events:</h3>
+                  <h3 class="page-title" style="margin-left: 15px" *ngIf="chinessFlag"> 跟踪事件 :</h3>
 
                   <div class="col-md-12">
                       <div class="track_search">
@@ -54,7 +79,8 @@
                           
                           <p-accordion>
                               <p-accordionTab header={{trackData.referenceNumber}} [selected]="true">
-                                 <h3 style="margin-left:35px"> Bar code Label Number: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
+                                 <h3 style="margin-left:35px" *ngIf="englishFlag"> Bar code Label Number: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
+                                 <h3 style="margin-left:35px" *ngIf="chinessFlag"> 条形码标签号: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
 
                                   <div style="margin-top: -70px; margin-bottom: -70px">
                                       <div id="content">

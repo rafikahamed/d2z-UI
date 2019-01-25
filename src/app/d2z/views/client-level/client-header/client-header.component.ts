@@ -1,6 +1,7 @@
 import { Component, AfterContentChecked, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 declare const require: any;
 
@@ -18,8 +19,11 @@ export class ClientHeaderComponent implements OnInit {
   childmenuFive:boolean;
   englishFlag:boolean;
   chinessFlag:boolean;
-  
-  constructor(){}
+  userName: String;
+
+  constructor(
+    public consigmentUploadService: ConsigmentUploadService
+  ){}
 
   ngOnInit() {
     this.childmenuOne = false;
@@ -27,12 +31,13 @@ export class ClientHeaderComponent implements OnInit {
     this.childmenuThree = false;
     this.childmenuFour  = false;
     this.childmenuFive = false;
-    this.englishFlag = true;
-    this.chinessFlag = false;
+    this.userName =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';
+    var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
+    this.englishFlag = lanObject.englishFlag;
+    this.chinessFlag = lanObject.chinessFlag;
   }
 
   toggle(arrow) {
-    // debugger
     this.childmenuOne = !this.childmenuOne;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -45,7 +50,6 @@ export class ClientHeaderComponent implements OnInit {
   }
 
   toggle_zebra(arrow) {
-    // debugger
     this.childmenuTwo = !this.childmenuTwo;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -59,7 +63,6 @@ export class ClientHeaderComponent implements OnInit {
 
 
   toggle_pdf(arrow) {
-    // debugger
     this.childmenuThree = !this.childmenuThree;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
@@ -96,15 +99,19 @@ export class ClientHeaderComponent implements OnInit {
   }
 
   englishVer(){
-    console.log("English Version Clicked")
+    var lanFlag = "english";
     this.englishFlag = true;
     this.chinessFlag = false;
+    var englishObj = { "englishFlag":true, "chinessFlag":false }
+    this.consigmentUploadService.versionFlag(englishObj);
   }
 
   chinessVer(){
-    console.log("Chiness Version Clicked")
-    this.englishFlag = false;
+    var lanFlag = "chiness";
     this.chinessFlag = true;
+    this.englishFlag = false;
+    var chinessObj = { "englishFlag":false, "chinessFlag":true }
+    this.consigmentUploadService.versionFlag(chinessObj);
   }
 
 }

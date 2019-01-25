@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
@@ -12,12 +13,25 @@ const baseUrl = "https://www.d2z.com.au/v1/d2z";
 export class ConsigmentUploadService implements OnInit{
   public newUserSubject = new Subject<any>();
   userMessage: userMessage;
+  englishFlag:boolean;
+  chinessFlag:boolean;
+
+  private messageSource = new BehaviorSubject({"englishFlag":true, "chinessFlag":false});
+  currentMessage = this.messageSource.asObservable();
+
   constructor(
       private http: HttpClient, 
       private router: Router
   ){}
 
-  ngOnInit(){}
+  versionFlag(message) {
+    this.messageSource.next(message)
+  }
+
+  ngOnInit(){
+    this.englishFlag = true;
+    this.chinessFlag = false;
+  }
 
   getLoginDetails(data){
     this.userMessage = data;
@@ -30,7 +44,6 @@ export class ConsigmentUploadService implements OnInit{
     }).subscribe((resp) => {
       callback(resp);
       if (resp) {
-        
       } else {
         console.error("Not Found!")
       }
@@ -52,9 +65,20 @@ export class ConsigmentUploadService implements OnInit{
     });
   }
 
-  fileList(callback): any {
-    this.http.get(baseUrl+'/consignment-fileList'
-    ).subscribe((resp) => {
+  fileList(userId, callback): any {
+    this.http.get(baseUrl+'/consignment-fileList',{
+      params: { userId: userId  }
+    }).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  labelFileList(userId, callback): any {
+    this.http.get(baseUrl+'/label-fileList',{
+      params: { userId: userId  }
+    }).subscribe((resp) => {
       callback(resp);
     }, (error) => {
       console.error(error);
@@ -143,5 +167,9 @@ export interface userMessage {
   serviceType,
   contactPhoneNumber,
   role_Id,
-  companyName
+  companyName,
+  user_id
 }
+
+
+

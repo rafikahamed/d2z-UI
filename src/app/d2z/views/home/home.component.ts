@@ -96,13 +96,15 @@ export class HomeComponent implements OnInit{
             this.consigmentUploadService.getLoginDetails(this.userMessage);
         }
         this.userMessage = resp;
+        this.consigmentUploadService.getLoginDetails(resp);
         setTimeout(() => {
         }, 5000);
       })
+      $('#myModal').modal('toggle');
     }else{
       this.errorMsg = "Form is invalid";
     }
-    $('#myModal').modal('toggle');
+   
   }
 }
 

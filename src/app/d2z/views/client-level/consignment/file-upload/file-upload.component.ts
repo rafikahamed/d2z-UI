@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
+import { isDifferent } from '@angular/core/src/render3/util';
 declare var $: any;
 
 @Component({
@@ -16,6 +17,7 @@ declare var $: any;
   styleUrls: ['./file-upload.component.css']
 })
 export class ZebraFileUpload implements OnInit{
+    
     private gridOptions: GridOptions;
     private autoGroupColumnDef;
     private rowGroupPanelShow;
@@ -24,6 +26,7 @@ export class ZebraFileUpload implements OnInit{
     successMsg: String;
     show: Boolean;
     errorMsg: String;
+    userMessage: userMessage;
     errorDetails: any[];
     errorDetails1: String;
     file:File;
@@ -34,10 +37,13 @@ export class ZebraFileUpload implements OnInit{
     childmenuFour:boolean;
     childmenuFive:boolean;
     public importList = [];
+    englishFlag:boolean;
+    chinessFlag:boolean;
     FileHeading = ['Reference number', 'Consignee Company', 'Consignee Name', 'Consignee Address', 'Consignee Suburb', 'Consignee State', 'Consignee Postcode',
                    'Consignee Phone', 'Product Description', 'Value', 'Currency', 'Shipped Quantity', 'Weight', 'Dim_X', 'Dim_Y',
                    'Dim_Z', 'Service type', 'Shipper Name', 'Shipper Address', 'Shipper City', 'Shipper State', 'Shipper Postcode',
                    'Shipper Country'];
+    
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
       private spinner: NgxSpinnerService
@@ -46,127 +52,6 @@ export class ZebraFileUpload implements OnInit{
       this.errorMsg = null;
       this.show = false;
       this.gridOptions = <GridOptions>{rowSelection: "multiple"};
-      this.gridOptions.columnDefs = [
-        {
-          headerName: "Reference number",
-          field: "referenceNumber",
-          width: 180,
-          checkboxSelection: true,
-          headerCheckboxSelection: function(params) {
-            return params.columnApi.getRowGroupColumns().length === 0;
-          }
-        },
-        {
-          headerName: "Consignee Company",
-          field: "consigneeCompany",
-          width: 180
-        },
-        {
-          headerName: "Consignee Name",
-          field: "consigneeName",
-          width: 150
-        },
-        {
-          headerName: "Consignee Address",
-          field: "consigneeAddr1",
-          width: 200
-        },
-        {
-          headerName: "Consignee Suburb",
-          field: "consigneeSuburb",
-          width: 150
-        },
-        {
-          headerName: "Consignee State",
-          field: "consigneeState",
-          width: 150
-        },
-        {
-          headerName: "Consignee Postcode",
-          field: "consigneePostcode",
-          width: 150
-        },
-        {
-          headerName: "Consignee Phone",
-          field: "consigneePhone",
-          width: 150
-        },
-        {
-          headerName: "Product Description",
-          field: "productDescription",
-          width: 160
-        },
-        {
-          headerName: "Value",
-          field: "value",
-          width: 100
-        },
-        {
-          headerName: "Currency",
-          field: "currency",
-          width: 100
-        },
-        {
-          headerName: "Shipped Quantity",
-          field: "shippedQuantity",
-          width: 150
-        },
-        {
-          headerName: "Weight",
-          field: "weight",
-          width: 100
-        },
-        {
-          headerName: "Dim_X",
-          field: "dimensionsLength",
-          width: 100
-        },
-        {
-          headerName: "Dim_Y",
-          field: "dimensionsWidth",
-          width: 100
-        },
-        {
-          headerName: "Dim_Z",
-          field: "dimensionsHeight",
-          width: 100
-        },
-        {
-          headerName: "Service type",
-          field: "serviceType",
-          width: 140
-        },
-        {
-          headerName: "Shipper Name",
-          field: "shipperName",
-          width: 140
-        },
-        {
-          headerName: "Shipper Address",
-          field: "shipperAddr1",
-          width: 140
-        },
-        {
-          headerName: "Shipper City",
-          field: "shipperCity",
-          width: 140
-        },
-        {
-          headerName: "Shipper State",
-          field: "shipperState",
-          width: 140
-        },
-        {
-          headerName: "Shipper Postcode",
-          field: "shipperPostcode",
-          width: 160
-        },
-        {
-          headerName: "Shipper Country",
-          field: "shipperCountry",
-          width: 140
-        }
-      ];
       this.autoGroupColumnDef = {
         headerCheckboxSelection: true,
         cellRenderer: "agGroupCellRenderer",
@@ -177,8 +62,266 @@ export class ZebraFileUpload implements OnInit{
         editable: true
       };
     }
+
+    ngOnInit(){
+      this.childmenuOne = false;
+      this.childmenuTwo = false;
+      this.childmenuThree = false;
+      this.childmenuFour  = false;
+      this.childmenuFive = false;
+      this.userMessage = this.consigmentUploadService.userMessage;
+      var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
+      this.englishFlag = lanObject.englishFlag;
+      this.chinessFlag = lanObject.chinessFlag;
+      if(this.englishFlag){
+        this.gridOptions.columnDefs = [
+          {
+            headerName: "Reference number",
+            field: "referenceNumber",
+            width: 180,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+          },
+          {
+            headerName: "Consignee Company",
+            field: "consigneeCompany",
+            width: 180
+          },
+          {
+            headerName: "Consignee Name",
+            field: "consigneeName",
+            width: 150
+          },
+          {
+            headerName: "Consignee Address",
+            field: "consigneeAddr1",
+            width: 200
+          },
+          {
+            headerName: "Consignee Suburb",
+            field: "consigneeSuburb",
+            width: 150
+          },
+          {
+            headerName: "Consignee State",
+            field: "consigneeState",
+            width: 150
+          },
+          {
+            headerName: "Consignee Postcode",
+            field: "consigneePostcode",
+            width: 150
+          },
+          {
+            headerName: "Consignee Phone",
+            field: "consigneePhone",
+            width: 150
+          },
+          {
+            headerName: "Product Description",
+            field: "productDescription",
+            width: 160
+          },
+          {
+            headerName: "Value",
+            field: "value",
+            width: 100
+          },
+          {
+            headerName: "Currency",
+            field: "currency",
+            width: 100
+          },
+          {
+            headerName: "Shipped Quantity",
+            field: "shippedQuantity",
+            width: 150
+          },
+          {
+            headerName: "Weight",
+            field: "weight",
+            width: 100
+          },
+          {
+            headerName: "Dim_X",
+            field: "dimensionsLength",
+            width: 100
+          },
+          {
+            headerName: "Dim_Y",
+            field: "dimensionsWidth",
+            width: 100
+          },
+          {
+            headerName: "Dim_Z",
+            field: "dimensionsHeight",
+            width: 100
+          },
+          {
+            headerName: "Service type",
+            field: "serviceType",
+            width: 140
+          },
+          {
+            headerName: "Shipper Name",
+            field: "shipperName",
+            width: 140
+          },
+          {
+            headerName: "Shipper Address",
+            field: "shipperAddr1",
+            width: 140
+          },
+          {
+            headerName: "Shipper City",
+            field: "shipperCity",
+            width: 140
+          },
+          {
+            headerName: "Shipper State",
+            field: "shipperState",
+            width: 140
+          },
+          {
+            headerName: "Shipper Postcode",
+            field: "shipperPostcode",
+            width: 160
+          },
+          {
+            headerName: "Shipper Country",
+            field: "shipperCountry",
+            width: 140
+          }
+        ]   
+      }
+      if(this.chinessFlag){
+        this.gridOptions.columnDefs = [
+          {
+            headerName: "参考编号",
+            field: "referenceNumber",
+            width: 180,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+          },
+          {
+            headerName: "收货人公司",
+            field: "consigneeCompany",
+            width: 180
+          },
+          {
+            headerName: "收货人姓名 ",
+            field: "consigneeName",
+            width: 150
+          },
+          {
+            headerName: "收货人地址",
+            field: "consigneeAddr1",
+            width: 200
+          },
+          {
+            headerName: "收货人郊区",
+            field: "consigneeSuburb",
+            width: 150
+          },
+          {
+            headerName: "收货人国",
+            field: "consigneeState",
+            width: 150
+          },
+          {
+            headerName: "收货人邮政编码",
+            field: "consigneePostcode",
+            width: 150
+          },
+          {
+            headerName: "收货人电话",
+            field: "consigneePhone",
+            width: 150
+          },
+          {
+            headerName: "产品描述",
+            field: "productDescription",
+            width: 160
+          },
+          {
+            headerName: "值",
+            field: "value",
+            width: 100
+          },
+          {
+            headerName: "货币",
+            field: "currency",
+            width: 100
+          },
+          {
+            headerName: "装运数量",
+            field: "shippedQuantity",
+            width: 150
+          },
+          {
+            headerName: "重量",
+            field: "weight",
+            width: 100
+          },
+          {
+            headerName: "昏暗的X.",
+            field: "dimensionsLength",
+            width: 100
+          },
+          {
+            headerName: "昏暗的Y.",
+            field: "dimensionsWidth",
+            width: 100
+          },
+          {
+            headerName: "昏暗的Z.",
+            field: "dimensionsHeight",
+            width: 100
+          },
+          {
+            headerName: "服务类型",
+            field: "serviceType",
+            width: 140
+          },
+          {
+            headerName: "托运人姓名",
+            field: "shipperName",
+            width: 140
+          },
+          {
+            headerName: "托运人地址",
+            field: "shipperAddr1",
+            width: 140
+          },
+          {
+            headerName: "托运人城市",
+            field: "shipperCity",
+            width: 140
+          },
+          {
+            headerName: "托运人国家",
+            field: "shipperState",
+            width: 140
+          },
+          {
+            headerName: "托运人邮政编码",
+            field: "shipperPostcode",
+            width: 160
+          },
+          {
+            headerName: "托运人国家",
+            field: "shipperCountry",
+            width: 140
+          }
+        ] 
+      }
+    }
     
-    zibraExport() {
+    fileExport() {
       var worksheet;
       this.errorMsg = null;
       let fileReader = new FileReader();
@@ -209,6 +352,7 @@ export class ZebraFileUpload implements OnInit{
         let fileName = 'fileName';
         let currency = 'currency';
         let consigneeCompany = 'consigneeCompany';
+        let userID = 'userID';
 
         var today = new Date();
         var day = today.getDate() + "";
@@ -233,8 +377,8 @@ export class ZebraFileUpload implements OnInit{
         }
         var dateString = year+month+day+"-"+hour+minutes+seconds;
 
-      fileReader.onload = (e) => {
-          this.arrayBuffer = fileReader.result;
+        fileReader.onload = (e) => {
+            this.arrayBuffer = fileReader.result;
             var data = new Uint8Array(this.arrayBuffer);
             var arr = new Array();
             for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
@@ -245,7 +389,6 @@ export class ZebraFileUpload implements OnInit{
             var exportData = XLSX.utils.sheet_to_json(worksheet);
             for (var importVal in exportData) {
               var dataObj = exportData[importVal];
-              console.log(dataObj)
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
                 if(!this.FileHeading.includes(keyVal)){
@@ -283,7 +426,8 @@ export class ZebraFileUpload implements OnInit{
                   importObj[shipperState]= dataObj['Shipper State'] != undefined ? dataObj['Shipper State'] : '', importObj,
                   importObj[shipperPostcode]= dataObj['Shipper Postcode'] != undefined ? dataObj['Shipper Postcode'] : '',  importObj,
                   importObj[shipperCountry]= dataObj['Shipper Country'] != undefined ? dataObj['Shipper Country'] : '',  importObj,
-                  importObj[fileName]= this.file.name+'-'+dateString, importObj
+                  importObj[fileName]= this.file.name+'-'+dateString, importObj,
+                  importObj[userID]= this.consigmentUploadService.userMessage.user_id, importObj
               );
               this.importList.push(importObj)
               this.rowData = this.importList;
@@ -292,7 +436,7 @@ export class ZebraFileUpload implements OnInit{
         }
     }
 
-    zibraUpload(){
+    fileUpload(){
       var selectedRows = this.gridOptions.api.getSelectedRows();
       this.errorMsg = '';
       this.successMsg = '';
@@ -317,8 +461,18 @@ export class ZebraFileUpload implements OnInit{
           }, 5000);
         })
       }else{
-         this.errorMsg = "**Please select the below records to upload the file into D2Z system";
+        if(this.englishFlag){
+          this.errorMsg = "**Please select the below records to upload the file into D2Z system";
+        }else if(this.chinessFlag){
+          this.errorMsg = "**请选择以下记录将文件上传到D2Z系统";
+        }
       }
+    }
+
+    clearUpload(){
+      $("#congFileControl").val('');
+      this.rowData = [];
+      this.importList = [];
     }
 
     downLoad(){
@@ -342,14 +496,6 @@ export class ZebraFileUpload implements OnInit{
     }
 
      new Angular2Csv(refernceNumberList, fileName, options);
-    }
-
-    ngOnInit() {
-      this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
     }
   
     toggle(arrow) {
@@ -411,23 +557,11 @@ export class ZebraFileUpload implements OnInit{
         arrow.className = 'fa fa-chevron-down';
       }
     }
-  
-    sidebartoggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'nav-md') {
-        arrow.className = '';
-        arrow.className = 'nav-sm';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'nav-md';
-      }
-    }
 
     incomingfile(event) {
       this.rowData = [];
       this.file = event.target.files[0]; 
-      this.zibraExport();
+      this.fileExport();
     }
 
     onSelectionChange() {
@@ -435,5 +569,20 @@ export class ZebraFileUpload implements OnInit{
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
     }
- 
+}
+
+export interface userMessage {
+  contactName,
+  address,
+  suburb,
+  state,
+  postCode,
+  country,
+  emailAddress,
+  userName,
+  serviceType,
+  contactPhoneNumber,
+  role_Id,
+  companyName,
+  user_id
 }

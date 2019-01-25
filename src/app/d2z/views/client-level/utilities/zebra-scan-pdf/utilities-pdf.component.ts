@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
@@ -20,9 +21,13 @@ export class UtilitiesScanPdf implements OnInit{
     childmenuFive:boolean;
     errorMsg: string;
     successMsg: String;
+    englishFlag:boolean;
+    chinessFlag:boolean;
+
     constructor(
       public trackingDataService: TrackingDataService,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+      public consigmentUploadService: ConsigmentUploadService
     ) {
       this.trackingPrintForm = new FormGroup({
         refBarNum: new FormControl()
@@ -35,6 +40,9 @@ export class UtilitiesScanPdf implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
+      var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
+      this.englishFlag = lanObject.englishFlag;
+      this.chinessFlag = lanObject.chinessFlag;
     }
 
     downloadLable(){
@@ -63,14 +71,17 @@ export class UtilitiesScanPdf implements OnInit{
                 }, 5000);
               })
             }else{
-              that.errorMsg = '*Please enter the reference or bar code label number to generate the PDF';
+              if(that.englishFlag){
+                that.errorMsg = '*Please enter the reference or bar code label number to generate the PDF';
+              }else if(that.chinessFlag){
+                that.errorMsg = '*请输入参考或条形码标签号以生成PDF';
+              }
             }
           }
       }
     }
   
     toggle(arrow) {
-      // debugger
       this.childmenuOne = !this.childmenuOne;
       if (arrow.className === 'fa fa-chevron-down') {
         arrow.className = '';
@@ -83,7 +94,6 @@ export class UtilitiesScanPdf implements OnInit{
     }
   
     toggle_zebra(arrow) {
-      // debugger
       this.childmenuTwo = !this.childmenuTwo;
       if (arrow.className === 'fa fa-chevron-down') {
         arrow.className = '';
@@ -97,7 +107,6 @@ export class UtilitiesScanPdf implements OnInit{
   
   
     toggle_pdf(arrow) {
-      // debugger
       this.childmenuThree = !this.childmenuThree;
       if (arrow.className === 'fa fa-chevron-down') {
         arrow.className = '';
@@ -130,18 +139,6 @@ export class UtilitiesScanPdf implements OnInit{
       else {
         arrow.className = '';
         arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    sidebartoggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'nav-md') {
-        arrow.className = '';
-        arrow.className = 'nav-sm';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'nav-md';
       }
     }
  

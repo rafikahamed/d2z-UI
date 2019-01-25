@@ -4,29 +4,45 @@
            
             <client-header> </client-header>
     
-            <!-- page content -->
             <div class="right_col" role="main">
-                  <!-- top tiles -->
                   <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
-                                  <h3 style="margin-left: 10px;"> Utilities / Tracking Details </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="englishFlag"> Utilities / Tracking Details </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 公用事业 / 跟踪细节 </h3>
                                 </div>
                         </div>
                   </div>
                   
                   <div class="downlaodtrack_search">
                       <div>
-                        <p style="float: left"> Select File to tarck the details: </p>
+                        <p style="float: left" *ngIf="englishFlag"> Select File to tarck the details: </p>
+                        <p style="float: left" *ngIf="chinessFlag"> 选择“文件”以查看详细信息 : </p>
 
                         <div style="margin-left:20px; float: left">
-                          <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name" 
-                          (onChange)="onFileChange($event)">
-                          </p-dropdown>
+                              <p-dropdown 
+                                  [options]="cities2" 
+                                  [(ngModel)]="selectedCity2" 
+                                  optionLabel="name" 
+                                  (onChange)="onFileChange($event)">
+                              </p-dropdown>
                         </div>
 
-                        <button type="button" class="btn btn-info" (click)="trackingList()"
-                                style="background-color: #16A085; margin-left:30px">Search</button>
+                        <button type="button" 
+                                class="btn btn-info"
+                                *ngIf="englishFlag" 
+                                (click)="trackingList()"
+                                style="background-color: #16A085; margin-left:30px">
+                                Search
+                        </button>
+
+                        <button type="button" 
+                                class="btn btn-info" 
+                                (click)="trackingList()"
+                                *ngIf="chinessFlag"
+                                style="background-color: #16A085; margin-left:30px">
+                                搜索
+                        </button>
 
                       </div>
                   </div>
@@ -45,16 +61,29 @@
                       </div>
 
                       <div>
-                          <p style="color: #ca2929; font-size:15px; font-weight:500;">{{errorMsg}}</p>
+                          <p style="color: #ca2929; font-size:15px; font-weight:500; padding:0px 20px">{{errorMsg}}</p>
                       </div>
                      
-                      <button type="button" class="btn btn-info" (click)="downloadTracking()"
-                          style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
-                          Download Tracking Details</button>
+                      <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="englishFlag" 
+                              (click)="downloadTracking()"
+                              style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                              Download Tracking Details
+                      </button>
+
+                      <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="chinessFlag"
+                              (click)="downloadTracking()"
+                              style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                              下载追踪详情
+                      </button>
     
                       <div style="padding:20px">
                           
-                        <p> Please select the below records to download the tracking details </p>
+                        <p *ngIf="englishFlag"> Please select the below records to download the tracking details </p>
+                        <p *ngIf="chinessFlag"> 请选择以下记录以下载跟踪详细信息 </p>
                         
                           <div>
                               <ag-grid-angular 
@@ -80,28 +109,23 @@
                               </ag-grid-angular>
                           </div>
                       </div>
-    
                   </div>
-                <!-- /top tiles -->
             </div>
 
-            <!-- Start Footer -->
             <footer id="footer" class="wow fadeIn">
-                <!-- Copyright -->
                 <div class="copyright">
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="text">
-                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                          <p *ngIf="englishFlag">&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                          <p *ngIf="chinessFlag">&copy; 版权 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (分销商)</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!--/ End Copyright -->
             </footer>
-            <!--/ End Footer -->
 
           </div>
         </div>

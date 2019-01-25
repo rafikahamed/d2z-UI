@@ -9,23 +9,41 @@
                   <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
-                                  <h3 style="margin-left: 10px;"> Consignment / Delete </h3>
+                                  <h3 style="margin-left: 10px;" *ngIf="englishFlag"> Consignment / Delete </h3>
+                                  <h3 style="margin-left: 10px;" *ngIf="chinessFlag"> 寄售 / 删除 </h3>
                                 </div>
                         </div>
                   </div>
                   
                   <div class="delete_search">
                       <div>
-                        <p style="float:left;margin-top:5px"> Select File To Delete Consignment : </p>
+                        <p style="float:left;margin-top:5px" *ngIf="englishFlag"> Select File To Delete Consignment : </p>
+                        <p style="float:left;margin-top:5px" *ngIf="chinessFlag"> 选择要删除寄售的文件 : </p>
 
                         <div style="margin-left:20px; float: left">
-                          <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name" 
-                          (onChange)="onFileChange($event)">
-                          </p-dropdown>
+                            <p-dropdown 
+                              [options]="cities2" 
+                              [(ngModel)]="selectedCity2" 
+                              optionLabel="name" 
+                              (onChange)="onFileChange($event)">
+                            </p-dropdown>
                         </div>
 
-                        <button type="button" class="btn btn-info" (click)="zibraSearch()"
-                                style="background-color: #16A085; margin-left:30px">Search</button>
+                        <button type="button" 
+                                class="btn btn-info" 
+                                (click)="zibraSearch()"
+                                *ngIf="englishFlag"
+                                style="background-color: #16A085; margin-left:30px">
+                                Search
+                        </button>
+
+                        <button type="button" 
+                                class="btn btn-info" 
+                                (click)="zibraSearch()"
+                                *ngIf="chinessFlag"
+                                style="background-color: #16A085; margin-left:30px">
+                                搜索
+                        </button>
 
                       </div>
                   </div>
@@ -47,16 +65,30 @@
                                 <p class="err_msg">{{errorMsg}}</p>
                         </div>
                      
-                      <button type="button" class="btn btn-info" (click)="deleteLabels()"
-                          style="background-color: #16A085; float:right; margin-right:20px">Delete Consignment</button>
+                      <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="englishFlag"
+                              (click)="deleteLabels()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              Delete Consignment
+                      </button>
+
+                      <button type="button" 
+                              class="btn btn-info" 
+                              (click)="deleteLabels()"
+                              *ngIf="chinessFlag"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              删除寄售
+                      </button>
     
                       <div style="padding:20px">
                           
-                        <p> Please select the below records to delete the entry from D2Z System </p>
+                        <p *ngIf="englishFlag"> Please select the below records to delete the entry from D2Z System </p>
+                        <p *ngIf="chinessFlag"> 请选择以下记录以从D2Z系统中删除条目 </p>
                         
                           <div>
                               <ag-grid-angular 
-                                        #agGrid style="width: 100%; height: 450px;" 
+                                        #agGrid style="width:100%; height:500px" 
                                         class="ag-theme-balham" 
                                         [autoGroupColumnDef]="autoGroupColumnDef"
                                         [rowData]="rowData"
@@ -82,23 +114,20 @@
                   </div>
             </div>
 
-            <!-- Start Footer -->
             <footer id="footer" class="wow fadeIn">
-                <!-- Copyright -->
                 <div class="copyright">
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="text">
-                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                          <p *ngIf="englishFlag">&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                          <p *ngIf="chinessFlag">&copy; 版权 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (分销商)</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!--/ End Copyright -->
             </footer>
-             <!--/ End Footer -->
 
           </div>
         </div>

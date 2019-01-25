@@ -4,12 +4,12 @@
            
            <client-header> </client-header>
     
-           <!-- page content -->
            <div class="right_col" role="main">
               <div class="row tile_count">
                     <div class="page-title">
                             <div class="title_left">
-                              <h3 style="margin-left: 10px;"> Utilities / Zebra Scan PDF </h3>
+                              <h3 style="margin-left: 10px" *ngIf="englishFlag"> Utilities / Zebra Scan PDF </h3>
+                              <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 公用事业 / 斑马扫描PDF </h3>
                             </div>
                     </div>
               </div>
@@ -33,16 +33,22 @@
 
                   <form [formGroup]="trackingPrintForm">
                     <div class="row">
-                      <div class="col-md-4" style="font-size: 16px"> BarCode Label or Reference Number:</div>
+                      <div class="col-md-4" 
+                            *ngIf="englishFlag"
+                            style="font-size: 16px"> 
+                            BarCode Label or Reference Number :
+                      </div>
+
+                      <div class="col-md-4"
+                            *ngIf="chinessFlag"
+                            style="font-size: 16px"> 
+                            条形码标签 要么 参考编号 :
+                      </div>
+
                       <div class="col-md-4"> 
                           <textarea rows="4" cols="50" id="pdf-Util" style="border: 1px solid #ccc" formControlName="refBarNum"
                           (input)="downloadLable()"></textarea>
                       </div>
-                      <!-- <div class="col-md-2">
-                          <button type="button" class="btn btn-info" (click)="downloadLable()"
-                              style="background-color: #16A085; float:right; margin-top: 40px;">
-                              Download Labels</button>
-                      </div> -->
                     </div>
                   </form>
                 

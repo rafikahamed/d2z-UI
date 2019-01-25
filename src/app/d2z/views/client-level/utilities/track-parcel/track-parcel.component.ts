@@ -5,6 +5,7 @@ import { LoginService } from 'app/d2z/service/login.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {AccordionModule} from 'primeng/accordion';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 
 @Component({
@@ -23,9 +24,13 @@ export class UtilitiesTrackParcel implements OnInit{
     errorMsg: string;
     successMsg: String;
     trackEvents:TrackEvent[];
+    englishFlag:boolean;
+    chinessFlag:boolean;
+
     constructor(
       private spinner: NgxSpinnerService,
-      public trackingDataService : TrackingDataService
+      public trackingDataService : TrackingDataService,
+      public consigmentUploadService: ConsigmentUploadService
     ) {
       this.trackParcelForm = new FormGroup({
         trackingNumber: new FormControl()
@@ -38,6 +43,9 @@ export class UtilitiesTrackParcel implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
+      var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
+      this.englishFlag = lanObject.englishFlag;
+      this.chinessFlag = lanObject.chinessFlag;
     }
   
     toggle(arrow) {

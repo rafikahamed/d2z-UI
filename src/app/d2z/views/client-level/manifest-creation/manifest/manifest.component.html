@@ -4,12 +4,12 @@
             
             <client-header> </client-header>
 
-            <!-- page content -->
             <div class="right_col" role="main">
                   <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
-                                  <h3 style="margin-left: 10px;"> Manifest / Creation </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="englishFlag"> Manifest / Creation </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 表现 / 创建 </h3>
                                 </div>
                         </div>
                   </div>
@@ -17,26 +17,52 @@
                   <div class="manifest_search">
                       <div>
                         <form [formGroup]="manifestForm">
-                            <p style="float:left"> Select File To Update the Manifest : </p>
+                            <p style="float:left; margin-top:5px" *ngIf="englishFlag"> Select File To Update the Manifest : </p>
+                            <p style="float:left; margin-top:5px" *ngIf="chinessFlag"> 选择“文件”以更新清单 : </p>
                           
                             <div style="margin-left:20px; float: left">
-                              <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name" 
-                              (onChange)="onFileChange($event)" formControlName="manifestFile">
+                              <p-dropdown 
+                                    [options]="cities2" 
+                                    [(ngModel)]="selectedCity2" 
+                                    optionLabel="name" 
+                                    (onChange)="onFileChange($event)" 
+                                    formControlName="manifestFile">
                               </p-dropdown>
                             </div>
       
                             <div class="ui-g-6 ui-md-2">
                                 <div class="ui-inputgroup">
-                                    <input type="text" pInputText placeholder="Manifest Number" class="input-text"
-                                        formControlName="manifestNumber">   
-                                    <button pButton type="button" icon="fa fa-superpowers" class="ui-button-warn">
-                                    </button>      
+                                    <input type="text" 
+                                            pInputText 
+                                            *ngIf="englishFlag"
+                                            placeholder="Manifest Number" 
+                                            class="input-text"
+                                            formControlName="manifestNumber">   
+                                    <input type="text" 
+                                            pInputText 
+                                            *ngIf="chinessFlag"
+                                            placeholder="清单号" 
+                                            class="input-text"
+                                            formControlName="manifestNumber">   
                                 </div>
                             </div>                          
                             
                             <div>
-                                <button type="button" class="btn btn-info" (click)="manifestSearch()"
-                                        style="background-color: #16A085; margin-left:30px">Search</button>
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                        *ngIf="englishFlag"
+                                        (click)="manifestSearch()"
+                                        style="background-color: #16A085; margin-left:30px">
+                                        Search
+                                </button>
+
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                        *ngIf="chinessFlag"
+                                        (click)="manifestSearch()"
+                                        style="background-color: #16A085; margin-left:30px">
+                                        搜索
+                                </button>
                             </div>
                         </form>
                       </div>
@@ -61,16 +87,28 @@
                             </div>
                       </div>
 
-                      <button type="button" class="btn btn-info" (click)="manifestCreation()"
-                          style="background-color: #16A085; float:right; margin-right:20px">
-                          Manifest Allocation
+                      <button type="button" 
+                                class="btn btn-info"
+                                *ngIf="englishFlag" 
+                                (click)="manifestCreation()"
+                                style="background-color: #16A085; float:right; margin-right:20px">
+                                 Manifest Allocation
+                      </button>
+
+                      <button type="button" 
+                                class="btn btn-info" 
+                                *ngIf="chinessFlag"
+                                (click)="manifestCreation()"
+                                style="background-color: #16A085; float:right; margin-right:20px">
+                                清单分配
                       </button>
     
                       <div style="padding:20px">
-                        <p> Please select the below records to update the manifest entry on D2Z System </p>
+                        <p *ngIf="englishFlag"> Please select the below records to update the manifest entry on D2Z System </p>
+                        <p *ngIf="chinessFlag"> 请选择以下记录以更新D2Z系统上的清单条目 </p>
                           <div>
                               <ag-grid-angular 
-                                        #agGrid style="width: 100%; height: 450px;" 
+                                        #agGrid style="width: 100%; height: 500px;" 
                                         class="ag-theme-balham" 
                                         [autoGroupColumnDef]="autoGroupColumnDef"
                                         [rowData]="rowData"
@@ -93,26 +131,22 @@
                           </div>
                       </div>
                   </div>
-                  <!-- /top tiles -->    
             </div>
 
-            <!-- Start Footer -->
             <footer id="footer" class="wow fadeIn">
-                <!-- Copyright -->
-                <div class="copyright">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="text">
-                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                    <div class="copyright">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="text">
+                              <p *ngIf="englishFlag">&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                              <p *ngIf="chinessFlag">&copy; 版权 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (分销商)</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <!--/ End Copyright -->
             </footer>
-             <!--/ End Footer -->
 
           </div>
         </div>

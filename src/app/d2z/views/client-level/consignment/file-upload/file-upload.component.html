@@ -3,21 +3,18 @@
           <div class="main_container">
             
             <client-header> </client-header>
-
-            <!-- page content -->
+            
             <div class="right_col" role="main">
-              <!-- top tiles -->
               <div class="row tile_count">
                     <div class="page-title">
                             <div class="title_left">
-                              <h3 style="margin-left: 10px;">Consignment / File Upload</h3>
+                              <h3 style="margin-left: 10px;" *ngIf="englishFlag">Consignment / File Upload</h3>
+                              <h3 style="margin-left: 10px;" *ngIf="chinessFlag">寄售 / 上传文件 </h3>
                             </div>
                     </div>
               </div>
-              <!-- /top tiles -->
             </div>
-
-            <!-- page content -->
+             
             <div class="right_col" role="main">
             
               <ngx-spinner
@@ -56,21 +53,54 @@
 
               <div class="fileupload_search">
                   <div style="padding-right: 15px; margin-bottom:40px">
-                      <a href="/assets/forms/D2Z Upload File.xlsx" class="fa fa-file-excel-o" 
-                          style="color: darkgreen; font-size:17px; float: left;" download>
+                      <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File.xlsx" class="fa fa-file-excel-o" 
+                              style="color: darkgreen; font-size:17px; float: left;" download>
                                 **Please click here to download the template for File Upload
                       </a>
 
-                      <a href="/assets/forms/D2Z Upload File Sample Data.xlsx" class="fa fa-file-excel-o" 
-                      style="color: darkgreen; font-size:17px; float: right;" download>
-                            **Please click here to download the sample Upload File
+                      <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload File.xlsx" class="fa fa-file-excel-o" 
+                              style="color: darkgreen; font-size:17px; float: left;" download>
+                                **请单击此处下载文件上载模板
+                      </a>
+
+                      <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File Sample Data.xlsx" class="fa fa-file-excel-o" 
+                              style="color: darkgreen; font-size:17px; float: right;" download>
+                                **Please click here to download the sample Upload File
+                      </a>
+
+                      <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload File Sample Data.xlsx" class="fa fa-file-excel-o" 
+                              style="color: darkgreen; font-size:17px; float: right;" download>
+                                **请单击此处下载示例上载文件
                       </a>
                   </div>
 
                   <div>
-                    <p style="float: left"> Select File : </p>
-                    <input type="file" style="display: inline-block; margin-left:25px" (change)="incomingfile($event)" 
-                                  placeholder="Upload file" accept=".xlsx">
+                    <p style="float: left" *ngIf="englishFlag"> Select File : </p>
+                    <p style="float: left" *ngIf="chinessFlag"> 选择文件 : </p>
+                    
+                    <input type="file" 
+                              style="margin-left:25px; float:left" 
+                              (change)="incomingfile($event)" 
+                              id="congFileControl"
+                              placeholder="Upload file" 
+                              accept=".xlsx">
+
+                    <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="englishFlag"
+                              (click)="clearUpload()"
+                              style="background-color: #16A085; float:left; margin-left: 30px; margin-top:-7px">
+                              Refresh
+                    </button>
+
+                    <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="chinessFlag" 
+                              (click)="clearUpload()"
+                              style="background-color: #16A085; float:left; margin-left: 30px; margin-top:-7px">
+                              刷新
+                    </button>
+                      
                   </div>
               </div>
 
@@ -84,15 +114,27 @@
                         </div>
                      
                       <button type="button" 
+                              *ngIf="englishFlag"
                               class="btn btn-info" 
-                              (click)="zibraUpload()"
-                              style="background-color: #16A085; float:right; margin-right:20px">Upload Records</button>
+                              (click)="fileUpload()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                                Upload Records
+                      </button>
+
+                      <button type="button"
+                              *ngIf="chinessFlag" 
+                              class="btn btn-info" 
+                              (click)="fileUpload()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              上传记录
+                      </button>
 
                       <div style="padding:20px">
-                        <p> Please select the below records to upload the file to D2Z System: </p>
-                          <div>
+                        <p *ngIf="englishFlag"> Please select the below records to upload the file to D2Z System: </p>
+                        <p *ngIf="chinessFlag"> 请选择以下记录将文件上传到D2Z系统: </p>
+                      <div>
                               <ag-grid-angular 
-                                        #agGrid style="width: 100%; height: 450px;" 
+                                        #agGrid style="width: 100%; height: 500px;" 
                                         class="ag-theme-balham" 
                                         [autoGroupColumnDef]="autoGroupColumnDef"
                                         [rowData]="rowData"
@@ -115,27 +157,22 @@
                           </div>
                       </div>
               </div>
-              
             </div>
-            <!-- /page content -->
 
-            <!-- Start Footer -->
             <footer id="footer" class="wow fadeIn">
-                <!-- Copyright -->
-                <div class="copyright">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="text">
-                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
-                        </div>
+              <div class="copyright">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="text">
+                        <p *ngIf="englishFlag">&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
+                        <p *ngIf="chinessFlag">&copy; 版权 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (分销商)</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!--/ End Copyright -->
+              </div>
             </footer>
-             <!--/ End Footer -->
             
           </div>
         </div>
