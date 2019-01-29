@@ -58,6 +58,7 @@ export class AddClientComponent implements OnInit{
   }
 
   ngOnInit(){
+    console.log(this.consignmenrServices.userMessage.serviceType);
      this.cities2 = [
         {name: 'Australia', value: 'au'},
         {name: 'Austria', value: 'at'},
@@ -67,11 +68,11 @@ export class AddClientComponent implements OnInit{
         {name: 'United States', value: 'us'}
     ];
     this.categories = [
-        {name: '1PA', value: '1PA'},
-        {name: '2PA', value: '2PA'},
-        {name: '3PA', value: '3PA'},
-        {name: '4PA', value: '4PA'},
-        {name: '5PA', value: '5PA'}
+        {name: '1PS', value: '1PS'},
+        {name: '2PS', value: '2PS'},
+        {name: '3PS', value: '3PS'},
+        {name: '4PS', value: '4PS'},
+        {name: '5PS', value: '5PS'}
     ];
     this.getLoginDetails();
   };

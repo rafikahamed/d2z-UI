@@ -28,7 +28,7 @@ export class TrackingDataService implements OnInit{
                   console.error("Not Found!")
               }
             }, (error) => {
-                console.error(error);
+                callback(error);
             });
   };
 
@@ -145,9 +145,9 @@ export class TrackingDataService implements OnInit{
     });
   }
 
-  fetchClientDetails( companyName, callback): any {
+  fetchClientDetails( companyName, roleId, callback): any {
     this.http.get(baseUrl+'/broker-level/user-details', {
-      params: { companyName: companyName  }
+      params: { companyName: companyName, roleId:'3'  }
     }).subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {

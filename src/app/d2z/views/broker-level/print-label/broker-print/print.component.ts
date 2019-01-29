@@ -194,7 +194,7 @@ export class BrokerPrintComponent implements OnInit{
       this.trackingDataService.manifestList( (resp) => {
         this.spinner.hide();
         this.ManifestArray = resp;
-        this.manifestNumber = this.ManifestArray[0].value;
+        this.manifestNumber = this.ManifestArray[0] ? this.ManifestArray[0].value : '';
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
@@ -347,18 +347,6 @@ export class BrokerPrintComponent implements OnInit{
     else {
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  sidebartoggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
     }
   }
 

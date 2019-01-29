@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginService } from 'app/d2z/service/login.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -32,7 +32,12 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(){
-
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
   }
 
   validateForm(){
@@ -84,23 +89,24 @@ export class HomeComponent implements OnInit{
       this.spinner.show();
       this.consigmentUploadService.authenticate(this.loginForm.value, (resp) => {
         this.userMessage = resp;
-        this.spinner.hide();
-        if(resp.role_Id == 3){
-            this.router.navigate(['/main/']);
-            this.consigmentUploadService.getLoginDetails(this.userMessage);
-        }else if(resp.role_Id == 2){
-            this.router.navigate(['/broker-main/']);
-            this.consigmentUploadService.getLoginDetails(this.userMessage);
-        }else if(resp.role_Id == 1){
-            this.router.navigate(['/superuser-main/']);
-            this.consigmentUploadService.getLoginDetails(this.userMessage);
-        }
-        this.userMessage = resp;
         this.consigmentUploadService.getLoginDetails(resp);
-        setTimeout(() => {
-        }, 5000);
+        this.spinner.hide();
+        if(resp.status == 500){
+            this.errorMsg = "**Invalid Credentials, Please try again";
+        }else{
+            $('#myModal').modal('toggle');
+            if(resp.role_Id == 3){
+                this.router.navigate(['/main/']);
+                this.consigmentUploadService.getLoginDetails(this.userMessage);
+            }else if(resp.role_Id == 2){
+                this.router.navigate(['/broker-main/']);
+                this.consigmentUploadService.getLoginDetails(this.userMessage);
+            }else if(resp.role_Id == 1){
+                this.router.navigate(['/superuser-main/']);
+                this.consigmentUploadService.getLoginDetails(this.userMessage);
+            }
+        }
       })
-      $('#myModal').modal('toggle');
     }else{
       this.errorMsg = "Form is invalid";
     }

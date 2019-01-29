@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -27,7 +27,8 @@ export class UtilitiesScanPdf implements OnInit{
     constructor(
       public trackingDataService: TrackingDataService,
       private spinner: NgxSpinnerService,
-      public consigmentUploadService: ConsigmentUploadService
+      public consigmentUploadService: ConsigmentUploadService,
+      private router: Router
     ) {
       this.trackingPrintForm = new FormGroup({
         refBarNum: new FormControl()
@@ -43,6 +44,12 @@ export class UtilitiesScanPdf implements OnInit{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
     }
 
     downloadLable(){
@@ -52,30 +59,29 @@ export class UtilitiesScanPdf implements OnInit{
       var that = this;
       elem.onkeyup = function(e){
           if(e.keyCode == 13){
-            if(that.trackingPrintForm.value.refBarNum != null){
+            if(that.trackingPrintForm.value.refBarNum != null && $("#pdf-Util").val().length > 1){
               that.spinner.show();
               var fileRefNum = that.trackingPrintForm.value.refBarNum;
               that.trackingDataService.generateTrackLabel(that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
-                var pdfFile = new Blob([resp], {type: 'application/pdf'});
-                var pdfUrl = URL.createObjectURL(pdfFile);
-                var fileName = fileRefNum+"-tracking.pdf";
-                var a = document.createElement("a");
-                    document.body.appendChild(a);
-                    a.href = pdfUrl;
-                    a.download = fileName;
-                    a.click();
-                    that.spinner.hide();
-                    that.successMsg = "Document Download Successfully";
-                setTimeout(() => {
-                  that.spinner.hide();
-                }, 5000);
+              that.spinner.hide();
+                if(resp.status === 500){
+                  that.errorMsg = that.englishFlag ? ' Invalid "Reference Number" or "BarCode label number" ' : '无效的"参考编号"或"条码标签编号"';
+                }else{
+                  var pdfFile = new Blob([resp], {type: 'application/pdf'});
+                  var pdfUrl = URL.createObjectURL(pdfFile);
+                  var fileName = fileRefNum+"-tracking.pdf";
+                  var a = document.createElement("a");
+                      document.body.appendChild(a);
+                      a.href = pdfUrl;
+                      a.download = fileName;
+                      a.click();
+                      that.successMsg = that.englishFlag ? "Document Downloaded Successfully" : '文档下载成功';
+                  setTimeout(() => { that.spinner.hide() }, 5000);
+                }
               })
             }else{
-              if(that.englishFlag){
-                that.errorMsg = '*Please enter the reference or bar code label number to generate the PDF';
-              }else if(that.chinessFlag){
-                that.errorMsg = '*请输入参考或条形码标签号以生成PDF';
-              }
+              that.spinner.hide();
+              that.errorMsg = that.englishFlag ? '*Please enter the "Reference Number" or "barCode Label Number" to generate the PDF.' : '*请输入"参考编号"或"条码标签编号"以生成PDF。';
             }
           }
       }

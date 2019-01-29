@@ -22,8 +22,9 @@
                         <div style="margin-left:20px; float: left">
                               <p-dropdown 
                                   [options]="cities2" 
-                                  [(ngModel)]="selectedCity2" 
                                   optionLabel="name" 
+                                  [showClear]="true"
+                                  [editable]="true"
                                   (onChange)="onFileChange($event)">
                               </p-dropdown>
                         </div>

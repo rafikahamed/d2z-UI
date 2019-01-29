@@ -201,7 +201,7 @@ export class AllocateShipmentComponent implements OnInit{
       this.trackingDataService.manifestList( (resp) => {
         this.spinner.hide();
         this.ManifestArray = resp;
-        this.manifestNumber = this.ManifestArray[0].value;
+        this.manifestNumber = this.ManifestArray[0] ? this.ManifestArray[0].value : '';
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  

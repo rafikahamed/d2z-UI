@@ -48,7 +48,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   }
   

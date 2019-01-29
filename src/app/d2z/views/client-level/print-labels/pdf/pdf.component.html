@@ -24,6 +24,9 @@
                               [options]="cities2" 
                               [(ngModel)]="selectedCity2" 
                               optionLabel="name" 
+                              [ngModelOptions]="{standalone: true}"
+                              [showClear]="true"
+                              [editable]="true"
                               (onChange)="onFileChange($event)">
                           </p-dropdown>
                         </div>

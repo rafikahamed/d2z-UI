@@ -61,11 +61,12 @@ export class SuperUserAddClientComponent implements OnInit{
 
     ngOnInit(){
       this.categories = [
-          {name: '1PA', value: '1PA'},
-          {name: '2PA', value: '2PA'},
-          {name: '3PA', value: '3PA'},
-          {name: '4PA', value: '4PA'},
-          {name: '5PA', value: '5PA'}
+          {name: '1PS', value: '1PS'},
+          {name: '2PS', value: '2PS'},
+          {name: '3PS', value: '3PS'},
+          {name: '4PS', value: '4PS'},
+          {name: '5PS', value: '5PS'},
+          {name: '1PM', value: '1PM'}
       ];
       this.directCategories = [
         {name: 'UnTracked', value: 'unTracked'}

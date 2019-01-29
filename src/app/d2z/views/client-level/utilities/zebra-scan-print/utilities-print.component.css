@@ -519,6 +519,19 @@ ul.top_profiles li:nth-child(odd){
     background-color:#eee
 }
 
+.successMsg{
+    color:green; 
+    font-size: 15px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+
+.errMsg{
+    color: #ca2929; 
+    font-size:15px; 
+    font-weight:500;
+    padding-bottom: 10px;
+}
 
 
 

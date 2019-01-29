@@ -24,11 +24,11 @@
                       type="ball-clip-rotate-multiple">
                   </ngx-spinner>
 
-                  <div style="margin-top: 20px;">
+                  <div>
                       <p class="successMsg">{{successMsg}}</p>
                   </div>
 
-                  <div style="margin-top: 20px;">
+                  <div>
                       <p class="errMessage">{{errorMsg}}</p>
                   </div>
 
@@ -46,7 +46,8 @@
                       </div>
                       <div class="col-md-4"> 
                           <textarea rows="4" 
-                                cols="50" id="print-Util" 
+                                cols="50" 
+                                id="print-Util" 
                                 style="border: 1px solid #ccc" 
                                 formControlName="refBarNum"
                                 (input)="printLable()">

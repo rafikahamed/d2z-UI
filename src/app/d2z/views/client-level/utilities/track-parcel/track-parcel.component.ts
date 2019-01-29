@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { LoginService } from 'app/d2z/service/login.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {AccordionModule} from 'primeng/accordion';
@@ -21,6 +21,7 @@ export class UtilitiesTrackParcel implements OnInit{
     childmenuThree:boolean;
     childmenuFour:boolean;
     childmenuFive:boolean;
+    showEvents:boolean;
     errorMsg: string;
     successMsg: String;
     trackEvents:TrackEvent[];
@@ -30,7 +31,8 @@ export class UtilitiesTrackParcel implements OnInit{
     constructor(
       private spinner: NgxSpinnerService,
       public trackingDataService : TrackingDataService,
-      public consigmentUploadService: ConsigmentUploadService
+      public consigmentUploadService: ConsigmentUploadService,
+      private router: Router
     ) {
       this.trackParcelForm = new FormGroup({
         trackingNumber: new FormControl()
@@ -43,9 +45,16 @@ export class UtilitiesTrackParcel implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
+      this.showEvents = true;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
     }
   
     toggle(arrow) {
@@ -121,19 +130,20 @@ export class UtilitiesTrackParcel implements OnInit{
     }
 
     trackParcel(){
-      if(this.trackParcelForm.value.trackingNumber != null){
+      this.errorMsg= null;
+      this.successMsg= null;
+      if($("#trackId").val().length >1){
         this.spinner.show();
         var trackingData = this.trackParcelForm.value.trackingNumber.split("\n");
         var result = trackingData.join(',');
         this.trackingDataService.trackPracel(result, (resp) => {
           this.spinner.hide();
           this.trackEvents = resp;
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 5000);
+          this.showEvents = this.trackEvents[0].referenceNumber ? true : false;
+          setTimeout(() => {this.spinner.hide()}, 5000);
         })
       }else{
-        this.errorMsg = '*Please enter the reference number to track the status of the parcel';
+        this.errorMsg = this.englishFlag ? '*Please enter the reference number to track the status of the parcel' : '请输入参考编号来追踪包裹的状态';
       }
     }
  

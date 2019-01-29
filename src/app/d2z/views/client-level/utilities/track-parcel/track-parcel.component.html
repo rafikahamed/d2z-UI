@@ -37,14 +37,19 @@
                             <div class="col-md-2" style="font-size: 16px" *ngIf="chinessFlag"> 参考编号 : </div>
 
                             <div class="col-md-4"> 
-                                <textarea rows="4" cols="50" style="border: 1px solid #ccc" 
+                                <textarea rows="4" 
+                                            cols="50" 
+                                            style="border: 1px solid #ccc" 
                                             *ngIf="englishFlag"
+                                            id="trackId" 
                                             placeholder="you can search 30 items, please provide the reference number in next line" 
                                             formControlName="trackingNumber">
                                 </textarea>
-
-                                <textarea rows="4" cols="50" style="border: 1px solid #ccc" 
+                                <textarea rows="4" 
+                                            cols="50" 
+                                            style="border: 1px solid #ccc" 
                                             *ngIf="chinessFlag"
+                                            id="trackId"
                                             placeholder="您可以搜索30个项目，请在下一行提供参考编号" 
                                             formControlName="trackingNumber">
                                 </textarea>
@@ -74,9 +79,8 @@
                   <h3 class="page-title" style="margin-left: 15px" *ngIf="chinessFlag"> 跟踪事件 :</h3>
 
                   <div class="col-md-12">
-                      <div class="track_search">
+                      <div *ngIf="showEvents" class="track_search">
                         <div *ngFor="let trackData of trackEvents; let i = index">
-                          
                           <p-accordion>
                               <p-accordionTab header={{trackData.referenceNumber}} [selected]="true">
                                  <h3 style="margin-left:35px" *ngIf="englishFlag"> Bar code Label Number: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
@@ -101,7 +105,6 @@
                                           <li class=" {{trackData.inTransit!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">InTransit</li>
                                           <li class=" {{trackData.delivered!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Delivered</li>
                                       </ol> -->
-
                                       <!-- <ol class="progtrckrtext" data-progtrckr-steps="8">
                                           <li class="progtrckrtext-done">{{trackData.consignmentCreated}}</li>
                                           <li class="progtrckrtext-done">{{trackData.shipmentCreated}} </li>
@@ -116,6 +119,12 @@
                               </p-accordionTab>
                           </p-accordion>
                         </div>
+                      </div>
+
+                      <div *ngIf="!showEvents" class="track_search">
+                            <div style="color: palevioletred; font-size:17px"> 
+                                Invalid Tracking Number, Please check the trackingg Details.
+                            </div>
                       </div>
                   </div>
               

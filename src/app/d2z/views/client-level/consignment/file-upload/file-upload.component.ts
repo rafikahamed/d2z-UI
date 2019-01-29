@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { LoginService } from 'app/d2z/service/login.service';
 import { GridOptions } from "ag-grid";
@@ -46,7 +46,8 @@ export class ZebraFileUpload implements OnInit{
     
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+      private router: Router
     ){
       this.successMsg = null;
       this.errorMsg = null;
@@ -64,15 +65,21 @@ export class ZebraFileUpload implements OnInit{
     }
 
     ngOnInit(){
-      this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
+      // this.childmenuOne = false;
+      // this.childmenuTwo = false;
+      // this.childmenuThree = false;
+      // this.childmenuFour  = false;
+      // this.childmenuFive = false;
       this.userMessage = this.consigmentUploadService.userMessage;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
       if(this.englishFlag){
         this.gridOptions.columnDefs = [
           {
@@ -353,6 +360,7 @@ export class ZebraFileUpload implements OnInit{
         let currency = 'currency';
         let consigneeCompany = 'consigneeCompany';
         let userID = 'userID';
+        let userName = 'userName';
 
         var today = new Date();
         var day = today.getDate() + "";
@@ -427,7 +435,8 @@ export class ZebraFileUpload implements OnInit{
                   importObj[shipperPostcode]= dataObj['Shipper Postcode'] != undefined ? dataObj['Shipper Postcode'] : '',  importObj,
                   importObj[shipperCountry]= dataObj['Shipper Country'] != undefined ? dataObj['Shipper Country'] : '',  importObj,
                   importObj[fileName]= this.file.name+'-'+dateString, importObj,
-                  importObj[userID]= this.consigmentUploadService.userMessage.user_id, importObj
+                  importObj[userID]= this.consigmentUploadService.userMessage.user_id, importObj,
+                  importObj[userName]= this.consigmentUploadService.userMessage.userName, importObj
               );
               this.importList.push(importObj)
               this.rowData = this.importList;
@@ -446,7 +455,7 @@ export class ZebraFileUpload implements OnInit{
         this.consigmentUploadService.consigmentFileUpload(selectedRows, (resp) => {
           this.spinner.hide();
           if(!resp.error){
-            this.successMsg = 'File data upload successfully to D2Z System';
+            this.successMsg = this.englishFlag ? 'File data upload successfully to D2Z System' : '文件数据成功上传到D2Z系统';
             this.show = false;
             $('#fileUploadModal').modal('show');
           }else{  
@@ -456,16 +465,10 @@ export class ZebraFileUpload implements OnInit{
             this.show = true;
             $('#fileUploadModal').modal('show');
           }
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 5000);
+          setTimeout(() => { this.spinner.hide() }, 5000);
         })
       }else{
-        if(this.englishFlag){
-          this.errorMsg = "**Please select the below records to upload the file into D2Z system";
-        }else if(this.chinessFlag){
-          this.errorMsg = "**请选择以下记录将文件上传到D2Z系统";
-        }
+          this.errorMsg = this.englishFlag ? "**Please select the below records to upload the file into D2Z system" : "**请选择以下记录将文件上传到D2Z系统" ;
       }
     }
 
@@ -492,71 +495,70 @@ export class ZebraFileUpload implements OnInit{
         importObj={}, 
         importObj[referenceNumber]= this.errorDetails[refNum], importObj
       )
-      refernceNumberList.push(importObj)
-    }
-
+        refernceNumberList.push(importObj)
+      }
      new Angular2Csv(refernceNumberList, fileName, options);
     }
   
-    toggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
+    // toggle(arrow) {
+    //   this.childmenuOne = !this.childmenuOne;
+    //   if (arrow.className === 'fa fa-chevron-down') {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-up';
+    //   }
+    //   else {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-down';
+    //   }
+    // }
   
-    toggle_zebra(arrow) {
-      this.childmenuTwo = !this.childmenuTwo;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
+    // toggle_zebra(arrow) {
+    //   this.childmenuTwo = !this.childmenuTwo;
+    //   if (arrow.className === 'fa fa-chevron-down') {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-up';
+    //   }
+    //   else {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-down';
+    //   }
+    // }
   
-    toggle_pdf(arrow) {
-      this.childmenuThree = !this.childmenuThree;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
+    // toggle_pdf(arrow) {
+    //   this.childmenuThree = !this.childmenuThree;
+    //   if (arrow.className === 'fa fa-chevron-down') {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-up';
+    //   }
+    //   else {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-down';
+    //   }
+    // }
   
-    toggle_utilities(arrow){
-      this.childmenuFour = !this.childmenuFour;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
+    // toggle_utilities(arrow){
+    //   this.childmenuFour = !this.childmenuFour;
+    //   if (arrow.className === 'fa fa-chevron-down') {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-up';
+    //   }
+    //   else {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-down';
+    //   }
+    // }
   
-    toggle_maniFest(arrow){
-      this.childmenuFive = !this.childmenuFive;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
+    // toggle_maniFest(arrow){
+    //   this.childmenuFive = !this.childmenuFive;
+    //   if (arrow.className === 'fa fa-chevron-down') {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-up';
+    //   }
+    //   else {
+    //     arrow.className = '';
+    //     arrow.className = 'fa fa-chevron-down';
+    //   }
+    // }
 
     incomingfile(event) {
       this.rowData = [];

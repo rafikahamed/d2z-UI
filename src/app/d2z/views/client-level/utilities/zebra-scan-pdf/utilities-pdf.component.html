@@ -23,13 +23,9 @@
                       type="ball-clip-rotate-multiple">
                   </ngx-spinner>
                   
-                  <div style="margin-top: 20px;">
-                        <p style="color:green; font-size: 14px;font-weight: 500;">{{successMsg}}</p>
-                  </div>
+                  <div> <p class="successMsg">{{successMsg}}</p> </div>
 
-                  <div style="margin-top: 20px;">
-                      <p style="color: #ca2929; font-size:14px; font-weight:500;">{{errorMsg}}</p>
-                  </div>
+                  <div> <p class="errMsg">{{errorMsg}}</p> </div>
 
                   <form [formGroup]="trackingPrintForm">
                     <div class="row">
@@ -46,16 +42,19 @@
                       </div>
 
                       <div class="col-md-4"> 
-                          <textarea rows="4" cols="50" id="pdf-Util" style="border: 1px solid #ccc" formControlName="refBarNum"
-                          (input)="downloadLable()"></textarea>
+                            <textarea rows="4" 
+                                    cols="50" 
+                                    id="pdf-Util" 
+                                    style="border: 1px solid #ccc" 
+                                    formControlName="refBarNum"
+                                    (input)="downloadLable()">
+                              </textarea>
                       </div>
                     </div>
                   </form>
                 
               </div>
-
            </div>
-          
           </div>
         </div>
       </body>

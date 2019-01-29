@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { LoginService } from 'app/d2z/service/login.service';
 import {SelectItem} from 'primeng/api';
@@ -38,11 +38,11 @@ export class ZebraDelete implements OnInit{
   private defaultColDef;
   file:File;
   cities2: City[];  
-  selectedCity2: City;
   user_Id: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
     this.cities2 = [];
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
@@ -68,6 +68,12 @@ export class ZebraDelete implements OnInit{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
       if( this.englishFlag){
         this.gridOptions.columnDefs = [
           {
@@ -199,7 +205,7 @@ export class ZebraDelete implements OnInit{
             field: "datamatrix",
             width: 550
           }
-        ];
+        ]
       }
       if(this.chinessFlag){
         this.gridOptions.columnDefs = [
@@ -332,22 +338,22 @@ export class ZebraDelete implements OnInit{
             field: "datamatrix",
             width: 550
           }
-        ];
+        ]
       }
       // http call to get the data file list
       this.consigmentUploadService.fileList( this.user_Id ,(resp) => {
         this.spinner.hide();
         this.cities2 = resp;
         if(this.cities2.length > 0 )
-          this.fileName = this.cities2[0].value;
+          this.fileName = this.cities2[0] ? this.cities2[0].value: '';
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
-      });
+      })
   }
   
   onFileChange(event){
-    this.fileName = event.value.value;
+    this.fileName = event.value ? event.value.value : '';
   }
 
   zibraSearch(){
@@ -356,7 +362,6 @@ export class ZebraDelete implements OnInit{
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {
-        /** spinner ends after 5 seconds */
         this.spinner.hide();
       }, 5000);
     })
@@ -434,20 +439,14 @@ export class ZebraDelete implements OnInit{
         this.spinner.show();
         this.consigmentUploadService.fileUploadDelete(refrenceNumList.toString(), (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
-          if(!resp){
+          $('#fileDeleteModal').modal('show');
+          if(resp.message == 'Selected Consignments Deleted Successfully'){
+            this.successMsg = this.englishFlag ? 'Selected Consignments Deleted Successfully' : '成功删除选定的托运货物';
           }
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 5000);
-        });
+          setTimeout(() => { this.spinner.hide() }, 5000);
+        })
       }else{
-        if(this.englishFlag){
-          this.errorMsg = "**Please select the below records to delete the entry into D2Z system";
-        }else if(this.chinessFlag){
-          this.errorMsg = "**请选择以下记录以删除进入D2Z系统的条目";
-        }
-        
+          this.errorMsg = this.englishFlag ? "**Please select the below records to delete the entry into D2Z system" : '**请选择以下记录以删除进入D2Z系统的条目';
       } 
   } 
 

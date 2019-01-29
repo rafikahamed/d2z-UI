@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { LoginService } from 'app/d2z/service/login.service';
 import {SelectItem} from 'primeng/api';
@@ -44,7 +44,8 @@ export class ManifestComponent implements OnInit{
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
     this.cities2 = [];
     this.manifestForm = new FormGroup({
@@ -74,6 +75,12 @@ export class ManifestComponent implements OnInit{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
       if(this.englishFlag){
         this.gridOptions.columnDefs = [
           {
@@ -324,7 +331,7 @@ export class ManifestComponent implements OnInit{
       this.consigmentUploadService.fileList( this.user_Id, (resp) => {
         this.spinner.hide();
         this.cities2 = resp;
-        this.fileName = this.cities2[0].value;
+        this.fileName = this.cities2[0] ? this.cities2[0].value : '';
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
@@ -332,7 +339,7 @@ export class ManifestComponent implements OnInit{
   }
   
   onFileChange(event){
-    this.fileName = event.value.value;
+    this.fileName = event.value ? event.value.value : '';
   }
 
   manifestSearch(){

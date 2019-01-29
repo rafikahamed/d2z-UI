@@ -5,15 +5,10 @@
               <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                   <a href="index.html" class="site_title">
-                    <!-- <i class="fa fa-paw"></i>  -->
                     <img src="../../../assets/img/d2z-logo.png"/>
-                    <!-- <span>D2Z</span> -->
                   </a>
                 </div>
     
-                <div class="clearfix"></div>
-    
-                <!-- menu profile quick info -->
                 <div class="profile clearfix">
                   <div class="profile_pic">
                     <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
@@ -23,8 +18,7 @@
                     <h2>{{this.userName}}</h2>
                   </div>
                 </div>
-                <!-- /menu profile quick info -->
-                <br/>
+                
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="margin-top: -30px">
                   <div class="menu_section">
                       <ul class="nav side-menu">
@@ -60,33 +54,12 @@
                             <li><a routerLink="/broker/api/download-shipment">Download Shipment Data - API</a></li>
                           </ul>
                       </li>
-                      
+                      <li>
+                        <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
+                      </li>
                       </ul>
                   </div>
             </div>
-              </div>
-            </div>
-    
-            <!-- top navigation -->
-            <div class="top_nav">
-              <div class="nav_menu" (click)="sidebartoggle(maintoggle)">
-              <nav>
-                  <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                  </div>
-  
-                  <ul class="nav navbar-nav navbar-right">
-                      <li class="">
-                          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <img src="../../../assets/img/img.jpg" alt=""> {{this.userName}}
-                          <span class=" fa fa-angle-down"></span>
-                          </a>
-                          <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                  <li><a href="index.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                          </ul>
-                      </li>
-                  </ul>
-              </nav>
               </div>
             </div>
 
@@ -179,7 +152,6 @@
                           </div>
                       </div>
                   </div>
-                  <!-- /top tiles -->
             </div>
 
             <!-- Start Footer -->
