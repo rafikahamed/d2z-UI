@@ -8,11 +8,6 @@ import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 
-interface City {
-    name: string;
-    value: string;
-};
-
 @Component({
   selector: 'hms-add-client',
   templateUrl: './add-client.component.html',
@@ -29,7 +24,8 @@ export class AddClientComponent implements OnInit{
       show: Boolean;
       userName: String;
       role_id: String;
-      categories: any[];
+      directCategories : City[];
+      originCategories: City[];
       constructor(
          public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
@@ -37,6 +33,8 @@ export class AddClientComponent implements OnInit{
          public consignmenrServices: ConsigmentUploadService
       ){
         this.cities2 = [];
+        this.directCategories =[];
+        this.originCategories = [];
         this.show = false;
         this.serviceTypeArray = [];
         this.serviceTypeDeletedArray = [];
@@ -53,26 +51,31 @@ export class AddClientComponent implements OnInit{
             email: new FormControl(),
             userName: new FormControl(),
             password: new FormControl(),
-            PhoneNumber: new FormControl()
+            PhoneNumber: new FormControl(),
+            eBayToken: new FormControl()
        });
   }
 
   ngOnInit(){
-    console.log(this.consignmenrServices.userMessage.serviceType);
-     this.cities2 = [
+    for (var i = 0; i < this.consignmenrServices.userMessage.serviceType.length; i++) {
+      var service_type = this.consignmenrServices.userMessage.serviceType[i];
+      if(service_type === 'UnTracked'){
+        this.originCategories.push({
+           "name" : service_type,"value"  : service_type
+        })
+      }else{
+          this.directCategories.push({
+            "name" : service_type, "value"  : service_type
+          })
+      }
+    };
+    this.cities2 = [
         {name: 'Australia', value: 'au'},
         {name: 'Austria', value: 'at'},
         {name: 'China', value: 'cn'},
         {name: 'United Arab Emirates', value: 'ae'},
         {name: 'United Kingdom', value: 'gb'},
         {name: 'United States', value: 'us'}
-    ];
-    this.categories = [
-        {name: '1PS', value: '1PS'},
-        {name: '2PS', value: '2PS'},
-        {name: '3PS', value: '3PS'},
-        {name: '4PS', value: '4PS'},
-        {name: '5PS', value: '5PS'}
     ];
     this.getLoginDetails();
   };
@@ -99,7 +102,9 @@ export class AddClientComponent implements OnInit{
       let PhoneNumber = 'PhoneNumber';
       let deletedServiceTypes = 'deletedServiceTypes';
       let contactPhoneNumber = 'contactPhoneNumber';
+      let clientBroker = 'clientBroker';
       let role_Id = 'role_Id';
+      let eBayToken = 'eBayToken';
       var importObj = (
         importObj={}, 
         importObj[companyName]= this.brokerAddClientForm.value.companyName != undefined ? this.brokerAddClientForm.value.companyName : '', importObj,
@@ -113,10 +118,12 @@ export class AddClientComponent implements OnInit{
         importObj[emailAddress]= this.brokerAddClientForm.value.email != undefined ? this.brokerAddClientForm.value.email : '',  importObj,
         importObj[userName]= this.brokerAddClientForm.value.userName != undefined ? this.brokerAddClientForm.value.userName : '', importObj,
         importObj[password]= this.brokerAddClientForm.value.password != undefined ? this.brokerAddClientForm.value.password : '', importObj,
+        importObj[eBayToken]= this.brokerAddClientForm.value.eBayToken ? this.brokerAddClientForm.value.eBayToken: '', importObj,
         importObj[serviceType]= this.serviceTypeArray, importObj,
         importObj[deletedServiceTypes]= this.serviceTypeDeletedArray, importObj,
         importObj[contactPhoneNumber]= this.brokerAddClientForm.value.PhoneNumber, importObj,
-        importObj[role_Id]= 3, importObj
+        importObj[role_Id]= 3, importObj,
+        importObj[clientBroker]= this.consignmenrServices.userMessage.user_id ? this.consignmenrServices.userMessage.user_id: '', importObj 
     );
      this.spinner.show();
      this.trackingDataService.clientCreation(importObj, (resp) => {
@@ -138,10 +145,16 @@ export class AddClientComponent implements OnInit{
     } else {
       let index = this.serviceTypeArray.indexOf(serviceType);
       this.serviceTypeArray.splice(index,1);
-      this.serviceTypeDeletedArray.push(serviceType);
     }
   }
   
 }
+
+interface City {
+  name: string;
+  value: string;
+}
+
+
 
 

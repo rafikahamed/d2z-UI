@@ -68,9 +68,9 @@ export class SuperUserAddClientComponent implements OnInit{
           {name: '5PS', value: '5PS'},
           {name: '1PM', value: '1PM'}
       ];
-      this.directCategories = [
-        {name: 'UnTracked', value: 'unTracked'}
-      ];
+      // this.directCategories = [
+      //   {name: 'UnTracked', value: 'unTracked'}
+      // ];
       this.getLoginDetails();
     };
 
@@ -132,22 +132,12 @@ export class SuperUserAddClientComponent implements OnInit{
     onChange(serviceType:string, isChecked: boolean) {
         if(isChecked) {
           this.serviceTypeArray.push(serviceType)
-        } else {
+        } 
+        else {
           let index = this.serviceTypeArray.indexOf(serviceType);
           this.serviceTypeArray.splice(index,1);
-          this.serviceTypeDeletedArray.push(serviceType);
         }
-    };
-
-    // onOriginChange(originServiceType:string, isChecked: boolean){
-    //     if(isChecked) {
-    //       this.originServiceTypeArray.push(originServiceType);
-    //     } else {
-    //       let index = this.originServiceTypeArray.indexOf(originServiceType);
-    //       this.originServiceTypeArray.splice(index,1);
-    //       this.serviceTypeDeletedArray.push(originServiceType);
-    //     }
-    // }
+    }
   
 }
 

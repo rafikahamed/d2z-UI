@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
-import 'rxjs/add/operator/filter';
 import { LoginService } from 'app/d2z/service/login.service';
 declare var $: any;
 declare const require: any;
@@ -21,6 +20,12 @@ export class ClientHomeComponent implements OnInit {
   childmenuFive:boolean;
   englishFlag:boolean;
   chinessFlag:boolean;
+  userId: String;
+  consignmentsCreated: String;
+  consignmentsManifested: String;
+  consignmentsNumberManifests: String;
+  consignmentsDeleted: String;
+  consignmentsDelivered: String;
 
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
@@ -36,67 +41,17 @@ export class ClientHomeComponent implements OnInit {
     var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
     this.englishFlag = lanObject.englishFlag;
     this.chinessFlag = lanObject.chinessFlag;
-  }
-
-  toggle(arrow) {
-    this.childmenuOne = !this.childmenuOne;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
+    this.userId =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id : '';
+    this.spinner.show();
+    this.consigmentUploadService.clientHome(this.userId, (resp) => {
+      this.spinner.hide();
+      this.consignmentsCreated = resp.consignmentsCreated;
+      this.consignmentsManifested = resp.consignmentsManifested;
+      this.consignmentsNumberManifests = resp.consignmentsManifests;
+      this.consignmentsDeleted = resp.consignmentsDeleted;
+      this.consignmentsDelivered = resp.consignmentDelivered;
+    });
+  };
 
 }
 

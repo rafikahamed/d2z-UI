@@ -230,7 +230,7 @@ export class ZebraFileUpload implements OnInit{
             width: 200
           },
           {
-            headerName: "收货人郊区",
+            headerName: "收件人区",
             field: "consigneeSuburb",
             width: 150
           },
@@ -255,7 +255,7 @@ export class ZebraFileUpload implements OnInit{
             width: 160
           },
           {
-            headerName: "值",
+            headerName: "货物价值",
             field: "value",
             width: 100
           },
@@ -275,17 +275,17 @@ export class ZebraFileUpload implements OnInit{
             width: 100
           },
           {
-            headerName: "昏暗的X.",
+            headerName: "尺寸X",
             field: "dimensionsLength",
             width: 100
           },
           {
-            headerName: "昏暗的Y.",
+            headerName: "尺寸Y",
             field: "dimensionsWidth",
             width: 100
           },
           {
-            headerName: "昏暗的Z.",
+            headerName: "尺寸Z",
             field: "dimensionsHeight",
             width: 100
           },
@@ -499,66 +499,6 @@ export class ZebraFileUpload implements OnInit{
       }
      new Angular2Csv(refernceNumberList, fileName, options);
     }
-  
-    // toggle(arrow) {
-    //   this.childmenuOne = !this.childmenuOne;
-    //   if (arrow.className === 'fa fa-chevron-down') {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-up';
-    //   }
-    //   else {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-down';
-    //   }
-    // }
-  
-    // toggle_zebra(arrow) {
-    //   this.childmenuTwo = !this.childmenuTwo;
-    //   if (arrow.className === 'fa fa-chevron-down') {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-up';
-    //   }
-    //   else {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-down';
-    //   }
-    // }
-  
-    // toggle_pdf(arrow) {
-    //   this.childmenuThree = !this.childmenuThree;
-    //   if (arrow.className === 'fa fa-chevron-down') {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-up';
-    //   }
-    //   else {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-down';
-    //   }
-    // }
-  
-    // toggle_utilities(arrow){
-    //   this.childmenuFour = !this.childmenuFour;
-    //   if (arrow.className === 'fa fa-chevron-down') {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-up';
-    //   }
-    //   else {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-down';
-    //   }
-    // }
-  
-    // toggle_maniFest(arrow){
-    //   this.childmenuFive = !this.childmenuFive;
-    //   if (arrow.className === 'fa fa-chevron-down') {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-up';
-    //   }
-    //   else {
-    //     arrow.className = '';
-    //     arrow.className = 'fa fa-chevron-down';
-    //   }
-    // }
 
     incomingfile(event) {
       this.rowData = [];

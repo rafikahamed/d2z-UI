@@ -531,3 +531,7 @@ ul.top_profiles li:nth-child(odd){
       font-weight: 400;
   }
   
+  .checkbox-items{
+    float: left;
+    margin-right: 20px;
+  }

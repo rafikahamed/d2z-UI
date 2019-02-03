@@ -26,56 +26,65 @@ export class ClientHeaderComponent implements OnInit {
   ){}
 
   ngOnInit() {
-    this.childmenuOne = false;
-    this.childmenuTwo = false;
-    this.childmenuThree = false;
-    this.childmenuFour  = false;
-    this.childmenuFive = false;
     this.userName =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';
     var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
     this.englishFlag = lanObject.englishFlag;
     this.chinessFlag = lanObject.chinessFlag;
+    var menuSelection  = this.consigmentUploadService.menuSourceSelection.source['_value'];
+    this.childmenuOne = menuSelection.childmenuOne;
+    this.childmenuTwo = menuSelection.childmenuTwo;
+    this.childmenuThree = menuSelection.childmenuThree;
+    this.childmenuFour = menuSelection.childmenuFour;
+    this.childmenuFive = menuSelection.childmenuFive;
   }
 
   toggle(arrow) {
-    this.childmenuOne = !this.childmenuOne;
-    if (arrow.className === 'fa fa-chevron-down') {
+    var menuObj= this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuObj.childmenuOne = !this.childmenuOne;
+    this.consigmentUploadService.menuSelection(menuObj);
+    this.childmenuOne = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuOne;
+    if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';
-    }
-    else {
+    }else{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
   }
 
   toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
+    var menuObj= this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuObj.childmenuTwo = !this.childmenuTwo;
+    this.consigmentUploadService.menuSelection(menuObj);
+    this.childmenuTwo = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuTwo;
+    if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';
-    }
-    else {
+    }else{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
   }
 
-
   toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
+    var menuObj= this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuObj.childmenuThree = !this.childmenuThree;
+    this.consigmentUploadService.menuSelection(menuObj);
+    this.childmenuThree = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuThree;
+    if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';
-    }
-    else {
+    }else{
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
   }
 
   toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
+    var menuObj= this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuObj.childmenuFour = !this.childmenuFour;
+    this.consigmentUploadService.menuSelection(menuObj);
+    this.childmenuFour = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuFour;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';
@@ -87,7 +96,10 @@ export class ClientHeaderComponent implements OnInit {
   }
 
   toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
+    var menuObj= this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuObj.childmenuFive = !this.childmenuFive;
+    this.consigmentUploadService.menuSelection(menuObj);
+    this.childmenuFive = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuFive;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

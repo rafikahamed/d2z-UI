@@ -33,9 +33,8 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(){
     this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-            return;
-        }
+    if (!(evt instanceof NavigationEnd)) {
+            return;}
         window.scrollTo(0, 0)
       });
   }
@@ -111,7 +110,7 @@ export class HomeComponent implements OnInit{
       this.errorMsg = "Form is invalid";
     }
    
-  }
+  };
 }
 
 export interface userMessage {

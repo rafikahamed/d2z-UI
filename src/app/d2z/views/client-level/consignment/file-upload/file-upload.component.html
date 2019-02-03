@@ -9,7 +9,7 @@
                     <div class="page-title">
                             <div class="title_left">
                               <h3 style="margin-left: 10px;" *ngIf="englishFlag">Consignment / File Upload</h3>
-                              <h3 style="margin-left: 10px;" *ngIf="chinessFlag">寄售 / 上传文件 </h3>
+                              <h3 style="margin-left: 10px;" *ngIf="chinessFlag"> 货单 / 上传文件 </h3>
                             </div>
                     </div>
               </div>
@@ -51,24 +51,14 @@
 
               <div class="fileupload_search">
                   <div style="padding-right: 15px; margin-bottom:40px">
-                      <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File.xlsx" class="fa fa-file-excel-o" 
+                      <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
                               style="color: darkgreen; font-size:17px; float: left;" download>
                                 **Please click here to download the template for File Upload
                       </a>
 
-                      <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload File.xlsx" class="fa fa-file-excel-o" 
+                      <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
                               style="color: darkgreen; font-size:17px; float: left;" download>
                                 **请单击此处下载文件上载模板
-                      </a>
-
-                      <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File Sample Data.xlsx" class="fa fa-file-excel-o" 
-                              style="color: darkgreen; font-size:17px; float: right;" download>
-                                **Please click here to download the sample Upload File
-                      </a>
-
-                      <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload File Sample Data.xlsx" class="fa fa-file-excel-o" 
-                              style="color: darkgreen; font-size:17px; float: right;" download>
-                                **请单击此处下载示例上载文件
                       </a>
                   </div>
 

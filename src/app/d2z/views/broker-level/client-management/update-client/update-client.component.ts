@@ -8,11 +8,6 @@ import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 
-interface dropdownTemplate {
-    name: string;
-    value: string;
-};
-
 @Component({
   selector: 'hms-update-client',
   templateUrl: './update-client.component.html',
@@ -25,6 +20,20 @@ export class UpdateClientComponent implements OnInit{
       childmenuThree:boolean;
       childmenuFour:boolean;
       childmenuFive:boolean;
+      typeOneFlag: boolean;
+      typeTwoFlag: boolean;
+      typeThreeFlag: boolean;
+      typeFourFlag: boolean;
+      typeFiveFlag: boolean;
+      typeSixFlag: boolean;
+      typeSevenFlag: boolean;
+      oneCheckFlag: boolean;
+      twoCheckFlag: boolean;
+      threeCheckFlag: boolean;
+      fourCheckFlag: boolean;
+      fiveCheckFlag: boolean;
+      sixCheckFlag: boolean;
+      sevenCheckFlag: boolean;
       errorMsg: string;
       successMsg: String;
       companyName: String;
@@ -34,7 +43,8 @@ export class UpdateClientComponent implements OnInit{
       companyDropdown: dropdownTemplate[];  
       selectedCompany: dropdownTemplate;
       show: Boolean;
-      categories: any[];
+      directCategories : City[];
+      originCategories: City[];
       userName: String;
       role_id: String;
       constructor(
@@ -46,6 +56,8 @@ export class UpdateClientComponent implements OnInit{
         this.companyDropdown = [];
         this.show = false;
         this.serviceTypeArray = [];
+        this.directCategories =[];
+        this.originCategories = [];
         this.serviceTypeDeletedArray = [];
         this.errorMsg = null;
         this.brokerAddClientForm = new FormGroup({
@@ -60,7 +72,8 @@ export class UpdateClientComponent implements OnInit{
             email: new FormControl(),
             userName: new FormControl(),
             password: new FormControl(),
-            PhoneNumber: new FormControl()
+            PhoneNumber: new FormControl(),
+            eBayToken: new FormControl()
        });
   }
 
@@ -70,7 +83,7 @@ export class UpdateClientComponent implements OnInit{
     this.childmenuFour  = false;
     this.childmenuFive = false;
     this.spinner.show();
-    this.trackingDataService.companyList( (resp) => {
+    this.trackingDataService.companyList(this.consignmenrServices.userMessage.user_id, (resp) => {
       this.spinner.hide();
       this.companyDropdown = resp;
       this.companyName = this.companyDropdown[0].value;
@@ -78,13 +91,25 @@ export class UpdateClientComponent implements OnInit{
           this.errorMsg = "Invalid Credentials!";
       }  
     });
-    this.categories = [
-        {name: '1PS', value: '1PS'},
-        {name: '2PS', value: '2PS'},
-        {name: '3PS', value: '3PS'},
-        {name: '4PS', value: '4PS'},
-        {name: '5PS', value: '5PS'}
-    ];
+    for (var i = 0; i < this.consignmenrServices.userMessage.serviceType.length; i++) {
+      var service_type = this.consignmenrServices.userMessage.serviceType[i];
+      if(service_type === 'UnTracked'){
+        this.originCategories.push({
+           "name" : service_type,"value"  : service_type
+        })
+      }else{
+          this.directCategories.push({
+            "name" : service_type, "value"  : service_type
+          })
+      }
+    };
+    this.typeOneFlag = this.consignmenrServices.userMessage.serviceType.includes('1PS') ? true : false;
+    this.typeTwoFlag = this.consignmenrServices.userMessage.serviceType.includes('2PS') ? true : false;
+    this.typeThreeFlag = this.consignmenrServices.userMessage.serviceType.includes('3PS') ? true : false;
+    this.typeFourFlag = this.consignmenrServices.userMessage.serviceType.includes('4PS') ? true : false;
+    this.typeFiveFlag = this.consignmenrServices.userMessage.serviceType.includes('5PS') ? true : false;
+    this.typeSixFlag = this.consignmenrServices.userMessage.serviceType.includes('1PM') ? true :  false;
+    this.typeSevenFlag = this.consignmenrServices.userMessage.serviceType.includes('UnTracked') ? true : false;
     this.getLoginDetails();
   };
 
@@ -102,7 +127,6 @@ export class UpdateClientComponent implements OnInit{
   companySearch(){
     this.spinner.show();
     this.trackingDataService.fetchClientDetails(this.companyName, this.role_id, (resp) => {
-      console.log(resp.serviceType)
       this.brokerAddClientForm.controls['companyName'].setValue(resp.companyName);
       this.brokerAddClientForm.controls['addressLine1'].setValue(resp.address);
       this.brokerAddClientForm.controls['country'].setValue(resp.country);
@@ -113,10 +137,17 @@ export class UpdateClientComponent implements OnInit{
       this.brokerAddClientForm.controls['userName'].setValue(resp.userName);
       this.brokerAddClientForm.controls['password'].setValue(resp.password);
       this.brokerAddClientForm.controls['PhoneNumber'].setValue(resp.contactPhoneNumber);
+      this.brokerAddClientForm.controls['eBayToken'].setValue(resp.eBayToken);
+      this.oneCheckFlag = resp.serviceType.includes('1PS') ? true : false;
+      this.twoCheckFlag = resp.serviceType.includes('2PS') ? true : false;
+      this.threeCheckFlag = resp.serviceType.includes('3PS') ? true : false;
+      this.fourCheckFlag = resp.serviceType.includes('4PS') ? true : false;
+      this.fiveCheckFlag = resp.serviceType.includes('5PS') ? true : false;
+      this.sixCheckFlag = resp.serviceType.includes('1PM') ? true :  false;
+      this.sevenCheckFlag = resp.serviceType.includes('UnTracked') ? true : false;
+      this.serviceTypeArray = resp.serviceType;
       this.spinner.hide();
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 5000);
+      setTimeout(() => {this.spinner.hide()}, 5000);
     })
   }
 
@@ -134,6 +165,9 @@ export class UpdateClientComponent implements OnInit{
       let serviceType = 'serviceType';
       let deletedServiceTypes = 'deletedServiceTypes';
       let contactPhoneNumber = 'contactPhoneNumber';
+      let role_Id = 'role_Id';
+      let eBayToken = 'eBayToken';
+      let clientBroker = 'clientBroker';
       var importObj = (
         importObj={}, 
         importObj[companyName]= this.brokerAddClientForm.value.companyName != undefined ? this.brokerAddClientForm.value.companyName : '', importObj,
@@ -149,7 +183,10 @@ export class UpdateClientComponent implements OnInit{
         importObj[password]= this.brokerAddClientForm.value.password != undefined ? this.brokerAddClientForm.value.password : '', importObj,
         importObj[serviceType]= this.serviceTypeArray, importObj,
         importObj[deletedServiceTypes]= this.serviceTypeDeletedArray, importObj,
-        importObj[contactPhoneNumber]= this.brokerAddClientForm.value.PhoneNumber, importObj
+        importObj[role_Id]= 3, importObj,
+        importObj[contactPhoneNumber]= this.brokerAddClientForm.value.PhoneNumber, importObj,
+        importObj[eBayToken]= this.brokerAddClientForm.value.eBayToken ? this.brokerAddClientForm.value.eBayToken: '', importObj,
+        importObj[clientBroker]= this.consignmenrServices.userMessage.user_id ? this.consignmenrServices.userMessage.user_id: '', importObj
     );
      this.spinner.show();
      this.trackingDataService.updateClient(importObj, (resp) => {
@@ -165,16 +202,30 @@ export class UpdateClientComponent implements OnInit{
       })
   }
 
-  onChange(serviceType:string, isChecked: boolean) {
-    if(isChecked) {
-      this.serviceTypeArray.push(serviceType)
+  onServiceTypeChange(e) {
+    if(e.target.checked) {
+      if(this.serviceTypeArray.indexOf(e.target.checked) == -1){
+        this.serviceTypeArray.push(e.target.value)
+        let index = this.serviceTypeDeletedArray.indexOf(e.target.value);
+        this.serviceTypeDeletedArray.splice(index,1);
+      }else{
+        
+      }    
     } else {
-      let index = this.serviceTypeArray.indexOf(serviceType);
+      let index = this.serviceTypeArray.indexOf(e.target.value);
       this.serviceTypeArray.splice(index,1);
-      this.serviceTypeDeletedArray.push(serviceType);
+      this.serviceTypeDeletedArray.push(e.target.value);
     }
   }
   
 }
 
+interface dropdownTemplate {
+  name: string;
+  value: string;
+};
 
+interface City {
+name: string;
+value: string;
+};

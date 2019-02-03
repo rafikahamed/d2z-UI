@@ -223,6 +223,20 @@
                                                                 </div>
                                                       </div>
                                                       <div class="form-group">
+                                                        <label class="col-md-4 control-label">eBay Token</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                           <textarea rows="4" 
+                                                                                    cols="70" 
+                                                                                    id="print-Util" 
+                                                                                    placeholder="eBay Token" 
+                                                                                    style="border: 1px solid #ccc" 
+                                                                                    formControlName="eBayToken">
+                                                                            </textarea>
+                                                                </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="form-group">
                                                                     <label class="col-md-4 control-label">User Name</label>
                                                                     <div class="col-md-8 inputGroupContainer">
                                                                        <div class="input-group">
@@ -251,25 +265,61 @@
                                                                                                     type="password"></div>
                                                                             </div>
                                                       </div>
+
                                                       <div id="div_id_select" class="form-group required">
-                                                            <label for="id_select"  
-                                                                    class="control-label col-md-4  
-                                                                    requiredField"> Service Type
-                                                                    <span class="asteriskField">*</span> 
-                                                            </label>
-                                                            <div class="form-check" *ngFor="let serviceType of categories" 
-                                                                                style="margin:10px; margin-top:8px; float:left">
-                                                                    <input class="form-check-input" 
-                                                                            style="margin-right: 5px"
-                                                                            (change)="onChange(serviceType.name, $event.target.checked)"
-                                                                            name="{{ serviceType.name }}" 
-                                                                            type="checkbox" 
-                                                                            id="{{serviceType.name}}"
-                                                                            >
-                                                                    <label class="form-check-label" for="{{serviceType.name}}">
-                                                                            {{serviceType.name}}
-                                                                    </label>
-                                                            </div>
+                                                                <label for="id_select"  
+                                                                        class="control-label col-md-4 requiredField"> Service Types
+                                                                        <span class="asteriskField"></span> 
+                                                                </label>
+                                                                <div class="col-md-6 inputGroupContainer" style="margin-top:8px">
+                                                                    <div>
+                                                                        <label> Direct Injection </label>
+                                                                    </div>
+                                                                    <div class="form-check" style="margin-right:10px; margin-top:8px; float:left">
+                                                                            <div>
+                                                                                <div *ngIf="typeOneFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="1PS" (change)="onServiceTypeChange($event)" value="1PS" [checked]="oneCheckFlag">
+                                                                                        <label>1PS</label>
+                                                                                </div>
+                                                                                <div *ngIf="typeTwoFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="2PS" (change)="onServiceTypeChange($event)" value="2PS" [checked]="twoCheckFlag">
+                                                                                        <label>2PS</label>
+                                                                                </div>
+
+                                                                                <div *ngIf="typeThreeFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="3PS" (change)="onServiceTypeChange($event)" value="3PS" [checked]="threeCheckFlag">
+                                                                                        <label>3PS</label>
+                                                                                </div>
+
+                                                                                <div *ngIf="typeFourFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="4PS" (change)="onServiceTypeChange($event)" value="4PS" [checked]="fourCheckFlag">
+                                                                                        <label>4PS</label>
+                                                                                </div>
+
+                                                                                <div *ngIf="typeFiveFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="5PS" (change)="onServiceTypeChange($event)" value="5PS" [checked]="fiveCheckFlag">
+                                                                                        <label>5PS</label>
+                                                                                </div>
+
+                                                                                <div *ngIf="typeSixFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="1PM" (change)="onServiceTypeChange($event)" value="1PM" [checked]="sixCheckFlag">
+                                                                                        <label>1PM</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <!-- <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
+                                                                        <div>
+                                                                            <label> Origin Injection</label>
+                                                                        </div>
+                                                                        <div *ngIf="typeSevenFlag" style="margin-top:8px">
+                                                                                <input type="checkbox" id="UnTracked" (change)="onServiceTypeChange($event)" value="UnTracked" [checked]="sevenCheckFlag">
+                                                                                <label>UnTracked</label>
+                                                                        </div>
+                                                                </div> -->
+
                                                       </div>
     
                                                       <div class="form-group"> 

@@ -251,7 +251,7 @@ export class ManifestComponent implements OnInit{
             width: 160
           },
           {
-            headerName: "值",
+            headerName: "货物价值",
             field: "value",
             width: 100
           },
@@ -266,17 +266,17 @@ export class ManifestComponent implements OnInit{
             width: 100
           },
           {
-            headerName: "昏暗的X.",
+            headerName: "尺寸X",
             field: "dimensions_Length",
             width: 100
           },
           {
-            headerName: "昏暗的Y.",
+            headerName: "尺寸Y",
             field: "dimensions_Width",
             width: 100
           },
           {
-            headerName: "昏暗的Z.",
+            headerName: "尺寸Z",
             field: "dimensions_Height",
             width: 100
           },

@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-const baseUrl = "https://www.d2z.com.au/v1/d2z";
 // const baseUrl = "http://localhost:8080/v1/d2z";
 // const baseUrl = "http://18.216.201.118:8080/v1/d2z";
+const baseUrl = "https://www.d2z.com.au/v1/d2z";
 
 @Injectable()
 export class TrackingDataService implements OnInit{
@@ -100,9 +100,10 @@ export class TrackingDataService implements OnInit{
     });
   }
 
-  companyList(callback): any {
-    this.http.get(baseUrl+'/broker-level/company-details'
-    ).subscribe((resp) => {
+  companyList(brokerId, callback): any {
+    this.http.get(baseUrl+'/broker-level/company-details',{
+      params: { brokerId: brokerId }
+    }).subscribe((resp) => {
       callback(resp);
     }, (error) => {
       console.error(error);

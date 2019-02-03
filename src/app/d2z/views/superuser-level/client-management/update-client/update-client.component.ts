@@ -109,7 +109,6 @@ export class SuperUserUpdateClientComponent implements OnInit{
   companySearch(){
     this.spinner.show();
     this.trackingDataService.fetchBrokerDetails(this.companyName, (resp) => {
-      console.log(resp.serviceType)
       this.categories = resp.serviceType;
       this.serviceTypeArray = resp.serviceType;
       this.oneFlag = resp.serviceType.includes('1PS') ? true : false;

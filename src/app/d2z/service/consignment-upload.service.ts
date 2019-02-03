@@ -19,6 +19,10 @@ export class ConsigmentUploadService implements OnInit{
   private messageSource = new BehaviorSubject({"englishFlag":true, "chinessFlag":false});
   currentMessage = this.messageSource.asObservable();
 
+  private menuSource = new BehaviorSubject({"childmenuOne":false, "childmenuTwo":true, "childmenuThree":true,
+                        "childmenuFour":true, "childmenuFive": true});
+  menuSourceSelection = this.menuSource.asObservable();
+
   constructor(
       private http: HttpClient, 
       private router: Router
@@ -26,6 +30,10 @@ export class ConsigmentUploadService implements OnInit{
 
   versionFlag(message) {
     this.messageSource.next(message)
+  }
+
+  menuSelection(menuSelection){
+    this.menuSource.next(menuSelection)
   }
 
   ngOnInit(){
@@ -41,6 +49,20 @@ export class ConsigmentUploadService implements OnInit{
   authenticate( loginObject, callback): any {
     this.http.get(baseUrl+'/login', {
       params: { userName: loginObject.userName, passWord: loginObject.passWord  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+
+  clientHome( userId, callback): any {
+    this.http.get(baseUrl+'/client/dashbaord', {
+      params: { userId: userId }
     }).subscribe((resp) => {
       callback(resp);
       if (resp) {

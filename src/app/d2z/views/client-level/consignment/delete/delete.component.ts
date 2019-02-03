@@ -234,7 +234,7 @@ export class ZebraDelete implements OnInit{
             width: 200
           },
           {
-            headerName: "市郊",
+            headerName: "收件人区",
             field: "consignee_Suburb",
             width: 100
           },
@@ -259,7 +259,7 @@ export class ZebraDelete implements OnInit{
             width: 160
           },
           {
-            headerName: "值",
+            headerName: "货物价值",
             field: "value",
             width: 100
           },
@@ -274,17 +274,17 @@ export class ZebraDelete implements OnInit{
             width: 100
           },
           {
-            headerName: "昏暗的X.",
+            headerName: "尺寸X",
             field: "dimensions_Length",
             width: 100
           },
           {
-            headerName: "昏暗的Y.",
+            headerName: "尺寸Y",
             field: "dimensions_Width",
             width: 100
           },
           {
-            headerName: "昏暗的Z.",
+            headerName: "尺寸Z",
             field: "dimensions_Height",
             width: 100
           },
@@ -365,67 +365,6 @@ export class ZebraDelete implements OnInit{
         this.spinner.hide();
       }, 5000);
     })
-  }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
   }
 
   deleteLabels(){

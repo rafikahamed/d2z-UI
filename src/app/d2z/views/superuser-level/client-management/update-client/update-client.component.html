@@ -6,14 +6,11 @@
                 <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;">
                       <a href="index.html" class="site_title">
-                      <!-- <i class="fa fa-paw"></i>  -->
                       <img src="../../../assets/img/d2z-logo.png"/>
-                      <!-- <span>D2Z</span> -->
                       </a>
                   </div>
     
                   <div class="clearfix"></div>
-                        <!-- menu profile quick info -->
                         <div class="profile clearfix">
                             <div class="profile_pic">
                             <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
@@ -23,9 +20,6 @@
                             <h2>{{this.userName}}</h2>
                         </div>
                   </div>
-                  <!-- /menu profile quick info -->
-    
-                  <br/>
     
                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
@@ -51,7 +45,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                                <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
+                                            <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
                                         </li>
                                 </ul>
                         </div>
@@ -59,7 +53,6 @@
                 </div>
             </div>
     
-            <!-- page content -->
             <div class="right_col" role="main">
                     <div class="row tile_count">
                                   <div class="page-title">
@@ -242,6 +235,7 @@
                                                                                                     type="password"></div>
                                                                             </div>
                                                       </div>
+
                                                       <div id="div_id_select" class="form-group required">
                                                                 <label for="id_select"  
                                                                         class="control-label col-md-4 requiredField"> Service Types
@@ -252,67 +246,51 @@
                                                                         <label> Direct Injection </label>
                                                                     </div>
                                                                     <div class="form-check" style="margin-right:10px; margin-top:8px; float:left">
-                                                                             <!-- <input class="form-check-input" 
-                                                                                    style="margin-right: 5px"
-                                                                                    (change)="onChange(serviceType.value, $event.target.checked)"
-                                                                                    name="{{ serviceType.value }}" 
-                                                                                    type="checkbox" 
-                                                                                    value="{{serviceType.value }}"
-                                                                                    checked="{{serviceType.checked}}">
-                                                                            <label class="form-check-label">
-                                                                                    {{serviceType.value}}
-                                                                            </label> -->
-
                                                                             <div>
                                                                                 <div class= "checkbox-items">
-                                                                                        <input type="checkbox" id="1PA" (change)="onChange($event)" value="1PA" [checked]="oneFlag">
-                                                                                        <label for="1PA">1PA</label>
+                                                                                        <input type="checkbox" id="1PA" (change)="onChange($event)" value="1PS" [checked]="oneFlag">
+                                                                                        <label >1PS</label>
                                                                                 </div>
                                                                                 <div class= "checkbox-items">
-                                                                                        <input type="checkbox" id="2PA" (change)="onChange($event)" value="2PA" [checked]="twoFlag">
-                                                                                        <label for="2PA">2PA</label>
-                                                                                </div>
-
-                                                                                <div class= "checkbox-items">
-                                                                                        <input type="checkbox" id="3PA" (change)="onChange($event)" value="3PA" [checked]="threeFlag">
-                                                                                        <label for="3PA">3PA</label>
+                                                                                        <input type="checkbox" id="2PA" (change)="onChange($event)" value="2PS" [checked]="twoFlag">
+                                                                                        <label >2PS</label>
                                                                                 </div>
 
                                                                                 <div class= "checkbox-items">
-                                                                                        <input type="checkbox" id="4PA" (change)="onChange($event)" value="4PA" [checked]="fourFlag">
-                                                                                        <label for="4PA">4PA</label>
+                                                                                        <input type="checkbox" id="3PA" (change)="onChange($event)" value="3PS" [checked]="threeFlag">
+                                                                                        <label >3PS</label>
                                                                                 </div>
 
                                                                                 <div class= "checkbox-items">
-                                                                                        <input type="checkbox" id="5PA" (change)="onChange($event)" value="5PA" [checked]="fiveFlag">
-                                                                                        <label for="5PA">5PA</label>
+                                                                                        <input type="checkbox" id="4PA" (change)="onChange($event)" value="4PS" [checked]="fourFlag">
+                                                                                        <label >4PS</label>
                                                                                 </div>
 
                                                                                 <div class= "checkbox-items">
-                                                                                        <input type="checkbox" 
-                                                                                        id="1PM" 
-                                                                                        (change)="onChange($event)" 
-                                                                                        value="1PM" 
-                                                                                        [checked]="sevenFlag">
-                                                                                        <label>1PM</label>
+                                                                                        <input type="checkbox" id="5PA" (change)="onChange($event)" value="5PS" [checked]="fiveFlag">
+                                                                                        <label >5PS</label>
+                                                                                </div>
+
+                                                                                <div class= "checkbox-items">
+                                                                                        <input type="checkbox" id="1PM" (change)="onChange($event)" value="1PM" [checked]="sevenFlag">
+                                                                                        <label >1PM</label>
                                                                                 </div>
                                                                             </div>
                                                                             
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
+
+                                                                <!-- <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
                                                                         <div>
                                                                             <label> Origin Injection</label>
                                                                         </div>
                                                                         <div style="margin-top:8px">
-                                                                                <input type="checkbox" id="UnTracked" 
-                                                                                        (change)="onChange($event)" 
-                                                                                        value="UnTracked" 
-                                                                                        [checked]="sixFlag">
+                                                                                <input type="checkbox" id="UnTracked" (change)="onChange($event)" value="UnTracked" [checked]="sixFlag">
                                                                                 <label for="UnTracked">UnTracked</label>
                                                                         </div>
-                                                                </div>
+                                                                </div> -->
                                                       </div>
+
                                                       <div class="form-group" style="margin-top:30px"> 
                                                                     <div class="aab controls col-md-4 "></div>
                                                                     <div class="controls col-md-8 ">
@@ -363,7 +341,7 @@
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="text">
-                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a href="https://themewagon.com/" target="_blank">D2Z</a> (Distributor)</p>
+                          <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> (Distributor)</p>
                         </div>
                       </div>
                     </div>

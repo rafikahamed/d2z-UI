@@ -206,6 +206,22 @@
                                                                 </div>
                                                         </div>
                                                   </div>
+
+                                                  <div class="form-group">
+                                                    <label class="col-md-4 control-label">eBay Token</label>
+                                                    <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                       <textarea rows="4" 
+                                                                                cols="70" 
+                                                                                id="print-Util" 
+                                                                                placeholder="eBay Token" 
+                                                                                style="border: 1px solid #ccc" 
+                                                                                formControlName="eBayToken">
+                                                                        </textarea>
+                                                            </div>
+                                                    </div>
+                                                  </div>
+                                            
                                                   <div class="form-group">
                                                                 <label class="col-md-4 control-label">User Name</label>
                                                                 <div class="col-md-8 inputGroupContainer">
@@ -235,24 +251,48 @@
                                                                                                 type="password"></div>
                                                                         </div>
                                                   </div>
+                                                  
                                                   <div id="div_id_select" class="form-group required">
                                                         <label for="id_select"  
-                                                                class="control-label col-md-4  
-                                                                requiredField"> Service Type
-                                                                <span class="asteriskField">*</span> 
+                                                                class="control-label col-md-4 requiredField"> Service Types
+                                                                <span class="asteriskField"></span> 
                                                         </label>
-                                                        <div class="form-check" *ngFor="let serviceType of categories" style="margin:10px; margin-top:8px; float:left">
-                                                                <input class="form-check-input" 
-                                                                        style="margin-right: 5px"
-                                                                        (change)="onChange(serviceType.name, $event.target.checked)"
-                                                                        name="{{ serviceType.name }}" 
-                                                                        type="checkbox" 
-                                                                        id="{{serviceType.name}}"
-                                                                        >
-                                                                <label class="form-check-label" for="{{serviceType.name}}">
-                                                                        {{serviceType.name}}
-                                                                </label>
+                                                        <div class="col-md-6 inputGroupContainer" style="margin-top:8px">
+                                                            <div>
+                                                                <label> Direct Injection </label>
+                                                            </div>
+                                                            <div class="form-check" *ngFor="let serviceType of directCategories" 
+                                                                        style="margin-right:10px; margin-top:8px; float:left">
+                                                                        <input class="form-check-input" 
+                                                                            style="margin-right: 5px"
+                                                                            (change)="onChange(serviceType.name, $event.target.checked)"
+                                                                            name="{{ serviceType.name }}" 
+                                                                            type="checkbox" 
+                                                                            id="{{serviceType.name}}">
+                                                                    <label class="form-check-label" for="{{serviceType.name}}">
+                                                                            {{serviceType.name}}
+                                                                    </label>
+                                                            </div>
                                                         </div>
+
+                                                        <!-- <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
+                                                                <div>
+                                                                    <label> Origin Injection</label>
+                                                                </div>
+                                                                <div class="form-check" *ngFor="let originServiceType of originCategories" 
+                                                                            style="margin-top:8px; float:left">
+                                                                            <input class="form-check-input" 
+                                                                                style="margin-right: 5px"
+                                                                                (change)="onChange(originServiceType.name, $event.target.checked)"
+                                                                                name="{{ originServiceType.name }}" 
+                                                                                type="checkbox" 
+                                                                                id="{{originServiceType.name}}">
+                                                                        <label class="form-check-label" for="{{originServiceType.name}}">
+                                                                                {{originServiceType.name}}
+                                                                        </label>
+                                                                </div>
+                                                        </div> -->
+
                                                   </div>
 
                                                   <div class="form-group"> 

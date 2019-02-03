@@ -104,7 +104,7 @@ export class DirectInjectionComponent implements OnInit{
       this.childmenuFive = false;
       this.spinner.show();
       this.getLoginDetails();
-      this.trackingDataService.companyList( (resp) => {
+      this.trackingDataService.companyList( this.consigmentUploadService.userMessage.user_id, (resp) => {
         this.spinner.hide();
         this.companyDropdown = resp;
         this.companyName = this.companyDropdown[0].value;
