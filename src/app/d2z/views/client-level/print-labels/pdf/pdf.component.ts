@@ -76,6 +76,11 @@ export class ZebraPdfPrintLabels implements OnInit{
             }
           },
           {
+            headerName: "Consignee Company",
+            field: "consigneeCompany",
+            width: 180
+          },
+          {
             headerName: "Name",
             field: "consignee_name",
             width: 150
@@ -222,6 +227,11 @@ export class ZebraPdfPrintLabels implements OnInit{
             headerCheckboxSelection: function(params) {
               return params.columnApi.getRowGroupColumns().length === 0;
             }
+          },
+          {
+            headerName: "收货人公司",
+            field: "consigneeCompany",
+            width: 180
           },
           {
             headerName: "名称",
@@ -433,6 +443,7 @@ export class ZebraPdfPrintLabels implements OnInit{
         let sku = 'sku';
         let labelSenderName = 'labelSenderName';
         let deliveryInstructions = 'deliveryInstructions';
+        let consigneeCompany = 'consigneeCompany';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -458,7 +469,8 @@ export class ZebraPdfPrintLabels implements OnInit{
               printObj[injectionState]= labelObj.injectionState, printObj,
               printObj[sku]= labelObj.sku, printObj,
               printObj[labelSenderName]= labelObj.labelSenderName, printObj,
-              printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj
+              printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
+              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj
           );
           printLabelList.push(printObj)
         }
