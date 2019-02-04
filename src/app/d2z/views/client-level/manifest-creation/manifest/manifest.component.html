@@ -1,51 +1,36 @@
 <body class="nav-md" #maintoggle>
-        <div class="container body">
-          <div class="main_container">
+    <div class="container body">
+        <div class="main_container">
             
             <client-header> </client-header>
 
             <div class="right_col" role="main">
-                  <div class="row tile_count">
+                <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
                                   <h3 style="margin-left: 10px" *ngIf="englishFlag"> Manifest / Creation </h3>
                                   <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 清单 / 创建 </h3>
                                 </div>
                         </div>
-                  </div>
+                </div>
 
-                  <div class="manifest_search">
+                <div class="manifest_search">
                       <div>
                         <form [formGroup]="manifestForm">
-                            <p style="float:left; margin-top:5px" *ngIf="englishFlag"> Select File To Update the Manifest : </p>
-                            <p style="float:left; margin-top:5px" *ngIf="chinessFlag"> 选择“文件”以更新清单 : </p>
+                            <p style="float:left; margin-top:5px" *ngIf="englishFlag"> Select the file containing the data to manifest : </p>
+                            <p style="float:left; margin-top:5px" *ngIf="chinessFlag"> 选择包含要显示的数据的文件 : </p>
                           
                             <div style="margin-left:20px; float: left">
                               <p-dropdown 
                                     [options]="cities2" 
                                     [(ngModel)]="selectedCity2" 
                                     optionLabel="name" 
+                                    [showClear]="true"
+                                    [editable]="true"
                                     (onChange)="onFileChange($event)" 
                                     formControlName="manifestFile">
                               </p-dropdown>
-                            </div>
-      
-                            <div class="ui-g-6 ui-md-2">
-                                <div class="ui-inputgroup">
-                                    <input type="text" 
-                                            pInputText 
-                                            *ngIf="englishFlag"
-                                            placeholder="Manifest Number" 
-                                            class="input-text"
-                                            formControlName="manifestNumber">   
-                                    <input type="text" 
-                                            pInputText 
-                                            *ngIf="chinessFlag"
-                                            placeholder="清单号" 
-                                            class="input-text"
-                                            formControlName="manifestNumber">   
-                                </div>
-                            </div>                          
+                            </div>                      
                             
                             <div>
                                 <button type="button" 
@@ -66,9 +51,9 @@
                             </div>
                         </form>
                       </div>
-                  </div>
+                </div>
     
-                  <div class="manifest_panel">
+                <div class="manifest_panel">
                       <ngx-spinner
                                 bdColor="rgba(51,51,51,0.8)"
                                 size="medium"
@@ -87,25 +72,44 @@
                             </div>
                       </div>
 
-                      <button type="button" 
-                                class="btn btn-info"
-                                *ngIf="englishFlag" 
-                                (click)="manifestCreation()"
-                                style="background-color: #16A085; float:right; margin-right:20px">
-                                 Manifest Allocation
-                      </button>
+                      <div style="float:right">
+                            <button type="button" 
+                                      class="btn btn-info"
+                                      *ngIf="englishFlag" 
+                                      (click)="manifestCreation()"
+                                      style="background-color: #16A085; margin-right:20px">
+                                      Allocate Manifest
+                            </button>
 
-                      <button type="button" 
-                                class="btn btn-info" 
-                                *ngIf="chinessFlag"
-                                (click)="manifestCreation()"
-                                style="background-color: #16A085; float:right; margin-right:20px">
-                                清单分配
-                      </button>
+                            <button type="button" 
+                                      class="btn btn-info" 
+                                      *ngIf="chinessFlag"
+                                      (click)="manifestCreation()"
+                                      style="background-color: #16A085; margin-right:20px">
+                                      分配清单
+                            </button>
+                      </div>
+
+                      <div class="ui-g-6 ui-md-2" style="float:right">
+                              <div class="ui-inputgroup" >
+                                  <input type="text" 
+                                          pInputText 
+                                          *ngIf="englishFlag"
+                                          id="manifestNumber" 
+                                          placeholder="Manifest Number" 
+                                          class="input-text">   
+                                  <input type="text" 
+                                          pInputText 
+                                          *ngIf="chinessFlag"
+                                          id="manifestNumber" 
+                                          placeholder="清单号" 
+                                          class="input-text">   
+                              </div>
+                      </div>    
     
                       <div style="padding:20px">
-                        <p *ngIf="englishFlag"> Please select the below records to update the manifest entry on D2Z System </p>
-                        <p *ngIf="chinessFlag"> 请选择以下记录以更新D2Z系统上的清单条目 </p>
+                        <p *ngIf="englishFlag"> Please select below records to manifest </p>
+                        <p *ngIf="chinessFlag"> 请选择以下记录进行清单 </p>
                           <div>
                               <ag-grid-angular 
                                         #agGrid style="width: 100%; height: 500px;" 
@@ -130,7 +134,7 @@
                               </ag-grid-angular>
                           </div>
                       </div>
-                  </div>
+                </div>
             </div>
 
             <footer id="footer" class="wow fadeIn">
@@ -148,7 +152,7 @@
                     </div>
             </footer>
 
-          </div>
         </div>
-      </body>
+    </div>
+</body>
     

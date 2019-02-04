@@ -15,12 +15,7 @@ declare var $: any;
 export class UtilitiesScanPrint implements OnInit{
     errorMsg: string;
     successMsg: String;
-    childmenuOne: boolean;
     trackingPrintForm: FormGroup;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
     englishFlag:boolean;
     chinessFlag:boolean;
     constructor(
@@ -28,18 +23,13 @@ export class UtilitiesScanPrint implements OnInit{
       private spinner: NgxSpinnerService,
       public consigmentUploadService: ConsigmentUploadService,
       private router: Router
-    ) {
+      ){
       this.trackingPrintForm = new FormGroup({
         refBarNum: new FormControl()
-      });
+      })
     }
   
     ngOnInit() {
-      this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
@@ -48,7 +38,7 @@ export class UtilitiesScanPrint implements OnInit{
             return;
         }
         window.scrollTo(0, 0)
-      });
+      })
     }
 
     printLable(){
@@ -78,67 +68,6 @@ export class UtilitiesScanPrint implements OnInit{
                 that.errorMsg = that.englishFlag ? '*Please enter the "Reference Number" or "BarCode label number" to Print the label.' : '请输入"参考编号"或"条码标签编号"以打印标签。';
             } 
           }
-      }
-    }
-  
-    toggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_zebra(arrow) {
-      this.childmenuTwo = !this.childmenuTwo;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-  
-    toggle_pdf(arrow) {
-      this.childmenuThree = !this.childmenuThree;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_utilities(arrow){
-      this.childmenuFour = !this.childmenuFour;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_maniFest(arrow){
-      this.childmenuFive = !this.childmenuFive;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
       }
     }
  

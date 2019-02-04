@@ -1,19 +1,11 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
-import 'rxjs/add/operator/filter';
-import { LoginService } from 'app/d2z/service/login.service';
-import {SelectItem} from 'primeng/api';
 declare var $: any;
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
-interface City {
-  name: string;
-  value: string;
-}
 
 @Component({
   selector: 'hms-manifest',
@@ -21,12 +13,7 @@ interface City {
   styleUrls: ['./manifest.component.css']
 })
 export class ManifestComponent implements OnInit{
-  childmenu: boolean;
   manifestForm: FormGroup;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   fileName: string;
   errorMsg: string;
   successMsg: String;
@@ -37,8 +24,7 @@ export class ManifestComponent implements OnInit{
   private rowData: any[];
   private defaultColDef;
   file:File;
-  cities2: City[];  
-  selectedCity2: City;
+  cities2: City[];
   englishFlag:boolean;
   chinessFlag:boolean;
   constructor(
@@ -49,7 +35,6 @@ export class ManifestComponent implements OnInit{
   ) {
     this.cities2 = [];
     this.manifestForm = new FormGroup({
-      manifestNumber: new FormControl(),
       manifestFile: new FormControl()
     });
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
@@ -65,11 +50,6 @@ export class ManifestComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
@@ -353,66 +333,6 @@ export class ManifestComponent implements OnInit{
     })
   }
 
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
   manifestCreation(){
     this.errorMsg = null;
     this.successMsg = '';
@@ -422,7 +342,7 @@ export class ManifestComponent implements OnInit{
           var labelObj = selectedRows[labelValue];
           refrenceNumList.push(labelObj.reference_number)
     }
-    if(this.manifestForm.value.manifestNumber == null || this.manifestForm.value.manifestNumber == ''){
+    if($("#manifestNumber").val().length < 1){
       if(this.englishFlag){
           this.errorMsg = "**Please Enter the manifest number for the given entry";
       }else if(this.chinessFlag){
@@ -439,7 +359,7 @@ export class ManifestComponent implements OnInit{
     
     if(selectedRows.length > 0 && this.errorMsg == null ){
         this.spinner.show();
-        this.trackingDataService.manifestCreation(this.manifestForm.value.manifestNumber, refrenceNumList, (resp) => {
+        this.trackingDataService.manifestCreation($("#manifestNumber").val(), refrenceNumList, (resp) => {
           this.spinner.hide();
           this.successMsg = resp.message;
           if(!resp){
@@ -456,6 +376,11 @@ export class ManifestComponent implements OnInit{
     this.errorMsg = null;
   }
  
+}
+
+interface City {
+  name: string;
+  value: string;
 }
 
 

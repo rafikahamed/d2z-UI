@@ -20,12 +20,6 @@ interface City {
   styleUrls: ['./pdf.component.css']
 })
 export class ZebraPdfPrintLabels implements OnInit{
-
-  childmenu: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   fileName: string;
   errorMsg: string;
   successMsg: String;
@@ -59,11 +53,6 @@ export class ZebraPdfPrintLabels implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
@@ -205,6 +194,21 @@ export class ZebraPdfPrintLabels implements OnInit{
             headerName: "Data Matrix",
             field: "datamatrix",
             width: 550
+          },
+          {
+            headerName: "SKU",
+            field: "sku",
+            width: 100
+          },
+          {
+            headerName: "Label Sender Name",
+            field: "labelSenderName",
+            width: 180
+          },
+          {
+            headerName: "Delivery Instructions",
+            field: "deliveryInstructions",
+            width: 180
           }
         ]
       }
@@ -338,6 +342,21 @@ export class ZebraPdfPrintLabels implements OnInit{
             headerName: "数据矩阵",
             field: "datamatrix",
             width: 550
+          },
+          {
+            headerName: "SKU",
+            field: "sku",
+            width: 100
+          },
+          {
+            headerName: "标签发件人名称",
+            field: "labelSenderName",
+            width: 180
+          },
+          {
+            headerName: "交货说明",
+            field: "deliveryInstructions",
+            width: 180
           }
         ]
       }
@@ -366,67 +385,6 @@ export class ZebraPdfPrintLabels implements OnInit{
         this.spinner.hide();
       }, 5000);
     })
-  }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
   }
 
   downLoadLabels(){
@@ -472,6 +430,9 @@ export class ZebraPdfPrintLabels implements OnInit{
         let barcodeLabelNumber = 'barcodeLabelNumber';
         let datamatrix = 'datamatrix';
         let injectionState = 'injectionState';
+        let sku = 'sku';
+        let labelSenderName = 'labelSenderName';
+        let deliveryInstructions = 'deliveryInstructions';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -494,7 +455,10 @@ export class ZebraPdfPrintLabels implements OnInit{
               printObj[shipperPostcode]= labelObj.shipper_Postcode, printObj,
               printObj[barcodeLabelNumber]= labelObj.barcodelabelNumber, printObj,
               printObj[datamatrix]= labelObj.datamatrix, printObj,
-              printObj[injectionState]= labelObj.injectionState, printObj
+              printObj[injectionState]= labelObj.injectionState, printObj,
+              printObj[sku]= labelObj.sku, printObj,
+              printObj[labelSenderName]= labelObj.labelSenderName, printObj,
+              printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj
           );
           printLabelList.push(printObj)
         }

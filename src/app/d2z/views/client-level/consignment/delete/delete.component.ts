@@ -20,12 +20,6 @@ interface City {
   styleUrls: ['./delete.component.css']
 })
 export class ZebraDelete implements OnInit{
-
-  childmenu: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   fileName: string;
   errorMsg: string;
   successMsg: String;
@@ -58,11 +52,6 @@ export class ZebraDelete implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.user_Id= this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];

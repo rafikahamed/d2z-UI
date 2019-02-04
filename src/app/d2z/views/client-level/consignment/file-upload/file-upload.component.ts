@@ -31,18 +31,13 @@ export class ZebraFileUpload implements OnInit{
     errorDetails1: String;
     file:File;
     arrayBuffer:any;
-    childmenuOne: boolean;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
     public importList = [];
     englishFlag:boolean;
     chinessFlag:boolean;
     FileHeading = ['Reference number', 'Consignee Company', 'Consignee Name', 'Consignee Address', 'Consignee Suburb', 'Consignee State', 'Consignee Postcode',
                    'Consignee Phone', 'Product Description', 'Value', 'Currency', 'Shipped Quantity', 'Weight', 'Dim_X', 'Dim_Y',
                    'Dim_Z', 'Service type', 'Shipper Name', 'Shipper Address', 'Shipper City', 'Shipper State', 'Shipper Postcode',
-                   'Shipper Country'];
+                   'Shipper Country', 'SKU', 'Label Sender Name', 'Delivery Instructions'];
     
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
@@ -65,11 +60,6 @@ export class ZebraFileUpload implements OnInit{
     }
 
     ngOnInit(){
-      // this.childmenuOne = false;
-      // this.childmenuTwo = false;
-      // this.childmenuThree = false;
-      // this.childmenuFour  = false;
-      // this.childmenuFive = false;
       this.userMessage = this.consigmentUploadService.userMessage;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
@@ -200,6 +190,21 @@ export class ZebraFileUpload implements OnInit{
             headerName: "Shipper Country",
             field: "shipperCountry",
             width: 140
+          },
+          {
+            headerName: "SKU",
+            field: "sku",
+            width: 100
+          },
+          {
+            headerName: "Label Sender Name",
+            field: "labelSenderName",
+            width: 180
+          },
+          {
+            headerName: "Delivery Instructions",
+            field: "deliveryInstructions",
+            width: 180
           }
         ]   
       }
@@ -323,6 +328,21 @@ export class ZebraFileUpload implements OnInit{
             headerName: "托运人国家",
             field: "shipperCountry",
             width: 140
+          },
+          {
+            headerName: "SKU",
+            field: "sku",
+            width: 100
+          },
+          {
+            headerName: "标签发件人名称",
+            field: "labelSenderName",
+            width: 180
+          },
+          {
+            headerName: "交货说明",
+            field: "deliveryInstructions",
+            width: 180
           }
         ] 
       }
@@ -361,6 +381,9 @@ export class ZebraFileUpload implements OnInit{
         let consigneeCompany = 'consigneeCompany';
         let userID = 'userID';
         let userName = 'userName';
+        let sku = 'sku';
+        let labelSenderName = 'labelSenderName';
+        let deliveryInstructions = 'deliveryInstructions';
 
         var today = new Date();
         var day = today.getDate() + "";
@@ -434,6 +457,9 @@ export class ZebraFileUpload implements OnInit{
                   importObj[shipperState]= dataObj['Shipper State'] != undefined ? dataObj['Shipper State'] : '', importObj,
                   importObj[shipperPostcode]= dataObj['Shipper Postcode'] != undefined ? dataObj['Shipper Postcode'] : '',  importObj,
                   importObj[shipperCountry]= dataObj['Shipper Country'] != undefined ? dataObj['Shipper Country'] : '',  importObj,
+                  importObj[sku]= dataObj['SKU'] != undefined ? dataObj['SKU'] : '',  importObj,
+                  importObj[labelSenderName]= dataObj['Label Sender Name'] != undefined ? dataObj['Label Sender Name'] : '',  importObj,
+                  importObj[deliveryInstructions]= dataObj['Delivery Instructions'] != undefined ? dataObj['Delivery Instructions'] : '',  importObj,
                   importObj[fileName]= this.file.name+'-'+dateString, importObj,
                   importObj[userID]= this.consigmentUploadService.userMessage.user_id, importObj,
                   importObj[userName]= this.consigmentUploadService.userMessage.userName, importObj
@@ -476,6 +502,8 @@ export class ZebraFileUpload implements OnInit{
       $("#congFileControl").val('');
       this.rowData = [];
       this.importList = [];
+      this.errorMsg = null;
+      this.successMsg = null;
     }
 
     downLoad(){

@@ -12,18 +12,11 @@ declare var $: any;
   styleUrls: ['./utilities-pdf.component.css']
 })
 export class UtilitiesScanPdf implements OnInit{
-
-    childmenuOne: boolean;
     trackingPrintForm: FormGroup;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
     errorMsg: string;
     successMsg: String;
     englishFlag:boolean;
     chinessFlag:boolean;
-
     constructor(
       public trackingDataService: TrackingDataService,
       private spinner: NgxSpinnerService,
@@ -36,11 +29,6 @@ export class UtilitiesScanPdf implements OnInit{
     }
   
     ngOnInit() {
-      this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
@@ -59,92 +47,33 @@ export class UtilitiesScanPdf implements OnInit{
       var that = this;
       elem.onkeyup = function(e){
           if(e.keyCode == 13){
+            var numberOfLineBreaks = '';
+            numberOfLineBreaks = (that.trackingPrintForm.value.refBarNum.match(/\n/g)||[]).length;
             if(that.trackingPrintForm.value.refBarNum != null && $("#pdf-Util").val().length > 1){
-              that.spinner.show();
-              var fileRefNum = that.trackingPrintForm.value.refBarNum;
-              that.trackingDataService.generateTrackLabel(that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
-              that.spinner.hide();
-                if(resp.status === 500){
-                  that.errorMsg = that.englishFlag ? ' Invalid "Reference Number" or "BarCode label number" ' : '无效的"参考编号"或"条码标签编号"';
-                }else{
-                  var pdfFile = new Blob([resp], {type: 'application/pdf'});
-                  var pdfUrl = URL.createObjectURL(pdfFile);
-                  var fileName = fileRefNum+"-tracking.pdf";
-                  var a = document.createElement("a");
-                      document.body.appendChild(a);
-                      a.href = pdfUrl;
-                      a.download = fileName;
-                      a.click();
-                      that.successMsg = that.englishFlag ? "Document Downloaded Successfully" : '文档下载成功';
-                  setTimeout(() => { that.spinner.hide() }, 5000);
-                }
-              })
+                  that.spinner.show();
+                  var fileRefNum = that.trackingPrintForm.value.refBarNum;
+                  that.trackingDataService.generateTrackLabel(that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
+                  that.spinner.hide();
+                    if(resp.status === 500){
+                      that.errorMsg = that.englishFlag ? ' Invalid "Reference Number" or "BarCode label number" ' : '无效的"参考编号"或"条码标签编号"';
+                    }else{
+                      var pdfFile = new Blob([resp], {type: 'application/pdf'});
+                      var pdfUrl = URL.createObjectURL(pdfFile);
+                      var fileName = fileRefNum+"-tracking.pdf";
+                      var a = document.createElement("a");
+                          document.body.appendChild(a);
+                          a.href = pdfUrl;
+                          a.download = fileName;
+                          a.click();
+                          that.successMsg = that.englishFlag ? "Document Downloaded Successfully" : '文档下载成功';
+                      setTimeout(() => { that.spinner.hide() }, 5000);
+                    }
+                  })
             }else{
               that.spinner.hide();
               that.errorMsg = that.englishFlag ? '*Please enter the "Reference Number" or "barCode Label Number" to generate the PDF.' : '*请输入"参考编号"或"条码标签编号"以生成PDF。';
             }
           }
-      }
-    }
-  
-    toggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_zebra(arrow) {
-      this.childmenuTwo = !this.childmenuTwo;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-  
-    toggle_pdf(arrow) {
-      this.childmenuThree = !this.childmenuThree;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_utilities(arrow){
-      this.childmenuFour = !this.childmenuFour;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_maniFest(arrow){
-      this.childmenuFive = !this.childmenuFive;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
       }
     }
  

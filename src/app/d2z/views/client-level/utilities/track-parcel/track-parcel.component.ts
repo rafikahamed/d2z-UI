@@ -14,20 +14,13 @@ declare var $: any;
   styleUrls: ['./track-parcel.component.css']
 })
 export class UtilitiesTrackParcel implements OnInit{
-  
     trackParcelForm: FormGroup;
-    childmenuOne: boolean;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
     showEvents:boolean;
     errorMsg: string;
     successMsg: String;
     trackEvents:TrackEvent[];
     englishFlag:boolean;
     chinessFlag:boolean;
-
     constructor(
       private spinner: NgxSpinnerService,
       public trackingDataService : TrackingDataService,
@@ -40,11 +33,6 @@ export class UtilitiesTrackParcel implements OnInit{
     }
   
     ngOnInit() {
-      this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.showEvents = true;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
@@ -55,79 +43,7 @@ export class UtilitiesTrackParcel implements OnInit{
         }
         window.scrollTo(0, 0)
       });
-    }
-  
-    toggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_zebra(arrow) {
-      this.childmenuTwo = !this.childmenuTwo;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_pdf(arrow) {
-      this.childmenuThree = !this.childmenuThree;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_utilities(arrow){
-      this.childmenuFour = !this.childmenuFour;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_maniFest(arrow){
-      this.childmenuFive = !this.childmenuFive;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    sidebartoggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'nav-md') {
-        arrow.className = '';
-        arrow.className = 'nav-sm';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'nav-md';
-      }
-    }
+    };
 
     trackParcel(){
       this.errorMsg= null;
@@ -146,7 +62,6 @@ export class UtilitiesTrackParcel implements OnInit{
         this.errorMsg = this.englishFlag ? '*Please enter the reference number to track the status of the parcel' : '请输入参考编号来追踪包裹的状态';
       }
     }
- 
 }
 
 export interface TrackEvent {
