@@ -21,11 +21,6 @@ interface dropdownTemplate {
   styleUrls: ['./direct-injection.component.css']
 })
 export class DirectInjectionComponent implements OnInit{
-  childmenu: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   manifestNumber: string;
   companyName: String;
   errorMsg: string;
@@ -97,11 +92,6 @@ export class DirectInjectionComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.getLoginDetails();
       this.trackingDataService.companyList( this.consigmentUploadService.userMessage.user_id, (resp) => {
@@ -122,7 +112,7 @@ export class DirectInjectionComponent implements OnInit{
   };
   
   onCompanyDropdownchange(event){
-    this.companyName = event.value.value;
+    this.companyName = event.value ? event.value.value : '';
   }
 
   directInjectionSearch(){
@@ -177,79 +167,6 @@ export class DirectInjectionComponent implements OnInit{
     }else{
       this.errorMsg = "**Please select the below records to download the Direct Injection details";
     } 
-  }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  sidebartoggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
-    }
   }
 
   onSelectionChange() {

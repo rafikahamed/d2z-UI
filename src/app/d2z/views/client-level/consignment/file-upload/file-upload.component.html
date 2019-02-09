@@ -53,12 +53,12 @@
                   <div style="padding-right: 15px; margin-bottom:40px">
                       <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
                               style="color: darkgreen; font-size:17px; float: left;" download>
-                                **Please select below records to upload
+                                **Please click here to download the template for File Upload
                       </a>
 
                       <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
                               style="color: darkgreen; font-size:17px; float: left;" download>
-                                **请选择以下记录进行上传
+                                **请点击这里下载模板文件上传
                       </a>
                   </div>
 
@@ -118,8 +118,8 @@
                       </button>
 
                       <div style="padding:20px">
-                        <p *ngIf="englishFlag"> Please select the below records to upload the file to D2Z System: </p>
-                        <p *ngIf="chinessFlag"> 请选择以下记录将文件上传到D2Z系统: </p>
+                        <p *ngIf="englishFlag"> Please select below records to upload: </p>
+                        <p *ngIf="chinessFlag"> 请选择下面的记录上传: </p>
                       <div>
                               <ag-grid-angular 
                                         #agGrid style="width: 100%; height: 500px;" 

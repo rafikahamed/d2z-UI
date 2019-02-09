@@ -29,6 +29,7 @@ export class AllocateShipmentComponent implements OnInit{
   manifestNumber: string;
   errorMsg: string;
   show: Boolean;
+  userId: String;
   successMsg: String;
   userName: String;
   role_id: String;
@@ -39,7 +40,6 @@ export class AllocateShipmentComponent implements OnInit{
   private defaultColDef;
   shipmentAllocateForm: FormGroup;
   ManifestArray: dropdownTemplate[];  
-  selectedManifest: dropdownTemplate;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public brokerService: BrokerService,
@@ -191,14 +191,10 @@ export class AllocateShipmentComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.getLoginDetails();
-      this.trackingDataService.manifestList( (resp) => {
+      this.userId = this.consigmentUploadService.userMessage.user_id;
+      this.trackingDataService.manifestList(this.userId, (resp) => {
         this.spinner.hide();
         this.ManifestArray = resp;
         this.manifestNumber = this.ManifestArray[0] ? this.ManifestArray[0].value : '';
@@ -216,14 +212,14 @@ export class AllocateShipmentComponent implements OnInit{
   };
   
   onManifestChange(event){
-    this.manifestNumber = event.value.value;
+    this.manifestNumber = event.value ? event.value.value:'';
   }
 
   manifestDataSearch(){
     this.spinner.show();
     this.shipmentAllocateForm.value.shipmentNumber = null;
     this.successMsg = null;
-    this.trackingDataService.fetchBrokerConsignment(this.manifestNumber, (resp) => {
+    this.trackingDataService.fetchBrokerConsignment(this.manifestNumber,this.userId, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {
@@ -259,79 +255,6 @@ export class AllocateShipmentComponent implements OnInit{
             this.spinner.hide();
           }, 5000);
         });
-    }
-  }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  sidebartoggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
     }
   }
 

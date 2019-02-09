@@ -35,6 +35,7 @@ export class SuperUserMainComponent implements OnInit {
   }
 
   getLoginDetails(){
+    console.log(this.consignmenrServices.userMessage)
     if(this.consignmenrServices.userMessage != undefined){
       this.userName = this.consignmenrServices.userMessage.userName;
       this.role_id = this.consignmenrServices.userMessage.role_Id;

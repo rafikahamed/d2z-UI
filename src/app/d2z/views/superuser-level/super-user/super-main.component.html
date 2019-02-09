@@ -1,62 +1,9 @@
 <body class="nav-md" #maintoggle>
     <div class="container body">
       <div class="main_container">
+
+        <super-user-header></super-user-header>
         
-          <div class="col-md-3 left_col">
-              <div class="left_col scroll-view">
-              <div class="navbar nav_title" style="border: 0;">
-                  <a href="index.html" class="site_title">
-                  <!-- <i class="fa fa-paw"></i>  -->
-                  <img src="../../../assets/img/d2z-logo.png"/>
-                  <!-- <span>D2Z</span> -->
-                  </a>
-              </div>
-
-              <div class="clearfix"></div>
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                        <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
-                        </div>
-                        <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>{{this.userName}}</h2>
-                    </div>
-              </div>
-
-              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <ul class="nav side-menu">
-                            <li>
-                                <a (click)="toggle(arrow)"><i class="fa fa-home"></i> HOME <span class="fa fa-chevron-down" #arrow></span></a>
-                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
-                                <li><a routerLink="/superuser-main">Information</a></li>
-                                </ul>
-                            </li>
-                            <li><a (click)="toggle_zebra(arrow)"><i class="fa fa-edit"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
-                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuTwo ? 'block' : 'none'}">
-                                <li><a routerLink="/superuser/add-client">Add Client</a></li>
-                                <li><a routerLink="/superuser/update-client">Update Client</a></li>
-                                </ul>
-                            </li>
-                            <li><a (click)="toggle_pdf(arrow)"><i class="fa fa-desktop"></i> UTILITIES <span class="fa fa-chevron-down" #arrow></span></a>
-                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuThree ? 'block' : 'none'}">
-                                <li><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
-                                <li><a routerLink="/superuser/arrival-report">Arrival Report</a></li>
-                                <li><a routerLink="/superuser/invoice-report">Export Report</a></li>
-                                <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                              <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
-                          </li>
-                        </ul>
-                    </div>
-              </div>
-
-        </div>
-  </div>
-
-          <!-- page content -->
           <div class="right_col" role="main">
             <div class="row tile_count">
               <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -91,7 +38,6 @@
               </div>
             </div>
           </div>
-          <!-- /page content -->
 
           <footer id="footer" class="wow fadeIn">
             <div class="copyright">

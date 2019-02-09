@@ -20,24 +20,18 @@ interface dropdownTemplate {
   styleUrls: ['./print.component.css']
 })
 export class BrokerPrintComponent implements OnInit{
-
-  childmenu: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   manifestNumber: string;
   errorMsg: string;
   successMsg: String;
   userName: String;
   role_id: String;
+  userId: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowData: any[];
   private defaultColDef;
   ManifestArray: dropdownTemplate[];  
-  selectedManifest: dropdownTemplate;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public brokerService: BrokerService,
@@ -80,6 +74,11 @@ export class BrokerPrintComponent implements OnInit{
         headerName: "Postcode",
         field: "consignee_Postcode",
         width: 100
+      },
+      {
+        headerName: "Consignee Company",
+        field: "consigneeCompany",
+        width: 180
       },
       {
         headerName: "Phone",
@@ -170,6 +169,21 @@ export class BrokerPrintComponent implements OnInit{
         headerName: "Data Matrix",
         field: "datamatrix",
         width: 550
+      },
+      {
+        headerName: "SKU",
+        field: "sku",
+        width: 100
+      },
+      {
+        headerName: "Label Sender Name",
+        field: "labelSenderName",
+        width: 180
+      },
+      {
+        headerName: "Delivery Instructions",
+        field: "deliveryInstructions",
+        width: 180
       }
     ];
     this.autoGroupColumnDef = {
@@ -184,14 +198,10 @@ export class BrokerPrintComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.getLoginDetails();
-      this.trackingDataService.manifestList( (resp) => {
+      this.userId = this.consigmentUploadService.userMessage.user_id;
+      this.trackingDataService.manifestList(this.userId, (resp) => {
         this.spinner.hide();
         this.ManifestArray = resp;
         this.manifestNumber = this.ManifestArray[0] ? this.ManifestArray[0].value : '';
@@ -209,12 +219,12 @@ export class BrokerPrintComponent implements OnInit{
   };
   
   onManifestChange(event){
-    this.manifestNumber = event.value.value;
+    this.manifestNumber = event.value ? event.value.value : '';
   }
 
   printSearch(){
     this.spinner.show();
-    this.trackingDataService.fetchBrokerConsignment(this.manifestNumber, (resp) => {
+    this.trackingDataService.fetchBrokerConsignment(this.manifestNumber,this.userId, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {
@@ -244,6 +254,10 @@ export class BrokerPrintComponent implements OnInit{
         let barcodeLabelNumber = 'barcodeLabelNumber';
         let datamatrix = 'datamatrix';
         let injectionState = 'injectionState';
+        let sku = 'sku';
+        let labelSenderName = 'labelSenderName';
+        let deliveryInstructions = 'deliveryInstructions';
+        let consigneeCompany = 'consigneeCompany';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -266,7 +280,11 @@ export class BrokerPrintComponent implements OnInit{
               printObj[shipperPostcode]= labelObj.shipper_Postcode, printObj,
               printObj[barcodeLabelNumber]= labelObj.barcodelabelNumber, printObj,
               printObj[datamatrix]= labelObj.datamatrix, printObj,
-              printObj[injectionState]= labelObj.injectionState, printObj
+              printObj[injectionState]= labelObj.injectionState, printObj,
+              printObj[sku]= labelObj.sku, printObj,
+              printObj[labelSenderName]= labelObj.labelSenderName, printObj,
+              printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
+              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj
           );
           printLabelList.push(printObj)
         }
@@ -288,66 +306,6 @@ export class BrokerPrintComponent implements OnInit{
       }else{
         this.errorMsg = "**Please select the below records before printing the labels";
       }
-  }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
   }
 
   deleteLabels(){

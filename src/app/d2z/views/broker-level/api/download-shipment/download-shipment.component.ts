@@ -21,17 +21,13 @@ interface dropdownTemplate {
   styleUrls: ['./download-shipment.component.css']
 })
 export class APIDownloadShipmentComponent implements OnInit{
-  childmenu: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   shipmentNumber: string;
   errorMsg: string;
   show: Boolean;
   userName: String;
   role_id: String;
   successMsg: String;
+  userId: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -216,13 +212,9 @@ export class APIDownloadShipmentComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.getLoginDetails();
+      this.userId = this.consigmentUploadService.userMessage.user_id;
       this.trackingDataService.apiShipmentList( (resp) => {
         this.spinner.hide();
         this.ShipmentArray = resp;
@@ -241,12 +233,12 @@ export class APIDownloadShipmentComponent implements OnInit{
   };
   
   onShipmentChange(event){
-    this.shipmentNumber = event.value.value;
+    this.shipmentNumber = event.value ? event.value.value:'';
   }
 
   apiDownLoadSearch(){
     this.spinner.show();
-    this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, (resp) => {
+    this.trackingDataService.fetchShipmentDetails(this.userId, this.shipmentNumber, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {
@@ -361,79 +353,6 @@ export class APIDownloadShipmentComponent implements OnInit{
       }else{
         this.errorMsg = "**Please select the below records to download the API Shipment details";
       } 
-  }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  sidebartoggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
-    }
   }
 
   onSelectionChange() {

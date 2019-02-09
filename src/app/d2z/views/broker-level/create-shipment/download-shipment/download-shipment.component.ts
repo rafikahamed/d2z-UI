@@ -20,11 +20,6 @@ interface dropdownTemplate {
   styleUrls: ['./download-shipment.component.css']
 })
 export class DownloadShipmentComponent implements OnInit{
-  childmenu: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   shipmentNumber: string;
   templateType: String;
   errorMsg: string;
@@ -33,6 +28,7 @@ export class DownloadShipmentComponent implements OnInit{
   template2: Boolean;
   userName: String;
   role_id: String;
+  userId: String;
   private gridOptions: GridOptions;
   private gridOptionsTemplate1: GridOptions;
   private autoGroupColumnDef;
@@ -41,7 +37,6 @@ export class DownloadShipmentComponent implements OnInit{
   private defaultColDef;
   ShipmentArray: dropdownTemplate[];  
   templateArray: dropdownTemplate[];
-  selectedShipment: dropdownTemplate;
   selectedTemplate: dropdownTemplate;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
@@ -376,25 +371,20 @@ export class DownloadShipmentComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.childmenu = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.spinner.show();
       this.template1 = true;
       this.getLoginDetails();
+      this.userId = this.consigmentUploadService.userMessage.user_id;
       this.templateArray = [
         { "name": "Export Template 1", "value": "export-template-1" },
         { "name": "Export Template 2", "value": "export-template-2" }
       ];
       this.selectedTemplate = this.templateArray[0];
       this.templateType = this.templateArray[0].value;
-      this.trackingDataService.shipmentList( (resp) => {
+      this.trackingDataService.shipmentList(this.userId, (resp) => {
         this.spinner.hide();
         this.ShipmentArray = resp;
-        this.selectedShipment = this.ShipmentArray[0];
-        this.shipmentNumber = this.ShipmentArray[0].value;
+        this.shipmentNumber = this.ShipmentArray[0] ? this.ShipmentArray[0].value: '';
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
@@ -409,7 +399,7 @@ export class DownloadShipmentComponent implements OnInit{
   };
   
   onShipmentChange(event){
-    this.shipmentNumber = event.value.value;
+    this.shipmentNumber = event.value ? event.value.value:'';
   };
 
   onTemplateChange(event){
@@ -429,7 +419,7 @@ export class DownloadShipmentComponent implements OnInit{
     this.rowData=null;
     if(this.templateType == 'export-template-1'){
       this.spinner.show();
-      this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, (resp) => {
+      this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, this.userId, (resp) => {
         this.spinner.hide();
         this.rowData = resp;
         setTimeout(() => {
@@ -438,7 +428,7 @@ export class DownloadShipmentComponent implements OnInit{
       });
     }else if(this.templateType == 'export-template-2'){
       this.spinner.show();
-      this.trackingDataService.fetchShipmentDetailsTempalte2(this.shipmentNumber, (resp) => {
+      this.trackingDataService.fetchShipmentDetailsTempalte2(this.shipmentNumber, this.userId,(resp) => {
         this.spinner.hide();
         this.rowData = resp;
         setTimeout(() => {
@@ -714,79 +704,6 @@ export class DownloadShipmentComponent implements OnInit{
         };
       };
   }
-
-  toggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  };
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  };
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  };
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  };
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  };
-
-  sidebartoggle(arrow) {
-    this.childmenu = !this.childmenu;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
-    }
-  };
 
   onSelectionChange() {
     var selectedRows = this.gridOptions.api.getSelectedRows();

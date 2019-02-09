@@ -119,18 +119,20 @@ export class TrackingDataService implements OnInit{
     });
   }
 
-  manifestList(callback): any {
-    this.http.get(baseUrl+'/broker-level/manifestList'
-    ).subscribe((resp) => {
+  manifestList(userId,callback): any {
+    this.http.get(baseUrl+'/broker-level/manifestList',{
+      params: { userId: userId }
+    }).subscribe((resp) => {
       callback(resp);
     }, (error) => {
       console.error(error);
     });
   }
 
-  shipmentList(callback): any {
-    this.http.get(baseUrl+'/broker-level/shipmentList'
-    ).subscribe((resp) => {
+  shipmentList(userId, callback): any {
+    this.http.get(baseUrl+'/broker-level/shipmentList',{
+      params: { userId: userId }
+    }).subscribe((resp) => {
       callback(resp);
     }, (error) => {
       console.error(error);
@@ -219,9 +221,9 @@ export class TrackingDataService implements OnInit{
     });
   };
 
-  fetchShipmentDetails( shipmentNumber, callback): any {
+  fetchShipmentDetails( shipmentNumber, userId, callback): any {
     this.http.get(baseUrl+'/consignments/shipment', {
-      params: { shipmentNumber: shipmentNumber  }
+      params: { shipmentNumber: shipmentNumber, userId: userId }
     }).subscribe((resp) => {
       callback(resp);
       if (resp) {
@@ -233,9 +235,9 @@ export class TrackingDataService implements OnInit{
     });
   };
 
-  fetchShipmentDetailsTempalte2( shipmentNumber, callback): any {
+  fetchShipmentDetailsTempalte2( shipmentNumber, userId, callback): any {
     this.http.get(baseUrl+'/broker-level/consignments/shipment', {
-      params: { shipmentNumber: shipmentNumber  }
+      params: { shipmentNumber: shipmentNumber, userId: userId  }
     }).subscribe((resp) => {
       callback(resp);
       if (resp) {
@@ -261,9 +263,9 @@ export class TrackingDataService implements OnInit{
     });
   }
 
-  fetchBrokerConsignment( manifestNumber, callback): any {
+  fetchBrokerConsignment( manifestNumber, userId, callback): any {
     this.http.get(baseUrl+'/broker-level/consignment-details', {
-      params: { manifestNumber: manifestNumber  }
+      params: { manifestNumber: manifestNumber, userId: userId  }
     }).subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {

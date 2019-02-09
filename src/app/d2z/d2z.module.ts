@@ -39,6 +39,8 @@ import { SuperUserArrivalReportComponent } from 'app/d2z/views/superuser-level/u
 import { SuperUserUploadTrackingComponent } from 'app/d2z/views/superuser-level/utilities/upload-tracking/upload-tracking.component';
 import { EtowerTrackingComponent } from 'app/d2z/views/superuser-level/utilities/etower/etower.component';
 import { ClientHeaderComponent } from 'app/d2z/views/client-level/client-header/client-header.component';
+import { BrokerHeaderComponent } from 'app/d2z/views/broker-level/broker-header/broker-header.component';
+import { SuperUserHeaderComponent } from 'app/d2z/views/superuser-level/super-user-header/super-user-header.component';
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
@@ -128,7 +130,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PolicyComponent,
     TrackParcelComponent,
     EtowerTrackingComponent,
-    ClientHeaderComponent
+    ClientHeaderComponent,
+    BrokerHeaderComponent,
+    SuperUserHeaderComponent
   ],
   entryComponents: [],
   providers: [

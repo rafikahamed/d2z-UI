@@ -13,12 +13,6 @@ declare const require: any;
 })
 
 export class BrokerMainComponent implements OnInit {
-
-  childmenuOne: boolean;
-  childmenuTwo:boolean;
-  childmenuThree:boolean;
-  childmenuFour:boolean;
-  childmenuFive:boolean;
   userName: String;
   role_id: String;
   constructor(
@@ -26,11 +20,6 @@ export class BrokerMainComponent implements OnInit {
   ){}
 
   ngOnInit() {
-    this.childmenuOne = false;
-    this.childmenuTwo = false;
-    this.childmenuThree = false;
-    this.childmenuFour  = false;
-    this.childmenuFive = false;
     this.getLoginDetails();
   };
 
@@ -38,79 +27,6 @@ export class BrokerMainComponent implements OnInit {
     if(this.consignmenrServices.userMessage != undefined){
       this.userName = this.consignmenrServices.userMessage.userName;
       this.role_id = this.consignmenrServices.userMessage.role_Id;
-    }
-  };
-
-  toggle(arrow) {
-    this.childmenuOne = !this.childmenuOne;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_zebra(arrow) {
-    this.childmenuTwo = !this.childmenuTwo;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-
-  toggle_pdf(arrow) {
-    this.childmenuThree = !this.childmenuThree;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_utilities(arrow){
-    this.childmenuFour = !this.childmenuFour;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  toggle_maniFest(arrow){
-    this.childmenuFive = !this.childmenuFive;
-    if (arrow.className === 'fa fa-chevron-down') {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-up';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'fa fa-chevron-down';
-    }
-  }
-
-  sidebartoggle(arrow) {
-    this.childmenuOne = !this.childmenuOne;
-    if (arrow.className === 'nav-md') {
-      arrow.className = '';
-      arrow.className = 'nav-sm';
-    }
-    else {
-      arrow.className = '';
-      arrow.className = 'nav-md';
     }
   }
 

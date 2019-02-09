@@ -23,6 +23,13 @@ export class ConsigmentUploadService implements OnInit{
                         "childmenuFour":true, "childmenuFive": true});
   menuSourceSelection = this.menuSource.asObservable();
 
+  private menuBrokerSource = new BehaviorSubject({"childmenubrkOne":false, "childmenubrkTwo":true, "childmenubrkThree":true,
+                        "childmenubrkFour":true, "childmenubrkFive": true});
+  menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
+
+  private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true});
+  menuSuperSourceSelection = this.menuSuperSource.asObservable();
+
   constructor(
       private http: HttpClient, 
       private router: Router
@@ -34,6 +41,14 @@ export class ConsigmentUploadService implements OnInit{
 
   menuSelection(menuSelection){
     this.menuSource.next(menuSelection)
+  }
+
+  menuBrokerSelection(menuBrokerSelection){
+    this.menuBrokerSource.next(menuBrokerSelection)
+  }
+
+  menuSuperSelection(menuBrokerSelection){
+    this.menuSuperSource.next(menuBrokerSelection)
   }
 
   ngOnInit(){

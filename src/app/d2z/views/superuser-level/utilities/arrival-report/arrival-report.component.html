@@ -1,61 +1,10 @@
 <body class="nav-md" #maintoggle>
         <div class="container body">
           <div class="main_container">
-            <div class="col-md-3 left_col">
-              <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                  <a href="index.html" class="site_title">
-                    <img src="../../../assets/img/d2z-logo.png"/>
-                  </a>
-                </div>
-    
-                <!-- menu profile quick info -->
-                <div class="profile clearfix">
-                  <div class="profile_pic">
-                    <img src="../../../assets/img/img.jpg" alt="..." class="img-circle profile_img">
-                  </div>
-                  <div class="profile_info">
-                    <span>Welcome,</span>
-                    <h2>{{this.userName}}</h2>
-                  </div>
-                </div>
-                
-                <br/>
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                            <ul class="nav side-menu">
-                                    <li>
-                                        <a (click)="toggle(arrow)"><i class="fa fa-home"></i> HOME <span class="fa fa-chevron-down" #arrow></span></a>
-                                        <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
-                                        <li><a routerLink="/superuser-main">Information</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a (click)="toggle_zebra(arrow)"><i class="fa fa-edit"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
-                                        <ul class="nav child_menu" [ngStyle]="{'display': !childmenuTwo ? 'block' : 'none'}">
-                                        <li><a routerLink="/superuser/add-client">Add Client</a></li>
-                                        <li><a routerLink="/superuser/update-client">Update Client</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a (click)="toggle_pdf(arrow)"><i class="fa fa-desktop"></i> UTILITIES <span class="fa fa-chevron-down" #arrow></span></a>
-                                        <ul class="nav child_menu" [ngStyle]="{'display': !childmenuThree ? 'block' : 'none'}">
-                                        <li><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
-                                        <li><a routerLink="/superuser/arrival-report">Arrival Report</a></li>
-                                        <li><a routerLink="/superuser/invoice-report">Export Report</a></li>
-                                        <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                      <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
-                                  </li>
-                            </ul>
-                    </div>
-                  </div>
-              </div>
-            </div>
+           
+            <super-user-header></super-user-header>
 
-            <!-- page content -->
             <div class="right_col" role="main">
-                  <!-- top tiles -->
                   <div class="row tile_count">
                       <div class="page-title">
                             <div class="title_left">
@@ -85,7 +34,6 @@
                         
                       <div class="modal fade" id="allocateShipmentModal" role="dialog">
                           <div class="modal-dialog">
-                            <!-- Modal content-->
                             <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
                                   <div class="modal-header">
                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -152,9 +100,7 @@
                   <!-- /top tiles -->
             </div>
 
-            <!-- Start Footer -->
             <footer id="footer" class="wow fadeIn">
-                <!-- Copyright -->
                 <div class="copyright">
                   <div class="container">
                     <div class="row">
@@ -166,9 +112,7 @@
                     </div>
                   </div>
                 </div>
-                <!--/ End Copyright -->
             </footer>
-             <!--/ End Footer -->
 
           </div>
         </div>

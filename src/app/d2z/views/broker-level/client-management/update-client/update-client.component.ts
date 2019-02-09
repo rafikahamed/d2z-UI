@@ -15,11 +15,6 @@ declare var $: any;
 })
 
 export class UpdateClientComponent implements OnInit{
-      childmenu: boolean;
-      childmenuTwo:boolean;
-      childmenuThree:boolean;
-      childmenuFour:boolean;
-      childmenuFive:boolean;
       typeOneFlag: boolean;
       typeTwoFlag: boolean;
       typeThreeFlag: boolean;
@@ -40,8 +35,7 @@ export class UpdateClientComponent implements OnInit{
       brokerAddClientForm: FormGroup;
       serviceTypeArray: any[];
       serviceTypeDeletedArray: any[];
-      companyDropdown: dropdownTemplate[];  
-      selectedCompany: dropdownTemplate;
+      companyDropdown: dropdownTemplate[]; 
       show: Boolean;
       directCategories : City[];
       originCategories: City[];
@@ -78,15 +72,11 @@ export class UpdateClientComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.childmenuTwo = false;
-    this.childmenuThree = false;
-    this.childmenuFour  = false;
-    this.childmenuFive = false;
     this.spinner.show();
     this.trackingDataService.companyList(this.consignmenrServices.userMessage.user_id, (resp) => {
       this.spinner.hide();
       this.companyDropdown = resp;
-      this.companyName = this.companyDropdown[0].value;
+      this.companyName = this.companyDropdown[0] ? this.companyDropdown[0].value:'';
       if(!resp){
           this.errorMsg = "Invalid Credentials!";
       }  
@@ -121,7 +111,7 @@ export class UpdateClientComponent implements OnInit{
   };
 
   onCompanyDropdownchange(event){
-    this.companyName = event.value.value;
+    this.companyName = event.value ? event.value.value: '';
   };
 
   companySearch(){
