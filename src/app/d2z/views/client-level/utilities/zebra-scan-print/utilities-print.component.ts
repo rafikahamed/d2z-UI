@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import { LoginService } from 'app/d2z/service/login.service';
@@ -22,8 +22,10 @@ export class UtilitiesScanPrint implements OnInit{
       public trackingDataService: TrackingDataService,
       private spinner: NgxSpinnerService,
       public consigmentUploadService: ConsigmentUploadService,
-      private router: Router
+      private router: Router,
+      private _compiler: Compiler
       ){
+      this._compiler.clearCache();
       this.trackingPrintForm = new FormGroup({
         refBarNum: new FormControl()
       })

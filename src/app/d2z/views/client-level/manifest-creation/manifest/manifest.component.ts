@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 declare var $: any;
@@ -31,8 +31,10 @@ export class ManifestComponent implements OnInit{
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private _compiler: Compiler
   ) {
+    this._compiler.clearCache();
     this.cities2 = [];
     this.manifestForm = new FormGroup({
       manifestFile: new FormControl()

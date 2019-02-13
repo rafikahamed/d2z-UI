@@ -1,4 +1,4 @@
-import { Component, AfterContentChecked, OnInit, Input } from '@angular/core';
+import { Component, AfterContentChecked, OnInit, Input, Compiler } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -9,8 +9,8 @@ declare const require: any;
 
 @Component({
   selector: 'client-main',
-  templateUrl: './client-home.component.html',
-  styleUrls: ['./client-home.component.css']
+  templateUrl: './client-home.component.html?v=${new Date().getTime()',
+  styleUrls: ['./client-home.component.css?v=${new Date().getTime()']
 })
 export class ClientHomeComponent implements OnInit {
   childmenuOne: boolean;
@@ -29,8 +29,11 @@ export class ClientHomeComponent implements OnInit {
 
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
-    private spinner: NgxSpinnerService
-  ){}
+    private spinner: NgxSpinnerService,
+    private _compiler: Compiler
+  ){
+    this._compiler.clearCache();
+  }
 
   ngOnInit() {
     this.childmenuOne = false;

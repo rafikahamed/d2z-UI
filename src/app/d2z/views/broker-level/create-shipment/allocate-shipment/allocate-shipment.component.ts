@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -44,8 +44,10 @@ export class AllocateShipmentComponent implements OnInit{
     public consigmentUploadService: ConsigmentUploadService,
     public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _compiler: Compiler
   ) {
+    this._compiler.clearCache();
     this.ManifestArray = [];
     this.show = false;
     this.shipmentAllocateForm = new FormGroup({

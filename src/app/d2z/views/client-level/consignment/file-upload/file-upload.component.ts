@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -13,8 +13,8 @@ declare var $: any;
 
 @Component({
   selector: 'hms-file-upload',
-  templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css']
+  templateUrl: './file-upload.component.html?v=${new Date().getTime()',
+  styleUrls: ['./file-upload.component.css?v=${new Date().getTime()']
 })
 export class ZebraFileUpload implements OnInit{
     
@@ -25,9 +25,11 @@ export class ZebraFileUpload implements OnInit{
     private defaultColDef;
     successMsg: String;
     show: Boolean;
+    showSuccess: Boolean;
     errorMsg: String;
     userMessage: userMessage;
     errorDetails: any[];
+    successReferenceNumber: any[];
     errorDetails1: String;
     file:File;
     arrayBuffer:any;
@@ -42,11 +44,14 @@ export class ZebraFileUpload implements OnInit{
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
       private spinner: NgxSpinnerService,
-      private router: Router
+      private router: Router,
+      private _compiler: Compiler
     ){
       this.successMsg = null;
       this.errorMsg = null;
+      this._compiler.clearCache();
       this.show = false;
+      this.showSuccess = false;
       this.gridOptions = <GridOptions>{rowSelection: "multiple"};
       this.autoGroupColumnDef = {
         headerCheckboxSelection: true,
@@ -476,13 +481,16 @@ export class ZebraFileUpload implements OnInit{
       this.errorMsg = '';
       this.successMsg = '';
       this.errorDetails1 = '';
+      this.showSuccess = false;
+      this.show = false;
       if(selectedRows.length > 0){
         this.spinner.show();
         this.consigmentUploadService.consigmentFileUpload(selectedRows, (resp) => {
-          this.spinner.hide();
+        this.spinner.hide();
           if(!resp.error){
-            this.successMsg = this.englishFlag ? 'File data upload successfully to D2Z System' : '文件数据成功上传到D2Z系统';
-            this.show = false;
+            this.successMsg = this.englishFlag ? 'File data uploaded successfully to D2Z System' : '文件数据成功上传到D2Z系统';
+            this.successReferenceNumber = resp;
+            this.showSuccess = true;
             $('#fileUploadModal').modal('show');
           }else{  
             this.errorMsg = resp.error.errorMessage;
@@ -496,7 +504,7 @@ export class ZebraFileUpload implements OnInit{
       }else{
           this.errorMsg = this.englishFlag ? "**Please select the below records to upload the file into D2Z system" : "**请选择以下记录将文件上传到D2Z系统" ;
       }
-    }
+    };
 
     clearUpload(){
       $("#congFileControl").val('');
@@ -504,35 +512,96 @@ export class ZebraFileUpload implements OnInit{
       this.importList = [];
       this.errorMsg = null;
       this.successMsg = null;
-    }
+    };
 
     downLoad(){
-      var fileName = "Error Details";
+      var fileName = "Reference Number Details";
+      if(!this.showSuccess){
+        if(this.errorMsg == 'Invalid Service Type'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number', 'Service Type']
+          }
+        }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number', 'PostCode or Suburb']
+          }
+        }else if(this.errorMsg == 'Reference Number must be unique'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number']
+          }
+        }
+      } 
       var options = { 
-        fieldSeparator: ',',
-        quoteStrings: '"',
-        decimalseparator: '.',
-        showLabels: true, 
-        useBom: true,
-        headers: ['Reference Number']
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalseparator: '.',
+          showLabels: true, 
+          useBom: true,
+          headers: ['Reference Number', 'BarCode Label Number']
       };
-    var refernceNumberList = [];
-    let referenceNumber = 'referenceNumber';
-    for(var refNum in this.errorDetails){
-      var importObj = (
-        importObj={}, 
-        importObj[referenceNumber]= this.errorDetails[refNum], importObj
-      )
-        refernceNumberList.push(importObj)
+      var refernceNumberList = [];
+      let referenceNumber = 'referenceNumber';
+      let serviceType = 'serviceType';
+      let postCode = 'postCode';
+      let barCodeNumber = 'barCodeNumber';
+      if(!this.showSuccess) {
+        for(var refNum in this.errorDetails){
+          var a = this.errorDetails[refNum] .split("-") // Delimiter is a string
+            for (var i = 0; i < a.length; i++){
+              if(this.errorMsg == 'Invalid Service Type'){
+                  var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj,
+                    importObj[serviceType]= a[1], importObj
+                  )
+               }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb'){
+                  var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj,
+                    importObj[postCode]= a[1], importObj
+                  )
+               }else if(this.errorMsg == 'Reference Number must be unique'){
+                var importObj = (
+                  importObj={}, 
+                  importObj[referenceNumber]= a[0], importObj
+                )
+               }
+              }
+            refernceNumberList.push(importObj)
+          }
+      }else{
+        for(var refNum in this.successReferenceNumber){
+          var importObj = (
+            importObj={}, 
+            importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+            importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44), importObj
+          )
+            refernceNumberList.push(importObj)
+          }
       }
-     new Angular2Csv(refernceNumberList, fileName, options);
-    }
+      new Angular2Csv(refernceNumberList, fileName, options);
+    };
 
     incomingfile(event) {
       this.rowData = [];
       this.file = event.target.files[0]; 
       this.fileExport();
-    }
+    };
 
     onSelectionChange() {
       this.errorMsg = '';

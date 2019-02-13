@@ -21,8 +21,10 @@
                                 <p> Export Type : </p>
                                 <div>
                                       <p-dropdown [options]="exportTypeDropdown" 
-                                        [(ngModel)]="selectedExportType" optionLabel="name" 
-                                      (onChange)="onExportTypeChange($event)">
+                                                    [(ngModel)]="selectedExportType" 
+                                                    optionLabel="name" 
+                                                    [style]="{'width':'100%'}"
+                                                    (onChange)="onExportTypeChange($event)">
                                       </p-dropdown>
                                 </div>
                             </div>

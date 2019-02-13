@@ -84,6 +84,22 @@ export class HomeComponent implements OnInit{
 
   login() {
     this.validateForm();
+    var menuSelection  = this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuSelection.childmenuOne = false;
+    menuSelection.childmenuTwo = true;
+    menuSelection.childmenuThree = true;
+    menuSelection.childmenuFour = true;
+    menuSelection.childmenuFive = true;
+    var menuBrokerSelection  = this.consigmentUploadService.menuBrokerSourceSelection.source['_value'];
+    menuBrokerSelection.childmenubrkOne = false;
+    menuBrokerSelection.childmenubrkTwo = true;
+    menuBrokerSelection.childmenubrkThree = true;
+    menuBrokerSelection.childmenubrkFour = true;
+    menuBrokerSelection.childmenubrkFive = true;
+    var menuSuperSelection  = this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperSelection.childmenuSuperOne = false;
+    menuSuperSelection.childmenuSuperTwo = true;
+    menuSuperSelection.childmenuSuperThree = true;
     if(this.loginForm.status == 'VALID'){
       this.spinner.show();
       this.consigmentUploadService.authenticate(this.loginForm.value, (resp) => {
@@ -109,8 +125,7 @@ export class HomeComponent implements OnInit{
     }else{
       this.errorMsg = "Form is invalid";
     }
-   
-  };
+  }
 }
 
 export interface userMessage {

@@ -1,10 +1,9 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
-import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import * as XLSX from 'xlsx';
@@ -35,10 +34,11 @@ export class APIUploadShipmentComponent implements OnInit{
   shipmentAllocateForm: FormGroup;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
-    public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _compiler: Compiler
   ) {
+    this._compiler.clearCache();
     this.show = false;
     this.shipmentAllocateForm = new FormGroup({
       shipmentNumber: new FormControl()

@@ -86,7 +86,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       this.companyDropdown = resp;
       if(this.companyDropdown.length > 0)
         this.selectedCompany = this.companyDropdown[0];
-        this.companyName =  this.companyDropdown[0].value;
+        this.companyName =  this.companyDropdown[0] ? this.companyDropdown[0].value : '';
       if(!resp){
           this.errorMsg = "Invalid Credentials!";
       }  
@@ -103,7 +103,9 @@ export class SuperUserUpdateClientComponent implements OnInit{
   };
 
   onCompanyDropdownchange(event){
+   if(event.value){
     this.companyName = event.value.value;
+   }
   };
 
   companySearch(){

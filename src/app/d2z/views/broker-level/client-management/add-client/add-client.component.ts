@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
-import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
@@ -27,12 +26,13 @@ export class AddClientComponent implements OnInit{
       directCategories : City[];
       originCategories: City[];
       constructor(
-         public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
          private spinner: NgxSpinnerService,
-         public consignmenrServices: ConsigmentUploadService
+         public consignmenrServices: ConsigmentUploadService,
+         private _compiler: Compiler
       ){
         this.cities2 = [];
+        this._compiler.clearCache();
         this.directCategories =[];
         this.originCategories = [];
         this.show = false;

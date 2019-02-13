@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -36,8 +36,10 @@ export class BrokerPrintComponent implements OnInit{
     public consigmentUploadService: ConsigmentUploadService,
     public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
-  ) {
+    private spinner: NgxSpinnerService,
+    private _compiler: Compiler
+    ){
+    this._compiler.clearCache();
     this.ManifestArray = [];
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptions.columnDefs = [

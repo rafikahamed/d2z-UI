@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, ViewEncapsulation, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import { LoginService } from 'app/d2z/service/login.service';
@@ -25,8 +25,10 @@ export class UtilitiesTrackParcel implements OnInit{
       private spinner: NgxSpinnerService,
       public trackingDataService : TrackingDataService,
       public consigmentUploadService: ConsigmentUploadService,
-      private router: Router
+      private router: Router,
+      private _compiler: Compiler
     ) {
+      this._compiler.clearCache();
       this.trackParcelForm = new FormGroup({
         trackingNumber: new FormControl()
       });

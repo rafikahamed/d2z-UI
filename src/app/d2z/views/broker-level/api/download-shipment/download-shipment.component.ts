@@ -1,10 +1,9 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
-import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
@@ -37,10 +36,11 @@ export class APIDownloadShipmentComponent implements OnInit{
   selectedShipment: dropdownTemplate;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
-    public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _compiler: Compiler
   ) {
+    this._compiler.clearCache();
     this.ShipmentArray = [];
     this.show = false;
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
@@ -238,7 +238,7 @@ export class APIDownloadShipmentComponent implements OnInit{
 
   apiDownLoadSearch(){
     this.spinner.show();
-    this.trackingDataService.fetchShipmentDetails(this.userId, this.shipmentNumber, (resp) => {
+    this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, this.userId, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {

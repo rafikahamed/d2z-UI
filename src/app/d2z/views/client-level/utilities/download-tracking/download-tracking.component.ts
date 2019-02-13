@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -39,9 +39,11 @@ export class UtilitiesTracking implements OnInit{
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private _compiler: Compiler
   ) {
     this.cities2 = [];
+    this._compiler.clearCache();
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
     this.autoGroupColumnDef = {
       headerCheckboxSelection: true,

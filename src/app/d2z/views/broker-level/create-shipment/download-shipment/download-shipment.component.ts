@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GridOptions } from "ag-grid";
@@ -41,8 +41,10 @@ export class DownloadShipmentComponent implements OnInit{
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _compiler: Compiler
   ) {
+    this._compiler.clearCache();
     this.ShipmentArray = [];
     this.autoGroupColumnDef = {
       headerCheckboxSelection: true,

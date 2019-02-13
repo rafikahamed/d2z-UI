@@ -1,4 +1,4 @@
-import { Component, AfterContentChecked, OnInit } from '@angular/core';
+import { Component, AfterContentChecked, OnInit, Compiler } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -22,8 +22,11 @@ export class BrokerHeaderComponent implements OnInit {
   userName: String;
 
   constructor(
-    public consigmentUploadService: ConsigmentUploadService
-  ){}
+    public consigmentUploadService: ConsigmentUploadService,
+    private _compiler: Compiler
+  ){
+    this._compiler.clearCache();
+  }
 
   ngOnInit() {
     this.userName =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';

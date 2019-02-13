@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -45,10 +45,12 @@ export class UpdateClientComponent implements OnInit{
          public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
          private spinner: NgxSpinnerService,
-         public consignmenrServices: ConsigmentUploadService
+         public consignmenrServices: ConsigmentUploadService,
+         private _compiler: Compiler
       ){
         this.companyDropdown = [];
         this.show = false;
+        this._compiler.clearCache();
         this.serviceTypeArray = [];
         this.directCategories =[];
         this.originCategories = [];

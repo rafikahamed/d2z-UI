@@ -516,3 +516,9 @@ ul.top_profiles li{
 ul.top_profiles li:nth-child(odd){
     background-color:#eee
 }
+
+
+.ui-dropdown .ui-dropdown-panel {
+    min-width: 100% !important;
+    width: max-content !important;
+  }

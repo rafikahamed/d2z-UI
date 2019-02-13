@@ -17,8 +17,15 @@
                                 <p style="float:left; margin-top:5px"> Select Company to Update the Broker Details : </p>
                         
                                 <div style="margin-left:20px; float: left">
-                                        <p-dropdown [options]="companyDropdown" [(ngModel)]="selectedCompany" optionLabel="name" 
-                                        (onChange)="onCompanyDropdownchange($event)">
+                                        <p-dropdown 
+                                        [options]="companyDropdown" 
+                                        [(ngModel)]="selectedCompany" 
+                                        optionLabel="name" 
+                                        (onChange)="onCompanyDropdownchange($event)"
+                                        [style]="{'width':'200%'}"
+                                        [showClear]="true"
+                                        [editable]="true"
+                                        >
                                         </p-dropdown>
                                 </div>
                         
