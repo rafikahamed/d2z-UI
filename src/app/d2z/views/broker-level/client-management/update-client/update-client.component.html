@@ -12,296 +12,303 @@
                                           </div>
                                   </div>
                     </div>    
-                    <!-- /top tiles -->
+             
                     <div class="container">
-                        <div style="padding-bottom:15px">
-                                <p style="float: left"> Select Company to Update the Client Details : </p>
-                        
-                                <div style="margin-left:20px; float: left">
-                                        <p-dropdown 
-                                                [options]="companyDropdown" 
-                                                [(ngModel)]="selectedCompany" 
-                                                optionLabel="name" 
-                                                [showClear]="true"
-                                                [editable]="true"
-                                                [style]="{'width':'200%'}"
-                                                (onChange)="onCompanyDropdownchange($event)">
-                                        </p-dropdown>
-                                </div>
-                        
-                                <button type="button" class="btn btn-info" (click)="companySearch()"
-                                        style="background-color: #16A085; margin-left:30px">
-                                        Search
-                                </button>
-                        
-                        </div>
+                                <div style="padding-bottom:15px" class="row">
+                                        <div class="col-md-3">
+                                                <p style="margin-left:15px"> 
+                                                        Select Company to Update the Client Details : 
+                                                </p>
+                                        </div>
 
-                        <table class="table table-striped" style="width:60%">
-                               <tbody>
-                                  <tr>
-                                             <td colspan="1" style="border-top: 0px;">
-                                                <form class="well form-horizontal" [formGroup]="brokerAddClientForm">
-                                                   <fieldset>
-                                                      <div class="form-group">
-                                                         <label class="col-md-4 control-label">Company Name</label>
-                                                         <div class="col-md-8 inputGroupContainer">
-                                                            <div class="input-group">
-                                                                    <span class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-user"></i>
-                                                                    </span>
-                                                                    <input id="companyName" 
-                                                                           formControlName="companyName"
-                                                                           placeholder="Company Name" 
-                                                                           class="form-control" 
-                                                                           required="true" 
-                                                                           type="text">
-                                                                    </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="col-md-4 control-label">Address Line 1</label>
-                                                         <div class="col-md-8 inputGroupContainer">
-                                                            <div class="input-group">
-                                                                    <span class="input-group-addon">
-                                                                            <i class="glyphicon glyphicon-home">
-                                                                            </i></span>
-                                                                            <input id="addressLine1" 
-                                                                                    formControlName="addressLine1"
-                                                                                    placeholder="Address Line 1" 
-                                                                                    class="form-control" 
-                                                                                    required="true" 
-                                                                                    type="text"></div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                                    <label class="col-md-4 control-label">SubUrb</label>
-                                                                    <div class="col-md-8 inputGroupContainer">
-                                                                       <div class="input-group"><span class="input-group-addon">
-                                                                               <i class="glyphicon glyphicon-home">
-                                                                               </i></span>
-                                                                               <input id="SubUrb" 
-                                                                                      formControlName="SubUrb"
-                                                                                      placeholder="SubUrb" 
-                                                                                      class="form-control" 
-                                                                                      required="true" 
-                                                                                      type="text">
-                                                                       </div>
-                                                                    </div>
-                                                                 </div>
-                                                      <div class="form-group">
-                                                         <label class="col-md-4 control-label">State</label>
-                                                         <div class="col-md-8 inputGroupContainer">
-                                                            <div class="input-group"><span class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-home"></i>
-                                                                    </span><input id="state" 
-                                                                                  formControlName="state"
-                                                                                  placeholder="State" 
-                                                                                  class="form-control" 
-                                                                                  required="true" 
-                                                                                  type="text"></div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="col-md-4 control-label">Postal Code / ZIP</label>
-                                                         <div class="col-md-8 inputGroupContainer">
-                                                            <div class="input-group">
-                                                                    <span class="input-group-addon">
-                                                                            <i class="glyphicon glyphicon-home"></i>
-                                                                    </span>
-                                                                    <input id="postcode" 
-                                                                           formControlName="postcode"
-                                                                           placeholder="Postal Code/ZIP" 
-                                                                           class="form-control" 
-                                                                           required="true" 
-                                                                           type="text">
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="col-md-4 control-label">Country</label>
-                                                         <div class="col-md-8 inputGroupContainer">
-                                                                    <div class="input-group">
-                                                                                    <span class="input-group-addon">
-                                                                                            <i class="glyphicon glyphicon-home"></i>
-                                                                                    </span>
-                                                                                    <input id="country" 
-                                                                                           formControlName="country"
-                                                                                           placeholder="Country" 
-                                                                                           class="form-control" 
-                                                                                           required="true" 
-                                                                                           type="text">
-                                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="col-md-4 control-label">Email</label>
-                                                         <div class="col-md-8 inputGroupContainer">
-                                                            <div class="input-group"><span class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-envelope"></i>
-                                                                    </span>
-                                                                    <input id="email" 
-                                                                            formControlName="email" 
-                                                                            placeholder="Email" 
-                                                                            class="form-control" 
-                                                                            required="true" 
-                                                                            type="text"></div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                                <label class="col-md-4 control-label">Phone Number</label>
+                                        <div class="col-md-3">
+                                                <p-dropdown 
+                                                        [options]="companyDropdown" 
+                                                        [(ngModel)]="selectedCompany" 
+                                                        optionLabel="name" 
+                                                        [showClear]="true"
+                                                        [editable]="true"
+                                                        [style]="{'width':'100%'}"
+                                                        (onChange)="onCompanyDropdownchange($event)">
+                                                </p-dropdown>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                                <button type="button" 
+                                                        class="btn btn-info" 
+                                                        (click)="companySearch()"
+                                                        style="background-color: #16A085">
+                                                        Search
+                                                </button>
+                                        </div>
+                                
+                                </div>
+
+                                <table class="table table-striped" style="width:60%">
+                                <tbody>
+                                        <tr>
+                                                <td colspan="1" style="border-top: 0px;">
+                                                        <form class="well form-horizontal" [formGroup]="brokerAddClientForm">
+                                                        <fieldset>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">Company Name</label>
                                                                 <div class="col-md-8 inputGroupContainer">
-                                                                        <div class="input-group">
-                                                                                   <span class="input-group-addon">
-                                                                                   <i class="glyphicon glyphicon-phone"></i>
-                                                                                   </span>
-                                                                                   <input id="phoneNumber" 
-                                                                                          formControlName="PhoneNumber"
-                                                                                          placeholder="Phone Number" 
-                                                                                          class="form-control" 
-                                                                                          required="true" 
-                                                                                          type="text">
-                                                                        </div>
-                                                                </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                        <label class="col-md-4 control-label">eBay Token</label>
-                                                        <div class="col-md-8 inputGroupContainer">
                                                                 <div class="input-group">
-                                                                           <textarea rows="4" 
-                                                                                    cols="70" 
-                                                                                    id="print-Util" 
-                                                                                    placeholder="eBay Token" 
-                                                                                    style="border: 1px solid #ccc" 
-                                                                                    formControlName="eBayToken">
-                                                                            </textarea>
+                                                                        <span class="input-group-addon">
+                                                                        <i class="glyphicon glyphicon-user"></i>
+                                                                        </span>
+                                                                        <input id="companyName" 
+                                                                                formControlName="companyName"
+                                                                                placeholder="Company Name" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                        </div>
                                                                 </div>
                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                                    <label class="col-md-4 control-label">User Name</label>
-                                                                    <div class="col-md-8 inputGroupContainer">
-                                                                       <div class="input-group">
-                                                                            <span class="input-group-addon">
-                                                                                    <i class="glyphicon glyphicon-envelope"></i>
-                                                                            </span>
-                                                                            <input id="userName" 
-                                                                                    formControlName="userName" 
-                                                                                    placeholder="User Name" 
-                                                                                    class="form-control" 
-                                                                                    required="true" 
-                                                                                    type="text"></div>
-                                                                    </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                                    <label class="col-md-4 control-label">Password</label>
-                                                                            <div class="col-md-8 inputGroupContainer">
-                                                                               <div class="input-group">
-                                                                                    <span class="input-group-addon">
-                                                                                            <i class="glyphicon glyphicon-envelope"></i></span>
-                                                                                            <input id="password" 
-                                                                                                    formControlName="password" 
-                                                                                                    placeholder="password" 
-                                                                                                    class="form-control" 
-                                                                                                    required="true" 
-                                                                                                    type="password"></div>
-                                                                            </div>
-                                                      </div>
-
-                                                      <div id="div_id_select" class="form-group required">
-                                                                <label for="id_select"  
-                                                                        class="control-label col-md-4 requiredField"> Service Types
-                                                                        <span class="asteriskField"></span> 
-                                                                </label>
-                                                                <div class="col-md-6 inputGroupContainer" style="margin-top:8px">
-                                                                    <div>
-                                                                        <label> Direct Injection </label>
-                                                                    </div>
-                                                                    <div class="form-check" style="margin-right:10px; margin-top:8px; float:left">
-                                                                            <div>
-                                                                                <div *ngIf="typeOneFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="1PS" (change)="onServiceTypeChange($event)" value="1PS" [checked]="oneCheckFlag">
-                                                                                        <label>1PS</label>
-                                                                                </div>
-                                                                                <div *ngIf="typeTwoFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="2PS" (change)="onServiceTypeChange($event)" value="2PS" [checked]="twoCheckFlag">
-                                                                                        <label>2PS</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeThreeFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="3PS" (change)="onServiceTypeChange($event)" value="3PS" [checked]="threeCheckFlag">
-                                                                                        <label>3PS</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeFourFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="4PS" (change)="onServiceTypeChange($event)" value="4PS" [checked]="fourCheckFlag">
-                                                                                        <label>4PS</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeFiveFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="5PS" (change)="onServiceTypeChange($event)" value="5PS" [checked]="fiveCheckFlag">
-                                                                                        <label>5PS</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeSixFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="1PM" (change)="onServiceTypeChange($event)" value="1PM" [checked]="sixCheckFlag">
-                                                                                        <label>1PM</label>
-                                                                                </div>
-                                                                            </div>
-                                                                            
-                                                                    </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">Address Line 1</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-home">
+                                                                                </i></span>
+                                                                                <input id="addressLine1" 
+                                                                                        formControlName="addressLine1"
+                                                                                        placeholder="Address Line 1" 
+                                                                                        class="form-control" 
+                                                                                        required="true" 
+                                                                                        type="text"></div>
                                                                 </div>
-                                                                
-                                                                <!-- <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
-                                                                        <div>
-                                                                            <label> Origin Injection</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                        <label class="col-md-4 control-label">SubUrb</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group"><span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-home">
+                                                                                </i></span>
+                                                                                <input id="SubUrb" 
+                                                                                        formControlName="SubUrb"
+                                                                                        placeholder="SubUrb" 
+                                                                                        class="form-control" 
+                                                                                        required="true" 
+                                                                                        type="text">
                                                                         </div>
-                                                                        <div *ngIf="typeSevenFlag" style="margin-top:8px">
-                                                                                <input type="checkbox" id="UnTracked" (change)="onServiceTypeChange($event)" value="UnTracked" [checked]="sevenCheckFlag">
-                                                                                <label>UnTracked</label>
                                                                         </div>
-                                                                </div> -->
+                                                                        </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">State</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"><span class="input-group-addon">
+                                                                        <i class="glyphicon glyphicon-home"></i>
+                                                                        </span><input id="state" 
+                                                                                        formControlName="state"
+                                                                                        placeholder="State" 
+                                                                                        class="form-control" 
+                                                                                        required="true" 
+                                                                                        type="text"></div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">Postal Code / ZIP</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-home"></i>
+                                                                        </span>
+                                                                        <input id="postcode" 
+                                                                                formControlName="postcode"
+                                                                                placeholder="Postal Code/ZIP" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">Country</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                                <i class="glyphicon glyphicon-home"></i>
+                                                                                        </span>
+                                                                                        <input id="country" 
+                                                                                                formControlName="country"
+                                                                                                placeholder="Country" 
+                                                                                                class="form-control" 
+                                                                                                required="true" 
+                                                                                                type="text">
+                                                                                </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">Email</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"><span class="input-group-addon">
+                                                                        <i class="glyphicon glyphicon-envelope"></i>
+                                                                        </span>
+                                                                        <input id="email" 
+                                                                                formControlName="email" 
+                                                                                placeholder="Email" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text"></div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                        <label class="col-md-4 control-label">Phone Number</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                                <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                        <i class="glyphicon glyphicon-phone"></i>
+                                                                                        </span>
+                                                                                        <input id="phoneNumber" 
+                                                                                                formControlName="PhoneNumber"
+                                                                                                placeholder="Phone Number" 
+                                                                                                class="form-control" 
+                                                                                                required="true" 
+                                                                                                type="text">
+                                                                                </div>
+                                                                        </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">eBay Token</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                <textarea rows="4" 
+                                                                                        cols="70" 
+                                                                                        id="print-Util" 
+                                                                                        placeholder="eBay Token" 
+                                                                                        style="border: 1px solid #ccc" 
+                                                                                        formControlName="eBayToken">
+                                                                                </textarea>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                        <label class="col-md-4 control-label">User Name</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                        <i class="glyphicon glyphicon-envelope"></i>
+                                                                                </span>
+                                                                                <input id="userName" 
+                                                                                        formControlName="userName" 
+                                                                                        placeholder="User Name" 
+                                                                                        class="form-control" 
+                                                                                        required="true" 
+                                                                                        type="text"></div>
+                                                                        </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                        <label class="col-md-4 control-label">Password</label>
+                                                                                <div class="col-md-8 inputGroupContainer">
+                                                                                <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                                <i class="glyphicon glyphicon-envelope"></i></span>
+                                                                                                <input id="password" 
+                                                                                                        formControlName="password" 
+                                                                                                        placeholder="password" 
+                                                                                                        class="form-control" 
+                                                                                                        required="true" 
+                                                                                                        type="password"></div>
+                                                                                </div>
+                                                        </div>
 
-                                                      </div>
-    
-                                                      <div class="form-group"> 
-                                                                    <div class="aab controls col-md-4 "></div>
-                                                                    <div class="controls col-md-8 ">
-                                                                        <input type="submit" 
-                                                                                text ='update'
-                                                                               class="btn btn-primary btn btn-info"
-                                                                               (click)="updateClient()"
-                                                                               id="submit-id-signup" />
-                                                                    </div>
-                                                                </div> 
-                                                   </fieldset>
-                                                </form>
-                                             </td>
-                                  </tr>
-                               </tbody>
-                        </table>
-    
-                        <ngx-spinner
-                            bdColor="rgba(51,51,51,0.8)"
-                            size="medium"
-                            color="#fff"
-                            loadingText="Loading..."
-                            type="ball-clip-rotate-multiple">
-                        </ngx-spinner>
-    
-                        <!-- Modal -->
-                        <div class="modal fade" id="addClientModal" role="dialog">
-                            <div class="modal-dialog">
-                              <!-- Modal content-->
-                              <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                    </div>
-                                <div class="modal-footer">
+                                                        <div id="div_id_select" class="form-group required">
+                                                                        <label for="id_select"  
+                                                                                class="control-label col-md-4 requiredField"> Service Types
+                                                                                <span class="asteriskField"></span> 
+                                                                        </label>
+                                                                        <div class="col-md-6 inputGroupContainer" style="margin-top:8px">
+                                                                        <div>
+                                                                                <label> Direct Injection </label>
+                                                                        </div>
+                                                                        <div class="form-check" style="margin-right:10px; margin-top:8px; float:left">
+                                                                                <div>
+                                                                                        <div *ngIf="typeOneFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="1PS" (change)="onServiceTypeChange($event)" value="1PS" [checked]="oneCheckFlag">
+                                                                                                <label>1PS</label>
+                                                                                        </div>
+                                                                                        <div *ngIf="typeTwoFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="2PS" (change)="onServiceTypeChange($event)" value="2PS" [checked]="twoCheckFlag">
+                                                                                                <label>2PS</label>
+                                                                                        </div>
+
+                                                                                        <div *ngIf="typeThreeFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="3PS" (change)="onServiceTypeChange($event)" value="3PS" [checked]="threeCheckFlag">
+                                                                                                <label>3PS</label>
+                                                                                        </div>
+
+                                                                                        <div *ngIf="typeFourFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="4PS" (change)="onServiceTypeChange($event)" value="4PS" [checked]="fourCheckFlag">
+                                                                                                <label>4PS</label>
+                                                                                        </div>
+
+                                                                                        <div *ngIf="typeFiveFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="5PS" (change)="onServiceTypeChange($event)" value="5PS" [checked]="fiveCheckFlag">
+                                                                                                <label>5PS</label>
+                                                                                        </div>
+
+                                                                                        <div *ngIf="typeSixFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="1PM" (change)="onServiceTypeChange($event)" value="1PM" [checked]="sixCheckFlag">
+                                                                                                <label>1PM</label>
+                                                                                        </div>
+                                                                                </div>
+                                                                                
+                                                                        </div>
+                                                                        </div>
+                                                                        
+                                                                        <!-- <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
+                                                                                <div>
+                                                                                <label> Origin Injection</label>
+                                                                                </div>
+                                                                                <div *ngIf="typeSevenFlag" style="margin-top:8px">
+                                                                                        <input type="checkbox" id="UnTracked" (change)="onServiceTypeChange($event)" value="UnTracked" [checked]="sevenCheckFlag">
+                                                                                        <label>UnTracked</label>
+                                                                                </div>
+                                                                        </div> -->
+
+                                                        </div>
+        
+                                                        <div class="form-group"> 
+                                                                        <div class="aab controls col-md-4 "></div>
+                                                                        <div class="controls col-md-8 ">
+                                                                                <input type="submit" 
+                                                                                        text ='update'
+                                                                                class="btn btn-primary btn btn-info"
+                                                                                (click)="updateClient()"
+                                                                                id="submit-id-signup" />
+                                                                        </div>
+                                                                        </div> 
+                                                        </fieldset>
+                                                        </form>
+                                                </td>
+                                        </tr>
+                                </tbody>
+                                </table>
+        
+                                <ngx-spinner
+                                bdColor="rgba(51,51,51,0.8)"
+                                size="medium"
+                                color="#fff"
+                                loadingText="Loading..."
+                                type="ball-clip-rotate-multiple">
+                                </ngx-spinner>
+        
+                                <!-- Modal -->
+                                <div class="modal fade" id="addClientModal" role="dialog">
+                                <div class="modal-dialog">
+                                <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                        <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
                                 </div>
-                              </div>
-                            </div>
-                        </div>
+                                </div>
+                                </div>
                     </div>
             </div>
     

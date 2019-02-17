@@ -14,12 +14,13 @@
                         </div>
                   </div>
                   
-                  <div class="delete_search">
-                      <div>
-                        <p style="float:left;margin-top:5px" *ngIf="englishFlag"> Select File To Delete Consignment : </p>
-                        <p style="float:left;margin-top:5px" *ngIf="chinessFlag"> 选择要删除寄售的文件 : </p>
+                  <div class="delete_search row">
+                        <div class="col-md-3">
+                          <p style="float:left;margin-top:5px" *ngIf="englishFlag"> Select File To Delete Consignment : </p>
+                          <p style="float:left;margin-top:5px" *ngIf="chinessFlag"> 选择要删除寄售的文件 : </p>
+                        </div>
 
-                        <div style="margin-left:20px; float: left">
+                        <div class="col-md-4">
                             <p-dropdown 
                               [options]="cities2" 
                               [(ngModel)]="selectedCity2" 
@@ -27,28 +28,30 @@
                               [ngModelOptions]="{standalone: true}"
                               [showClear]="true"
                               [editable]="true"
-                              [style]="{'width':'200%'}"
+                              [style]="{'width':'100%'}"
                               (onChange)="onFileChange($event)">
                             </p-dropdown>
                         </div>
 
-                        <button type="button" 
-                                class="btn btn-info" 
-                                (click)="zibraSearch()"
-                                *ngIf="englishFlag"
-                                style="background-color: #16A085; margin-left:30px">
-                                Search
-                        </button>
+                        <div class="col-md-2">
+                            <button type="button" 
+                                    class="btn btn-info" 
+                                    (click)="zibraSearch()"
+                                    *ngIf="englishFlag"
+                                    style="background-color: #16A085">
+                                    Search
+                            </button>
 
-                        <button type="button" 
-                                class="btn btn-info" 
-                                (click)="zibraSearch()"
-                                *ngIf="chinessFlag"
-                                style="background-color: #16A085; margin-left:30px">
-                                搜索
-                        </button>
+                            <button type="button" 
+                                    class="btn btn-info" 
+                                    (click)="zibraSearch()"
+                                    *ngIf="chinessFlag"
+                                    style="background-color: #16A085">
+                                    搜索
+                            </button>
+                        </div>
 
-                      </div>
+                     
                   </div>
 
                    <!-- Modal -->

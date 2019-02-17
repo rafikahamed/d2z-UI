@@ -139,7 +139,7 @@ export class APIUploadShipmentComponent implements OnInit{
         this.spinner.show();
         this.trackingDataService.shipmentAllocation(refrenceNumList, this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
+          this.successMsg = resp.responseMessage;
           $('#allocateShipmentModal').modal('show');
           if(!resp){
           }

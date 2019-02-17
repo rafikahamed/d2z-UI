@@ -15,25 +15,29 @@
                       </div>
                   </div>
                   
-                  <div class="delete_search">
-                    <div>
-                      <p style="float:left; margin-top:5px"> Select Shipment to fetch records : </p>
+                  <div class="delete_search row">
 
-                      <div style="margin-left:20px; float:left">
+                      <div class="col-md-3">
+                        <p style="margin-top:5px"> Select Shipment to fetch records : </p>
+                      </div>
+
+                      <div class="col-md-4">
                           <p-dropdown [options]="ShipmentArray" 
                                       [(ngModel)]="selectedShipment" 
                                       optionLabel="name" 
                                       (onChange)="onShipmentChange($event)"
                                       [showClear]="true"
-                                      [style]="{'width':'200%'}"
+                                      [style]="{'width':'100%'}"
                                       [editable]="true">
                           </p-dropdown>
                       </div>
 
-                      <button type="button" class="btn btn-info" (click)="apiDownLoadSearch()"
-                              style="background-color: #16A085; margin-left:30px">Search</button>
-
-                    </div>
+                      <div class="col-md-2">
+                            <button type="button" 
+                                    class="btn btn-info" 
+                                    (click)="apiDownLoadSearch()"
+                                    style="background-color: #16A085">Search</button>
+                      </div>
                   </div>
 
                   <div class="delete_panel">

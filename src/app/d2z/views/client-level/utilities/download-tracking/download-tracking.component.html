@@ -14,39 +14,42 @@
                         </div>
                   </div>
                   
-                  <div class="downlaodtrack_search">
-                      <div>
-                        <p style="float: left" *ngIf="englishFlag"> Select File to tarck the details: </p>
-                        <p style="float: left" *ngIf="chinessFlag"> 选择“文件”以查看详细信息 : </p>
+                  <div class="downlaodtrack_search row">
 
-                        <div style="margin-left:20px; float: left">
+                        <div class="col-md-3">
+                          <p style="float: left" *ngIf="englishFlag"> Select File to tarck the details: </p>
+                          <p style="float: left" *ngIf="chinessFlag"> 选择“文件”以查看详细信息 : </p>
+                        </div>
+
+                        <div class="col-md-4">
                               <p-dropdown 
                                   [options]="cities2" 
                                   optionLabel="name" 
                                   [showClear]="true"
                                   [editable]="true"
-                                  [style]="{'width':'200%'}"
+                                  [style]="{'width':'100%'}"
                                   (onChange)="onFileChange($event)">
                               </p-dropdown>
                         </div>
 
-                        <button type="button" 
-                                class="btn btn-info"
-                                *ngIf="englishFlag" 
-                                (click)="trackingList()"
-                                style="background-color: #16A085; margin-left:30px">
-                                Search
-                        </button>
+                        <div class="col-md-2">
+                            <button type="button" 
+                                    class="btn btn-info"
+                                    *ngIf="englishFlag" 
+                                    (click)="trackingList()"
+                                    style="background-color: #16A085">
+                                    Search
+                            </button>
 
-                        <button type="button" 
-                                class="btn btn-info" 
-                                (click)="trackingList()"
-                                *ngIf="chinessFlag"
-                                style="background-color: #16A085; margin-left:30px">
-                                搜索
-                        </button>
+                            <button type="button" 
+                                    class="btn btn-info" 
+                                    (click)="trackingList()"
+                                    *ngIf="chinessFlag"
+                                    style="background-color: #16A085">
+                                    搜索
+                            </button>
+                        </div>
 
-                      </div>
                   </div>
 
                   <div class="downloadtrack_panel">

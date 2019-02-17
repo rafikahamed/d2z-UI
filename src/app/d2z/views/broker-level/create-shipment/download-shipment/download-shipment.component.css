@@ -12,6 +12,7 @@ body{
 .delete_search{
     padding: 20px;
     margin-bottom: 20px;
+    margin-left: 0px;
     width:100%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);

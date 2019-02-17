@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
-import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
@@ -47,7 +46,6 @@ export class SuperUserUpdateClientComponent implements OnInit{
       show: Boolean;
       categories: any[];
       constructor(
-         public brokerService: BrokerService,
          public trackingDataService : TrackingDataService,
          public consignmenrServices: ConsigmentUploadService, 
          private spinner: NgxSpinnerService

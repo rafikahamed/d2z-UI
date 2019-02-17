@@ -14,31 +14,33 @@
                         </div>
                 </div>
 
-                <div class="manifest_search">
-                      <div>
+                <div class="manifest_search row">
                         <form [formGroup]="manifestForm">
-                            <p style="float:left; margin-top:5px" *ngIf="englishFlag"> Select the file containing the data to manifest : </p>
-                            <p style="float:left; margin-top:5px" *ngIf="chinessFlag"> 选择包含要显示的数据的文件 : </p>
-                          
-                            <div style="margin-left:20px; float: left">
+                            
+                            <div class="col-md-3">
+                                <p style="float:left; margin-top:5px" *ngIf="englishFlag"> Select the file containing the data to manifest : </p>
+                                <p style="float:left; margin-top:5px" *ngIf="chinessFlag"> 选择包含要显示的数据的文件 : </p>
+                            </div>
+
+                            <div class="col-md-4">
                               <p-dropdown 
                                     [options]="cities2" 
                                     [(ngModel)]="selectedCity2" 
                                     optionLabel="name" 
                                     [showClear]="true"
                                     [editable]="true"
-                                    [style]="{'width':'200%'}"
+                                    [style]="{'width':'100%'}"
                                     (onChange)="onFileChange($event)" 
                                     formControlName="manifestFile">
                               </p-dropdown>
                             </div>                      
                             
-                            <div>
+                            <div class="col-md-2">
                                 <button type="button" 
                                         class="btn btn-info" 
                                         *ngIf="englishFlag"
                                         (click)="manifestSearch()"
-                                        style="background-color: #16A085; margin-left:30px">
+                                        style="background-color: #16A085">
                                         Search
                                 </button>
 
@@ -46,12 +48,11 @@
                                         class="btn btn-info" 
                                         *ngIf="chinessFlag"
                                         (click)="manifestSearch()"
-                                        style="background-color: #16A085; margin-left:30px">
+                                        style="background-color: #16A085">
                                         搜索
                                 </button>
                             </div>
                         </form>
-                      </div>
                 </div>
     
                 <div class="manifest_panel">
@@ -73,40 +74,48 @@
                             </div>
                       </div>
 
-                      <div style="float:right">
-                            <button type="button" 
-                                      class="btn btn-info"
-                                      *ngIf="englishFlag" 
-                                      (click)="manifestCreation()"
-                                      style="background-color: #16A085; margin-right:20px">
-                                      Allocate Manifest
-                            </button>
-
-                            <button type="button" 
-                                      class="btn btn-info" 
-                                      *ngIf="chinessFlag"
-                                      (click)="manifestCreation()"
-                                      style="background-color: #16A085; margin-right:20px">
-                                      分配清单
-                            </button>
+                      <div class="row">
+                          <div class="col-md-4"></div>
+                          <div class="col-md-3"></div>
+                          <div class="col-md-3">
+                                        <div class="ui-inputgroup" >
+                                            <input type="text" 
+                                                    pInputText 
+                                                    *ngIf="englishFlag"
+                                                    id="manifestNumber" 
+                                                    placeholder="Manifest Number" 
+                                                    class="input-text">   
+                                            <input type="text" 
+                                                    pInputText 
+                                                    *ngIf="chinessFlag"
+                                                    id="manifestNumber" 
+                                                    placeholder="清单号" 
+                                                    class="input-text">   
+                                        </div>
+                          </div>
+                          <div class="col-md-2">
+                                <div>
+                                        <button type="button" 
+                                                  class="btn btn-info"
+                                                  *ngIf="englishFlag" 
+                                                  (click)="manifestCreation()"
+                                                  style="background-color: #16A085">
+                                                  Allocate Manifest
+                                        </button>
+            
+                                        <button type="button" 
+                                                  class="btn btn-info" 
+                                                  *ngIf="chinessFlag"
+                                                  (click)="manifestCreation()"
+                                                  style="background-color: #16A085">
+                                                  分配清单
+                                        </button>
+                                </div>
+                          </div>
                       </div>
+                      
 
-                      <div class="ui-g-6 ui-md-2" style="float:right">
-                              <div class="ui-inputgroup" >
-                                  <input type="text" 
-                                          pInputText 
-                                          *ngIf="englishFlag"
-                                          id="manifestNumber" 
-                                          placeholder="Manifest Number" 
-                                          class="input-text">   
-                                  <input type="text" 
-                                          pInputText 
-                                          *ngIf="chinessFlag"
-                                          id="manifestNumber" 
-                                          placeholder="清单号" 
-                                          class="input-text">   
-                              </div>
-                      </div>    
+                     
     
                       <div style="padding:20px">
                         <p *ngIf="englishFlag"> Please select below records to manifest </p>

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
-import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 declare var $: any;
@@ -42,7 +41,6 @@ export class AllocateShipmentComponent implements OnInit{
   ManifestArray: dropdownTemplate[];  
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
-    public brokerService: BrokerService,
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
     private _compiler: Compiler

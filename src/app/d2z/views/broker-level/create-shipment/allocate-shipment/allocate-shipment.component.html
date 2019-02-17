@@ -13,26 +13,35 @@
                       </div>
                   </div>
                   
-                  <div class="delete_search">
-                      <div>
+                  <div class="delete_search row">
+                      
                         <form [formGroup]="shipmentAllocateForm">
-                          <p style="float:left; margin-top:5px"> Select Manifest to fetch records : </p>
-                          <div style="margin-left:20px; float:left">
+                          <div class="col-md-3">
+                            <p style="float:left; margin-top:5px"> Select Manifest to fetch records : </p>
+                          </div>
+
+                          <div class="col-md-4">
                               <p-dropdown [options]="ManifestArray" 
                                           [(ngModel)]="selectedManifest" 
                                           optionLabel="name" 
                                           (onChange)="onManifestChange($event)" 
                                           [showClear]="true"
                                           [editable]="true"
-                                          [style]="{'width':'200%'}"
+                                          [style]="{'width':'100%'}"
                                           formControlName="manifestNumber">
                               </p-dropdown>
                           </div> 
-                          <button type="button" class="btn btn-info" (click)="manifestDataSearch()"
-                                  style="background-color: #16A085; margin-left:30px">Search
-                          </button>
+                          
+                          <div class="col-md-2"> 
+                            <button type="button" 
+                                    class="btn btn-info" 
+                                    (click)="manifestDataSearch()"
+                                    style="background-color: #16A085; margin-left:30px">
+                                    Search
+                            </button>
+                          </div>
                         </form>
-                      </div>
+                      
                   </div>
 
                   <div class="delete_panel">
@@ -66,22 +75,28 @@
                         <p class="err_msg">{{errorMsg}}</p>
                       </div>
 
-                      <div style="margin-top:10px">
-                        <button type="button" class="btn btn-info" (click)="allocateShipment()"
-                            style="background-color: #16A085; float:right; margin-right:20px">
-                            Allocate Shipment
-                        </button>
-                      
-                        <form [formGroup]="shipmentAllocateForm">
-                              <div class="ui-g-6 ui-md-2" style="float:right; margin-right:20px">
-                                  <div class="ui-inputgroup">
-                                      <input type="text" pInputText placeholder="Shipment Number" class="input-text"
-                                          formControlName="shipmentNumber">   
-                                         <button pButton type="button" icon="fa fa-superpowers" class="ui-button-warn">
-                                      </button>      
-                                  </div>
-                              </div>   
-                        </form>
+                      <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3">
+                            <form [formGroup]="shipmentAllocateForm">
+                                <div class="ui-inputgroup">
+                                    <input type="text" 
+                                            pInputText 
+                                            placeholder="Shipment Number" 
+                                            class="input-text"
+                                            formControlName="shipmentNumber">   
+                                  </div>  
+                              </form>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" 
+                                class="btn btn-info" 
+                                (click)="allocateShipment()"
+                                style="background-color: #16A085">
+                                  Allocate Shipment
+                            </button>
+                        </div>
                       </div>
                           
                       <div style="padding:20px">

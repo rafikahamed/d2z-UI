@@ -14,12 +14,13 @@
                         </div>
                   </div>
     
-                  <div class="printlabel_search">
-                      <div>
-                        <p style="float: left" *ngIf="englishFlag"> Select File To Download PDF : </p>
-                        <p style="float: left" *ngIf="chinessFlag"> 选择文件下载PDF : </p>
-
-                        <div style="margin-left:20px; float: left">
+                  <div class="printlabel_search row">
+                        <div class="col-md-3">
+                          <p style="float: left" *ngIf="englishFlag"> Select File To Download PDF : </p>
+                          <p style="float: left" *ngIf="chinessFlag"> 选择文件下载PDF : </p>
+                        </div>
+                        
+                        <div class="col-md-4">
                               <p-dropdown 
                               [options]="cities2" 
                               [(ngModel)]="selectedCity2" 
@@ -27,29 +28,29 @@
                               [ngModelOptions]="{standalone: true}"
                               [showClear]="true"
                               [editable]="true"
-                              [style]="{'width':'200%'}"
+                              [style]="{'width':'100%'}"
                               (onChange)="onFileChange($event)">
                           </p-dropdown>
                         </div>
 
-                        <button type="button" 
-                                class="btn btn-info"
-                                *ngIf="englishFlag" 
-                                (click)="zibraSearch()"
-                                style="background-color: #16A085; margin-left:30px">
-                                Search
-                        </button>
+                        <div class="col-md-2">
+                          <button type="button" 
+                                  class="btn btn-info"
+                                  *ngIf="englishFlag" 
+                                  (click)="zibraSearch()"
+                                  style="background-color: #16A085">
+                                  Search
+                          </button>
 
-                        <button type="button" 
-                                class="btn btn-info" 
-                                *ngIf="chinessFlag"
-                                (click)="zibraSearch()"
-                                style="background-color: #16A085; margin-left:30px">
-                                搜索
-                        </button>
-
-                      </div>
-                </div>
+                          <button type="button" 
+                                  class="btn btn-info" 
+                                  *ngIf="chinessFlag"
+                                  (click)="zibraSearch()"
+                                  style="background-color: #16A085">
+                                  搜索
+                          </button>
+                        </div>   
+                  </div>
 
                   <div class="printlabel_panel">
 

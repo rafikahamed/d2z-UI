@@ -14,25 +14,31 @@
                         </div>
                   </div>
                   
-                  <div class="delete_search">
-                      <div>
-                        <p style="float:left; margin-top:5px"> Select Manifest to download Labels : </p>
+                  <div class="delete_search row">
+                        <div class="col-md-3">
+                          <p style="float:left; margin-top:5px"> Select Manifest to download Labels : </p>
+                        </div>
 
-                        <div style="margin-left:20px; float:left">
+                        <div class="col-md-4">
                             <p-dropdown [options]="ManifestArray" 
                                         [(ngModel)]="selectedManifest" 
                                         optionLabel="name" 
                                         [showClear]="true"
                                         [editable]="true"
-                                        [style]="{'width':'200%'}"
+                                        [style]="{'width':'100%'}"
                                         (onChange)="onManifestChange($event)">
                             </p-dropdown>
                         </div>
 
-                        <button type="button" class="btn btn-info" (click)="downLoadSearch()"
-                                style="background-color: #16A085; margin-left:30px">Search</button>
-
-                      </div>
+                        <div class="col-md-2">
+                          <button type="button" 
+                                  class="btn btn-info" 
+                                  (click)="downLoadSearch()"
+                                  style="background-color: #16A085; margin-left:30px">
+                                  Search
+                          </button>
+                        </div>
+                      
                   </div>
 
                   <div class="delete_panel">

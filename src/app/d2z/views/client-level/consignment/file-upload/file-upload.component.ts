@@ -436,6 +436,40 @@ export class ZebraFileUpload implements OnInit{
                 }
               }
 
+              if(!dataObj['Reference number']){
+                this.errorMsg = "Reference Number is mandatory";
+              }else if(!dataObj['Consignee Name']){
+                this.errorMsg = "Consignee Name is mandatory";
+              }else if(!dataObj['Consignee Address']){
+                this.errorMsg = "Consignee Address is mandatory";
+              }else if(!dataObj['Consignee Suburb']){
+                this.errorMsg = 'Consignee Suburb is mandatory';
+              }else if(!dataObj['Consignee State']){
+                this.errorMsg = 'Consignee State is mandatory';
+              }else if(!dataObj['Consignee Postcode']){
+                this.errorMsg = 'Consignee Postcode is mandatory';
+              }else if(!dataObj['Product Description']){
+                this.errorMsg = 'Product Description is mandatory';
+              }else if(!dataObj['Value']){
+                this.errorMsg = 'Value is mandatory';
+              }else if(!dataObj['Currency']){
+                this.errorMsg = 'Currency is mandatory';
+              }else if(!dataObj['Shipped Quantity']){
+                this.errorMsg = 'Shipped Quantity is mandatory';
+              }else if(!dataObj['Shipper Name']){
+                this.errorMsg = 'Shipped Name is mandatory';
+              }else if(!dataObj['Shipper Address']){
+                this.errorMsg = 'Shipped Address is mandatory';
+              }else if(!dataObj['Shipper City']){
+                this.errorMsg = 'Shipped City is mandatory';
+              }else if(!dataObj['Shipper State']){
+                this.errorMsg = 'Shipped State is mandatory';
+              }else if(!dataObj['Shipper Postcode']){
+                this.errorMsg = 'Shipped Postcode is mandatory';
+              }else if(!dataObj['Shipper Country']){
+                this.errorMsg = 'Shipped Country is mandatory'
+              }
+
               if(this.errorMsg == null){
                 var importObj = (
                   importObj={}, 

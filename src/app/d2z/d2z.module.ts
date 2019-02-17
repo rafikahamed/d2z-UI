@@ -11,7 +11,6 @@ import { ClientHomeComponent } from 'app/d2z/views/client-level/client-home/clie
 import { PolicyComponent } from 'app/d2z/views/policy/policy.component'
 import { TrackParcelComponent } from 'app/d2z/views/track-parcel/track-parcel.component'
 import { LoginService } from 'app/d2z/service/login.service';
-import { BrokerService } from 'app/d2z/service/broker/broker.service';
 import { ZebraFileUpload } from 'app/d2z/views/client-level/consignment/file-upload/file-upload.component';
 import { ZebraDelete } from 'app/d2z/views/client-level/consignment/delete/delete.component';
 import { ZebraPdfFileUpload } from 'app/d2z/views/client-level/print-labels/zibra/zibra.component';
@@ -139,8 +138,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     { provide: 'Window', useValue: window },
     LoginService,
     ConsigmentUploadService,
-    TrackingDataService,
-    BrokerService
+    TrackingDataService
   ],
   bootstrap: [
     d2zComponent
