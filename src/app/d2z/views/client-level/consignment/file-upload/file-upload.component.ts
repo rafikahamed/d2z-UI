@@ -521,16 +521,16 @@ export class ZebraFileUpload implements OnInit{
         this.spinner.show();
         this.consigmentUploadService.consigmentFileUpload(selectedRows, (resp) => {
         this.spinner.hide();
-          if(!resp.error){
-            this.successMsg = this.englishFlag ? 'File data uploaded successfully to D2Z System' : '文件数据成功上传到D2Z系统';
-            this.successReferenceNumber = resp;
-            this.showSuccess = true;
-            $('#fileUploadModal').modal('show');
-          }else{  
+        if(resp.errorMessage){
             this.errorMsg = resp.error.errorMessage;
             this.errorDetails = resp.error.errorDetails;
             this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
             this.show = true;
+            $('#fileUploadModal').modal('show');  
+          }else{  
+            this.successMsg = this.englishFlag ? 'File data uploaded successfully to D2Z System' : '文件数据成功上传到D2Z系统';
+            this.successReferenceNumber = resp;
+            this.showSuccess = true;
             $('#fileUploadModal').modal('show');
           }
           setTimeout(() => { this.spinner.hide() }, 5000);
@@ -560,14 +560,14 @@ export class ZebraFileUpload implements OnInit{
             useBom: true,
             headers: ['Reference Number', 'Service Type']
           }
-        }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb'){
+        }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb or Consiggnee State'){
           var options = { 
             fieldSeparator: ',',
             quoteStrings: '"',
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: ['Reference Number', 'PostCode or Suburb']
+            headers: ['Reference Number', 'Suburb', 'PostCode', 'State']
           }
         }else if(this.errorMsg == 'Reference Number must be unique'){
           var options = { 
@@ -579,19 +579,23 @@ export class ZebraFileUpload implements OnInit{
             headers: ['Reference Number']
           }
         }
-      } 
-      var options = { 
+      }else{
+        var options = { 
           fieldSeparator: ',',
           quoteStrings: '"',
           decimalseparator: '.',
           showLabels: true, 
           useBom: true,
           headers: ['Reference Number', 'BarCode Label Number']
-      };
+          }
+      }
+      
       var refernceNumberList = [];
       let referenceNumber = 'referenceNumber';
       let serviceType = 'serviceType';
       let postCode = 'postCode';
+      let suburb = 'suburb';
+      let state = 'state';
       let barCodeNumber = 'barCodeNumber';
       if(!this.showSuccess) {
         for(var refNum in this.errorDetails){
@@ -603,11 +607,13 @@ export class ZebraFileUpload implements OnInit{
                     importObj[referenceNumber]= a[0], importObj,
                     importObj[serviceType]= a[1], importObj
                   )
-               }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb'){
+               }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb or Consiggnee State'){
                   var importObj = (
                     importObj={}, 
                     importObj[referenceNumber]= a[0], importObj,
-                    importObj[postCode]= a[1], importObj
+                    importObj[suburb]= a[1], importObj,
+                    importObj[postCode]= a[2], importObj,
+                    importObj[state] = a[3], importObj
                   )
                }else if(this.errorMsg == 'Reference Number must be unique'){
                 var importObj = (

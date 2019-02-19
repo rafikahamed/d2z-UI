@@ -218,7 +218,7 @@ export class APIDownloadShipmentComponent implements OnInit{
       this.trackingDataService.apiShipmentList( (resp) => {
         this.spinner.hide();
         this.ShipmentArray = resp;
-        this.shipmentNumber = this.ShipmentArray[0].value;
+        this.shipmentNumber = this.ShipmentArray[0] ? this.ShipmentArray[0].value : '';
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  
