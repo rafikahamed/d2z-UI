@@ -11,6 +11,11 @@ import * as XLSX from 'xlsx';
 import { isDifferent } from '@angular/core/src/render3/util';
 declare var $: any;
 
+interface dropdownTemplate {
+  name: string;
+  value: string;
+}
+
 @Component({
   selector: 'hms-file-upload',
   templateUrl: './file-upload.component.html?v=${new Date().getTime()',
@@ -33,13 +38,20 @@ export class ZebraFileUpload implements OnInit{
     errorDetails1: String;
     file:File;
     arrayBuffer:any;
+    exportTypeDropdown: dropdownTemplate[];  
+    selectedExportType: dropdownTemplate;
     public importList = [];
     englishFlag:boolean;
     chinessFlag:boolean;
-    FileHeading = ['Reference number', 'Consignee Company', 'Consignee Name', 'Consignee Address', 'Consignee Suburb', 'Consignee State', 'Consignee Postcode',
-                   'Consignee Phone', 'Product Description', 'Value', 'Currency', 'Shipped Quantity', 'Weight', 'Dim_X', 'Dim_Y',
-                   'Dim_Z', 'Service type', 'Shipper Name', 'Shipper Address', 'Shipper City', 'Shipper State', 'Shipper Postcode',
-                   'Shipper Country', 'SKU', 'Label Sender Name', 'Delivery Instructions'];
+    carrierType: String;
+    // FileHeading = ['Reference number', 'Consignee Company', 'Consignee Name', 'Consignee Address 1', 'Consignee Suburb', 'Consignee State', 'Consignee Postcode',
+    //                'Consignee Phone', 'Product Description', 'Value', 'Currency', 'Shipped Quantity', 'Weight', 'Dim_X', 'Dim_Y',
+    //                'Dim_Z', 'Service type', 'Shipper Name', 'Shipper Address', 'Shipper City', 'Shipper State', 'Shipper Postcode',
+    //                'Shipper Country', 'SKU', 'Label Sender Name', 'Delivery Instructions'];
+
+    FileHeading = ['Reference number', 'Consignee Name', 'Consignee Address 1', 'Consignee Suburb', 
+    'Consignee State', 'Consignee Postcode',
+    'Product Description', 'Value', 'Weight', 'Service type'];
     
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
@@ -69,6 +81,11 @@ export class ZebraFileUpload implements OnInit{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.exportTypeDropdown = [
+        { "name": "eParcel", "value": "eParcel" },
+        { "name": "Express", "value": "Express" }
+      ];
+      this.selectedExportType = this.exportTypeDropdown[0];
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
@@ -362,6 +379,8 @@ export class ZebraFileUpload implements OnInit{
         let referenceNumber = 'referenceNumber';
         let consigneeName = 'consigneeName';
         let consigneeAddr1 = 'consigneeAddr1';
+        let consigneeAddr2 = 'consigneeAddr2';
+        let consigneeEmail = 'consigneeEmail';
         let consigneeSuburb = 'consigneeSuburb';
         let consigneeState = 'consigneeState';
         let consigneePostcode = 'consigneePostcode';
@@ -389,6 +408,7 @@ export class ZebraFileUpload implements OnInit{
         let sku = 'sku';
         let labelSenderName = 'labelSenderName';
         let deliveryInstructions = 'deliveryInstructions';
+        let carrier = 'carrier'
 
         var today = new Date();
         var day = today.getDate() + "";
@@ -427,21 +447,61 @@ export class ZebraFileUpload implements OnInit{
               var dataObj = exportData[importVal];
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
-                if(!this.FileHeading.includes(keyVal)){
-                  this.errorMsg = "***Invalid file format, Please check the field in given files"+ 
-                  newLine + "Allowed fields are [ Reference number, Consignee Company, Consignee Name, Consignee Address, Consignee Suburb, Consignee State, Consignee Postcode"+
-                  newLine + "Consignee Phone, Product Description, Value, Currency, Shipped Quantity, Weight, Dim_X, Dim_Y"+
-                  newLine + "Dim_Z, Service type, Shipper Name, Shipper Address, Shipper City, Shipper State, Shipper Postcode',Shipper Country ]";
-                  break;
-                }
+                //if(!this.FileHeading.includes(keyVal)){
+                  // this.errorMsg = "***Invalid file format, Please check the field in given files"+ 
+                  // newLine + "Allowed fields are [ Reference number, Consignee Company, Consignee Name, Consignee Address 1, Consignee Suburb, Consignee State, Consignee Postcode"+
+                  // newLine + "Consignee Phone, Product Description, Value, Currency, Shipped Quantity, Weight, Dim_X, Dim_Y"+
+                  // newLine + "Dim_Z, Service type, Shipper Name, Shipper Address, Shipper City, Shipper State, Shipper Postcode',Shipper Country ]";
+                  // break;
+
+                //   this.errorMsg = "***Invalid file format, Please check the field in given files"+ 
+                //   newLine + "Allowed fields are [ Reference number,Consignee Name, Consignee Address 1, Consignee Suburb, Consignee State, Consignee Postcode,"+
+                //   newLine + "Product Description, Value, Weight"+
+                //   newLine + " Service type]";
+                //   break;
+                // }
               }
+
+              // if(!dataObj['Reference number']){
+              //   this.errorMsg = "Reference Number is mandatory";
+              // }else if(!dataObj['Consignee Name']){
+              //   this.errorMsg = "Consignee Name is mandatory";
+              // }else if(!dataObj['Consignee Address 1']){
+              //   this.errorMsg = "Consignee Address 1 is mandatory";
+              // }else if(!dataObj['Consignee Suburb']){
+              //   this.errorMsg = 'Consignee Suburb is mandatory';
+              // }else if(!dataObj['Consignee State']){
+              //   this.errorMsg = 'Consignee State is mandatory';
+              // }else if(!dataObj['Consignee Postcode']){
+              //   this.errorMsg = 'Consignee Postcode is mandatory';
+              // }else if(!dataObj['Product Description']){
+              //   this.errorMsg = 'Product Description is mandatory';
+              // }else if(!dataObj['Value']){
+              //   this.errorMsg = 'Value is mandatory';
+              // }else if(!dataObj['Currency']){
+              //   this.errorMsg = 'Currency is mandatory';
+              // }else if(!dataObj['Shipped Quantity']){
+              //   this.errorMsg = 'Shipped Quantity is mandatory';
+              // }else if(!dataObj['Shipper Name']){
+              //   this.errorMsg = 'Shipped Name is mandatory';
+              // }else if(!dataObj['Shipper Address']){
+              //   this.errorMsg = 'Shipped Address is mandatory';
+              // }else if(!dataObj['Shipper City']){
+              //   this.errorMsg = 'Shipped City is mandatory';
+              // }else if(!dataObj['Shipper State']){
+              //   this.errorMsg = 'Shipped State is mandatory';
+              // }else if(!dataObj['Shipper Postcode']){
+              //   this.errorMsg = 'Shipped Postcode is mandatory';
+              // }else if(!dataObj['Shipper Country']){
+              //   this.errorMsg = 'Shipped Country is mandatory'
+              // }
 
               if(!dataObj['Reference number']){
                 this.errorMsg = "Reference Number is mandatory";
               }else if(!dataObj['Consignee Name']){
                 this.errorMsg = "Consignee Name is mandatory";
-              }else if(!dataObj['Consignee Address']){
-                this.errorMsg = "Consignee Address is mandatory";
+              }else if(!dataObj['Consignee Address 1']){
+                this.errorMsg = "Consignee Address 1 is mandatory";
               }else if(!dataObj['Consignee Suburb']){
                 this.errorMsg = 'Consignee Suburb is mandatory';
               }else if(!dataObj['Consignee State']){
@@ -452,22 +512,10 @@ export class ZebraFileUpload implements OnInit{
                 this.errorMsg = 'Product Description is mandatory';
               }else if(!dataObj['Value']){
                 this.errorMsg = 'Value is mandatory';
-              }else if(!dataObj['Currency']){
-                this.errorMsg = 'Currency is mandatory';
-              }else if(!dataObj['Shipped Quantity']){
-                this.errorMsg = 'Shipped Quantity is mandatory';
-              }else if(!dataObj['Shipper Name']){
-                this.errorMsg = 'Shipped Name is mandatory';
-              }else if(!dataObj['Shipper Address']){
-                this.errorMsg = 'Shipped Address is mandatory';
-              }else if(!dataObj['Shipper City']){
-                this.errorMsg = 'Shipped City is mandatory';
-              }else if(!dataObj['Shipper State']){
-                this.errorMsg = 'Shipped State is mandatory';
-              }else if(!dataObj['Shipper Postcode']){
-                this.errorMsg = 'Shipped Postcode is mandatory';
-              }else if(!dataObj['Shipper Country']){
-                this.errorMsg = 'Shipped Country is mandatory'
+              }else if(!dataObj['Weight']){
+                this.errorMsg = 'Weight is mandatory';
+              }else if(!dataObj['Service type']){
+                this.errorMsg = 'Service type is mandatory';
               }
 
               if(this.errorMsg == null){
@@ -476,7 +524,9 @@ export class ZebraFileUpload implements OnInit{
                   importObj[referenceNumber]= dataObj['Reference number'] != undefined ? dataObj['Reference number'] : '', importObj,
                   importObj[consigneeCompany]= dataObj['Consignee Company'] != undefined ? dataObj['Consignee Company'] : '', importObj,
                   importObj[consigneeName]= dataObj['Consignee Name'] != undefined ? dataObj['Consignee Name'] : '', importObj,
-                  importObj[consigneeAddr1]= dataObj['Consignee Address'] != undefined ? dataObj['Consignee Address'] : '', importObj,
+                  importObj[consigneeAddr1]= dataObj['Consignee Address 1'] != undefined ? dataObj['Consignee Address 1'] : '', importObj,
+                  importObj[consigneeAddr2]= dataObj['Consignee Address 2'] != undefined ? dataObj['Consignee Address 2'] : '',  importObj,
+                  importObj[consigneeEmail]= dataObj['Consignee Email'] != undefined ? dataObj['Consignee Email'] : '',  importObj,
                   importObj[consigneeSuburb]= dataObj['Consignee Suburb'] != undefined ? dataObj['Consignee Suburb'] : '', importObj,
                   importObj[consigneeState]= dataObj['Consignee State'] != undefined ? dataObj['Consignee State'] : '',  importObj,
                   importObj[consigneePostcode]= dataObj['Consignee Postcode'] != undefined ? dataObj['Consignee Postcode'] : '', importObj,
@@ -501,7 +551,8 @@ export class ZebraFileUpload implements OnInit{
                   importObj[deliveryInstructions]= dataObj['Delivery Instructions'] != undefined ? dataObj['Delivery Instructions'] : '',  importObj,
                   importObj[fileName]= this.file.name+'-'+dateString, importObj,
                   importObj[userID]= this.consigmentUploadService.userMessage.user_id, importObj,
-                  importObj[userName]= this.consigmentUploadService.userMessage.userName, importObj
+                  importObj[userName]= this.consigmentUploadService.userMessage.userName, importObj,
+                  importObj[carrier]= this.carrierType ? this.carrierType : '',  importObj
               );
               this.importList.push(importObj)
               this.rowData = this.importList;
@@ -512,6 +563,9 @@ export class ZebraFileUpload implements OnInit{
 
     fileUpload(){
       var selectedRows = this.gridOptions.api.getSelectedRows();
+      for(var i = 0; i != selectedRows.length; ++i){
+        selectedRows[i].carrier = this.carrierType;
+      }
       this.errorMsg = '';
       this.successMsg = '';
       this.errorDetails1 = '';
@@ -648,6 +702,11 @@ export class ZebraFileUpload implements OnInit{
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
     }
+
+    onCarrierChange(event){
+      this.carrierType = event.value ? event.value.value : '';
+      console.log(this.carrierType)
+    };
 }
 
 export interface userMessage {

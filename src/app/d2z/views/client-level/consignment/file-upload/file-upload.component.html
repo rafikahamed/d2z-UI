@@ -55,7 +55,7 @@
               </div>
 
               <div class="fileupload_search">
-                  <div style="padding-right: 15px; margin-bottom:40px">
+                  <div style="padding-right: 15px; margin-bottom:50px">
                       <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
                               style="color: darkgreen; font-size:17px; float: left;" download>
                                 **Please click here to download the template for File Upload
@@ -68,8 +68,25 @@
                   </div>
 
                   <div>
-                    <p style="float: left" *ngIf="englishFlag"> Select File : </p>
-                    <p style="float: left" *ngIf="chinessFlag"> 选择文件 : </p>
+
+                      <div>
+                          <p style="float: left"> Carrier Type : </p>
+                          <div class="col-md-2">
+                                <p-dropdown [options]="exportTypeDropdown" 
+                                              [(ngModel)]="selectedCarrierType" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true"
+                                              [style]="{'width':'100%'}"
+                                              (onChange)="onCarrierChange($event)">
+                                </p-dropdown>
+                          </div>
+                      </div>
+
+                  <div>
+                    <p style="float:left; margin-left:50px" *ngIf="englishFlag"> Select File : </p>
+                    <p style="float:left; margin-left:50px" *ngIf="chinessFlag"> 选择文件 : </p>
                     
                     <input type="file" 
                               style="margin-left:25px; float:left" 
@@ -93,6 +110,7 @@
                               style="background-color: #16A085; float:left; margin-left: 30px; margin-top:-7px">
                               刷新
                     </button>
+                  </div>
                       
                   </div>
               </div>
