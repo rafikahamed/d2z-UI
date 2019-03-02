@@ -74,7 +74,7 @@ export class ZebraFileUpload implements OnInit{
       this.defaultColDef = {
         editable: true
       };
-    }
+    };
 
     ngOnInit(){
       this.userMessage = this.consigmentUploadService.userMessage;
@@ -368,7 +368,7 @@ export class ZebraFileUpload implements OnInit{
           }
         ] 
       }
-    }
+    };
     
     fileExport() {
       var worksheet;
@@ -495,7 +495,6 @@ export class ZebraFileUpload implements OnInit{
               // }else if(!dataObj['Shipper Country']){
               //   this.errorMsg = 'Shipped Country is mandatory'
               // }
-
               if(!dataObj['Reference number']){
                 this.errorMsg = "Reference Number is mandatory";
               }else if(!dataObj['Consignee Name']){
@@ -533,8 +532,8 @@ export class ZebraFileUpload implements OnInit{
                   importObj[consigneePhone]= dataObj['Consignee Phone'] != undefined ? dataObj['Consignee Phone'] : '', importObj,
                   importObj[productDescription]= dataObj['Product Description'] != undefined ? dataObj['Product Description'] : '',  importObj,
                   importObj[value]= dataObj['Value'] != undefined ? parseInt(dataObj['Value']) : '', importObj,
-                  importObj[currency]= dataObj['Currency'] != undefined ? dataObj['Currency'] : '', importObj,
-                  importObj[shippedQuantity]= dataObj['Shipped Quantity'] != undefined ? parseInt(dataObj['Shipped Quantity']) : '', importObj,
+                  importObj[currency]= dataObj['Currency'] != undefined ? dataObj['Currency'] : 'AUD', importObj,
+                  importObj[shippedQuantity]= dataObj['Shipped Quantity'] != undefined ? parseInt(dataObj['Shipped Quantity']) : 1, importObj,
                   importObj[weight]= dataObj['Weight'] != undefined ? dataObj['Weight'] : '',  importObj,
                   importObj[dimensionsLength]= dataObj['Dim_X'] != undefined ? parseInt(dataObj['Dim_X']) : '',  importObj,
                   importObj[dimensionsWidth]= dataObj['Dim_Y'] != undefined ? parseInt(dataObj['Dim_Y']) : '', importObj,
@@ -559,7 +558,7 @@ export class ZebraFileUpload implements OnInit{
               }
           }
         }
-    }
+    };
 
     fileUpload(){
       var selectedRows = this.gridOptions.api.getSelectedRows();
@@ -575,7 +574,7 @@ export class ZebraFileUpload implements OnInit{
         this.spinner.show();
         this.consigmentUploadService.consigmentFileUpload(selectedRows, (resp) => {
         this.spinner.hide();
-        if(resp.errorMessage){
+        if(resp.error){
             this.errorMsg = resp.error.errorMessage;
             this.errorDetails = resp.error.errorDetails;
             this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
@@ -632,8 +631,26 @@ export class ZebraFileUpload implements OnInit{
             useBom: true,
             headers: ['Reference Number']
           }
-        }
+      }else if(this.errorMsg = 'VALIDATION FAILED'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number']
+          }
       }else{
+         var options = { 
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalseparator: '.',
+          showLabels: true, 
+          useBom: true,
+          headers: ['Reference Number']
+        }
+      }
+    }else{
         var options = { 
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -653,7 +670,7 @@ export class ZebraFileUpload implements OnInit{
       let barCodeNumber = 'barCodeNumber';
       if(!this.showSuccess) {
         for(var refNum in this.errorDetails){
-          var a = this.errorDetails[refNum] .split("-") // Delimiter is a string
+          var a = this.errorDetails[refNum].split("-") // Delimiter is a string
             for (var i = 0; i < a.length; i++){
               if(this.errorMsg == 'Invalid Service Type'){
                   var importObj = (
@@ -671,9 +688,14 @@ export class ZebraFileUpload implements OnInit{
                   )
                }else if(this.errorMsg == 'Reference Number must be unique'){
                 var importObj = (
-                  importObj={}, 
-                  importObj[referenceNumber]= a[0], importObj
-                )
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj
+                  )
+               }else if(this.errorMsg == 'VALIDATION FAILED'){
+                  var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj
+                  )
                }
               }
             refernceNumberList.push(importObj)
@@ -683,7 +705,7 @@ export class ZebraFileUpload implements OnInit{
           var importObj = (
             importObj={}, 
             importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
-            importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44), importObj
+            this.successReferenceNumber[refNum].barcodeLabelNumber ? importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44) : '', importObj
           )
             refernceNumberList.push(importObj)
           }
@@ -701,13 +723,13 @@ export class ZebraFileUpload implements OnInit{
       this.errorMsg = '';
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
-    }
+    };
 
     onCarrierChange(event){
       this.carrierType = event.value ? event.value.value : '';
       console.log(this.carrierType)
     };
-}
+};
 
 export interface userMessage {
   contactName,
