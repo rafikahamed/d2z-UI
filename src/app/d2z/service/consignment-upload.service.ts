@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 
 // const baseUrl = "https://www.d2z.com.au/v1/d2z";
 // const baseUrl = "http://localhost:8080/v1/d2z";
-const baseUrl = "http://18.216.201.118:8080/v1/d2z";
+const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -27,10 +27,11 @@ export class ConsigmentUploadService implements OnInit{
                         "childmenubrkFour":true, "childmenubrkFive": true});
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
-  private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true});
+  private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
+                        "childmenuSuperFour":true, "childmenuSuperFive":true});
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
 
-  constructor(
+  constructor(  
       private http: HttpClient, 
       private router: Router
   ){}

@@ -40,6 +40,12 @@ import { EtowerTrackingComponent } from 'app/d2z/views/superuser-level/utilities
 import { ClientHeaderComponent } from 'app/d2z/views/client-level/client-header/client-header.component';
 import { BrokerHeaderComponent } from 'app/d2z/views/broker-level/broker-header/broker-header.component';
 import { SuperUserHeaderComponent } from 'app/d2z/views/superuser-level/super-user-header/super-user-header.component';
+import { SuperUserRatesAddComponent } from 'app/d2z/views/superuser-level/rates/add/add.component';
+import { SuperUserRatesUpdateComponent } from 'app/d2z/views/superuser-level/rates/update/update.component';
+import { SuperUserD2ZRatesComponent } from 'app/d2z/views/superuser-level/rates/d2z-rates/d2z-rates.component';
+import { SuperUserNotBilledComponent } from 'app/d2z/views/superuser-level/invoices/not-billed/not-billed.component';
+import { SuperUserInvoicePendingComponent } from 'app/d2z/views/superuser-level/invoices/pending/pending.component';
+import { SuperUserReconcileComponent } from 'app/d2z/views/superuser-level/invoices/reconcile/reconcile.component';
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
@@ -92,7 +98,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoice-report", component: SuperUserInvoiceComponent},
           { path: "superuser/etrack", component: EtowerTrackingComponent},
           { path: "policy", component: PolicyComponent},
-          { path: "track-parcel", component: TrackParcelComponent}
+          { path: "track-parcel", component: TrackParcelComponent},
+          { path: "superuser/rates/add", component: SuperUserRatesAddComponent},
+          { path: "superuser/rates/update", component: SuperUserRatesUpdateComponent},
+          { path: "superuser/rates/d2z-rates", component: SuperUserD2ZRatesComponent},
+          { path: "superuser/invoices/pending", component: SuperUserInvoicePendingComponent},
+          { path: "superuser/invoices/reconcile", component: SuperUserReconcileComponent},
+          { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent}
     ], { useHash: true }),
     UiModule
   ],
@@ -131,7 +143,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     EtowerTrackingComponent,
     ClientHeaderComponent,
     BrokerHeaderComponent,
-    SuperUserHeaderComponent
+    SuperUserHeaderComponent,
+    SuperUserRatesAddComponent,
+    SuperUserRatesUpdateComponent,
+    SuperUserD2ZRatesComponent,
+    SuperUserInvoicePendingComponent,
+    SuperUserReconcileComponent,
+    SuperUserNotBilledComponent
   ],
   entryComponents: [],
   providers: [

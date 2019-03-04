@@ -258,6 +258,8 @@ export class BrokerPdfComponent implements OnInit{
         let labelSenderName = 'labelSenderName';
         let deliveryInstructions = 'deliveryInstructions';
         let consigneeCompany = 'consigneeCompany';
+        let carrier = 'carrier';
+        let consigneeAddr2 = 'consigneeAddr2';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -284,7 +286,9 @@ export class BrokerPdfComponent implements OnInit{
               printObj[sku]= labelObj.sku, printObj,
               printObj[labelSenderName]= labelObj.labelSenderName, printObj,
               printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
-              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj
+              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj,
+              printObj[carrier]= labelObj.carrier, printObj,
+              printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj
           );
           printLabelList.push(printObj)
         }

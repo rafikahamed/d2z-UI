@@ -193,6 +193,11 @@ export class ZebraPdfPrintLabels implements OnInit{
             width: 140
           },
           {
+            headerName: "Carrier",
+            field: "carrier",
+            width: 100
+          },
+          {
             headerName: "Barcode Label Number",
             field: "barcodelabelNumber",
             width: 350
@@ -346,6 +351,11 @@ export class ZebraPdfPrintLabels implements OnInit{
             width: 140
           },
           {
+            headerName: "支架",
+            field: "carrier",
+            width: 100
+          },
+          {
             headerName: "条形码标签号",
             field: "barcodelabelNumber",
             width: 350
@@ -446,6 +456,8 @@ export class ZebraPdfPrintLabels implements OnInit{
         let labelSenderName = 'labelSenderName';
         let deliveryInstructions = 'deliveryInstructions';
         let consigneeCompany = 'consigneeCompany';
+        let carrier = 'carrier';
+        let consigneeAddr2 = 'consigneeAddr2';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -472,7 +484,9 @@ export class ZebraPdfPrintLabels implements OnInit{
               printObj[sku]= labelObj.sku, printObj,
               printObj[labelSenderName]= labelObj.labelSenderName, printObj,
               printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
-              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj
+              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj,
+              printObj[carrier]= labelObj.carrier, printObj,
+              printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj
           );
           printLabelList.push(printObj)
         }

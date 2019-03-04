@@ -16,6 +16,8 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperOne: boolean;
   childmenuSuperTwo: boolean;
   childmenuSuperThree: boolean;
+  childmenuSuperFour: boolean;
+  childmenuSuperFive: boolean;
   userName: String;
 
   constructor(
@@ -28,6 +30,8 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperOne = menuSelection.childmenuSuperOne;
     this.childmenuSuperTwo = menuSelection.childmenuSuperTwo;
     this.childmenuSuperThree = menuSelection.childmenuSuperThree;
+    this.childmenuSuperFour = menuSelection.childmenuSuperFour;
+    this.childmenuSuperFive = menuSelection.childmenuSuperFive;
   }
 
   super_user(arrow) {
@@ -63,6 +67,34 @@ export class SuperUserHeaderComponent implements OnInit {
     menuSuperObj.childmenuSuperThree = !this.childmenuSuperThree;
     this.consigmentUploadService.menuSuperSelection(menuSuperObj);
     this.childmenuSuperThree = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperThree;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
+  super_user_rates(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperFour = !this.childmenuSuperFour;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperFour = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperFour;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
+  super_user_invoices(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperFive = !this.childmenuSuperFive;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperFive = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperFive;
     if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

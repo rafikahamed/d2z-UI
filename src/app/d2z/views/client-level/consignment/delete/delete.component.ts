@@ -187,6 +187,11 @@ export class ZebraDelete implements OnInit{
             width: 140
           },
           {
+            headerName: "Carrier",
+            field: "carrier",
+            width: 100
+          },
+          {
             headerName: "Barcode Label Number",
             field: "barcodelabelNumber",
             width: 350
@@ -318,6 +323,11 @@ export class ZebraDelete implements OnInit{
             headerName: "托运人国家",
             field: "shipper_Country",
             width: 140
+          },
+          {
+            headerName: "支架",
+            field: "carrier",
+            width: 100
           },
           {
             headerName: "条形码标签号",

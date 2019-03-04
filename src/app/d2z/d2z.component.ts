@@ -26,7 +26,6 @@ export class d2zComponent implements OnInit{
 
   ngOnInit() {
     this.spinner.show();
-      console.log("First Entry ------>")
   }
 
 }

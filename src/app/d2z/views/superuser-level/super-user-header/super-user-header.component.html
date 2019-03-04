@@ -35,6 +35,20 @@
                                 <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>
                                 </ul>
                             </li>
+                            <li><a (click)="super_user_rates(arrow)"><i class="fa fa-desktop"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFour? 'block' : 'none'}">
+                                <li><a routerLink="/superuser/rates/add">Add</a></li>
+                                <li><a routerLink="/superuser/rates/update">Update</a></li>
+                                <li><a routerLink="/superuser/rates/d2z-rates">D2Z Rates</a></li>
+                                </ul>
+                            </li>
+                            <li><a (click)="super_user_invoices(arrow)"><i class="fa fa-desktop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFive ? 'block' : 'none'}">
+                                <li><a routerLink="/superuser/invoices/pending">Pending</a></li>
+                                <li><a routerLink="/superuser/invoices/reconcile">Reconcile</a></li>
+                                <li><a routerLink="/superuser/invoice/not-billed">Not Billed</a></li>
+                                </ul>
+                            </li>
                             <li>
                               <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
                           </li>
