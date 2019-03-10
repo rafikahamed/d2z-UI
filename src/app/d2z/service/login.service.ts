@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
 
-const baseUrl = "http://18.220.140.225:8080/v1/d2z";
-// const baseUrl = "http://localhost:8080/v1/d2z";
+// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+const baseUrl = "http://localhost:8080/v1/d2z";
 // const baseUrl = "https://www.d2z.com.au/v1/d2z";
 
 @Injectable()

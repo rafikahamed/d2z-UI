@@ -1,5 +1,3 @@
-
-
 body{
     color:#73879C;
     /* background:#2A3F54; */
@@ -13,13 +11,14 @@ body{
     padding: 20px;
     margin-bottom: 20px;
     padding-bottom: 50px;
-    width:80%;
+    width:98%;
+    height: 130px;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .delete_panel{
-    width: 80%; 
+    width: 98%; 
     border: 2px solid #ccc; 
     height: 600px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
@@ -28,11 +27,19 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px; margin-top: 10px;
+    color:green; 
+    font-size: 14px;
+    font-weight: 500; 
+    margin-left: 20px; 
+    margin-top: 10px;
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px; margin-top: 10px;
+    color: #ca2929; 
+    font-size:14px; 
+    font-weight:500; 
+    margin-left: 20px; 
+    margin-top: 10px;
 }
 
 .h3, h3 {
