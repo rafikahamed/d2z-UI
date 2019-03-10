@@ -333,7 +333,6 @@ export class SuperUserD2ZRatesComponent implements OnInit {
       );
       
       this.d2zRatesData.push(d2zFinalObj);
-      console.log( this.d2zRatesData)
       this.spinner.show();
       this.consignmenrServices.superUserD2ZRatesBroker(this.d2zRatesData, (resp) => {
           this.spinner.hide();
