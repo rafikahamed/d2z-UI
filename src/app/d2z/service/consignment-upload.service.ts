@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
-// const baseUrl = "https://www.d2z.com.au/v1/d2z";
+const baseUrl = "https://www.d2z.com.au/v1/d2z";
 // const baseUrl = "http://localhost:8080/v1/d2z";
-const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -124,9 +124,8 @@ export class ConsigmentUploadService implements OnInit{
   }
 
   consignmentFileData( fileName, callback): any {
-    this.http.get(baseUrl+'/consignment-fileData', {
-      params: { fileName: fileName  }
-    }).subscribe((resp:userMessage) => {
+    this.http.post(baseUrl+'/consignment-fileData',fileName)
+    .subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
       } else {

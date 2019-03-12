@@ -462,39 +462,6 @@ export class ZebraFileUpload implements OnInit{
                 // }
               }
 
-              // if(!dataObj['Reference number']){
-              //   this.errorMsg = "Reference Number is mandatory";
-              // }else if(!dataObj['Consignee Name']){
-              //   this.errorMsg = "Consignee Name is mandatory";
-              // }else if(!dataObj['Consignee Address 1']){
-              //   this.errorMsg = "Consignee Address 1 is mandatory";
-              // }else if(!dataObj['Consignee Suburb']){
-              //   this.errorMsg = 'Consignee Suburb is mandatory';
-              // }else if(!dataObj['Consignee State']){
-              //   this.errorMsg = 'Consignee State is mandatory';
-              // }else if(!dataObj['Consignee Postcode']){
-              //   this.errorMsg = 'Consignee Postcode is mandatory';
-              // }else if(!dataObj['Product Description']){
-              //   this.errorMsg = 'Product Description is mandatory';
-              // }else if(!dataObj['Value']){
-              //   this.errorMsg = 'Value is mandatory';
-              // }else if(!dataObj['Currency']){
-              //   this.errorMsg = 'Currency is mandatory';
-              // }else if(!dataObj['Shipped Quantity']){
-              //   this.errorMsg = 'Shipped Quantity is mandatory';
-              // }else if(!dataObj['Shipper Name']){
-              //   this.errorMsg = 'Shipped Name is mandatory';
-              // }else if(!dataObj['Shipper Address']){
-              //   this.errorMsg = 'Shipped Address is mandatory';
-              // }else if(!dataObj['Shipper City']){
-              //   this.errorMsg = 'Shipped City is mandatory';
-              // }else if(!dataObj['Shipper State']){
-              //   this.errorMsg = 'Shipped State is mandatory';
-              // }else if(!dataObj['Shipper Postcode']){
-              //   this.errorMsg = 'Shipped Postcode is mandatory';
-              // }else if(!dataObj['Shipper Country']){
-              //   this.errorMsg = 'Shipped Country is mandatory'
-              // }
               if(!dataObj['Reference number']){
                 this.errorMsg = "Reference Number is mandatory";
               }else if(!dataObj['Consignee Name']){
@@ -553,6 +520,13 @@ export class ZebraFileUpload implements OnInit{
                   importObj[userName]= this.consigmentUploadService.userMessage.userName, importObj,
                   importObj[carrier]= this.carrierType ? this.carrierType : '',  importObj
               );
+              if(importObj.consigneeAddr1.length > 50){
+                this.errorMsg = 'Consginee Address 1 should not contain more than 50 character';
+                break;
+              }else if(importObj.consigneeAddr2.length > 50){
+                this.errorMsg = 'Consginee Address 2 should not contain more than 50 character';
+                break;
+              }
               this.importList.push(importObj)
               this.rowData = this.importList;
               }
