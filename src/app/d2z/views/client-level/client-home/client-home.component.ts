@@ -9,8 +9,8 @@ declare const require: any;
 
 @Component({
   selector: 'client-main',
-  templateUrl: './client-home.component.html?v=${new Date().getTime()',
-  styleUrls: ['./client-home.component.css?v=${new Date().getTime()']
+  templateUrl: './client-home.component.html',
+  styleUrls: ['./client-home.component.css']
 })
 export class ClientHomeComponent implements OnInit {
   childmenuOne: boolean;
