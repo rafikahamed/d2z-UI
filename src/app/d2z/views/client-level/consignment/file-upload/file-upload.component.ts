@@ -18,8 +18,8 @@ interface dropdownTemplate {
 
 @Component({
   selector: 'hms-file-upload',
-  templateUrl: './file-upload.component.html?v=${new Date().getTime()',
-  styleUrls: ['./file-upload.component.css?v=${new Date().getTime()']
+  templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.css']
 })
 export class ZebraFileUpload implements OnInit{
     
