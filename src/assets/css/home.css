@@ -457,12 +457,12 @@ Version:	1.1
 	border-color:transparent;
 }
 #about-us .tabs-main .nav-tabs li.active a {
-	color: #fff;
+	/*color: #fff;*/
 	font-weight: 500;
 }
 #about-us .tabs-main .nav-tabs li:hover a{
 	font-weight: 500;
-	color:#fff;
+	/*color:#fff;*/
 }
 #about-us .single-tab {
 	margin-top: 20px;
@@ -491,11 +491,11 @@ Version:	1.1
 	line-height: 25px;
 	font-size: 14px;
 }
-#about-us .about p{
-	margin-bottom:20px;
+#about-us .single-tab li{
+	 list-style: circle;
 }
-#about-us .about p:last-child{
-	margin:0;
+#about-us .single-tab ul{
+	 list-style: circle;
 }
 /*=======================
   End About Us Css
@@ -583,7 +583,7 @@ Version:	1.1
 =========================*/ 
 #why-choose {
 	position: relative;
-	background: #2c3e50;
+	/*background: #2c3e50;*/
 	padding: 50px 0;
 }
 #why-choose .why-image {
@@ -640,13 +640,13 @@ Version:	1.1
 	background:#2C3E50;
 }
 #why-choose h2 {
-	color: #fff;
+	/*color: #fff;*/
 	font-size: 25px;
 	margin-bottom: 15px;
 	text-transform: uppercase;
 }
 #why-choose  p {
-	color: #eee;
+	/*color: #eee;*/
 }
 #why-choose .single-choose {
 	position: relative;

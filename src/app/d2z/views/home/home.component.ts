@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit{
     public loginservice: LoginService,
     public consigmentUploadService: ConsigmentUploadService,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private meta: Meta
   ) {
       this.errorMsg = null;
       this.loginBut = true;
@@ -29,6 +31,14 @@ export class HomeComponent implements OnInit{
         userName: new FormControl('', Validators.required),
         passWord: new FormControl('', Validators.required)
       });
+
+      this.meta.addTag({ name: 'description', content: 'We are the best international logistics & freight forwarding specialists for ecommerce goods. Delivering first rate supply chain solutions & cost savings.' });
+
+ this.meta.addTag( {name: 'keywords', content: 'eCommerce logistics, eCommerce specialist'});
+
+ this.meta.addTag( {property: 'og:title', content: 'Freight Forwarder and eCommerce logistics| D2Z Pty Ltd'});
+    
+
   }
 
   ngOnInit(){
