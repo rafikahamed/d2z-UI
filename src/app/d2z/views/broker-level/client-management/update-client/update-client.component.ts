@@ -21,6 +21,7 @@ export class UpdateClientComponent implements OnInit{
       typeFiveFlag: boolean;
       typeSixFlag: boolean;
       typeSevenFlag: boolean;
+      typeEightFlag: boolean;
       oneCheckFlag: boolean;
       twoCheckFlag: boolean;
       threeCheckFlag: boolean;
@@ -28,6 +29,7 @@ export class UpdateClientComponent implements OnInit{
       fiveCheckFlag: boolean;
       sixCheckFlag: boolean;
       sevenCheckFlag: boolean;
+      eightCheckFlag: boolean;
       errorMsg: string;
       successMsg: String;
       companyName: String;
@@ -99,6 +101,7 @@ export class UpdateClientComponent implements OnInit{
     this.typeFourFlag = this.consignmenrServices.userMessage.serviceType.includes('4PS') ? true : false;
     this.typeFiveFlag = this.consignmenrServices.userMessage.serviceType.includes('5PS') ? true : false;
     this.typeSixFlag = this.consignmenrServices.userMessage.serviceType.includes('1PM') ? true :  false;
+    this.typeEightFlag = this.consignmenrServices.userMessage.serviceType.includes('1PME')? true : false;
     this.typeSevenFlag = this.consignmenrServices.userMessage.serviceType.includes('UnTracked') ? true : false;
     this.getLoginDetails();
   };
@@ -135,6 +138,7 @@ export class UpdateClientComponent implements OnInit{
       this.fiveCheckFlag = resp.serviceType.includes('5PS') ? true : false;
       this.sixCheckFlag = resp.serviceType.includes('1PM') ? true :  false;
       this.sevenCheckFlag = resp.serviceType.includes('UnTracked') ? true : false;
+      this.eightCheckFlag = resp.serviceType.includes('1PME') ? true :  false;
       this.serviceTypeArray = resp.serviceType;
       this.spinner.hide();
       setTimeout(() => {this.spinner.hide()}, 5000);

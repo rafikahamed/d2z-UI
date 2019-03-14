@@ -261,6 +261,13 @@ export class AllocateShipmentComponent implements OnInit{
   onSelectionChange() {
     var selectedRows = this.gridOptions.api.getSelectedRows();
     this.errorMsg = null;
+  };
+
+  clearShipment(){
+    $("#shipmentNumber").val('');
+    this.rowData = [];
+    this.errorMsg = null;
+    this.successMsg = null;
   }
  
 }

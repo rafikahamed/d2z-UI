@@ -31,6 +31,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       fiveFlag: boolean;
       sixFlag: boolean;
       sevenFlag: boolean;
+      eightFlag: boolean;
       disableUpdate: boolean;
       errorMsg: string;
       userName: String;
@@ -118,6 +119,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       this.fiveFlag = resp.serviceType.includes('5PS') ? true : false;
       this.sixFlag = resp.serviceType.includes('UnTracked') ? true : false;
       this.sevenFlag = resp.serviceType.includes('1PM') ? true :  false;
+      this.eightFlag = resp.serviceType.includes('1PME') ? true :  false;
       this.disableUpdate = false;
       this.brokerAddClientForm.controls['companyName'].setValue(resp.companyName);
       this.brokerAddClientForm.controls['addressLine1'].setValue(resp.address);

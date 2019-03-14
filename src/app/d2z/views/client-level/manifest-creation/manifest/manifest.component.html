@@ -35,7 +35,7 @@
                               </p-dropdown>
                             </div>                      
                             
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <button type="button" 
                                         class="btn btn-info" 
                                         *ngIf="englishFlag"
@@ -52,6 +52,25 @@
                                         搜索
                                 </button>
                             </div>
+
+                            <div class="col-md-1">
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                        *ngIf="englishFlag"
+                                        (click)="clearManifest()"
+                                        style="background-color: #16A085">
+                                        Refresh
+                                </button>
+
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                        *ngIf="chinessFlag" 
+                                        (click)="clearManifest()"
+                                        style="background-color: #16A085">
+                                        刷新
+                                </button>
+                            </div>
+
                         </form>
                 </div>
     
@@ -114,9 +133,6 @@
                           </div>
                       </div>
                       
-
-                     
-    
                       <div style="padding:20px">
                         <p *ngIf="englishFlag"> Please select below records to manifest </p>
                         <p *ngIf="chinessFlag"> 请选择以下记录进行清单 </p>
