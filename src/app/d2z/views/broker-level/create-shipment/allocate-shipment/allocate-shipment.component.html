@@ -32,7 +32,7 @@
                               </p-dropdown>
                           </div> 
                           
-                          <div class="col-md-2"> 
+                          <div class="col-md-1"> 
                             <button type="button" 
                                     class="btn btn-info" 
                                     (click)="manifestDataSearch()"
@@ -40,6 +40,16 @@
                                     Search
                             </button>
                           </div>
+
+                          <div class="col-md-1">
+                            <button type="button" 
+                                  class="btn btn-info" 
+                                  (click)="clearShipment()"
+                                  style="background-color: #16A085">
+                                  Refresh
+                            </button>
+                          </div>
+
                         </form>
                       
                   </div>
@@ -84,6 +94,7 @@
                                     <input type="text" 
                                             pInputText 
                                             placeholder="Shipment Number" 
+                                            id="shipmentNumber" 
                                             class="input-text"
                                             formControlName="shipmentNumber">   
                                   </div>  

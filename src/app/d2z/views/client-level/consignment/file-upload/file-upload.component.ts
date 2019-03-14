@@ -539,12 +539,19 @@ export class ZebraFileUpload implements OnInit{
       for(var i = 0; i != selectedRows.length; ++i){
         selectedRows[i].carrier = this.carrierType;
       }
-      this.errorMsg = '';
+      this.errorMsg = null;
       this.successMsg = '';
       this.errorDetails1 = '';
       this.showSuccess = false;
       this.show = false;
-      if(selectedRows.length > 0){
+      console.log(this.carrierType)
+      if(!this.carrierType){
+        this.errorMsg = this.englishFlag ? "**Please select the Carrier Type to upload the records" : "**请选择运营商类型以上传记录" ;
+      }else if(selectedRows.length == 0){
+        this.errorMsg = this.englishFlag ? "**Please select the below records to upload the file into D2Z system" : "**请选择以下记录将文件上传到D2Z系统" ;
+      }
+
+      if(selectedRows.length > 0 && this.errorMsg == null){
         this.spinner.show();
         this.consigmentUploadService.consigmentFileUpload(selectedRows, (resp) => {
         this.spinner.hide();
@@ -562,8 +569,6 @@ export class ZebraFileUpload implements OnInit{
           }
           setTimeout(() => { this.spinner.hide() }, 5000);
         })
-      }else{
-          this.errorMsg = this.englishFlag ? "**Please select the below records to upload the file into D2Z system" : "**请选择以下记录将文件上传到D2Z系统" ;
       }
     };
 

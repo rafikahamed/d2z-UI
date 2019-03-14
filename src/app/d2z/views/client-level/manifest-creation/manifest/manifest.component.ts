@@ -376,7 +376,14 @@ export class ManifestComponent implements OnInit{
   onSelectionChange() {
     var selectedRows = this.gridOptions.api.getSelectedRows();
     this.errorMsg = null;
-  }
+  };
+
+  clearManifest(){
+      $("#manifestNumber").val('');
+      this.rowData = [];
+      this.errorMsg = null;
+      this.successMsg = null;
+  };
  
 }
 

@@ -64,7 +64,8 @@ export class SuperUserAddClientComponent implements OnInit{
           {name: '3PS', value: '3PS'},
           {name: '4PS', value: '4PS'},
           {name: '5PS', value: '5PS'},
-          {name: '1PM', value: '1PM'}
+          {name: '1PM', value: '1PM'},
+          {name: '1PME', value: '1PME'}
       ];
       // this.directCategories = [
       //   {name: 'UnTracked', value: 'unTracked'}

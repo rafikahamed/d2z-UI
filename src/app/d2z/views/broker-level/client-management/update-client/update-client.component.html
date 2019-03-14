@@ -254,6 +254,11 @@
                                                                                                 <input type="checkbox" id="1PM" (change)="onServiceTypeChange($event)" value="1PM" [checked]="sixCheckFlag">
                                                                                                 <label>1PM</label>
                                                                                         </div>
+
+                                                                                        <div *ngIf="typeEightFlag" class= "checkbox-items">
+                                                                                                <input type="checkbox" id="1PME" (change)="onServiceTypeChange($event)" value="1PME" [checked]="eightCheckFlag">
+                                                                                                <label>1PME</label>
+                                                                                        </div>
                                                                                 </div>
                                                                                 
                                                                         </div>
