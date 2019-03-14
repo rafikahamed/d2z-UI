@@ -246,7 +246,7 @@ Version:	1.1
 }
 #j-slider .slide-text h1 {
 	color: #fff;
-	font-size: 40px;
+	font-size: 20px;
 	font-weight: 900;
 	text-transform: uppercase;
 	margin-bottom: 20px;
@@ -419,7 +419,7 @@ Version:	1.1
 =========================*/ 
 #about-us {
 	background: #f5f5f5;
-	padding: 70px 0 0;
+	padding: 30px 0 0;
 	overflow-x:hidden;
 }
 #about-us .about-main{
@@ -455,10 +455,13 @@ Version:	1.1
 }
 #about-us .tabs-main .nav-tabs li.active{
 	border-color:transparent;
+border: 1px solid #eee;
+	color: #555;
 }
 #about-us .tabs-main .nav-tabs li.active a {
-	/*color: #fff;*/
-	font-weight: 500;
+	border-color: transparent;
+	border: 1px solid #eee;
+    font-weight: 500;
 }
 #about-us .tabs-main .nav-tabs li:hover a{
 	font-weight: 500;
@@ -471,6 +474,7 @@ Version:	1.1
 	border-radius: 5px;
 	border-bottom: 1px dotted;
 }
+
 #about-us .single-tab i {
 	width: 40px;
 	height: 40px;
@@ -482,6 +486,15 @@ Version:	1.1
 	font-size: 18px;
 	border-radius: 100%;
 }
+
+#about-us .single-tab h2 {
+	/*color: #fff;*/
+	font-size: 20px;
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+
+
 #about-us .single-tab h4 {
 	font-size: 16px;
 	margin-bottom: 5px;
@@ -491,12 +504,7 @@ Version:	1.1
 	line-height: 25px;
 	font-size: 14px;
 }
-#about-us .single-tab li{
-	 list-style: circle;
-}
-#about-us .single-tab ul{
-	 list-style: circle;
-}
+
 /*=======================
   End About Us Css
 =========================*/ 
@@ -583,15 +591,15 @@ Version:	1.1
 =========================*/ 
 #why-choose {
 	position: relative;
-	/*background: #2c3e50;*/
+	background: #2c3e50;
 	padding: 50px 0;
 }
-#why-choose .why-image {
+/*#why-choose .why-image {
 	position: absolute;
 	left: 0px;
 	height: 100%;
 	top: 0px;
-	background: url(../../../assets/img/video.png);
+	/*background: url(../../../assets/img/video.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
@@ -600,8 +608,16 @@ Version:	1.1
 	-webkit-transition:all 0.4s ease;
 	-moz-transition:all 0.4s ease;
 	transition:all 0.4s ease;
+}*/
+#why-choose .why-image{
+	margin-top:30px;
 }
-#why-choose .why-image:before{
+#why-choose .why-image img{
+	border-bottom:4px solid;
+	border-radius: 0 0 10px 10px;
+	height: 310px;
+}
+/*#why-choose .why-image:before{
 	position: absolute;
 	top: 0;
 	top:0;
@@ -638,7 +654,7 @@ Version:	1.1
 }
 #why-choose .why-image .video a:hover{
 	background:#2C3E50;
-}
+}*/
 #why-choose h2 {
 	/*color: #fff;*/
 	font-size: 25px;
@@ -646,7 +662,7 @@ Version:	1.1
 	text-transform: uppercase;
 }
 #why-choose  p {
-	/*color: #eee;*/
+	color: #eee;
 }
 #why-choose .single-choose {
 	position: relative;
