@@ -13,7 +13,7 @@ Version:	1.1
 .k-bubble-2,#j-slider .animate-text .slide-text .button,#portfolio.single .website .button,#blog .blog-comments h2::before,.mfp-counter,#j-slider .slide-text h1:before{
 	background:#FCB614;
 } 
-#about-us .about-img img,#about-us .single-tab,#our-skill .info-list li i,#why-choose .why-image:hover,#statics .static-image:hover,#contact .form-group input:hover,
+#about-us .about-img img,#about-us .single-tab,#about-us .single-list ,#our-skill .info-list li i,#why-choose .why-image:hover,#statics .static-image:hover,#contact .form-group input:hover,
 #contact .form-group input:focus,#contact .form-group textarea:hover,#contact .form-group textarea:focus{
 	border-color:#FCB614;
 }
