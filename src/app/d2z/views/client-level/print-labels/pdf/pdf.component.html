@@ -39,6 +39,7 @@
                                   *ngIf="englishFlag" 
                                   (click)="zibraSearch()"
                                   style="background-color: #16A085">
+                                  <span class="glyphicon glyphicon-search"></span>
                                   Search
                           </button>
 
@@ -47,6 +48,7 @@
                                   *ngIf="chinessFlag"
                                   (click)="zibraSearch()"
                                   style="background-color: #16A085">
+                                  <span class="glyphicon glyphicon-search"></span>
                                   搜索
                           </button>
                         </div>   
@@ -75,7 +77,8 @@
                           class="btn btn-info" 
                           *ngIf="englishFlag" 
                           (click)="downLoadLabels()"
-                          style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                          style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                          <span class="fa fa-file-pdf-o"></span>
                           Generate PDF
                       </button>
 
@@ -84,7 +87,8 @@
                           class="btn btn-info" 
                           *ngIf="chinessFlag"
                           (click)="downLoadLabels()"
-                          style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                          style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                          <span class="fa fa-file-pdf-o"></span>
                           生成PDF
                       </button>
     

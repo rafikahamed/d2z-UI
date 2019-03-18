@@ -36,7 +36,10 @@
                             <button type="button" 
                                     class="btn btn-info" 
                                     (click)="apiDownLoadSearch()"
-                                    style="background-color: #16A085">Search</button>
+                                    style="background-color: #16A085">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    Search
+                            </button>
                       </div>
                   </div>
 
@@ -71,8 +74,13 @@
                         <p class="err_msg">{{errorMsg}}</p>
                       </div>
                      
-                      <button type="button" class="btn btn-info" (click)="apiShipmentDownload()"
-                          style="background-color: #16A085; float:right; margin-right:20px">Download API Shipment Data</button>
+                      <button type="button" 
+                              class="btn btn-info" 
+                              (click)="apiShipmentDownload()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                              Download API Shipment Data
+                            </button>
     
                       <div style="padding:20px">
                         <p> Please select the below records to download the Shipment API details </p>

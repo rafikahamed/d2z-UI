@@ -35,6 +35,7 @@
                                     class="btn btn-info" 
                                     (click)="printSearch()"
                                     style="background-color: #16A085; margin-left:30px">
+                                    <span class="glyphicon glyphicon-search"></span>
                                     Search
                             </button>
                         </div>
@@ -57,8 +58,13 @@
                             <p class="err_msg">{{errorMsg}}</p>
                         </div>
                      
-                      <button type="button" class="btn btn-info" (click)="printLabels()"
-                          style="background-color: #16A085; float:right; margin-right:20px">Print Label</button>
+                      <button type="button" 
+                              class="btn btn-info" 
+                              (click)="printLabels()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-print"></span>
+                              Print Label
+                      </button>
     
                       <div style="padding:20px">
                         <p> Please select the below records to download the labels </p>

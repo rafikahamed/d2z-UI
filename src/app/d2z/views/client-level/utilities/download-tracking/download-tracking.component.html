@@ -38,6 +38,7 @@
                                     *ngIf="englishFlag" 
                                     (click)="trackingList()"
                                     style="background-color: #16A085">
+                                    <span class="glyphicon glyphicon-search"></span>
                                     Search
                             </button>
 
@@ -46,6 +47,7 @@
                                     (click)="trackingList()"
                                     *ngIf="chinessFlag"
                                     style="background-color: #16A085">
+                                    <span class="glyphicon glyphicon-search"></span>
                                     搜索
                             </button>
                         </div>
@@ -73,7 +75,8 @@
                               class="btn btn-info" 
                               *ngIf="englishFlag" 
                               (click)="downloadTracking()"
-                              style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                              style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
                               Download Tracking Details
                       </button>
 
@@ -81,7 +84,8 @@
                               class="btn btn-info" 
                               *ngIf="chinessFlag"
                               (click)="downloadTracking()"
-                              style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px;">
+                              style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
                               下载追踪详情
                       </button>
     

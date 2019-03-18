@@ -36,7 +36,7 @@
                             <div class="col-md-2" style="font-size: 16px" *ngIf="englishFlag"> Reference Number: </div>
                             <div class="col-md-2" style="font-size: 16px" *ngIf="chinessFlag"> 参考编号 : </div>
 
-                            <div class="col-md-4"> 
+                            <div class="col-md-5"> 
                                 <textarea rows="4" 
                                             cols="50" 
                                             style="border: 1px solid #ccc" 
@@ -61,6 +61,7 @@
                                         *ngIf="englishFlag"
                                         (click)="trackParcel()"
                                         style="background-color: #16A085; float:right; margin-top:40px;">
+                                        <span class="glyphicon glyphicon-search"></span>
                                         Search
                                 </button>
 
@@ -69,6 +70,7 @@
                                         *ngIf="chinessFlag"
                                         (click)="trackParcel()"
                                         style="background-color: #16A085; float:right; margin-top:40px;">
+                                        <span class="glyphicon glyphicon-search"></span>
                                         搜索
                                 </button>
                             </div>

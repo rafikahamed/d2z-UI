@@ -35,6 +35,7 @@
                                   class="btn btn-info" 
                                   (click)="downLoadSearch()"
                                   style="background-color: #16A085; margin-left:30px">
+                                  <span class="glyphicon glyphicon-search"></span>
                                   Search
                           </button>
                         </div>
@@ -51,15 +52,20 @@
                       </ngx-spinner>
                         
                         <div>
-                                <p class="success_msg">{{successMsg}}</p>
+                            <p class="success_msg">{{successMsg}}</p>
                         </div>
       
                         <div>
-                                <p class="err_msg">{{errorMsg}}</p>
+                            <p class="err_msg">{{errorMsg}}</p>
                         </div>
                      
-                      <button type="button" class="btn btn-info" (click)="downloadLabel()"
-                          style="background-color: #16A085; float:right; margin-right:20px">Download PDF</button>
+                      <button type="button" 
+                              class="btn btn-info" 
+                              (click)="downloadLabel()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="fa fa-file-pdf-o"></span>
+                              Download PDF
+                      </button>
     
                       <div style="padding:20px">
                           

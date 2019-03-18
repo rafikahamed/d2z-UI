@@ -21,7 +21,7 @@ body{
 .delete_panel{
     width: 80%; 
     border: 2px solid #ccc; 
-    height: 600px; 
+    height: 660px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
     margin-bottom: 10px; 
     font-size: 16px;
@@ -527,3 +527,4 @@ ul.top_profiles li:nth-child(odd){
     width: 250px;
     padding: 5px;
 }
+

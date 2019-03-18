@@ -5,8 +5,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
-const baseUrl = "https://www.d2z.com.au/v1/d2z";
-// const baseUrl = "http://localhost:8080/v1/d2z";
+// const baseUrl = "https://www.d2z.com.au/v1/d2z";
+const baseUrl = "http://localhost:8080/v1/d2z";
 // const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
@@ -111,7 +111,25 @@ export class ConsigmentUploadService implements OnInit{
     }, (error) => {
       console.error(error);
     });
-  }
+  };
+
+  invoicePendingData(callback): any {
+    this.http.get(baseUrl+'/superUser-level/broker-shipment'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  };
+
+  invoiceApprovedData(callback): any {
+    this.http.get(baseUrl+'/superUser-level/broker-Invoiced'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  };
 
   labelFileList(userId, callback): any {
     this.http.get(baseUrl+'/label-fileList',{
@@ -238,7 +256,34 @@ export class ConsigmentUploadService implements OnInit{
     }, (error) => {
       callback(error);
     });
-  }
+  };
+
+  reconcileData(reconcile, callback): any {
+    this.http.post(baseUrl+'/superUser-level/reconcileInfo',reconcile
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
+  invoiceApproved(invoiceApproved, callback): any {
+    this.http.put(baseUrl+'/superUser-level/approve-Invoice',invoiceApproved
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+  
 
 }
 

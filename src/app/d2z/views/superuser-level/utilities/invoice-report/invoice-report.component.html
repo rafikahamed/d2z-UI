@@ -50,8 +50,11 @@
                             </div>
 
                             <div class="col-md-3" style="margin-top:30px">
-                                 <button type="button" class="btn btn-info" (click)="exportSearch()"
-                                  style="background-color: #16A085; margin-left:30px">
+                                 <button type="button" 
+                                         class="btn btn-info" 
+                                         (click)="exportSearch()"
+                                        style="background-color: #16A085; margin-left:30px">
+                                        <span class="glyphicon glyphicon-search"></span>
                                   Search
                                 </button>
                             </div>
@@ -95,18 +98,21 @@
                       <button *ngIf="consignmentFlag" type="button" class="btn btn-info" 
                                     (click)="downloaExportedData()"
                                     style="background-color: #16A085; float:right; margin-right:20px">
+                                    <span class="glyphicon glyphicon-cloud-download"></span>
                                     Download Export Consignment
                       </button>
 
                       <button *ngIf="deletedFlag" type="button" class="btn btn-info" 
                                     (click)="downloadDeletedData()"
                                     style="background-color: #16A085; float:right; margin-right:20px">
+                                    <span class="glyphicon glyphicon-cloud-download"></span>
                                     Download Export Delete
                       </button>
 
                       <button *ngIf="shipmentFlag" type="button" class="btn btn-info" 
                                     (click)="downloadShipmentData()"
                                     style="background-color: #16A085; float:right; margin-right:20px">
+                                    <span class="glyphicon glyphicon-cloud-download"></span>
                                     Download Export Shipment
                       </button>
     

@@ -35,12 +35,13 @@
                               </p-dropdown>
                             </div>                      
                             
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <button type="button" 
                                         class="btn btn-info" 
                                         *ngIf="englishFlag"
                                         (click)="manifestSearch()"
                                         style="background-color: #16A085">
+                                        <span class="glyphicon glyphicon-search"></span>
                                         Search
                                 </button>
 
@@ -49,16 +50,18 @@
                                         *ngIf="chinessFlag"
                                         (click)="manifestSearch()"
                                         style="background-color: #16A085">
+                                        <span class="glyphicon glyphicon-search"></span>
                                         搜索
                                 </button>
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <button type="button" 
                                         class="btn btn-info" 
                                         *ngIf="englishFlag"
                                         (click)="clearManifest()"
                                         style="background-color: #16A085">
+                                        <span class="glyphicon glyphicon-refresh"></span>
                                         Refresh
                                 </button>
 
@@ -67,6 +70,7 @@
                                         *ngIf="chinessFlag" 
                                         (click)="clearManifest()"
                                         style="background-color: #16A085">
+                                        <span class="glyphicon glyphicon-refresh"></span>
                                         刷新
                                 </button>
                             </div>
@@ -119,6 +123,7 @@
                                                   *ngIf="englishFlag" 
                                                   (click)="manifestCreation()"
                                                   style="background-color: #16A085">
+                                                  <span class="glyphicon glyphicon-thumbs-up"></span>
                                                   Allocate Manifest
                                         </button>
             
@@ -127,6 +132,7 @@
                                                   *ngIf="chinessFlag"
                                                   (click)="manifestCreation()"
                                                   style="background-color: #16A085">
+                                                  <span class="glyphicon glyphicon-thumbs-up"></span>
                                                   分配清单
                                         </button>
                                 </div>

@@ -13,13 +13,13 @@ body{
     padding: 20px;
     margin-bottom: 20px;
     padding-bottom: 50px;
-    width:80%;
+    width:98%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .delete_panel{
-    width: 80%; 
+    width: 98%; 
     border: 2px solid #ccc; 
     height: 600px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
