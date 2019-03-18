@@ -246,7 +246,7 @@ Version:	1.1
 }
 #j-slider .slide-text h1 {
 	color: #fff;
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: 900;
 	text-transform: uppercase;
 	margin-bottom: 20px;
@@ -475,6 +475,16 @@ border: 1px solid #eee;
 	border-bottom: 1px dotted;
 }
 
+#about-us .single-list{
+	/*margin-top: 10px;*/
+	position: relative;
+	padding: 12px 12px 12px 50px;
+	border-radius: 5px;
+	border-bottom: 1px dotted;
+}
+
+
+
 #about-us .single-tab i {
 	width: 40px;
 	height: 40px;
@@ -500,8 +510,31 @@ border: 1px solid #eee;
 	margin-bottom: 5px;
 	font-weight: 500;
 }
+
+#about-us .single-list h2 {
+	/*color: #fff;*/
+	font-size: 20px;
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+#about-us .single-list i {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	text-align: center;
+	position: absolute;
+	left: -2px;
+	font-size: 18px;
+	border-radius: 100%;
+}
+#about-us .single-list h4 {
+	font-size: 14px;
+	margin-bottom: 2px;
+	font-weight: 300;
+}
 #about-us .single-tab p {
-	line-height: 25px;
+	line-height: 15px;
 	font-size: 14px;
 }
 
@@ -2767,6 +2800,10 @@ body{
 #about-us .about-img  img{
 	display:inline-block;
 }
+#about-us .single-list li{
+	margin-bottom:10px;
+	font-size:14px;
+}
 #our-skill .some-info {
 	margin-bottom: 10px;
 }
@@ -2911,7 +2948,7 @@ body{
 	padding-bottom: 10px;
 }
 #j-slider .slide-text h1 {
-	font-size: 20px;
+	font-size: 25px;
 	margin-bottom: 15px;
 	line-height: 26px;
 }
@@ -3023,7 +3060,7 @@ font-size:13px;
 	padding-bottom: 5px;
 }
 #j-slider .slide-text h1 {
-	font-size: 18px;
+	font-size: 25px;
 	margin-bottom: 15px;
 	line-height: 30px;
 }
