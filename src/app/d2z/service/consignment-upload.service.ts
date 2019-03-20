@@ -122,6 +122,15 @@ export class ConsigmentUploadService implements OnInit{
     });
   };
 
+  notBilledData(callback): any {
+    this.http.get(baseUrl+'/superUser-level/not-billed'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  };
+
   invoiceApprovedData(callback): any {
     this.http.get(baseUrl+'/superUser-level/broker-Invoiced'
     ).subscribe((resp) => {

@@ -354,6 +354,7 @@ export class SuperUserRatesAddComponent implements OnInit {
       });
       var brokerUserName = 'brokerUserName';
       var gst = 'gst';
+      var fuelSurcharge = 'fuelSurcharge';
       var serviceType = 'serviceType';
       var injectionType = 'injectionType';
       var zone = 'zone';
@@ -362,17 +363,15 @@ export class SuperUserRatesAddComponent implements OnInit {
         brokerFinalObj={}, 
         brokerFinalObj[brokerUserName]=  this.brokerUserName ? this.brokerUserName : '', brokerFinalObj,
         brokerFinalObj[gst]= $("#gst").val() ? $("#gst").val() : '', brokerFinalObj,
+        brokerFinalObj[fuelSurcharge]= $("#fuelSurcharge").val() ? $("#fuelSurcharge").val() : '', brokerFinalObj,
         brokerFinalObj[serviceType]=  this.serviceType ? this.serviceType : '', brokerFinalObj,
         brokerFinalObj[injectionType]= this.injectionType ? this.injectionType : '', brokerFinalObj,
         brokerFinalObj[zone]= this.zone, brokerFinalObj
       );
-      
       this.brokerData.push(brokerFinalObj);
-      console.log(this.brokerData)
       this.spinner.show();
       this.consignmenrServices.superUserAddBroker(this.brokerData, (resp) => {
           this.spinner.hide();
-          console.log(resp)
           this.successMsg = resp.message;
           setTimeout(() => { this.spinner.hide() }, 5000);
         });
