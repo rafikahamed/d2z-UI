@@ -1,0 +1,174 @@
+.success_msg{
+    color:green; font-size: 16px;font-weight: 500; margin-left: 15px;
+}
+
+.err_msg{
+    color: #ca2929; font-size:16px; font-weight:500; margin-left: 15px;
+}
+
+#contact {
+	background: #f5f5f5;
+	position: relative;
+	overflow-x:hidden;
+}
+#contact .form, 
+#contact .single-address{
+	margin-top:30px;
+}
+#contact .form-group {
+	position: relative;
+	text-align: center;
+}
+#contact .form-group:last-child{
+	margin-bottom:0px;
+}
+#contact .form-group input {
+	width: 100%;
+	height: 44px;
+	border: 1px solid #e2e2e2;
+	padding-left: 10px;
+	-webkit-transition:all 0.4s ease;
+	-moz-transition:all 0.4s ease;
+	transition:all 0.4s ease;
+}
+#contact .form-group textarea{
+	border: 1px solid #e2e2e2;
+	padding:10px;
+	width: 100%;
+	height:210px;
+	padding-left:10px;
+	resize:none;
+	-webkit-transition:all 0.4s ease;
+	-moz-transition:all 0.4s ease;
+	transition:all 0.4s ease;
+}
+#contact .form-group .button {
+	height: 50px;
+	height: 42px;
+	border-radius: 0px;
+	border: 0px solid;
+	padding: 0;
+	font-size: 14px;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 0 25px;
+	-webkit-transition:all 0.4s ease;
+	-moz-transition:all 0.4s ease;
+	transition:all 0.4s ease;
+}
+#contact .form-group .button:hover{
+	background:#252525;
+}
+#contact .form-group .button i{
+	position:relative;
+	display:inline-block;
+	color:#fff;
+	margin-right:10px;
+	padding:0px;
+}
+#contact .form-group .button:hover{
+	 -webkit-animation-name: hvr-icon-wobble-horizontal;
+	animation-name: hvr-icon-wobble-horizontal;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: 1;
+	animation-iteration-count: 1;
+}
+#contact .gmap .map {
+	position: absolute;
+	top: 235px;
+	right: 0;
+	width: 55%;
+	height: 386px;
+}
+@-webkit-keyframes hvr-icon-wobble-horizontal {
+  16.65% {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  33.3% {
+    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+  49.95% {
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
+  }
+  66.6% {
+    -webkit-transform: translateX(-2px);
+    transform: translateX(-2px);
+  }
+  83.25% {
+    -webkit-transform: translateX(1px);
+    transform: translateX(1px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes hvr-icon-wobble-horizontal {
+  16.65% {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  33.3% {
+    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+  49.95% {
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
+  }
+  66.6% {
+    -webkit-transform: translateX(-2px);
+    transform: translateX(-2px);
+  }
+  83.25% {
+    -webkit-transform: translateX(1px);
+    transform: translateX(1px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+/*=======================
+  End Contact CSS
+=========================*/
+
+/*=======================
+  Location CSS
+=========================*/  
+#location .single-address {
+	padding: 30px;
+	text-align: center;
+	border-radius: 5px;
+	margin-top: 30px;
+	background:#252525;
+}
+#location .single-address i {
+	font-size: 22px;
+	margin-bottom: 15px;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	border-radius: 100%;
+	border: 1px solid #fff;
+}
+#location .single-address.active i{
+	background:transparent;
+	color:#fff;
+}
+#location .single-address h4 {
+	margin-bottom: 8px;
+	color: #fff;
+	font-size: 18px;
+}
+#location .single-address p{
+	color:#fff;
+	font-weight:400;
+}

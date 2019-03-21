@@ -1,0 +1,171 @@
+<header id="header">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2 col-sm-12 col-xs-12">
+							<!-- Logo -->
+							<div class="logo">
+							</div>
+							<!--/ End Logo -->
+						</div>
+						<div class="col-md-10 col-sm-12 col-xs-12">
+							<div class="nav-area">
+								<!-- Main Menu -->
+								   <!-- Main Menu -->
+                    <nav class="mainmenu">
+                        <div class="mobile-nav"></div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav menu">
+                                <li><a routerLink="/home">Home</a></li>
+                                <li><a routerLink="/service">Services</a></li>
+                                <li><a routerLink="/about">About Us</a></li>
+                                <li><a routerLink="/whychoose">Why Choose</a></li>
+                               	
+                                <li><a routerLink="/contact">Contact US</a></li>
+                                <li><a routerLink="/policy">Legal</a></li>
+                                <li><a routerLink="/track-parcel">Track Parcel</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#myModal">Login</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+								<!--/ End Main Menu -->
+							</div>
+						</div>
+					</div>
+				</div>
+		</header>
+		<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+		<div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+			<div class="modal-body">
+				<div class="limiter">
+					<div class="container-login100">
+						<div class="wrap-login100">
+							<div class="login100-pic js-tilt" data-tilt>
+								<img src="../../../assets/img/d2z-logo-login.png" alt="IMG">
+							</div>
+			
+							<form class="login100-form validate-form" [formGroup]="loginForm">
+								<span class="login100-form-title">
+									D2Z Login
+								</span>
+			
+								<div class="wrap-input100 validate-input" data-validate = "UserName is required">
+									<input class="input100" type="text" name="UserName" placeholder="UserName"
+																	formControlName="userName">
+									<span class="focus-input100"></span>
+									<span class="symbol-input100">
+										<i class="fa fa-envelope" aria-hidden="true"></i>
+									</span>
+								</div>
+			
+								<div class="wrap-input100 validate-input" data-validate = "Password is required">
+									<input class="input100" type="password" name="pass" placeholder="Password"
+															formControlName="passWord">
+									<span class="focus-input100"></span>
+									<span class="symbol-input100">
+										<i class="fa fa-lock" aria-hidden="true"></i>
+									</span>
+								</div>
+
+								<div>
+									<p class="err_msg">{{errorMsg}}</p>
+								</div>
+								
+								<div class="container-login100-form-btn">
+									<button class="login100-form-btn" (click)="login()">
+										Login
+									</button>
+								</div>
+			
+								<!-- <div class="text-center p-t-12">
+									<span class="txt1">
+										Forgot
+									</span>
+									<a class="txt2" href="#">
+										Username / Password?
+									</a>
+								</div> -->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<ngx-spinner
+			bdColor="rgba(51,51,51,0.8)"
+			size="medium"
+			color="#fff"
+			loadingText="Loading..."
+			type="ball-clip-rotate-multiple">
+	</ngx-spinner>
+
+	
+			<div id="why-choose" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5 col-sm-12 col-xs-12 wow fadeIn">
+			<div class="why-image">
+			<!--	<div class="video"><a href="https://www.youtube.com/watch?v=wZWiRoktNWA" 
+								class="video-play mfp-iframe wow zoomIn"><i class="fa fa-play"></i></a></div>-->
+									<img src="../../../assets/img/Slide1.png" alt=""/>
+			</div>
+			</div>
+					<div class="col-md-7 col-sm-12 col-xs-12 wow fadeIn">
+						<div class="section-title center">
+						<h2>Why Choose Us?</h2>
+					</div>
+					<div class="some-info">
+						<p>At D2Z we are with you the whole way. 
+							We are passionate about working with our customers to find a logistical solution for every eCommerce need and pride ourselves on consistently sourcing competitive rates. We provide real time customer support and always ensure the job is done right.
+Utilise our services today and you’ll see for yourself why we are the best in the industry.</p>
+					</div>	
+					</div>				
+				</div>
+			</div>
+		</div>	
+
+		<section id="testimonial" class="section wow fadeIn">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+						<div class="section-title center">
+							<h2>Our <span>Testimonials</span></h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="testimonial-carousel">	
+							<div class="single-testimonial">
+								<div class="testimonial-content">
+									<p> Partnering with D2Z was a great move for my online business. We can now focus on what we do best
+										knowing our customers will receive our products safely and quickly. </p>
+								</div>
+								<div class="testimonial-info">
+									<div class="img">
+										<span class="arrow"></span>
+										<img src="../../../assets/img/img.jpg" class="img-circle" alt="">
+									</div>
+									<h6>Daniel Curtis<span>Entrepreneur</span></h6>
+								</div>			
+							</div>
+							<div class="single-testimonial">
+								<div class="testimonial-content">
+									<p> Excellent customer service, detail orientated and professional. D2Z are a must for logistical solutions </p>
+								</div>
+								<div class="testimonial-info">
+									<div class="img">
+										<span class="arrow"></span>
+										<img src="../../../assets/img/img.jpg" class="img-circle" alt="">
+									</div>
+									<h6>Chris Randle<span>Online fashion distributor</span></h6>
+								</div>			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
