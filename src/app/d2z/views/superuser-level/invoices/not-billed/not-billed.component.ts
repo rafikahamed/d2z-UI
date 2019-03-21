@@ -24,6 +24,7 @@ export class SuperUserNotBilledComponent implements OnInit {
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowData: any[];
+  private notBilledList : any[];
   private defaultColDef;
 
   constructor(
@@ -46,7 +47,7 @@ export class SuperUserNotBilledComponent implements OnInit {
       {
         headerName: "Customer",
         field: "userName",
-        width: 300,
+        width: 230,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
@@ -90,6 +91,26 @@ export class SuperUserNotBilledComponent implements OnInit {
 
   notBilledDownload(){
     var selectedRows = this.gridOptions.api.getSelectedRows();
+    this.notBilledList = [];
+    let userName = 'userName';
+    let airwayBill = 'airwayBill';
+    let articleId = 'articleId';
+    let referenceNumber = 'referenceNumber';
+    let d2zRate = 'd2zRate';
+    
+     for(var notBilledData in selectedRows){
+        var billedData = selectedRows[notBilledData];
+        var notBillObj = (
+          notBillObj={}, 
+          notBillObj[userName]= billedData.userName != null ? billedData.userName : '' , notBillObj,
+          notBillObj[airwayBill]= billedData.airwayBill != null ? billedData.airwayBill : '', notBillObj,
+          notBillObj[articleId]= billedData.articleId != null ?  billedData.articleId : '', notBillObj,
+          notBillObj[referenceNumber]= billedData.referenceNumber != null ? billedData.referenceNumber : '', notBillObj,
+          notBillObj[d2zRate]= billedData.d2zRate != null ? billedData.d2zRate : '', notBillObj
+        );
+      this.notBilledList.push(notBillObj)
+     }
+
     if(selectedRows.length > 0 ){
       var currentTime = new Date();
         var fileName = '';
@@ -102,18 +123,23 @@ export class SuperUserNotBilledComponent implements OnInit {
             useBom: true,
             headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Cost']
           };
-        new Angular2Csv(selectedRows, fileName, options);   
+        new Angular2Csv(this.notBilledList, fileName, options);   
     }else{
         this.errorMsg =  "**Please select the below records to download Not Billed Data";
     } 
-  }
+  };
+
+  onSelectionChange(){
+    var selectedRows = this.gridOptions.api.getSelectedRows();
+    this.errorMsg = null;
+  };
 
   getLoginDetails(){
     if(this.consigmentUploadService.userMessage != undefined){
       this.userName = this.consigmentUploadService.userMessage.userName;
       this.role_id = this.consigmentUploadService.userMessage.role_Id;
     }
-  }
+  };
 
 }
 
