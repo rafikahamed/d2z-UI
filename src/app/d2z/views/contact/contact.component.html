@@ -1,0 +1,203 @@
+<header id="header">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2 col-sm-12 col-xs-12">
+							<!-- Logo -->
+							<div class="logo">
+							</div>
+							<!--/ End Logo -->
+						</div>
+						<div class="col-md-10 col-sm-12 col-xs-12">
+							<div class="nav-area">
+								<!-- Main Menu -->
+								   <!-- Main Menu -->
+                    <nav class="mainmenu">
+                        <div class="mobile-nav"></div>
+                        <div class="collapse navbar-collapse">
+                             <ul class="nav navbar-nav menu">
+                                <li><a routerLink="/home">Home</a></li>
+                                <li><a routerLink="/service">Services</a></li>
+                                <li><a routerLink="/about">About Us</a></li>
+                                <li><a routerLink="/whychoose">Why Choose</a></li>
+                               	
+                                <li><a routerLink="/contact">Contact US</a></li>
+                                <li><a routerLink="/policy">Legal</a></li>
+                                <li><a routerLink="/track-parcel">Track Parcel</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#myModal">Login</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+								<!--/ End Main Menu -->
+							</div>
+						</div>
+					</div>
+				</div>
+		</header>
+		<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+		<div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+			<div class="modal-body">
+				<div class="limiter">
+					<div class="container-login100">
+						<div class="wrap-login100">
+							<div class="login100-pic js-tilt" data-tilt>
+								<img src="../../../assets/img/d2z-logo-login.png" alt="IMG">
+							</div>
+			
+							<form class="login100-form validate-form" [formGroup]="loginForm">
+								<span class="login100-form-title">
+									D2Z Login
+								</span>
+			
+								<div class="wrap-input100 validate-input" data-validate = "UserName is required">
+									<input class="input100" type="text" name="UserName" placeholder="UserName"
+																	formControlName="userName">
+									<span class="focus-input100"></span>
+									<span class="symbol-input100">
+										<i class="fa fa-envelope" aria-hidden="true"></i>
+									</span>
+								</div>
+			
+								<div class="wrap-input100 validate-input" data-validate = "Password is required">
+									<input class="input100" type="password" name="pass" placeholder="Password"
+															formControlName="passWord">
+									<span class="focus-input100"></span>
+									<span class="symbol-input100">
+										<i class="fa fa-lock" aria-hidden="true"></i>
+									</span>
+								</div>
+
+								<div>
+									<p class="err_msg">{{errorMsg}}</p>
+								</div>
+								
+								<div class="container-login100-form-btn">
+									<button class="login100-form-btn" (click)="login()">
+										Login
+									</button>
+								</div>
+			
+								<!-- <div class="text-center p-t-12">
+									<span class="txt1">
+										Forgot
+									</span>
+									<a class="txt2" href="#">
+										Username / Password?
+									</a>
+								</div> -->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<ngx-spinner
+			bdColor="rgba(51,51,51,0.8)"
+			size="medium"
+			color="#fff"
+			loadingText="Loading..."
+			type="ball-clip-rotate-multiple">
+	</ngx-spinner>
+
+	
+		<section id="contact" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+						<div class="section-title center">
+							<h2>Contact <span>US</span></h2>
+							
+						</div>
+					</div>
+				</div>
+				<!-- Google Map -->
+				<div class="row">
+					<!-- Contact Form -->
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<form class="form" method="post" action="mail/mail.php">
+							<div class="form-group">
+								<input type="text" name="name" placeholder="Name" required="required">
+                            </div>
+							<div class="form-group">
+								<input type="email" name="email" placeholder="Email" required="required">
+                            </div>
+							<div class="form-group">
+								<input type="text" name="subject" placeholder="Subject" required="required">
+                            </div>
+							<div class="form-group">
+								<textarea name="message" rows="6" placeholder="Message" ></textarea>
+                            </div>
+							<div class="form-group">	
+								<button type="submit" class="button primary"><i class="fa fa-send"></i>Submit</button>
+                            </div>
+						</form>
+					</div>
+					
+					<!--/ End Contact Form -->
+				</div>
+			</div>
+			<div class="gmap">
+				<div class="map"></div>
+			</div>
+		</section>
+		<section id="location" class="section">
+			<div class="container">
+				
+				<div class="row">
+
+					<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+						<div class="section-title center">
+							<h2>Our <span>Location</span></h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
+						<!-- Single Address -->
+						<div class="single-address">
+							<i class="fa fa-phone"></i>
+							<h4>Our Phone</h4>
+							<p>	+61470271180 </p>
+						</div>
+						<!--/ End Single Address -->
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
+						<!-- Single Address -->
+						<div class="single-address active">
+							<i class="fa fa-phone"></i>
+							<h4></h4>
+							<p>Ground Floor, Suite 3, 410 Church Street, North Parramatta, NSW - 2151.</p>
+						</div>
+						<!--/ End Single Address -->
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
+						<!-- Single Address -->
+						<div class="single-address">
+							<i class="fa fa-phone"></i>
+							<h4>Corporate Email</h4>
+							<p>dwayne@d2z.com.au</p>
+						</div>
+						<!--/ End Single Address -->
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!--/ End Location -->		
+	
+		<!-- Start Footer -->
+		<footer id="footer" class="wow fadeIn">
+			<div class="copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="text">
+								<p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> Logistics</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
