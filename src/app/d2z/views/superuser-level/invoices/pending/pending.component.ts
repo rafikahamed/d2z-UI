@@ -7,6 +7,8 @@ import * as XLSX from 'xlsx';
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import _ from 'lodash';
+
 
 @Component({
   selector: 'hms-superuser-level-invoices',
@@ -29,6 +31,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   private rowData: any[];
   private defaultColDef;
   private rowDataApproved: any[];
+  private invoiceDownloadList: any[];
   
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
@@ -107,20 +110,57 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   downloadPendingInvoice(){
     var selectedRows = this.gridOptions.api.getSelectedRows();
     this.invoiceApproveFlag = false;
+    var airwaybillPendingList = [];
+    var brokerPendingList = [];
+    var invoiceDownloadFinalList = [];
     if(selectedRows.length > 0 ){
-      var currentTime = new Date();
-        var fileName = '';
-            fileName = "Invoice_Pending"+"-"+currentTime.toLocaleDateString();
-          var options = { 
-            fieldSeparator: ',',
-            quoteStrings: '"',
-            decimalseparator: '.',
-            showLabels: true, 
-            useBom: true,
-            headers: [ 'Broker Name', 'ShipmentNumber']
-          };
-        new Angular2Csv(selectedRows, fileName, options);   
-        this.invoiceApproveFlag = true;
+      for (var pendingDownload in selectedRows) {
+        var pendingObj = selectedRows[pendingDownload];
+        airwaybillPendingList.push(pendingObj.shipmentNumber);
+        brokerPendingList.push(pendingObj.brokerName);
+      };
+      var brokerPendingListFinal = Array.from(new Set(brokerPendingList));
+      var airwaybillPendingListFinal = Array.from(new Set(airwaybillPendingList));
+      this.spinner.show();
+      this.consigmentUploadService.downloadInvoiceData(brokerPendingListFinal, airwaybillPendingListFinal, (resp) => {
+          this.spinner.hide();
+          var downloadInvoiceData = resp;
+          let trackingNumber = 'trackingNumber';
+          let reference = 'reference';
+          let postcode = 'postcode';
+          let weight = 'weight';
+          let postage = 'postage';
+          let fuelSurcharge = 'fuelSurcharge';
+          let total = 'total';
+          
+           for(var downloadInvoice in downloadInvoiceData){
+              var invoiceData = downloadInvoiceData[downloadInvoice];
+              var invoiceObj = (
+                invoiceObj={}, 
+                invoiceObj[trackingNumber]= invoiceData.trackingNumber != null ? invoiceData.trackingNumber : '' , invoiceObj,
+                invoiceObj[reference]= invoiceData.referenceNuber != null ? invoiceData.referenceNuber : '', invoiceObj,
+                invoiceObj[postcode]= invoiceData.postcode != null ?  invoiceData.postcode : '', invoiceObj,
+                invoiceObj[weight]= invoiceData.weight != null ? invoiceData.weight : '', invoiceObj,
+                invoiceObj[postage]= invoiceData.postage != null ? invoiceData.postage : '', invoiceObj,
+                invoiceObj[fuelSurcharge]= invoiceData.fuelsurcharge != null ? invoiceData.fuelsurcharge : '', invoiceObj,
+                invoiceObj[total]= invoiceData.total != null ? invoiceData.total : '', invoiceObj
+              );
+              invoiceDownloadFinalList.push(invoiceObj);
+           }
+           var currentTime = new Date();
+           var fileName = '';
+           fileName = "Invoice_Pending"+"-"+currentTime.toLocaleDateString();
+           var options = { 
+             fieldSeparator: ',',
+             quoteStrings: '"',
+             decimalseparator: '.',
+             showLabels: true, 
+             useBom: true,
+             headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total']
+             };
+             new Angular2Csv(invoiceDownloadFinalList, fileName, options);   
+             this.invoiceApproveFlag = true;
+        })
     }else{
         this.errorMsg =  "**Please select the below records to download the Invoice Data";
     } 
@@ -129,20 +169,57 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   downloadApprovedInvoice(){
     var selectedApprovedRows = this.gridOptionsApproved.api.getSelectedRows();
     this.invoiceBilledFlag = false;
+    var brokerList = [];
+    var airwaybillList = [];
+    var invoiceApprovedDownloadFinalList = [];
+   
     if(selectedApprovedRows.length > 0 ){
-      var currentTime = new Date();
-        var fileName = '';
-            fileName = "Invoice_Pending"+"-"+currentTime.toLocaleDateString();
+      for (var approvedDownload in selectedApprovedRows) {
+        var approveObj = selectedApprovedRows[approvedDownload];
+        airwaybillList.push(approveObj.shipmentNumber);
+        brokerList.push(approveObj.brokerName);
+      };
+      var brokerListFFinal = Array.from(new Set(brokerList));
+      var airwaybillListFinal = Array.from(new Set(airwaybillList));
+      this.spinner.show();
+      this.consigmentUploadService.downloadInvoiceData(brokerListFFinal, airwaybillListFinal, (resp) => {
+        var downloadInvoiceApprovedData = resp;
+        let trackingNumber = 'trackingNumber';
+        let reference = 'reference';
+        let postcode = 'postcode';
+        let weight = 'weight';
+        let postage = 'postage';
+        let fuelSurcharge = 'fuelSurcharge';
+        let total = 'total';
+        
+         for(var downloadApproveInvoice in downloadInvoiceApprovedData){
+            var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
+            var invoiceApproveObj = (
+              invoiceApproveObj={}, 
+              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApproveObj.trackingNumber : '' , invoiceApproveObj,
+              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApproveObj.referenceNuber : '', invoiceApproveObj,
+              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApproveObj.postcode : '', invoiceApproveObj,
+              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApproveObj.weight : '', invoiceApproveObj,
+              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApproveObj.postage : '', invoiceApproveObj,
+              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApproveObj.fuelsurcharge : '', invoiceApproveObj,
+              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApproveObj.total : '', invoiceApproveObj
+            );
+            invoiceApprovedDownloadFinalList.push(invoiceApproveObj);
+         };
+         var currentTime = new Date();
+          var fileName = '';
+            fileName = "Invoice_Approved"+"-"+currentTime.toLocaleDateString();
           var options = { 
             fieldSeparator: ',',
             quoteStrings: '"',
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Broker Name', 'ShipmentNumber']
+            headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total']
           };
-        new Angular2Csv(selectedApprovedRows, fileName, options);   
+        new Angular2Csv(invoiceApprovedDownloadFinalList, fileName, options);   
         this.invoiceBilledFlag = true;
+        });
     }else{
         this.errorMsg =  "**Please select the below records to download the Approved Invoice Data";
     } 
