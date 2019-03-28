@@ -9,10 +9,6 @@ import { d2zComponent } from 'app/d2z/d2z.component';
 import { HomeComponent } from 'app/d2z/views/home/home.component';
 import { ClientHomeComponent } from 'app/d2z/views/client-level/client-home/client-home.component';
 import { PolicyComponent } from 'app/d2z/views/policy/policy.component'
-import{ ServiceComponent } from 'app/d2z/views/service/service.component'
-import { AboutComponent } from 'app/d2z/views/about/about.component'
-import { ContactComponent } from 'app/d2z/views/contact/contact.component'
-import { WhyChooseComponent } from 'app/d2z/views/whychoose/whychoose.component'
 import { TrackParcelComponent } from 'app/d2z/views/track-parcel/track-parcel.component'
 import { LoginService } from 'app/d2z/service/login.service';
 import { ZebraFileUpload } from 'app/d2z/views/client-level/consignment/file-upload/file-upload.component';
@@ -102,10 +98,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoice-report", component: SuperUserInvoiceComponent},
           { path: "superuser/etrack", component: EtowerTrackingComponent},
           { path: "policy", component: PolicyComponent},
-          {path: "contact",component: ContactComponent},
-          {path: "about",component: AboutComponent},
-          {path: "whychoose",component:WhyChooseComponent},
-          {path: "service", component : ServiceComponent},
           { path: "track-parcel", component: TrackParcelComponent},
           { path: "superuser/rates/add", component: SuperUserRatesAddComponent},
           { path: "superuser/rates/update", component: SuperUserRatesUpdateComponent},
@@ -147,10 +139,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserUploadTrackingComponent,
     SuperUserInvoiceComponent,
     PolicyComponent,
-   ServiceComponent,
-   AboutComponent,
-   WhyChooseComponent,
-   ContactComponent,
     TrackParcelComponent,
     EtowerTrackingComponent,
     ClientHeaderComponent,

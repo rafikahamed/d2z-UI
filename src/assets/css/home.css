@@ -361,7 +361,7 @@ Version:	1.1
 /*=======================
   Service CSS
 =========================*/ 
-/*#service{
+#service{
 	position:relative;
 }
 #service .single-service {
@@ -409,7 +409,7 @@ Version:	1.1
 #service .single-service p{
 	font-size:14px;
 	line-height:26px;
-}*/
+}
 /*=======================
   End Service CSS
 =========================*/  
@@ -417,7 +417,7 @@ Version:	1.1
 /*=======================
   About Us Css
 =========================*/ 
-/*#about-us {
+#about-us {
 	background: #f5f5f5;
 	padding: 30px 0 0;
 	overflow-x:hidden;
@@ -467,7 +467,7 @@ border: 1px solid #eee;
 	font-weight: 500;
 	/*color:#fff;*/
 }
-/*#about-us .single-tab {
+#about-us .single-tab {
 	margin-top: 20px;
 	position: relative;
 	padding: 12px 12px 12px 50px;
@@ -477,7 +477,7 @@ border: 1px solid #eee;
 
 #about-us .single-list{
 	/*margin-top: 10px;*/
-	/*position: relative;
+	position: relative;
 	padding: 12px 12px 12px 50px;
 	border-radius: 5px;
 	border-bottom: 1px dotted;
@@ -498,7 +498,7 @@ border: 1px solid #eee;
 }
 
 #about-us .single-tab h2 {
-	
+	/*color: #fff;*/
 	font-size: 20px;
 	margin-bottom: 5px;
 	font-weight: 500;
@@ -512,7 +512,7 @@ border: 1px solid #eee;
 }
 
 #about-us .single-list h2 {
-	
+	/*color: #fff;*/
 	font-size: 20px;
 	margin-bottom: 5px;
 	font-weight: 500;
@@ -537,7 +537,7 @@ border: 1px solid #eee;
 	line-height: 15px;
 	font-size: 14px;
 }
-*/
+
 /*=======================
   End About Us Css
 =========================*/ 
@@ -545,7 +545,7 @@ border: 1px solid #eee;
 /*=======================
   Our Skill CSS
 =========================*/
-/*#our-skill {
+#our-skill {
 	background:#fff;
 	padding:60px 0 90px;
 }
@@ -614,7 +614,7 @@ border: 1px solid #eee;
 	border-top: 11px solid transparent;
 	content: "";
 	border-left: 15px solid;
-}*/
+}
 /*=======================
   End Our Skill CSS
 =========================*/ 
@@ -622,7 +622,7 @@ border: 1px solid #eee;
 /*=======================
   Why Choose Us
 =========================*/ 
-/*#why-choose {
+#why-choose {
 	position: relative;
 	background: #2c3e50;
 	padding: 50px 0;
@@ -642,7 +642,7 @@ border: 1px solid #eee;
 	-moz-transition:all 0.4s ease;
 	transition:all 0.4s ease;
 }*/
-/*#why-choose .why-image{
+#why-choose .why-image{
 	margin-top:30px;
 }
 #why-choose .why-image img{
@@ -688,9 +688,9 @@ border: 1px solid #eee;
 #why-choose .why-image .video a:hover{
 	background:#2C3E50;
 }*/
-/*#why-choose h2 {
+#why-choose h2 {
 	/*color: #fff;*/
-	/*font-size: 25px;
+	font-size: 25px;
 	margin-bottom: 15px;
 	text-transform: uppercase;
 }
@@ -730,7 +730,7 @@ border: 1px solid #eee;
 	margin: 12px 0 0;
 	font-size: 20px;
 	font-weight:500;
-}*/
+}
 /*=======================
   End Why Choose Us
 =========================*/ 
@@ -738,7 +738,7 @@ border: 1px solid #eee;
 /*=======================
   Team CSS
 =========================*/  
-/*#team .single-team {
+#team .single-team {
 	text-align: center;
 	position: relative;
 	margin-top: 30px;
@@ -821,7 +821,7 @@ border: 1px solid #eee;
 }
 #team .team-social li a:hover{
 	background:#444;
-}*/
+}
 /*=======================
   End Team CSS
 =========================*/ 
@@ -829,9 +829,9 @@ border: 1px solid #eee;
 /*=======================
   Testimonial CSS
 =========================*/
-/*#testimonial{
+#testimonial{
 	/* background:url('images/testimonial.jpg'); */
-	/*background-size:cover;
+	background-size:cover;
 	background-position:center;
 	background-repeat:no-repeat;
 	position:relative;
@@ -928,7 +928,7 @@ border: 1px solid #eee;
 	color: #fff;
 }
 /* Testimonial Nav */
-/*#testimonial .owl-nav div {
+#testimonial .owl-nav div {
 	position: absolute;
 	top: 50%;
 	width: 40px;
@@ -948,7 +948,7 @@ border: 1px solid #eee;
 }
 #testimonial .owl-nav .owl-next{
 	right:0;
-}*/
+}
 /*=======================
   End Testimonial CSS
 =========================*/
