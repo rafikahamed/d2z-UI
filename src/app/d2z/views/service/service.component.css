@@ -1,0 +1,55 @@
+.success_msg{
+    color:green; font-size: 16px;font-weight: 500; margin-left: 15px;
+}
+
+.err_msg{
+    color: #ca2929; font-size:16px; font-weight:500; margin-left: 15px;
+}
+
+
+.single-service {
+	text-align: center;
+	position: relative;
+	margin-top: 30px;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	border-radius: 5px;
+}
+.single-service i {
+	font-size: 45px;
+	margin-bottom: 15px;
+	text-align: center;
+	color: #555;
+	border: 1px solid transparent;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+.single-service h2 {
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	position: relative;
+	color: #555;
+}
+.single-service h2::before {
+	position: absolute;
+	content: "";
+	width: 40px;
+	height: 2px;
+	margin-left: -20px;
+	left: 50%;
+	opacity:1;
+	visibility:visible;
+	bottom: -1px;
+	background: #555;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+.single-service p{
+	font-size:14px;
+	line-height:26px;
+}
