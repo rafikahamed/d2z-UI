@@ -80,7 +80,17 @@
                   <h3 class="page-title" style="margin-left: 15px" *ngIf="englishFlag"> Tracking Events:</h3>
                   <h3 class="page-title" style="margin-left: 15px" *ngIf="chinessFlag"> 跟踪事件 :</h3>
 
+                  <!-- <button type="button" 
+                            class="btn btn-info" 
+                            *ngIf="englishFlag" 
+                            (click)="downloadTrackingDetails()"
+                            style="background-color: #16A085; float:right; margin-right:35px">
+                            <span class="glyphicon glyphicon-cloud-download"></span>
+                          Download Tracking Details
+                  </button> -->
+
                   <div class="col-md-12">
+                       
                       <div *ngIf="showEvents" class="track_search">
                         <div *ngFor="let trackData of trackEvents; let i = index">
                           <p-accordion>

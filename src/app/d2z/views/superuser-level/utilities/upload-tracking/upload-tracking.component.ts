@@ -186,7 +186,6 @@ export class SuperUserUploadTrackingComponent implements OnInit{
         this.spinner.show();
         this.trackingDataService.superUserUpoloadTracking(this.importList, (resp) => {
           this.spinner.hide();
-          console.log(resp)
           if(resp.status == 400 ){
             this.successMsg = resp.error.message;
           }else if(resp.status == 500 ){

@@ -292,6 +292,24 @@ export class ConsigmentUploadService implements OnInit{
         callback(error);
     });
   };
+
+  downloadInvoiceData( brokerList, airwaybillList, callback): any {
+    console.log(brokerList);
+    console.log(airwaybillList);
+    this.http.get(baseUrl+'/superUser-level/download-Invoice', {
+      params: { broker: brokerList, 
+                airwayBill: airwaybillList 
+      }
+    }).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+        console.error(error);
+    });
+  }
   
 
 }

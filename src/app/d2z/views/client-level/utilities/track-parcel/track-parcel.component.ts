@@ -29,6 +29,7 @@ export class UtilitiesTrackParcel implements OnInit{
       private _compiler: Compiler
     ) {
       this._compiler.clearCache();
+      this.showEvents = false;
       this.trackParcelForm = new FormGroup({
         trackingNumber: new FormControl()
       });
@@ -63,6 +64,12 @@ export class UtilitiesTrackParcel implements OnInit{
       }else{
         this.errorMsg = this.englishFlag ? '*Please enter the reference number to track the status of the parcel' : '请输入参考编号来追踪包裹的状态';
       }
+    }
+
+    downloadTrackingDetails(){
+      console.log(this.trackEvents);
+
+      
     }
 }
 
