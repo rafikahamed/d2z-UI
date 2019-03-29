@@ -62,6 +62,23 @@ export class ConsigmentUploadService implements OnInit{
     this.newUserSubject.next(data);
   };
 
+  contactus( ContactObject, callback ): any {
+ 
+     this.http.get(baseUrl+'/contactUs',{
+      params: { email: ContactObject.Email, name: ContactObject.Name ,subject:ContactObject.Subject,message:ContactObject.Message }}
+            ).subscribe((resp) => {
+              callback(resp);
+              if (resp) {
+                
+              } else {
+                  console.error("Not Found!")
+              }
+            }, (error) => {
+                callback(error);
+            });
+
+  };
+
   authenticate( loginObject, callback): any {
     this.http.get(baseUrl+'/login', {
       params: { userName: loginObject.userName, passWord: loginObject.passWord  }

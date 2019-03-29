@@ -14,6 +14,8 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit{
   errorMsg: string;
+  successMsg:string;
+  contactForm : FormGroup;
   loginForm: FormGroup;
   userMessage: userMessage;
   loginBut: boolean;
@@ -26,12 +28,18 @@ export class HomeComponent implements OnInit{
     private meta: Meta
   ) {
       this.errorMsg = null;
+      this.successMsg = null;
       this.loginBut = true;
       this.loginForm = new FormGroup({
         userName: new FormControl('', Validators.required),
         passWord: new FormControl('', Validators.required)
       });
-
+  this.contactForm = new FormGroup({
+        Name: new FormControl(),
+        Email: new FormControl(),
+        Subject: new FormControl(),
+        Message: new FormControl()
+      });
       this.meta.addTag({ name: 'description', content: 'We are the best international logistics & freight forwarding specialists for ecommerce goods. Delivering first rate supply chain solutions & cost savings.' });
 
  this.meta.addTag( {name: 'keywords', content: 'eCommerce logistics, eCommerce specialist'});
@@ -92,6 +100,25 @@ export class HomeComponent implements OnInit{
     }
   }
 
+  contactus()
+{  if(this.contactForm.value.Name != null && this.contactForm.value.Email !=null && this.contactForm.value.Subject!=null && this.contactForm.value.Message!=null)
+{
+this.spinner.show();
+
+ this.consigmentUploadService.contactus(this.contactForm.value, (resp) => {
+         this.userMessage = resp;
+        this.spinner.hide();
+        this.successMsg = this.userMessage.message;
+            
+      })
+      }
+      else
+      {
+      this.errorMsg ="All fields are required";
+      }
+      
+    };
+
   login() {
     this.validateForm();
     var menuSelection  = this.consigmentUploadService.menuSourceSelection.source['_value'];
@@ -150,5 +177,6 @@ export interface userMessage {
     serviceType,
     contactPhoneNumber,
     role_Id,
+     message,
     companyName
 }
