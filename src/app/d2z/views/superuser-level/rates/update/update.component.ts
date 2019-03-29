@@ -358,11 +358,13 @@ export class SuperUserRatesUpdateComponent implements OnInit {
       var serviceType = 'serviceType';
       var injectionType = 'injectionType';
       var zone = 'zone';
+      var fuelSurcharge = 'fuelSurcharge';
 
       var brokerFinalObj = (
         brokerFinalObj={}, 
         brokerFinalObj[brokerUserName]=  this.brokerUserName ? this.brokerUserName : '', brokerFinalObj,
         brokerFinalObj[gst]= $("#gst").val() ? $("#gst").val() : '', brokerFinalObj,
+        brokerFinalObj[fuelSurcharge]= $("#fuelSurChargeUpdate").val() ? $("#fuelSurChargeUpdate").val() : '', brokerFinalObj,
         brokerFinalObj[serviceType]=  this.serviceType ? this.serviceType : '', brokerFinalObj,
         brokerFinalObj[injectionType]= this.injectionType ? this.injectionType : '', brokerFinalObj,
         brokerFinalObj[zone]= this.updateZone, brokerFinalObj

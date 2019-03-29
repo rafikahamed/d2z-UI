@@ -252,8 +252,6 @@ export class SuperUserRatesAddComponent implements OnInit {
       var that= this;
       selectedRows.forEach(function(data) {
         that.ratesList = [];
-        console.log(data.upto500g)
-        console.log(parseFloat(data.upto500g))
         if(data.upto500g){
           var rateObj = (
             rateObj={}, 
@@ -358,12 +356,11 @@ export class SuperUserRatesAddComponent implements OnInit {
       var serviceType = 'serviceType';
       var injectionType = 'injectionType';
       var zone = 'zone';
-
       var brokerFinalObj = (
         brokerFinalObj={}, 
         brokerFinalObj[brokerUserName]=  this.brokerUserName ? this.brokerUserName : '', brokerFinalObj,
         brokerFinalObj[gst]= $("#gst").val() ? $("#gst").val() : '', brokerFinalObj,
-        brokerFinalObj[fuelSurcharge]= $("#fuelSurcharge").val() ? $("#fuelSurcharge").val() : '', brokerFinalObj,
+        brokerFinalObj[fuelSurcharge]= $("#fuelSurCharge1").val() ? $("#fuelSurCharge1").val() : '', brokerFinalObj,
         brokerFinalObj[serviceType]=  this.serviceType ? this.serviceType : '', brokerFinalObj,
         brokerFinalObj[injectionType]= this.injectionType ? this.injectionType : '', brokerFinalObj,
         brokerFinalObj[zone]= this.zone, brokerFinalObj

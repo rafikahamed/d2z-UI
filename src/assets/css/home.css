@@ -4024,7 +4024,8 @@ body .container.body .right_col{
 }
 @media (min-width:992px){
     footer{
-        margin-left:230px
+		/* margin-left:230px */
+		margin-left:0px
     }
     .tile_count .tile_stats_count{
         margin-bottom:10px;

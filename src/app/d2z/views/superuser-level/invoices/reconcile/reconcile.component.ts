@@ -213,32 +213,80 @@ export class SuperUserReconcileComponent implements OnInit {
   };
 
   supplierClear(){
-
+    $("#reconcileCntrl").val('');
+      this.rowDataSupplier1 = [];
+      this.rowDataSupplier2 = [];
+      this.errorMsg = null;
   };
 
   uploadSupplier1Data(){
+    this.errorMsg = null;
     var supplier1Data = [];
     supplier1Data = this.gridOptionsSuplier1.api.getSelectedRows();
-    this.spinner.show();
-    this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
+    if(supplier1Data.length > 0){
+      this.spinner.show();
+      this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
+          this.spinner.hide();
+          this.downloadReconcileReport(resp);
+          setTimeout(() => { this.spinner.hide() }, 5000);
+        })
+    }else{
+      this.errorMsg = '**Please select the below records to upload the reconcile data';
+    }
+  };
+
+  uploadSupplier2Data(){
+    this.errorMsg = null;
+    var supplier2Data = [];
+    supplier2Data = this.gridOptionsSuplier2.api.getSelectedRows();
+    if(supplier2Data.length > 0 ){
+      this.spinner.show();
+      this.consigmentUploadService.reconcileData(supplier2Data, (resp) => {
         this.spinner.hide();
         this.downloadReconcileReport(resp);
         setTimeout(() => { this.spinner.hide() }, 5000);
       })
-  };
-
-  uploadSupplier2Data(){
-    var supplier2Data = [];
-    supplier2Data = this.gridOptionsSuplier2.api.getSelectedRows();
-    this.spinner.show();
-    this.consigmentUploadService.reconcileData(supplier2Data, (resp) => {
-      this.spinner.hide();
-      this.downloadReconcileReport(resp);
-      setTimeout(() => { this.spinner.hide() }, 5000);
-    })
+    }else{
+      this.errorMsg = '**Please select the below records to upload the reconcile data';
+    }
   };
 
   downloadReconcileReport(resp){
+    var reconcileObjList = [];
+    let airwaybill = 'airwaybill';
+    let articleId = 'articleId';
+    let brokerUserName = 'brokerUserName';
+    let costDifference = 'costDifference';
+    let d2ZCost = 'd2ZCost';
+    let d2ZWeight = 'd2ZWeight';
+    let reference_number = 'reference_number';
+    let supplierCharge = 'supplierCharge';
+    let supplierWeight = 'supplierWeight';
+    let weightDifference = 'weightDifference';
+    let invoicedAmount = 'invoicedAmount';
+    let correctAmount = 'correctAmount';
+    let chargeDifference = 'chargeDifference';
+    
+     for(var reconcileData in resp){
+        var reconcile = resp[reconcileData];
+        var reconcileObj = (
+          reconcileObj={}, 
+          reconcileObj[brokerUserName]= reconcile.brokerUserName != null ? reconcile.brokerUserName : '' , reconcileObj,
+          reconcileObj[airwaybill]= reconcile.airwaybill != null ? reconcile.airwaybill : '', reconcileObj,
+          reconcileObj[articleId]= reconcile.articleId != null ?  reconcile.articleId : '', reconcileObj,
+          reconcileObj[reference_number]= reconcile.reference_number != null ? reconcile.reference_number : '', reconcileObj,
+          reconcileObj[supplierCharge]= reconcile.supplierCharge != null ? reconcile.supplierCharge : '', reconcileObj,
+          reconcileObj[d2ZCost]= reconcile.d2ZCost != null ? reconcile.d2ZCost : '', reconcileObj,
+          reconcileObj[costDifference]= reconcile.costDifference != null ? reconcile.costDifference : '', reconcileObj,
+          reconcileObj[supplierWeight]= reconcile.supplierWeight != null ? reconcile.supplierWeight : '', reconcileObj,
+          reconcileObj[d2ZWeight]= reconcile.d2ZWeight != null ? reconcile.d2ZWeight : '', reconcileObj,
+          reconcileObj[weightDifference]= reconcile.weightDifference != null ? reconcile.weightDifference : '', reconcileObj,
+          reconcileObj[invoicedAmount]= reconcile.invoicedAmount != null ? reconcile.invoicedAmount : '', reconcileObj,
+          reconcileObj[correctAmount]= reconcile.correctAmount != null ? reconcile.correctAmount : '', reconcileObj,
+          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj
+        );
+        reconcileObjList.push(reconcileObj);
+     };
     var currentTime = new Date();
     var fileName = '';
         fileName = "Reconcile"+"-"+currentTime.toLocaleDateString();
@@ -248,10 +296,10 @@ export class SuperUserReconcileComponent implements OnInit {
         decimalseparator: '.',
         showLabels: true, 
         useBom: true,
-        headers: [ 'Shipment Number', 'Article ID', 'Customer', 'Charge Difference', 'Correct Amount', 'Cost Difference',
-        'D2Z Cost', 'D2Z Weight', 'Invoiced Amount', 'Reference Number', 'Supplier Charge',  'Supplier Weight', 'Weight Difference' ]
+        headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z Cost',
+        'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Invoiced Amount',  'Correct Amount', 'Charge Difference' ]
       };
-    new Angular2Csv(resp, fileName, options);      
+    new Angular2Csv(reconcileObjList, fileName, options);      
   };
 
   onSupplier1Change(){

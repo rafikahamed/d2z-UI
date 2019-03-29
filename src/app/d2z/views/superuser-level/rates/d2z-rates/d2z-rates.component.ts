@@ -205,7 +205,6 @@ export class SuperUserD2ZRatesComponent implements OnInit {
     this.d2zZone = [];
     this.d2zRatesData = [];
     var selectedRows = this.gridOptions.api.getSelectedRows();
-    console.log(selectedRows)
     if(this.mlid ==  undefined){
       this.errorMsg = "**Please select Mlid";
     }else if(selectedRows.length == 0){
@@ -321,14 +320,14 @@ export class SuperUserD2ZRatesComponent implements OnInit {
         )
         that.d2zZone.push(that.d2zZoneObj);
       });
-      var mlid = 'mlid';
-      var gst = 'gst';
+      var serviceType = 'serviceType';
+      var fuelSurcharge = 'fuelSurcharge';
       var zone = 'zone';
 
       var d2zFinalObj = (
         d2zFinalObj={}, 
-        d2zFinalObj[mlid]=  this.mlid ? this.mlid : '', d2zFinalObj,
-        d2zFinalObj[gst]= $("#gst").val() ? $("#gst ").val() : '', d2zFinalObj,
+        d2zFinalObj[serviceType]=  this.mlid ? this.mlid : '', d2zFinalObj,
+        d2zFinalObj[fuelSurcharge]= $("#d2zFuelCharge").val() ? $("#d2zFuelCharge").val() : '', d2zFinalObj,
         d2zFinalObj[zone]= this.d2zZone, d2zFinalObj
       );
       

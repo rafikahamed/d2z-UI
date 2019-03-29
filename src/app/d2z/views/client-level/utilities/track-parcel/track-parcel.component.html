@@ -80,22 +80,24 @@
                   <h3 class="page-title" style="margin-left: 15px" *ngIf="englishFlag"> Tracking Events:</h3>
                   <h3 class="page-title" style="margin-left: 15px" *ngIf="chinessFlag"> 跟踪事件 :</h3>
 
-                  <!-- <button type="button" 
+                  <button type="button" 
                             class="btn btn-info" 
-                            *ngIf="englishFlag" 
+                            *ngIf="showDownload" 
                             (click)="downloadTrackingDetails()"
                             style="background-color: #16A085; float:right; margin-right:35px">
                             <span class="glyphicon glyphicon-cloud-download"></span>
                           Download Tracking Details
-                  </button> -->
+                  </button>
 
                   <div class="col-md-12">
                        
                       <div *ngIf="showEvents" class="track_search">
                         <div *ngFor="let trackData of trackEvents; let i = index">
                           <p-accordion>
-                              <p-accordionTab header={{trackData.referenceNumber}} [selected]="true">
-                                 <h3 style="margin-left:35px" *ngIf="englishFlag"> Bar code Label Number: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
+                              <p-accordionTab header={{trackData.referenceNumber}} [selected]="true" >
+                                 <h3 style="margin-left:35px" *ngIf="englishFlag"> 
+                                     <span class="fa fa-barcode"></span>
+                                     Bar code Label Number: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
                                  <h3 style="margin-left:35px" *ngIf="chinessFlag"> 条形码标签号: &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
 
                                   <div style="margin-top: -70px; margin-bottom: -70px">

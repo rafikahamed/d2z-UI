@@ -9,7 +9,7 @@
             <div class="row tile_count">
                 <div class="page-title">
                     <div class="title_left">
-                      <h3 style="margin-left: 10px;"> Rates / Update Rates </h3>
+                      <h3 style="margin-left: 10px;"> Rates / D2Z Rates </h3>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <div class="container">
                   <div class="row">
                       <div class="col-md-3">
-                          <p> MLID : </p>
+                          <p> Service Type : </p>
                           <div>
                                 <p-dropdown [options]="mlidDropdown" 
                                             [(ngModel)]="selectedMlid" 
@@ -32,15 +32,15 @@
                       </div>
 
                       <div class="col-md-3">
-                        <p style="margin-left:15px"> GST : </p>
+                        <p style="margin-left:15px"> Fuel Surcharge : </p>
                         <div>
                               
                                 <div class="col-md-12 inputGroupContainer">
                                   <div class="input-group">
                                       <span class="input-group-addon">
                                           <i class="glyphicon glyphicon-usd"></i></span>
-                                            <input id="gst" 
-                                                    placeholder="GST" 
+                                            <input id="d2zFuelCharge" 
+                                                    placeholder="Fuel Surcharge" 
                                                     class="form-control" 
                                                     required="true" 
                                                     type="text">

@@ -16,6 +16,7 @@ declare var $: any;
 export class UtilitiesTrackParcel implements OnInit{
     trackParcelForm: FormGroup;
     showEvents:boolean;
+    showDownload: boolean;
     errorMsg: string;
     successMsg: String;
     trackEvents:TrackEvent[];
@@ -37,6 +38,7 @@ export class UtilitiesTrackParcel implements OnInit{
   
     ngOnInit() {
       this.showEvents = true;
+      this.showDownload = false;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
@@ -59,6 +61,7 @@ export class UtilitiesTrackParcel implements OnInit{
           this.spinner.hide();
           this.trackEvents = resp;
           this.showEvents = this.trackEvents[0].referenceNumber ? true : false;
+          this.showDownload = this.trackEvents[0].referenceNumber ? true : false;
           setTimeout(() => {this.spinner.hide()}, 5000);
         })
       }else{
@@ -67,8 +70,57 @@ export class UtilitiesTrackParcel implements OnInit{
     }
 
     downloadTrackingDetails(){
-      console.log(this.trackEvents);
+      let barcodelabelNumber = 'barcodelabelNumber';
+      let referenceNumber = 'referenceNumber';
+      let eventDetails = 'eventDetails';
+      let trackEventDateOccured = 'trackEventDateOccured';
 
+      for(var trackingEventsData in this.trackEvents){
+        var trackingData = this.trackEvents[trackingEventsData];
+        
+        for(var trackData in trackingData.trackingEvents){
+          var trackSubData = trackingData.trackingEvents[trackData];
+          console.log(trackSubData)
+
+          // var trackingObj = (
+          //          trackingObj={}, 
+          //          trackingObj[trackingNumber]= trackingData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
+          //          trackingObj[reference]= trackingData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
+          //          trackingObj[postcode]= trackingData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj
+          // );
+
+        }
+
+      }
+
+      var trackingDataList = [];
+    //     let barcodelabelNumber = 'barcodelabelNumber';
+    //     let clearedCustoms = 'clearedCustoms';
+    //     let consignmentCreated = 'consignmentCreated';
+    //     let delivered = 'delivered';
+    //     let eventDetails = 'eventDetails';
+    //     let heldByCustoms = 'heldByCustoms';
+    //     let inTransit = 'inTransit';
+    //     let clearedCustoms = 'processedByFacility';
+    //     let consignmentCreated = 'received';
+    //     let delivered = 'referenceNumber';
+    //     let eventDetails = 'shipmentCreated';
+    //     let heldByCustoms = 'heldByCustoms';
+    //     let inTransit = 'inTransit';
+    //   for(var trackingEvents in this.trackEvents){
+    //     var trackingData = this.trackEvents[trackingEvents];
+    //     var trackingObj = (
+    //       trackingObj={}, 
+    //       trackingObj[trackingNumber]= trackingData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
+    //       trackingObj[reference]= trackingData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
+    //       trackingObj[postcode]= trackingData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
+    //       trackingObj[weight]= trackingData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
+    //       trackingObj[postage]= trackingData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
+    //       trackingObj[fuelSurcharge]= trackingData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
+    //       trackingObj[total]= trackingData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj
+    //     );
+    //     trackingDataList.push(invoiceApproveObj);
+    //  };
       
     }
 }
@@ -84,6 +136,8 @@ export interface TrackEvent {
   processedByFacility:string;
   inTransit:string;
   delivered:string;
+  trackingEvents: any[];
+
 }
 
 export interface TrackEventDetails {

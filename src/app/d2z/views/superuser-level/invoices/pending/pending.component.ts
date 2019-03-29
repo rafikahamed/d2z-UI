@@ -183,6 +183,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       var airwaybillListFinal = Array.from(new Set(airwaybillList));
       this.spinner.show();
       this.consigmentUploadService.downloadInvoiceData(brokerListFFinal, airwaybillListFinal, (resp) => {
+        this.spinner.hide();
         var downloadInvoiceApprovedData = resp;
         let trackingNumber = 'trackingNumber';
         let reference = 'reference';
@@ -196,13 +197,13 @@ export class SuperUserInvoicePendingComponent implements OnInit {
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
             var invoiceApproveObj = (
               invoiceApproveObj={}, 
-              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApproveObj.trackingNumber : '' , invoiceApproveObj,
-              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApproveObj.referenceNuber : '', invoiceApproveObj,
-              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApproveObj.postcode : '', invoiceApproveObj,
-              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApproveObj.weight : '', invoiceApproveObj,
-              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApproveObj.postage : '', invoiceApproveObj,
-              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApproveObj.fuelsurcharge : '', invoiceApproveObj,
-              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApproveObj.total : '', invoiceApproveObj
+              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
+              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
+              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
+              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
+              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
+              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
+              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj
             );
             invoiceApprovedDownloadFinalList.push(invoiceApproveObj);
          };

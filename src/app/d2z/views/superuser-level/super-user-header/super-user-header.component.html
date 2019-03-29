@@ -21,7 +21,7 @@
                                 <li><a routerLink="/superuser-main">Information</a></li>
                                 </ul>
                             </li>
-                            <li><a (click)="super_user_zebra(arrow)"><i class="fa fa-edit"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li><a (click)="super_user_zebra(arrow)"><i class="fa fa-user-plus"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTwo ? 'block' : 'none'}">
                                 <li><a routerLink="/superuser/add-client">Add Client</a></li>
                                 <li><a routerLink="/superuser/update-client">Update Client</a></li>

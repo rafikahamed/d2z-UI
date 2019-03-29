@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
 // const baseUrl = "https://www.d2z.com.au/v1/d2z";
-const baseUrl = "http://localhost:8080/v1/d2z";
-// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+// const baseUrl = "http://localhost:8080/v1/d2z";
+const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -294,8 +294,6 @@ export class ConsigmentUploadService implements OnInit{
   };
 
   downloadInvoiceData( brokerList, airwaybillList, callback): any {
-    console.log(brokerList);
-    console.log(airwaybillList);
     this.http.get(baseUrl+'/superUser-level/download-Invoice', {
       params: { broker: brokerList, 
                 airwayBill: airwaybillList 
