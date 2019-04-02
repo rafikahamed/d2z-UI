@@ -4,6 +4,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { LoginService } from 'app/d2z/service/login.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {AccordionModule} from 'primeng/accordion';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
@@ -70,6 +72,7 @@ export class UtilitiesTrackParcel implements OnInit{
     }
 
     downloadTrackingDetails(){
+    
      this.errorMsg= null;
       this.successMsg= null;
       if($("#trackId").val().length >1){
@@ -136,6 +139,10 @@ export class UtilitiesTrackParcel implements OnInit{
         this.errorMsg = this.englishFlag ? '*Please enter the reference number to track the status of the parcel' : '请输入参考编号来追踪包裹的状态';
       }
    
+
+
+
+    }
 }
 
 export interface TrackEvent {
