@@ -50,6 +50,7 @@ import { SuperUserD2ZRatesComponent } from 'app/d2z/views/superuser-level/rates/
 import { SuperUserNotBilledComponent } from 'app/d2z/views/superuser-level/invoices/not-billed/not-billed.component';
 import { SuperUserInvoicePendingComponent } from 'app/d2z/views/superuser-level/invoices/pending/pending.component';
 import { SuperUserReconcileComponent } from 'app/d2z/views/superuser-level/invoices/reconcile/reconcile.component';
+import { SuperUserNonD2zClientComponent } from 'app/d2z/views/superuser-level/invoices/non-d2z/non-d2z.component';
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
@@ -112,7 +113,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/rates/d2z-rates", component: SuperUserD2ZRatesComponent},
           { path: "superuser/invoices/pending", component: SuperUserInvoicePendingComponent},
           { path: "superuser/invoices/reconcile", component: SuperUserReconcileComponent},
-          { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent}
+          { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent},
+          { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent}
     ], { useHash: true }),
     UiModule
   ],
@@ -161,7 +163,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserD2ZRatesComponent,
     SuperUserInvoicePendingComponent,
     SuperUserReconcileComponent,
-    SuperUserNotBilledComponent
+    SuperUserNotBilledComponent,
+    SuperUserNonD2zClientComponent
   ],
   entryComponents: [],
   providers: [

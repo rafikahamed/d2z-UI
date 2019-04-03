@@ -544,7 +544,20 @@ export class ZebraFileUpload implements OnInit{
       this.errorDetails1 = '';
       this.showSuccess = false;
       this.show = false;
-      console.log(this.carrierType)
+      for(var k = 0; k != selectedRows.length; ++k){
+        if(selectedRows[k].carrier == 'eParcel'){
+          if(selectedRows[k].serviceType == '1PME'){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type" : "**服务类型无效";
+            break;
+          }
+        }else if(selectedRows[k].carrier == 'Express'){
+          if(selectedRows[k].serviceType != '1PME'){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type" : "**服务类型无效";
+            break;
+          }
+        }
+      }
+
       if(!this.carrierType){
         this.errorMsg = this.englishFlag ? "**Please select the Carrier Type to upload the records" : "**请选择运营商类型以上传记录" ;
       }else if(selectedRows.length == 0){
@@ -568,7 +581,7 @@ export class ZebraFileUpload implements OnInit{
             $('#fileUploadModal').modal('show');
           }
           setTimeout(() => { this.spinner.hide() }, 5000);
-        })
+        });
       }
     };
 
@@ -706,7 +719,6 @@ export class ZebraFileUpload implements OnInit{
 
     onCarrierChange(event){
       this.carrierType = event.value ? event.value.value : '';
-      console.log(this.carrierType)
     };
 };
 
