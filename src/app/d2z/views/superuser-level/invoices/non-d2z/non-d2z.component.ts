@@ -9,7 +9,6 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import * as XLSX from 'xlsx';
 declare var $: any;
 
-
 interface dropdownTemplate {
   name: string;
   value: string;
@@ -22,27 +21,22 @@ interface dropdownTemplate {
 })
 
 export class SuperUserNonD2zClientComponent implements OnInit {
-
-  
   arrayBuffer:any;
   userName: String;
   role_id: String;
   errorMsg:String;
-  supplierType: String;
+  successMsg: String;
   show: Boolean;
-  suplier1Flag: Boolean;
-  suplier2Flag: Boolean;
+  errorDetails1: String;
+  errorDetails: String;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private defaultColDef;
-  private gridOptionsSuplier1: GridOptions;
-  private gridOptionsSuplier2: GridOptions;
-  supplierTypeDropdown: dropdownTemplate[];
-  private nonD2zClientData: any[];
-  private rowDataSupplier2: any[];
   file:File;
-  public supplierOneList = [];
-  public supplierTwoList = [];
+  private gridOptions: GridOptions;
+  private rowData: any[];
+  public nonD2ZList = [];
+
   constructor(
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
@@ -60,11 +54,11 @@ export class SuperUserNonD2zClientComponent implements OnInit {
     };
 
     // This grid is for Consignment Items
-    this.gridOptionsSuplier1 = <GridOptions>{ rowSelection: "multiple" };
-    this.gridOptionsSuplier1.columnDefs = [
+    this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptions.columnDefs = [
       {
         headerName: "Tracking Number",
-        field: "trackingNumber",
+        field: "articleId",
         width: 250,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
@@ -73,27 +67,27 @@ export class SuperUserNonD2zClientComponent implements OnInit {
       },
       {
         headerName: "Reference Number",
-        field: "referenceNumber",
-        width: 250
+        field: "reference_number",
+        width: 200
       },
       {
         headerName: "Consignee Name",
         field: "consigneeName",
-        width: 250
+        width: 200
       },
       {
         headerName: "Address",
         field: "address",
-        width: 250
+        width: 200
       },
       {
         headerName: "Suburb",
-        field: "subUrb",
+        field: "suburb",
         width: 200
       },
       {
         headerName: "Postcode",
-        field: "postCode",
+        field: "postcode",
         width: 150
       },
       {
@@ -111,33 +105,22 @@ export class SuperUserNonD2zClientComponent implements OnInit {
  
   ngOnInit() {
     this.getLoginDetails();
-    this.suplier1Flag =true;
-    this.suplier2Flag =false;
-    this.supplierTypeDropdown = [
-      { "name": "Supplier Template-1", "value": "supplierTemplate1" },
-      { "name": "Supplier Template-2", "value": "supplierTemplate2" }
-    ];
-    this.supplierType = this.supplierTypeDropdown[0].value;
   };
 
   incomingfile(event) {
-    this.nonD2zClientData = [];
+    this.rowData = [];
+    this.errorDetails = '';
+    this.errorDetails1 = '';
     this.file = event.target.files[0]; 
-    this.reconcileData();
+    this.nonD2zImport();
   };
 
-  reconcileData(){
+  nonD2zImport(){
     var worksheet;
     this.errorMsg = null;
     let fileReader = new FileReader();
-      this.supplierOneList= [];
-      this.nonD2zClientData = [];
-      fileReader.readAsArrayBuffer(this.file);
-      let articleNo = 'articleNo';
-      let normalRateParcel = 'normalRateParcel';
-      let articleActualWeight = 'articleActualWeight';
-      let supplierType = 'supplierType';
-      fileReader.onload = (e) => {
+    fileReader.readAsArrayBuffer(this.file);
+    fileReader.onload = (e) => {
           this.arrayBuffer = fileReader.result;
             var data = new Uint8Array(this.arrayBuffer);
             var arr = new Array();
@@ -147,117 +130,101 @@ export class SuperUserNonD2zClientComponent implements OnInit {
             var first_sheet_name = workbook.SheetNames[0];
             var worksheet = workbook.Sheets[first_sheet_name];
             var exportData = XLSX.utils.sheet_to_json(worksheet);
-            for (var importVal in exportData) {
-              var reconcile = exportData[importVal];
-              
+            
+            let articleId = 'articleId';
+            let reference_number = 'reference_number';
+            let consigneeName = 'consigneeName';
+            let address = 'address';
+            let suburb = 'suburb';
+            let postcode = 'postcode';
+            let weight = 'weight';
+            let serviceType = 'serviceType';
+
+            for (var nond2zVal in exportData) {
+              var nonD2zVal = exportData[nond2zVal];
               if(this.errorMsg == null){
-                var reconcileObj = (
-                  reconcileObj={}, 
-                  reconcileObj[articleNo]= reconcile['Article No.'] != undefined ? reconcile['Article No.'] : '', reconcileObj,
-                  reconcileObj[normalRateParcel]= reconcile['Normal Rate/Parcel'] != undefined ? reconcile['Normal Rate/Parcel'] : '', reconcileObj,
-                  reconcileObj[articleActualWeight]= reconcile['Article Actual Weight'] != undefined ? reconcile['Article Actual Weight'] : '', reconcileObj,
-                  reconcileObj[supplierType]= 'supplierOne', reconcileObj
+                var nonD2zObj = (
+                  nonD2zObj={}, 
+                  nonD2zObj[articleId]= nonD2zVal['Tracking Number'] != undefined ? nonD2zVal['Tracking Number'] : '', nonD2zObj,
+                  nonD2zObj[reference_number]= nonD2zVal['Reference'] != undefined ? nonD2zVal['Reference'] : '', nonD2zObj,
+                  nonD2zObj[consigneeName]= nonD2zVal['Consignee Name'] != undefined ? nonD2zVal['Consignee Name'] : '', nonD2zObj,
+                  nonD2zObj[address]= nonD2zVal['Address'] != undefined ? nonD2zVal['Address'] : '', nonD2zObj,
+                  nonD2zObj[suburb]= nonD2zVal['Suburb'] != undefined ? nonD2zVal['Suburb'] : '', nonD2zObj,
+                  nonD2zObj[postcode]= nonD2zVal['Postcode'] != undefined ? nonD2zVal['Postcode'] : '', nonD2zObj,
+                  nonD2zObj[weight]= nonD2zVal['Weight'] != undefined ? nonD2zVal['Weight'] : '', nonD2zObj,
+                  nonD2zObj[serviceType]= nonD2zVal['Service Type'] != undefined ? nonD2zVal['Service Type'] : '', nonD2zObj
+
                 );
-              this.supplierOneList.push(reconcileObj)
-              this.nonD2zClientData = this.supplierOneList;
+              this.nonD2ZList.push(nonD2zObj)
+              this.rowData = this.nonD2ZList;
               }
           }
         }
-    
- 
-  };
-
-  onSuplierTypeChange(event){
-    this.supplierType = event.value ? event.value.value : '';
-    if(this.supplierType == 'supplierTemplate1'){
-      this.suplier2Flag = false;
-      this.suplier1Flag = true;
-    }else if(this.supplierType == 'supplierTemplate2'){
-      this.suplier1Flag = false;
-      this.suplier2Flag = true;
-    }
   };
 
   supplierClear(){
-      $("#reconcileCntrl").val('');
-      this.nonD2zClientData = [];
+      $("#nonD2zCntrl").val('');
+      this.rowData = [];
+      this.nonD2ZList = [];
       this.errorMsg = null;
+      this.successMsg = null;
+  };
+
+  onNonD2zClientChange(){
+    this.errorMsg = '';
+    this.successMsg = '';
   };
 
   uploadNonD2zData(){
-    this.errorMsg = null;
-    var supplier1Data = [];
-    supplier1Data = this.gridOptionsSuplier1.api.getSelectedRows();
-    if(supplier1Data.length > 0){
+    this.show = false;
+    this.successMsg = '';
+    this.errorMsg = '';
+    this.errorDetails = '';
+    this.errorDetails1 = '';
+    var nonD2zData = this.gridOptions.api.getSelectedRows();
+    if(nonD2zData.length > 0){
       this.spinner.show();
-      this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
+      this.consigmentUploadService.nonD2zUpload(nonD2zData, (resp) => {
           this.spinner.hide();
-          this.downloadReconcileReport(resp);
+          if(resp.error){
+            this.errorMsg = resp.error.errorMessage;
+            this.errorDetails = resp.error.errorDetails;
+            this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
+            this.show = true;
+            $('#nonD2zModal').modal('show');  
+          }else{  
+            this.successMsg = resp.message;
+            $('#nonD2zModal').modal('show');  
+          }
           setTimeout(() => { this.spinner.hide() }, 5000);
         })
     }else{
-      this.errorMsg = '**Please select the below records to upload the reconcile data';
+      this.errorMsg = '**Please select the below records to upload the Non D2Z Client data';
     }
   };
 
+  downloadErrDetails(){
+    var fileName = "Article Id Details";
+    var articleIdList = [];
+    var articleId = 'articleId';
+    var options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      useBom: true,
+      headers: ['Article Id']
+    }
 
-  downloadReconcileReport(resp){
-    var reconcileObjList = [];
-    let airwaybill = 'airwaybill';
-    let articleId = 'articleId';
-    let brokerUserName = 'brokerUserName';
-    let costDifference = 'costDifference';
-    let d2ZCost = 'd2ZCost';
-    let d2ZWeight = 'd2ZWeight';
-    let reference_number = 'reference_number';
-    let supplierCharge = 'supplierCharge';
-    let supplierWeight = 'supplierWeight';
-    let weightDifference = 'weightDifference';
-    let invoicedAmount = 'invoicedAmount';
-    let correctAmount = 'correctAmount';
-    let chargeDifference = 'chargeDifference';
-    
-     for(var reconcileData in resp){
-        var reconcile = resp[reconcileData];
-        var reconcileObj = (
-          reconcileObj={}, 
-          reconcileObj[brokerUserName]= reconcile.brokerUserName != null ? reconcile.brokerUserName : '' , reconcileObj,
-          reconcileObj[airwaybill]= reconcile.airwaybill != null ? reconcile.airwaybill : '', reconcileObj,
-          reconcileObj[articleId]= reconcile.articleId != null ?  reconcile.articleId : '', reconcileObj,
-          reconcileObj[reference_number]= reconcile.reference_number != null ? reconcile.reference_number : '', reconcileObj,
-          reconcileObj[supplierCharge]= reconcile.supplierCharge != null ? reconcile.supplierCharge : '', reconcileObj,
-          reconcileObj[d2ZCost]= reconcile.d2ZCost != null ? reconcile.d2ZCost : '', reconcileObj,
-          reconcileObj[costDifference]= reconcile.costDifference != null ? reconcile.costDifference : '', reconcileObj,
-          reconcileObj[supplierWeight]= reconcile.supplierWeight != null ? reconcile.supplierWeight : '', reconcileObj,
-          reconcileObj[d2ZWeight]= reconcile.d2ZWeight != null ? reconcile.d2ZWeight : '', reconcileObj,
-          reconcileObj[weightDifference]= reconcile.weightDifference != null ? reconcile.weightDifference : '', reconcileObj,
-          reconcileObj[invoicedAmount]= reconcile.invoicedAmount != null ? reconcile.invoicedAmount : '', reconcileObj,
-          reconcileObj[correctAmount]= reconcile.correctAmount != null ? reconcile.correctAmount : '', reconcileObj,
-          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj
-        );
-        reconcileObjList.push(reconcileObj);
-     };
-    var currentTime = new Date();
-    var fileName = '';
-        fileName = "Reconcile"+"-"+currentTime.toLocaleDateString();
-      var options = { 
-        fieldSeparator: ',',
-        quoteStrings: '"',
-        decimalseparator: '.',
-        showLabels: true, 
-        useBom: true,
-        headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z Cost',
-        'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Invoiced Amount',  'Correct Amount', 'Charge Difference' ]
-      };
-    new Angular2Csv(reconcileObjList, fileName, options);      
-  };
-
-  onSupplier1Change(){
-
-  };
-
-  onSupplier2Change(){
-
+    for(var articleId in this.errorDetails){
+      var articleObj = (
+        articleObj={}, 
+        articleObj[articleId]= this.errorDetails[articleId], articleObj
+      )
+      articleIdList.push(articleObj)
+    }
+    console.log(articleIdList);
+    new Angular2Csv(articleIdList, fileName, options);
   };
 
   getLoginDetails(){

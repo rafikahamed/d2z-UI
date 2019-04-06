@@ -4,8 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-// const baseUrl = "http://localhost:8080/v1/d2z";
-const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+const baseUrl = "http://localhost:8080/v1/d2z";
+// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 // const baseUrl = "https://www.d2z.com.au/v1/d2z";
 
 @Injectable()
@@ -212,12 +212,11 @@ export class TrackingDataService implements OnInit{
     }).subscribe((resp) => {
       callback(resp);
       if (resp) {
-        
       } else {
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   };
 
@@ -231,7 +230,7 @@ export class TrackingDataService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   };
 
@@ -245,7 +244,7 @@ export class TrackingDataService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   };
 
@@ -273,7 +272,7 @@ export class TrackingDataService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   }
 
@@ -286,7 +285,7 @@ export class TrackingDataService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   }
 

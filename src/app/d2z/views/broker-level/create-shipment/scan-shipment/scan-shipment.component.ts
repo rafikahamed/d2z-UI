@@ -59,8 +59,9 @@ export class ScanShipmentComponent implements OnInit{
   };
 
   scanShipment(){
+    console.log("Shipment Clicked")
     this.errorMsg = null;
-    this.successMsg = '';
+    this.successMsg = null;
     if(this.shipmentScanForm.value.shipmentNumber == null || this.shipmentScanForm.value.shipmentNumber == ''){
       this.errorMsg = "**Please Enter the Shipment Number";
     }
@@ -73,10 +74,12 @@ export class ScanShipmentComponent implements OnInit{
         this.spinner.show();
         this.trackingDataService.shipmentAllocation(refrenceNumList, this.shipmentScanForm.value.shipmentNumber, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
-          $('#scanShipmentModal').modal('show');
-          if(!resp){
+          if(resp.error){
+            this.errorMsg = resp.error.errorDetails;
+          }else{
+            this.successMsg = resp.responseMessage;
           }
+          $('#scanShipmentModal').modal('show');
           setTimeout(() => {
             this.spinner.hide();
           }, 5000);

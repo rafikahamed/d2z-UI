@@ -111,8 +111,8 @@ export class SuperUserReconcileComponent implements OnInit {
     this.suplier1Flag =true;
     this.suplier2Flag =false;
     this.supplierTypeDropdown = [
-      { "name": "Supplier Template-1", "value": "supplierTemplate1" },
-      { "name": "Supplier Template-2", "value": "supplierTemplate2" }
+      { "name": "UBI Template", "value": "UBITemplate" },
+      { "name": "Freipost template", "value": "freipostTemplate" }
     ];
     this.supplierType = this.supplierTypeDropdown[0].value;
   };
@@ -128,7 +128,7 @@ export class SuperUserReconcileComponent implements OnInit {
     var worksheet;
     this.errorMsg = null;
     let fileReader = new FileReader();
-    if(this.supplierType == 'supplierTemplate1'){
+    if(this.supplierType == 'UBITemplate'){
       this.supplierOneList= [];
       this.rowDataSupplier1 = [];
       fileReader.readAsArrayBuffer(this.file);
@@ -155,14 +155,14 @@ export class SuperUserReconcileComponent implements OnInit {
                   reconcileObj[articleNo]= reconcile['Article No.'] != undefined ? reconcile['Article No.'] : '', reconcileObj,
                   reconcileObj[normalRateParcel]= reconcile['Normal Rate/Parcel'] != undefined ? reconcile['Normal Rate/Parcel'] : '', reconcileObj,
                   reconcileObj[articleActualWeight]= reconcile['Article Actual Weight'] != undefined ? reconcile['Article Actual Weight'] : '', reconcileObj,
-                  reconcileObj[supplierType]= 'supplierOne', reconcileObj
+                  reconcileObj[supplierType]= 'UBI', reconcileObj
                 );
               this.supplierOneList.push(reconcileObj)
               this.rowDataSupplier1 = this.supplierOneList;
               }
           }
         }
-    }else if(this.supplierType == 'supplierTemplate2'){
+    }else if(this.supplierType == 'freipostTemplate'){
       this.supplierTwoList= [];
       this.rowDataSupplier2  = [];
       fileReader.readAsArrayBuffer(this.file);
@@ -190,7 +190,7 @@ export class SuperUserReconcileComponent implements OnInit {
                   reconcileTwoObj[refrenceNumber]= reconcile['Invoice Number'] != undefined ? reconcile['Invoice Number'] : '', reconcileTwoObj,
                   reconcileTwoObj[chargedWeight]= reconcile['Charged Weight'] != undefined ? reconcile['Charged Weight'] : '', reconcileTwoObj,
                   reconcileTwoObj[cost]= reconcile['Cost (AUD)'] != undefined ? reconcile['Cost (AUD)'] : '', reconcileTwoObj,
-                  reconcileTwoObj[supplierType]= 'supplierTwo', reconcileTwoObj
+                  reconcileTwoObj[supplierType]= 'freipost', reconcileTwoObj
                 );
               this.supplierTwoList.push(reconcileTwoObj)
               this.rowDataSupplier2 = this.supplierTwoList;
@@ -203,10 +203,10 @@ export class SuperUserReconcileComponent implements OnInit {
 
   onSuplierTypeChange(event){
     this.supplierType = event.value ? event.value.value : '';
-    if(this.supplierType == 'supplierTemplate1'){
+    if(this.supplierType == 'UBITemplate'){
       this.suplier2Flag = false;
       this.suplier1Flag = true;
-    }else if(this.supplierType == 'supplierTemplate2'){
+    }else if(this.supplierType == 'freipostTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = true;
     }
@@ -296,8 +296,8 @@ export class SuperUserReconcileComponent implements OnInit {
         decimalseparator: '.',
         showLabels: true, 
         useBom: true,
-        headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z Cost',
-        'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Invoiced Amount',  'Correct Amount', 'Charge Difference' ]
+        headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z postage',
+        'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference' ]
       };
     new Angular2Csv(reconcileObjList, fileName, options);      
   };

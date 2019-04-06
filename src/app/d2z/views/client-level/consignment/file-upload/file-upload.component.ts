@@ -547,12 +547,12 @@ export class ZebraFileUpload implements OnInit{
       for(var k = 0; k != selectedRows.length; ++k){
         if(selectedRows[k].carrier == 'eParcel'){
           if(selectedRows[k].serviceType == '1PME'){
-            this.errorMsg = this.englishFlag ? "**Invalid service Type" : "**服务类型无效";
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
         }else if(selectedRows[k].carrier == 'Express'){
           if(selectedRows[k].serviceType != '1PME'){
-            this.errorMsg = this.englishFlag ? "**Invalid service Type" : "**服务类型无效";
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
         }

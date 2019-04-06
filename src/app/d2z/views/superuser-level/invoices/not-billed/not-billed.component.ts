@@ -69,9 +69,9 @@ export class SuperUserNotBilledComponent implements OnInit {
         width: 250
       },
       {
-        headerName: "D2Z Cost",
+        headerName: "D2Z Postage",
         field: "d2zRate",
-        width: 100
+        width: 150
       }
     ];
 
@@ -121,7 +121,7 @@ export class SuperUserNotBilledComponent implements OnInit {
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Cost']
+            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Postage']
           };
         new Angular2Csv(this.notBilledList, fileName, options);   
     }else{

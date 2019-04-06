@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
 // const baseUrl = "https://www.d2z.com.au/v1/d2z";
-// const baseUrl = "http://localhost:8080/v1/d2z";
-const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+const baseUrl = "http://localhost:8080/v1/d2z";
+// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -286,6 +286,19 @@ export class ConsigmentUploadService implements OnInit{
 
   reconcileData(reconcile, callback): any {
     this.http.post(baseUrl+'/superUser-level/reconcileInfo',reconcile
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
+  nonD2zUpload(nonD2zClient, callback): any {
+    this.http.post(baseUrl+'/superUser-level/Non-D2Z-Client',nonD2zClient
     ).subscribe((resp) => {
       callback(resp);
       if (resp) {

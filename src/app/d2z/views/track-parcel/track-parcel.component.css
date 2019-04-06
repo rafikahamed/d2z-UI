@@ -35,8 +35,9 @@ body {
     font-size: 2.4em;
   }
   #content {
-    margin-top: 80px;
+    /* margin-top: 80px; */
     text-align: center;
+    border-bottom: 1px solid #ccc;
   }
   /* Timeline */
   .timeline {
@@ -46,7 +47,7 @@ body {
     background: rgba(255, 255, 255, 0.03);
     color:rgba(101, 91, 91, 0.8);
     font-family: 'Chivo', sans-serif;
-    margin: 100px 290px;
+    margin: 60px 290px;
     letter-spacing: 0.5px;
     position: relative;
     line-height: 1.4em;
