@@ -27,6 +27,7 @@ export class SuperUserNonD2zClientComponent implements OnInit {
   errorMsg:String;
   successMsg: String;
   show: Boolean;
+  brokerUserName: String;
   errorDetails1: String;
   errorDetails: String;
   private autoGroupColumnDef;
@@ -36,7 +37,7 @@ export class SuperUserNonD2zClientComponent implements OnInit {
   private gridOptions: GridOptions;
   private rowData: any[];
   public nonD2ZList = [];
-
+  brokerDropDown: dropdownTemplate[];
   constructor(
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
@@ -105,6 +106,14 @@ export class SuperUserNonD2zClientComponent implements OnInit {
  
   ngOnInit() {
     this.getLoginDetails();
+    this.spinner.show();
+    this.consigmentUploadService.fetchNonBrokerUserName((resp) => {
+      this.spinner.hide();
+      this.brokerDropDown = resp;
+      if(!resp){
+          this.errorMsg = "Invalid Credentials!";
+      }  
+    })
   };
 
   incomingfile(event) {
@@ -139,6 +148,8 @@ export class SuperUserNonD2zClientComponent implements OnInit {
             let postcode = 'postcode';
             let weight = 'weight';
             let serviceType = 'serviceType';
+            let brokerName = 'brokerName';
+            let shipmentNumber = 'shipmentNumber';
 
             for (var nond2zVal in exportData) {
               var nonD2zVal = exportData[nond2zVal];
@@ -152,8 +163,9 @@ export class SuperUserNonD2zClientComponent implements OnInit {
                   nonD2zObj[suburb]= nonD2zVal['Suburb'] != undefined ? nonD2zVal['Suburb'] : '', nonD2zObj,
                   nonD2zObj[postcode]= nonD2zVal['Postcode'] != undefined ? nonD2zVal['Postcode'] : '', nonD2zObj,
                   nonD2zObj[weight]= nonD2zVal['Weight'] != undefined ? nonD2zVal['Weight'] : '', nonD2zObj,
-                  nonD2zObj[serviceType]= nonD2zVal['Service Type'] != undefined ? nonD2zVal['Service Type'] : '', nonD2zObj
-
+                  nonD2zObj[serviceType]= nonD2zVal['Service Type'] != undefined ? nonD2zVal['Service Type'] : '', nonD2zObj,
+                  nonD2zObj[brokerName]= this.brokerUserName, nonD2zObj,
+                  nonD2zObj[shipmentNumber]= $("#shipmentNumber").val(), nonD2zObj
                 );
               this.nonD2ZList.push(nonD2zObj)
               this.rowData = this.nonD2ZList;
@@ -223,8 +235,13 @@ export class SuperUserNonD2zClientComponent implements OnInit {
       )
       articleIdList.push(articleObj)
     }
-    console.log(articleIdList);
     new Angular2Csv(articleIdList, fileName, options);
+  };
+
+  onBrokerTypeChange(event){
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.brokerUserName = event.value ? event.value.value : '';
   };
 
   getLoginDetails(){

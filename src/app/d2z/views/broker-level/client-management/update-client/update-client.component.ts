@@ -22,6 +22,11 @@ export class UpdateClientComponent implements OnInit{
       typeSixFlag: boolean;
       typeSevenFlag: boolean;
       typeEightFlag: boolean;
+      typeSubOneFlag: boolean;
+      typeSubTwoFlag: boolean;
+      typeSubThreeFlag: boolean;
+      typeSubFourFlag: boolean;
+      typeSubFiveFlag: boolean;
       oneCheckFlag: boolean;
       twoCheckFlag: boolean;
       threeCheckFlag: boolean;
@@ -30,6 +35,11 @@ export class UpdateClientComponent implements OnInit{
       sixCheckFlag: boolean;
       sevenCheckFlag: boolean;
       eightCheckFlag: boolean;
+      subOneCheckFlag: boolean;
+      subTwoCheckFlag: boolean;
+      subThreeCheckFlag: boolean;
+      subFourCheckFlag: boolean;
+      subFiveCheckFlag: boolean;
       errorMsg: string;
       successMsg: String;
       companyName: String;
@@ -103,6 +113,11 @@ export class UpdateClientComponent implements OnInit{
     this.typeSixFlag = this.consignmenrServices.userMessage.serviceType.includes('1PM') ? true :  false;
     this.typeEightFlag = this.consignmenrServices.userMessage.serviceType.includes('1PME')? true : false;
     this.typeSevenFlag = this.consignmenrServices.userMessage.serviceType.includes('UnTracked') ? true : false;
+    this.typeSubOneFlag = this.consignmenrServices.userMessage.serviceType.includes('1PM3') ? true : false;
+    this.typeSubTwoFlag = this.consignmenrServices.userMessage.serviceType.includes('1PP') ? true :  false;
+    this.typeSubThreeFlag = this.consignmenrServices.userMessage.serviceType.includes('1PS2')? true : false;
+    this.typeSubFourFlag = this.consignmenrServices.userMessage.serviceType.includes('FWS') ? true : false;
+    this.typeSubFiveFlag = this.consignmenrServices.userMessage.serviceType.includes('STS') ? true : false;
     this.getLoginDetails();
   };
 
@@ -139,6 +154,11 @@ export class UpdateClientComponent implements OnInit{
       this.sixCheckFlag = resp.serviceType.includes('1PM') ? true :  false;
       this.sevenCheckFlag = resp.serviceType.includes('UnTracked') ? true : false;
       this.eightCheckFlag = resp.serviceType.includes('1PME') ? true :  false;
+      this.subOneCheckFlag = resp.serviceType.includes('1PM3') ? true :  false;
+      this.subTwoCheckFlag = resp.serviceType.includes('1PP') ? true :  false;
+      this.subThreeCheckFlag = resp.serviceType.includes('1PS2') ? true :  false;
+      this.subFourCheckFlag = resp.serviceType.includes('FWS') ? true :  false;
+      this.subFiveCheckFlag = resp.serviceType.includes('STS') ? true :  false;
       this.serviceTypeArray = resp.serviceType;
       this.spinner.hide();
       setTimeout(() => {this.spinner.hide()}, 5000);

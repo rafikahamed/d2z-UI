@@ -27,8 +27,10 @@ export class SuperUserReconcileComponent implements OnInit {
   errorMsg:String;
   supplierType: String;
   show: Boolean;
+  downloadReconcile: Boolean;
   suplier1Flag: Boolean;
   suplier2Flag: Boolean;
+  successMsg: String;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private defaultColDef;
@@ -102,7 +104,7 @@ export class SuperUserReconcileComponent implements OnInit {
         field: "cost",
         width: 300
       }
-    ];
+    ]
 
   };
  
@@ -110,6 +112,7 @@ export class SuperUserReconcileComponent implements OnInit {
     this.getLoginDetails();
     this.suplier1Flag =true;
     this.suplier2Flag =false;
+    this.downloadReconcile = false;
     this.supplierTypeDropdown = [
       { "name": "UBI Template", "value": "UBITemplate" },
       { "name": "Freipost template", "value": "freipostTemplate" }
@@ -198,10 +201,11 @@ export class SuperUserReconcileComponent implements OnInit {
           }
         }
     }
- 
   };
 
   onSuplierTypeChange(event){
+    this.successMsg = null;
+    this.downloadReconcile= false;
     this.supplierType = event.value ? event.value.value : '';
     if(this.supplierType == 'UBITemplate'){
       this.suplier2Flag = false;
@@ -227,7 +231,10 @@ export class SuperUserReconcileComponent implements OnInit {
       this.spinner.show();
       this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
           this.spinner.hide();
-          this.downloadReconcileReport(resp);
+          //this.downloadReconcileReport(resp);
+          this.successMsg = resp.message;
+          $('#reconcileModal').modal('show');  
+          this.downloadReconcile = true;
           setTimeout(() => { this.spinner.hide() }, 5000);
         })
     }else{
@@ -243,7 +250,10 @@ export class SuperUserReconcileComponent implements OnInit {
       this.spinner.show();
       this.consigmentUploadService.reconcileData(supplier2Data, (resp) => {
         this.spinner.hide();
-        this.downloadReconcileReport(resp);
+        this.successMsg = resp.message;
+        $('#reconcileModal').modal('show');  
+        //this.downloadReconcileReport(resp);
+        this.downloadReconcile = true;
         setTimeout(() => { this.spinner.hide() }, 5000);
       })
     }else{
@@ -266,8 +276,25 @@ export class SuperUserReconcileComponent implements OnInit {
     let invoicedAmount = 'invoicedAmount';
     let correctAmount = 'correctAmount';
     let chargeDifference = 'chargeDifference';
-    
-     for(var reconcileData in resp){
+
+    var reconcileNumbers = [];
+    if(this.supplierType == 'UBITemplate'){
+     var supplier1Data = this.gridOptionsSuplier1.api.getSelectedRows();
+        for (var supplierOne in supplier1Data) {
+            var reconcile = supplier1Data[supplierOne];
+            reconcileNumbers.push(reconcile.articleNo);
+        }
+    }else if(this.supplierType == 'freipostTemplate'){
+     var supplier2Data = this.gridOptionsSuplier2.api.getSelectedRows();
+        for (var supplierTwo in supplier2Data) {
+            var reconcile = supplier2Data[supplierTwo];
+            reconcileNumbers.push(reconcile.refrenceNumber);
+        }
+    }
+    this.spinner.show();
+    this.consigmentUploadService.downloadReconcile(reconcileNumbers, (resp) => {
+      this.spinner.hide();
+      for(var reconcileData in resp){
         var reconcile = resp[reconcileData];
         var reconcileObj = (
           reconcileObj={}, 
@@ -287,19 +314,22 @@ export class SuperUserReconcileComponent implements OnInit {
         );
         reconcileObjList.push(reconcileObj);
      };
-    var currentTime = new Date();
-    var fileName = '';
-        fileName = "Reconcile"+"-"+currentTime.toLocaleDateString();
-      var options = { 
-        fieldSeparator: ',',
-        quoteStrings: '"',
-        decimalseparator: '.',
-        showLabels: true, 
-        useBom: true,
-        headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z postage',
-        'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference' ]
-      };
-    new Angular2Csv(reconcileObjList, fileName, options);      
+        var currentTime = new Date();
+        var fileName = '';
+            fileName = "Reconcile"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z postage',
+            'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference' ]
+          };
+        new Angular2Csv(reconcileObjList, fileName, options); 
+    })
+    
+     
   };
 
   onSupplier1Change(){
@@ -307,6 +337,9 @@ export class SuperUserReconcileComponent implements OnInit {
   };
 
   onSupplier2Change(){
+  };
+
+  tabChanged(){
 
   };
 
