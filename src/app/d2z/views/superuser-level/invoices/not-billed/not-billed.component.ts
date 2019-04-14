@@ -15,16 +15,18 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 })
 
 export class SuperUserNotBilledComponent implements OnInit {
-
   userName: String;
   role_id: String;
   errorMsg: string;
   successMsg: String;
   private gridOptions: GridOptions;
+  private gridOptionsNonD2z: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowData: any[];
+  private rowDataNonD2z: any[];
   private notBilledList : any[];
+  private notBilledNonD2zList : any [];
   private defaultColDef;
 
   constructor(
@@ -75,6 +77,39 @@ export class SuperUserNotBilledComponent implements OnInit {
       }
     ];
 
+    this.gridOptionsNonD2z = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsNonD2z.columnDefs = [
+      {
+        headerName: "Customer",
+        field: "userName",
+        width: 230,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Shipment Number",
+        field: "airwayBill",
+        width: 250
+      },
+      {
+        headerName: "Tracking Number",
+        field: "articleId",
+        width: 250
+      },
+      {
+        headerName: "Reference Number",
+        field: "referenceNumber",
+        width: 250
+      },
+      {
+        headerName: "D2Z Postage",
+        field: "d2zRate",
+        width: 150
+      }
+    ];
+    
   }
 
   ngOnInit() {
@@ -86,7 +121,7 @@ export class SuperUserNotBilledComponent implements OnInit {
       if(!resp){
           this.errorMsg = "Invalid Credentials!";
       }  
-    })
+    });
   };
 
   notBilledDownload(){
@@ -129,9 +164,71 @@ export class SuperUserNotBilledComponent implements OnInit {
     } 
   };
 
+  nonD2zNotBilledDownload(){
+    var selectedRowsNonD2z = this.gridOptionsNonD2z.api.getSelectedRows();
+    this.notBilledNonD2zList = [];
+    let userName = 'userName';
+    let airwayBill = 'airwayBill';
+    let articleId = 'articleId';
+    let referenceNumber = 'referenceNumber';
+    let d2zRate = 'd2zRate';
+    
+     for(var notBilledData in selectedRowsNonD2z){
+        var billedData = selectedRowsNonD2z[notBilledData];
+        var notBillObj = (
+          notBillObj={}, 
+          notBillObj[userName]= billedData.userName != null ? billedData.userName : '' , notBillObj,
+          notBillObj[airwayBill]= billedData.airwayBill != null ? billedData.airwayBill : '', notBillObj,
+          notBillObj[articleId]= billedData.articleId != null ?  billedData.articleId : '', notBillObj,
+          notBillObj[referenceNumber]= billedData.referenceNumber != null ? billedData.referenceNumber : '', notBillObj,
+          notBillObj[d2zRate]= billedData.d2zRate != null ? billedData.d2zRate : '', notBillObj
+        );
+      this.notBilledNonD2zList.push(notBillObj)
+     }
+
+    if(selectedRowsNonD2z.length > 0 ){
+      var currentTime = new Date();
+        var fileName = '';
+          fileName = "Non-D2Z_Not_Billed"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Postage']
+          };
+        new Angular2Csv(this.notBilledNonD2zList, fileName, options);   
+    }else{
+        this.errorMsg =  "**Please select the below records to download Non-D2Z Not Billed Data";
+    } 
+  };
+
   onSelectionChange(){
     var selectedRows = this.gridOptions.api.getSelectedRows();
     this.errorMsg = null;
+  };
+
+  tabChanged(event){
+    this.errorMsg = null;
+    this.successMsg = null;
+    if(event.index == 0){
+      this.consigmentUploadService.notBilledData((resp) => {
+        this.spinner.hide();
+        this.rowData = resp;
+        if(!resp){
+            this.errorMsg = "Invalid Credentials!";
+        }  
+      });
+    }else if(event.index == 1){
+      this.consigmentUploadService.nonD2zNotBilledData((resp) => {
+        this.spinner.hide();
+        this.rowDataNonD2z = resp;
+        if(!resp){
+            this.errorMsg = "Invalid Credentials!";
+        }  
+      });
+    }
   };
 
   getLoginDetails(){

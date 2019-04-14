@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
-const baseUrl = "https://www.d2z.com.au/v1/d2z";
+// const baseUrl = "https://www.d2z.com.au/v1/d2z";
 // const baseUrl = "http://localhost:8080/v1/d2z";
-// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -135,7 +135,16 @@ export class ConsigmentUploadService implements OnInit{
     ).subscribe((resp) => {
       callback(resp);
     }, (error) => {
-      console.error(error);
+      callback(error);
+    });
+  };
+
+  invoiceNonD2zPendingData(callback): any {
+    this.http.get(baseUrl+'/superUser-level/broker-nonD2z-shipment'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      callback(error);
     });
   };
 
@@ -144,7 +153,16 @@ export class ConsigmentUploadService implements OnInit{
     ).subscribe((resp) => {
       callback(resp);
     }, (error) => {
-      console.error(error);
+      callback(error);
+    });
+  };
+
+  nonD2zNotBilledData(callback): any {
+    this.http.get(baseUrl+'/superUser-level/nd-Not-billed'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      callback(error);
     });
   };
 
@@ -153,7 +171,16 @@ export class ConsigmentUploadService implements OnInit{
     ).subscribe((resp) => {
       callback(resp);
     }, (error) => {
-      console.error(error);
+      callback(error);
+    });
+  };
+
+  invoiceNonD2zApprovedData(callback): any {
+    this.http.get(baseUrl+'/superUser-level/broker-nonD2z-Invoiced'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      callback(error);
     });
   };
 
@@ -163,7 +190,7 @@ export class ConsigmentUploadService implements OnInit{
     }).subscribe((resp) => {
       callback(resp);
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   }
 
@@ -176,7 +203,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   }
 
@@ -190,7 +217,7 @@ export class ConsigmentUploadService implements OnInit{
       console.error("Not Found!")
       }
     }, (error) => {
-      console.error(error);
+      callback(error);
     });
   }
 
@@ -203,7 +230,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
     });
   }
 
@@ -216,7 +243,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
     });
   };
 
@@ -230,7 +257,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
     });
   }
 
@@ -242,7 +269,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
     });
   };
 
@@ -297,6 +324,20 @@ export class ConsigmentUploadService implements OnInit{
     });
   };
 
+  reconcileNonD2zData(reconcilNnD2z, callback): any {
+    console.log("reached services -----")
+    this.http.post(baseUrl+'/superUser-level/reconcileInfo-NonD2z',reconcilNnD2z
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
   nonD2zUpload(nonD2zClient, callback): any {
     this.http.post(baseUrl+'/superUser-level/Non-D2Z-Client',nonD2zClient
     ).subscribe((resp) => {
@@ -323,6 +364,19 @@ export class ConsigmentUploadService implements OnInit{
     });
   };
 
+  nonD2zInvoiceApproved(nonD2zInvoiceApproved, callback): any {
+    this.http.put(baseUrl+'/superUser-level/approve-NonD2z-Invoice',nonD2zInvoiceApproved
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
   downloadInvoiceData( brokerList, airwaybillList, callback): any {
     this.http.get(baseUrl+'/superUser-level/download-Invoice', {
       params: { broker: brokerList, 
@@ -335,9 +389,25 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
     });
-  }
+  };
+
+  downloadNonD2zInvoiceData( brokerList, airwaybillList, callback): any {
+    this.http.get(baseUrl+'/superUser-level/download-nonD2z-Invoice', {
+      params: { broker: brokerList, 
+                airwayBill: airwaybillList 
+      }
+    }).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
 
   downloadReconcile( reconcileNumbers, callback): any {
     this.http.get(baseUrl+'/superUser-level/download-reconcile', {
@@ -349,7 +419,21 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
+    });
+  };
+
+  downloadNonD2zReconcile( nonD2zReconcileNumbers, callback): any {
+    this.http.get(baseUrl+'/superUser-level/download-non-d2z-reconcile', {
+      params: { nonD2zReconcileNumbers: nonD2zReconcileNumbers }
+    }).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
     });
   };
 
@@ -362,7 +446,7 @@ export class ConsigmentUploadService implements OnInit{
         console.error("Not Found!")
       }
     }, (error) => {
-        console.error(error);
+      callback(error);
     });
   }
   

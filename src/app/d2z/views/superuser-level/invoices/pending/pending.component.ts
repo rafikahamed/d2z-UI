@@ -9,7 +9,6 @@ declare var $: any;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import _ from 'lodash';
 
-
 @Component({
   selector: 'hms-superuser-level-invoices',
   templateUrl: './pending.component.html',
@@ -17,20 +16,25 @@ import _ from 'lodash';
 })
 
 export class SuperUserInvoicePendingComponent implements OnInit {
-
   userName: String;
   role_id: String;
   errorMsg: string;
   successMsg: String;
   invoiceApproveFlag: Boolean;
   invoiceBilledFlag: Boolean;
+  nonD2zInvoiceApproveFlag: Boolean;
+  nonD2zInvoiceBilledFlag: Boolean;
   private gridOptions: GridOptions;
   private gridOptionsApproved: GridOptions;
+  private gridOptionsNonD2zPending: GridOptions;
+  private gridOptionsNonD2zApproved: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
-  private rowData: any[];
   private defaultColDef;
+  private rowData: any[];
   private rowDataApproved: any[];
+  private rowDataNonD2zPending: any[];
+  private rowDataNonD2zApproved: any[];
   private invoiceDownloadList: any[];
   
   constructor(
@@ -66,9 +70,9 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       }
     ];
 
-     //This grid is for Approved Invoice
-     this.gridOptionsApproved = <GridOptions>{ rowSelection: "multiple" };
-     this.gridOptionsApproved.columnDefs = [
+    //This grid is for Approved Invoice
+    this.gridOptionsApproved = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsApproved.columnDefs = [
        {
          headerName: "Broker Name",
          field: "brokerName",
@@ -84,6 +88,44 @@ export class SuperUserInvoicePendingComponent implements OnInit {
          width: 250
        }
      ];
+
+    //This grid is for Pending Invoice NON-D2Z
+    this.gridOptionsNonD2zPending = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsNonD2zPending.columnDefs = [
+      {
+        headerName: "Broker Name",
+        field: "brokerName",
+        width: 300,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Shipment Number",
+        field: "shipmentNumber",
+        width: 250
+      }
+    ];
+
+    //This grid is for Approved Invoice NON-D2Z
+    this.gridOptionsNonD2zApproved = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsNonD2zApproved.columnDefs = [
+      {
+        headerName: "Broker Name",
+        field: "brokerName",
+        width: 300,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Shipment Number",
+        field: "shipmentNumber",
+        width: 250
+      }
+    ];
 
   }
 
@@ -224,7 +266,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
     }else{
         this.errorMsg =  "**Please select the below records to download the Approved Invoice Data";
     } 
-  }
+  };
 
   invoiceApprove(){
     var selectedRows = this.gridOptions.api.getSelectedRows();
@@ -244,7 +286,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
     this.consigmentUploadService.invoiceApproved(invoiceApproved, (resp) => {
         this.spinner.hide();
         this.successMsg = resp.message;
-        //$('#invoice').modal('show');  
+        $('#invoice').modal('show');  
         setTimeout(() => { this.spinner.hide() }, 5000);
       });
   };
@@ -267,9 +309,55 @@ export class SuperUserInvoicePendingComponent implements OnInit {
     this.consigmentUploadService.invoiceApproved(invoiceApproved, (resp) => {
         this.spinner.hide();
         this.successMsg = resp.message;
-        //$('#invoice').modal('show');  
+        $('#invoice').modal('show');  
         setTimeout(() => { this.spinner.hide() }, 5000);
       });
+  };
+
+  nonD2zBilledInvoice(){
+    var selectedRows = this.gridOptionsNonD2zPending.api.getSelectedRows();
+    var airwaybillList = [];
+    for (var invoiceRecord in selectedRows) {
+      var invoiceObj = selectedRows[invoiceRecord];
+      airwaybillList.push(invoiceObj.shipmentNumber);
+    };
+    let airwaybill = 'airwaybill';
+    let indicator = 'indicator';
+    var invoiceApproved = (
+      invoiceApproved={}, 
+      invoiceApproved[airwaybill]= airwaybillList.toString(), invoiceApproved,
+      invoiceApproved[indicator]= 'Invoiced', invoiceApproved
+      );
+    this.spinner.show();
+    this.consigmentUploadService.nonD2zInvoiceApproved(invoiceApproved,(resp) => {
+        this.spinner.hide();
+        this.successMsg = resp.message;
+        $('#invoice').modal('show');  
+        setTimeout(() => { this.spinner.hide() }, 5000);
+    });
+  };
+
+  nonD2zBilledInvoiceApproved(){
+    var selectedRows = this.gridOptionsNonD2zApproved.api.getSelectedRows();
+    var airwaybillList = [];
+    for (var invoiceRecord in selectedRows) {
+      var invoiceObj = selectedRows[invoiceRecord];
+      airwaybillList.push(invoiceObj.shipmentNumber);
+    };
+    let airwaybill = 'airwaybill';
+    let indicator = 'indicator';
+    var invoiceApproved = (
+      invoiceApproved={}, 
+      invoiceApproved[airwaybill]= airwaybillList.toString(), invoiceApproved,
+      invoiceApproved[indicator]= 'Billed', invoiceApproved
+      );
+    this.spinner.show();
+    this.consigmentUploadService.nonD2zInvoiceApproved(invoiceApproved,(resp) => {
+        this.spinner.hide();
+        this.successMsg = resp.message;
+        $('#invoice').modal('show');  
+        setTimeout(() => { this.spinner.hide() }, 5000);
+    });
   };
 
   onSelectionChange() {
@@ -278,6 +366,132 @@ export class SuperUserInvoicePendingComponent implements OnInit {
 
   onApprovedChange(){
     this.errorMsg = null;
+  };
+
+  downloadNonD2zPendingInvoice(){
+    var selectedNonD2zPendingRows = this.gridOptionsNonD2zPending.api.getSelectedRows();
+    var invoicePendingDownloadFinalList = [];
+    var nonD2zBrokerList = [];
+    var nonD2zAirwayBillList = [];
+    if(selectedNonD2zPendingRows.length > 0 ){
+      for (var approvedDownload in selectedNonD2zPendingRows) {
+        var approveObj = selectedNonD2zPendingRows[approvedDownload];
+        nonD2zAirwayBillList.push(approveObj.shipmentNumber);
+        nonD2zBrokerList.push(approveObj.brokerName);
+      };
+      var nonD2zBrokerFinal = Array.from(new Set(nonD2zBrokerList));
+      var nonD2zAirwayBillFinal = Array.from(new Set(nonD2zAirwayBillList));
+      this.spinner.show();
+      this.consigmentUploadService.downloadNonD2zInvoiceData(nonD2zBrokerFinal, nonD2zAirwayBillFinal, (resp) => {
+        this.spinner.hide();
+        var downloadInvoiceApprovedData = resp;
+        let trackingNumber = 'trackingNumber';
+        let reference = 'reference';
+        let postcode = 'postcode';
+        let weight = 'weight';
+        let postage = 'postage';
+        let fuelSurcharge = 'fuelSurcharge';
+        let total = 'total';
+        
+        for(var downloadApproveInvoice in downloadInvoiceApprovedData){
+            var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
+            var invoiceApproveObj = (
+              invoiceApproveObj={}, 
+              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
+              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
+              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
+              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
+              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
+              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
+              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj
+            );
+            invoicePendingDownloadFinalList.push(invoiceApproveObj);
+         };
+        var currentTime = new Date();
+        var fileName = '';
+            fileName = "Non-D2z_Invoice_Pending"+"-"+currentTime.toLocaleDateString();
+        var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total']
+          };
+        new Angular2Csv(invoicePendingDownloadFinalList, fileName, options);   
+        this.nonD2zInvoiceApproveFlag = true;
+        });
+    }else{
+        this.errorMsg =  "**Please select the below records to download the Non-D2Z Invoice Data";
+    } 
+  };
+
+  downloadNonD2zApprovedInvoice(){
+    var selectedNonD2zApprovedRows = this.gridOptionsNonD2zApproved.api.getSelectedRows();
+    var invoiceApprovedDownloadFinalList = [];
+    var nonD2zBrokerList = [];
+    var nonD2zAirwayBillList = [];
+    if(selectedNonD2zApprovedRows.length > 0 ){
+      for (var approvedDownload in selectedNonD2zApprovedRows) {
+        var approveObj = selectedNonD2zApprovedRows[approvedDownload];
+        nonD2zAirwayBillList.push(approveObj.shipmentNumber);
+        nonD2zBrokerList.push(approveObj.brokerName);
+      };
+      var nonD2zBrokerFinal = Array.from(new Set(nonD2zBrokerList));
+      var nonD2zAirwayBillFinal = Array.from(new Set(nonD2zAirwayBillList));
+      this.spinner.show();
+      this.consigmentUploadService.downloadNonD2zInvoiceData(nonD2zBrokerFinal, nonD2zAirwayBillFinal, (resp) => {
+        this.spinner.hide();
+        var downloadInvoiceApprovedData = resp;
+        let trackingNumber = 'trackingNumber';
+        let reference = 'reference';
+        let postcode = 'postcode';
+        let weight = 'weight';
+        let postage = 'postage';
+        let fuelSurcharge = 'fuelSurcharge';
+        let total = 'total';
+        
+        for(var downloadApproveInvoice in downloadInvoiceApprovedData){
+            var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
+            var invoiceApproveObj = (
+              invoiceApproveObj={}, 
+              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
+              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
+              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
+              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
+              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
+              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
+              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj
+            );
+            invoiceApprovedDownloadFinalList.push(invoiceApproveObj);
+         };
+        var currentTime = new Date();
+        var fileName = '';
+            fileName = "Non-D2z_Invoice_Approved"+"-"+currentTime.toLocaleDateString();
+        var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total']
+          };
+        new Angular2Csv(invoiceApprovedDownloadFinalList, fileName, options);   
+        this.nonD2zInvoiceBilledFlag = true;
+        });
+    }else{
+        this.errorMsg =  "**Please select the below records to download the Non-D2Z Approved Invoice Data";
+    } 
+  }
+
+  onNonD2zPendingChange(){
+    this.errorMsg =null;
+    this.successMsg = null;
+  };
+
+  onNonD2zApprovedChange(){
+    this.errorMsg =null;
+    this.successMsg = null;
   };
 
   tabChanged(event){
@@ -299,6 +513,26 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       this.consigmentUploadService.invoiceApprovedData((resp) => {
         this.spinner.hide();
         this.rowDataApproved = resp;
+        if(!resp){
+            this.errorMsg = "Invalid Credentials!";
+        }  
+      })
+    }else if(event.index == 2){
+      this.spinner.show();
+      this.nonD2zInvoiceApproveFlag = false;
+      this.consigmentUploadService.invoiceNonD2zPendingData((resp) => {
+        this.spinner.hide();
+        this.rowDataNonD2zPending = resp;
+        if(!resp){
+            this.errorMsg = "Invalid Credentials!";
+        }  
+      })
+    }else if(event.index == 3){
+      this.spinner.show();
+      this.nonD2zInvoiceBilledFlag = false;
+      this.consigmentUploadService.invoiceNonD2zApprovedData((resp) => {
+        this.spinner.hide();
+        this.rowDataNonD2zApproved = resp;
         if(!resp){
             this.errorMsg = "Invalid Credentials!";
         }  

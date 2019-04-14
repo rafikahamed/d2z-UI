@@ -180,11 +180,11 @@
                       <div class="col-md-4">
                           <p> Supplier Type : </p>
                           <div>
-                                <p-dropdown [options]="supplierTypeDropdown" 
-                                              [(ngModel)]="selectedExportType" 
+                                <p-dropdown [options]="nonD2zSupplierTypeDropdown" 
+                                              [(ngModel)]="selectNonD2zSupplierType" 
                                               optionLabel="name" 
                                               [style]="{'width':'100%'}"
-                                              (onChange)="onSuplierTypeChange($event)">
+                                              (onChange)="onNonD2zSuplierTypeChange($event)">
                                 </p-dropdown>
                           </div>
                       </div>
@@ -193,9 +193,9 @@
                           <p> Select the File to upload tracking details: </p>
                           <div style="margin-left: -20px; margin-top: 20px;">
                               <input type="file" 
-                                    id = 'reconcileCntrl'
+                                    id = 'reconcileNonD2zCntrl'
                                     style="display: inline-block; margin-left:25px" 
-                                    (change)="incomingfile($event)" 
+                                    (change)="incomingfileNonD2z($event)" 
                                     placeholder="Upload file" 
                                     accept=".xlsx">
                           </div>
@@ -204,7 +204,7 @@
                       <div class="col-md-3" style="margin-top:30px">
                            <button type="button" 
                                    class="btn btn-info" 
-                                   (click)="supplierClear()"
+                                   (click)="supplierNonD2zClear()"
                                    style="background-color: #16A085; margin-left:30px">
                                    <span class="glyphicon glyphicon-refresh"></span>
                                   Refresh
@@ -216,7 +216,7 @@
 
             </div>
       
-            <!-- <div class="delete_panel">
+            <div class="delete_panel">
                   <ngx-spinner
                       bdColor="rgba(51,51,51,0.8)"
                       size="medium"
@@ -248,31 +248,21 @@
                   </div>
                   
                   <button type="button"
-                           class="btn btn-info" 
-                              *ngIf="suplier1Flag"
-                                (click)="uploadSupplier1Data()"
-                                style="background-color: #16A085; float:right; margin-right:20px">
-                                <span class="glyphicon glyphicon-cloud-upload"></span>
-                                  Upload Supplier-1 Data
+                          class="btn btn-info" 
+                          (click)="uploadFastWayData()"
+                          style="background-color: #16A085; float:right; margin-right:20px">
+                          <span class="glyphicon glyphicon-cloud-upload"></span>
+                           Upload Fastway Data
                   </button>
 
-                  <button type="button"
-                           class="btn btn-info" 
-                              *ngIf="suplier2Flag"
-                                (click)="uploadSupplier2Data()"
-                                style="background-color: #16A085; float:right; margin-right:20px">
-                                <span class="glyphicon glyphicon-cloud-upload"></span>
-                               Upload Supplier-2 Data
-                  </button>
-
-                  <div *ngIf="suplier1Flag" style="padding:20px; margin-top:30px">
-                    <p> Please select the below records to upload the reconcile Data </p>
-                      <div>
+                  <div style="padding:20px; margin-top:30px">
+                    <p> Please select the below records to upload the Fastway Data </p>
+                    <div class="col-md-10">
                           <ag-grid-angular 
-                                    #agGrid style="width: 80%; height: 450px;" 
+                                    #agGrid style="width: 100%; height: 450px;" 
                                     class="ag-theme-balham" 
                                     [autoGroupColumnDef]="autoGroupColumnDef"
-                                    [rowData]="rowDataSupplier1"
+                                    [rowData]="rowDataFastWay"
                                     [enableSorting]="true"
                                     [enableFilter]="true"
                                     [suppressRowClickSelection]="true"
@@ -285,42 +275,26 @@
                                     [enableRangeSelection]="true"
                                     [pagination]="true"
                                     [defaultColDef]="defaultColDef"
-                                    [gridOptions]="gridOptionsSuplier1" 
+                                    [gridOptions]="gridOptionsFastWay" 
                                     [pagination]="true"
-                                    (selectionChanged)="onSupplier1Change($event)">
+                                    (selectionChanged)="onFastWayChange($event)">
                           </ag-grid-angular>
                       </div>
                   </div>
 
-                  <div *ngIf="suplier2Flag" style="padding:20px; margin-top:30px">
-                      <p> Please select the below records to download the Deleted Consignment </p>
-                        <div>
-                            <ag-grid-angular 
-                                      #agGrid style="width: 80%; height: 450px;" 
-                                      class="ag-theme-balham" 
-                                      [autoGroupColumnDef]="autoGroupColumnDef"
-                                      [rowData]="rowDataSupplier2"
-                                      [enableSorting]="true"
-                                      [enableFilter]="true"
-                                      [suppressRowClickSelection]="true"
-                                      [groupSelectsChildren]="true"
-                                      [debug]="true"
-                                      [rowSelection]="rowSelection"
-                                      [enableColResize]="true"
-                                      [rowGroupPanelShow]="rowGroupPanelShow"
-                                      [pivotPanelShow]="pivotPanelShow"
-                                      [enableRangeSelection]="true"
-                                      [pagination]="true"
-                                      [defaultColDef]="defaultColDef"
-                                      [gridOptions]="gridOptionsSuplier2" 
-                                      [pagination]="true"
-                                      (selectionChanged)="onSupplier2Change($event)">
-                            </ag-grid-angular>
-                        </div>
-                  </div>
+                  <div class="col-md-2">
+                    <button type="button"
+                            class="btn btn-info" 
+                            *ngIf="downloadNonD2zReconcile"
+                            (click)="downloadNonD2zReconcileData()"
+                            style="background-color: #16A085; margin-left:20px">
+                            <span class="glyphicon glyphicon-cloud-download"></span>
+                                Reconcile Data
+                    </button>
+                </div>
 
-                 
-            </div> -->
+            </div>
+
         </mat-tab>
         </mat-tab-group>
 

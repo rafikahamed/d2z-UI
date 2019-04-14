@@ -97,6 +97,21 @@ export class SuperUserNonD2zClientComponent implements OnInit {
         width: 150
       },
       {
+        headerName: "Length",
+        field: "length",
+        width: 150
+      },
+      {
+        headerName: "Width",
+        field: "width",
+        width: 150
+      },
+      {
+        headerName: "Height",
+        field: "height",
+        width: 150
+      },
+      {
         headerName: "Service Type",
         field: "serviceType",
         width: 200
@@ -147,6 +162,9 @@ export class SuperUserNonD2zClientComponent implements OnInit {
             let suburb = 'suburb';
             let postcode = 'postcode';
             let weight = 'weight';
+            let height = 'height';
+            let width = 'width';
+            let length = 'length';
             let serviceType = 'serviceType';
             let brokerName = 'brokerName';
             let shipmentNumber = 'shipmentNumber';
@@ -163,6 +181,9 @@ export class SuperUserNonD2zClientComponent implements OnInit {
                   nonD2zObj[suburb]= nonD2zVal['Suburb'] != undefined ? nonD2zVal['Suburb'] : '', nonD2zObj,
                   nonD2zObj[postcode]= nonD2zVal['Postcode'] != undefined ? nonD2zVal['Postcode'] : '', nonD2zObj,
                   nonD2zObj[weight]= nonD2zVal['Weight'] != undefined ? nonD2zVal['Weight'] : '', nonD2zObj,
+                  nonD2zObj[length]= nonD2zVal['Weight'] != undefined ? nonD2zVal['Length'] : '', nonD2zObj,
+                  nonD2zObj[width]= nonD2zVal['Weight'] != undefined ? nonD2zVal['Width'] : '', nonD2zObj,
+                  nonD2zObj[height]= nonD2zVal['Weight'] != undefined ? nonD2zVal['Height'] : '', nonD2zObj,
                   nonD2zObj[serviceType]= nonD2zVal['Service Type'] != undefined ? nonD2zVal['Service Type'] : '', nonD2zObj,
                   nonD2zObj[brokerName]= this.brokerUserName, nonD2zObj,
                   nonD2zObj[shipmentNumber]= $("#shipmentNumber").val(), nonD2zObj

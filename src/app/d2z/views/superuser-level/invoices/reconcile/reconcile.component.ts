@@ -26,22 +26,30 @@ export class SuperUserReconcileComponent implements OnInit {
   role_id: String;
   errorMsg:String;
   supplierType: String;
+  nonD2zSupplierType: String;
   show: Boolean;
   downloadReconcile: Boolean;
   suplier1Flag: Boolean;
   suplier2Flag: Boolean;
+  downloadNonD2zReconcile: Boolean;
+  fastWayFlag: Boolean;
+  startTrackFlag: Boolean;
   successMsg: String;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private defaultColDef;
   private gridOptionsSuplier1: GridOptions;
   private gridOptionsSuplier2: GridOptions;
+  private gridOptionsFastWay: GridOptions;
   supplierTypeDropdown: dropdownTemplate[];
+  nonD2zSupplierTypeDropdown: dropdownTemplate[];
   private rowDataSupplier1: any[];
   private rowDataSupplier2: any[];
+  private rowDataFastWay: any[];
   file:File;
   public supplierOneList = [];
   public supplierTwoList = [];
+  public fastWatStarTrackList = [];
   constructor(
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
@@ -58,7 +66,6 @@ export class SuperUserReconcileComponent implements OnInit {
       editable: true
     };
 
-    // This grid is for Consignment Items
     this.gridOptionsSuplier1 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsSuplier1.columnDefs = [
       {
@@ -82,7 +89,6 @@ export class SuperUserReconcileComponent implements OnInit {
       }
     ];
 
-    // This grid is for deleted Items
     this.gridOptionsSuplier2 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsSuplier2.columnDefs = [
       {
@@ -104,6 +110,39 @@ export class SuperUserReconcileComponent implements OnInit {
         field: "cost",
         width: 300
       }
+    ];
+
+    this.gridOptionsFastWay = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsFastWay.columnDefs = [
+      {
+        headerName: "Article Id",
+        field: "articleNo",
+        width: 250,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Reference Number",
+        field: "refrenceNumber",
+        width: 250
+      },
+      {
+        headerName: "Post Code",
+        field: "postCode",
+        width: 200
+      },
+      {
+        headerName: "Chargeable weight",
+        field: "chargedWeight",
+        width: 200
+      },
+      {
+        headerName: "Charge amount",
+        field: "cost",
+        width: 200
+      }
     ]
 
   };
@@ -118,6 +157,11 @@ export class SuperUserReconcileComponent implements OnInit {
       { "name": "Freipost template", "value": "freipostTemplate" }
     ];
     this.supplierType = this.supplierTypeDropdown[0].value;
+    this.nonD2zSupplierTypeDropdown = [
+      { "name": "PCA Fastway Invoice", "value": "PCAStarTrackInvoice" },
+      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" }
+    ];
+    this.nonD2zSupplierType = this.nonD2zSupplierTypeDropdown[0].value;
   };
 
   incomingfile(event) {
@@ -216,6 +260,12 @@ export class SuperUserReconcileComponent implements OnInit {
     }
   };
 
+  onNonD2zSuplierTypeChange(event){
+    this.successMsg = null;
+    this.downloadNonD2zReconcile= false;
+    this.nonD2zSupplierType = event.value ? event.value.value : '';
+  };
+
   supplierClear(){
     $("#reconcileCntrl").val('');
       this.rowDataSupplier1 = [];
@@ -231,7 +281,6 @@ export class SuperUserReconcileComponent implements OnInit {
       this.spinner.show();
       this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
           this.spinner.hide();
-          //this.downloadReconcileReport(resp);
           this.successMsg = resp.message;
           $('#reconcileModal').modal('show');  
           this.downloadReconcile = true;
@@ -328,19 +377,12 @@ export class SuperUserReconcileComponent implements OnInit {
           };
         new Angular2Csv(reconcileObjList, fileName, options); 
     })
-    
-     
   };
 
   onSupplier1Change(){
-
   };
 
   onSupplier2Change(){
-  };
-
-  tabChanged(){
-
   };
 
   getLoginDetails(){
@@ -349,6 +391,151 @@ export class SuperUserReconcileComponent implements OnInit {
       this.role_id = this.consigmentUploadService.userMessage.role_Id;
     }
   };
+
+  tabChanged(event){
+    this.errorMsg = null;
+    this.successMsg = null;
+    if(event.index == 0){
+     
+    }else if(event.index == 1){
+    
+    }
+  };
+
+  incomingfileNonD2z(event){
+    this.rowDataFastWay = [];
+    this.file = event.target.files[0]; 
+    this.reconcileNonD2zData();
+  };
+
+  reconcileNonD2zData(){
+    var worksheet;
+    this.errorMsg = null;
+    let fileReader = new FileReader();
+    fileReader.readAsArrayBuffer(this.file);
+      let articleNo = 'articleNo';
+      let refrenceNumber = 'refrenceNumber';
+      let postCode = 'postCode';
+      let chargedWeight = 'chargedWeight';
+      let cost = 'cost';
+      let supplierType = 'supplierType';
+      fileReader.onload = (e) => {
+          this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            var exportData = XLSX.utils.sheet_to_json(worksheet);
+            for (var importVal in exportData) {
+              var reconcile = exportData[importVal];
+              if(this.errorMsg == null){
+                var reconcileNonD2zObj = (
+                  reconcileNonD2zObj={}, 
+                  reconcileNonD2zObj[articleNo]= reconcile['AWB'] != undefined ? reconcile['AWB'] : '', reconcileNonD2zObj,
+                  reconcileNonD2zObj[refrenceNumber]= reconcile['Description'] != undefined ? reconcile['Description'] : '', reconcileNonD2zObj,
+                  reconcileNonD2zObj[postCode]= reconcile['Postcode'] != undefined ? reconcile['Postcode'] : '', reconcileNonD2zObj,
+                  reconcileNonD2zObj[chargedWeight]= reconcile['Weight'] != undefined ? reconcile['Weight'] : '', reconcileNonD2zObj,
+                  reconcileNonD2zObj[cost]= reconcile['Amount AUD'] != undefined ? reconcile['Amount AUD'] : '', reconcileNonD2zObj,
+                  reconcileNonD2zObj[supplierType]= this.nonD2zSupplierType, reconcileNonD2zObj
+                );
+              this.fastWatStarTrackList.push(reconcileNonD2zObj)
+              this.rowDataFastWay = this.fastWatStarTrackList;
+              }
+          }
+        }
+  };
+
+  supplierNonD2zClear(){
+    $("#reconcileNonD2zCntrl").val('');
+    this.rowDataFastWay = [];
+    this.errorMsg = null;
+    this.successMsg = null;
+  };
+
+  uploadFastWayData(){
+    this.errorMsg = null;
+    this.successMsg = null;
+    var fastwayData = [];
+    fastwayData = this.gridOptionsFastWay.api.getSelectedRows();
+    if(fastwayData.length > 0 ){
+      this.spinner.show();
+      this.consigmentUploadService.reconcileNonD2zData(fastwayData, (resp) => {
+        this.spinner.hide();
+        this.successMsg = resp.message;
+        $('#reconcileModal').modal('show');  
+        this.downloadNonD2zReconcile = true;
+        setTimeout(() => { this.spinner.hide() }, 5000);
+      })
+    }else{
+      this.errorMsg = '**Please select the below records to upload the reconcile data';
+    }
+  };
+
+  downloadNonD2zReconcileData(){
+    var reconcileObjList = [];
+    let airwaybill = 'airwaybill';
+    let articleId = 'articleId';
+    let brokerUserName = 'brokerUserName';
+    let costDifference = 'costDifference';
+    let d2ZCost = 'd2ZCost';
+    let d2ZWeight = 'd2ZWeight';
+    let reference_number = 'reference_number';
+    let supplierCharge = 'supplierCharge';
+    let supplierWeight = 'supplierWeight';
+    let weightDifference = 'weightDifference';
+    let invoicedAmount = 'invoicedAmount';
+    let correctAmount = 'correctAmount';
+    let chargeDifference = 'chargeDifference';
+
+    var reconcileNonD2zNumbers = [];
+    var fastWayTrackData = this.gridOptionsFastWay.api.getSelectedRows();
+    for (var fastWay in fastWayTrackData) {
+        var fastWayObj = fastWayTrackData[fastWay];
+        reconcileNonD2zNumbers.push(fastWayObj.articleNo);
+    }
+    this.spinner.show();
+    this.consigmentUploadService.downloadNonD2zReconcile(reconcileNonD2zNumbers, (resp) => {
+      this.spinner.hide();
+      for(var reconcileData in resp){
+        var reconcile = resp[reconcileData];
+        var reconcileObj = (
+          reconcileObj={}, 
+          reconcileObj[brokerUserName]= reconcile.brokerUserName != null ? reconcile.brokerUserName : '' , reconcileObj,
+          reconcileObj[airwaybill]= reconcile.airwaybill != null ? reconcile.airwaybill : '', reconcileObj,
+          reconcileObj[articleId]= reconcile.articleId != null ?  reconcile.articleId : '', reconcileObj,
+          reconcileObj[reference_number]= reconcile.reference_number != null ? reconcile.reference_number : '', reconcileObj,
+          reconcileObj[supplierCharge]= reconcile.supplierCharge != null ? reconcile.supplierCharge : '', reconcileObj,
+          reconcileObj[d2ZCost]= reconcile.d2ZCost != null ? reconcile.d2ZCost : '', reconcileObj,
+          reconcileObj[costDifference]= reconcile.costDifference != null ? reconcile.costDifference : '', reconcileObj,
+          reconcileObj[supplierWeight]= reconcile.supplierWeight != null ? reconcile.supplierWeight : '', reconcileObj,
+          reconcileObj[d2ZWeight]= reconcile.d2ZWeight != null ? reconcile.d2ZWeight : '', reconcileObj,
+          reconcileObj[weightDifference]= reconcile.weightDifference != null ? reconcile.weightDifference : '', reconcileObj,
+          reconcileObj[invoicedAmount]= reconcile.invoicedAmount != null ? reconcile.invoicedAmount : '', reconcileObj,
+          reconcileObj[correctAmount]= reconcile.correctAmount != null ? reconcile.correctAmount : '', reconcileObj,
+          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj
+        );
+        reconcileObjList.push(reconcileObj);
+     };
+        var currentTime = new Date();
+        var fileName = '';
+            fileName = "Non-D2Z Reconcile"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z postage',
+            'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference' ]
+          };
+        new Angular2Csv(reconcileObjList, fileName, options); 
+    })
+  };
+
+  onFastWayChange(){};
 
 }
 
