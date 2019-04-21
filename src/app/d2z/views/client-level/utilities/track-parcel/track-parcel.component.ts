@@ -83,6 +83,8 @@ export class UtilitiesTrackParcel implements OnInit{
         for (var importVal in this.trackEvents) {
           var adminObj = this.trackEvents[importVal];
             for(var i in adminObj.trackingEvents){
+             if(JSON.stringify(i) == JSON.stringify("0")){
+         
             var trackdata = adminObj.trackingEvents[i];
                 var importObj = (
                 importObj={}, 
@@ -91,6 +93,7 @@ export class UtilitiesTrackParcel implements OnInit{
                 importObj[EventTime]= trackdata.trackEventDateOccured != null ? trackdata.trackEventDateOccured: '', importObj,
                 importObj[EventName]= trackdata.eventDetails != null ? trackdata.eventDetails: '', importObj);
                 trackingList.push(importObj)
+                }
                 }
             };
 
