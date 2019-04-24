@@ -18,6 +18,7 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperThree: boolean;
   childmenuSuperFour: boolean;
   childmenuSuperFive: boolean;
+  childmenuSuperSix:boolean;
   userName: String;
 
   constructor(
@@ -103,6 +104,18 @@ export class SuperUserHeaderComponent implements OnInit {
       arrow.className = 'fa fa-chevron-down';
     }
   }
-
+ super_user_reports(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperSix = !this.childmenuSuperSix;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperSix = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperSix;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
 }
 

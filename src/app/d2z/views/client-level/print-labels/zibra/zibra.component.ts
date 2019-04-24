@@ -228,6 +228,16 @@ export class ZebraPdfFileUpload implements OnInit{
             headerName: "Delivery Instructions",
             field: "deliveryInstructions",
             width: 180
+          },
+          {
+            headerName: "Return Address1 ",
+            field: "returnAddress1",
+            width: 180
+          },
+          {
+            headerName: "Return Address2",
+            field: "returnAddress2",
+            width: 150
           }
         ]
       }
@@ -386,6 +396,16 @@ export class ZebraPdfFileUpload implements OnInit{
             headerName: "交货说明",
             field: "deliveryInstructions",
             width: 180
+          },
+          {
+            headerName: "返回地址1",
+            field: "returnAddress1",
+            width: 180
+          },
+          {
+            headerName: "Return Address2",
+            field: "返回地址2",
+            width: 150
           }
         ]
       }
@@ -442,6 +462,8 @@ export class ZebraPdfFileUpload implements OnInit{
         let consigneeCompany = 'consigneeCompany';
         let carrier = 'carrier';
         let consigneeAddr2 = 'consigneeAddr2';
+        let returnAddress1 = 'returnAddress1';
+        let returnAddress2 = 'returnAddress2';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -470,7 +492,9 @@ export class ZebraPdfFileUpload implements OnInit{
               printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
               printObj[consigneeCompany]= labelObj.consigneeCompany, printObj,
               printObj[carrier]= labelObj.carrier, printObj,
-              printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj
+              printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj,
+              printObj[returnAddress1]= labelObj.returnAddress1 ? labelObj.returnAddress1 : '', printObj,
+              printObj[returnAddress2]= labelObj.returnAddress2 ? labelObj.returnAddress2 : '', printObj
           );
           printLabelList.push(printObj)
         }

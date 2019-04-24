@@ -27,12 +27,12 @@
                                 <li><a routerLink="/superuser/update-client">Update Client</a></li>
                                 </ul>
                             </li>
-                            <li><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> UTILITIES <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperThree ? 'block' : 'none'}">
                                 <li><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
-                                <li><a routerLink="/superuser/arrival-report">Arrival Report</a></li>
-                                <li><a routerLink="/superuser/invoice-report">Export Report</a></li>
-                                <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>
+                                <li><a routerLink="/superuser/arrival-report">Arrival Upload</a></li>
+                                 <!--<li><a routerLink="/superuser/invoice-report">Export Report</a></li>
+                               <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
                             <li><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
@@ -48,6 +48,13 @@
                                 <li><a routerLink="/superuser/invoices/reconcile">Reconcile</a></li>
                                 <li><a routerLink="/superuser/invoice/not-billed">Not Billed</a></li>
                                 <li><a routerLink="/superuser/invoice/non-d2zClient">Non D2Z-Client</a></li>
+                                </ul>
+                            </li>
+                             <li><a (click)="super_user_reports(arrow)"><i class="fa fa-file"></i> REPORTS <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperSix ? 'block' : 'none'}">
+                               
+                                <li><a routerLink="/superuser/invoice-report">Shipment Summary</a></li>
+                               <!-- <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
                             <li>

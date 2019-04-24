@@ -27,12 +27,14 @@ export class SuperUserInvoiceComponent implements OnInit{
   childmenuThree:boolean;
   childmenuFour:boolean;
   childmenuFive:boolean;
+  childmenuSix:boolean;
   public importList = [];
   errorMsg: string;
   show: Boolean;
   consignmentFlag; Boolean;
   deletedFlag: Boolean;
   shipmentFlag: Boolean;
+  nonshipmentFlag: Boolean;
   mydate: Date;
   successMsg: String;
   fromDate: String;
@@ -42,6 +44,7 @@ export class SuperUserInvoiceComponent implements OnInit{
   private gridOptionsConsignment: GridOptions;
   private gridOptionsDeleted: GridOptions;
   private gridOptionsShipment: GridOptions;
+  private gridOptionsNonShipment:GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowDataConsignment: any[];
@@ -386,15 +389,22 @@ export class SuperUserInvoiceComponent implements OnInit{
     // This grid is for deleted Items
     this.gridOptionsDeleted = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsDeleted.columnDefs = [
-      {
-        headerName: "Ref No.",
-        field: "reference_number",
-        width: 300,
+
+    {
+        headerName: "Broker Name",
+        field: "brokername",
+        width: 200,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
         }
       },
+      {
+        headerName: "Ref No.",
+        field: "reference_number",
+        width: 300
+      },
+      
       {
         headerName: "Article ID",
         field: "barcodelabelNumber",
@@ -405,14 +415,20 @@ export class SuperUserInvoiceComponent implements OnInit{
     // This grid is for Shipment Items
     this.gridOptionsShipment = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsShipment.columnDefs = [
-      {
-        headerName: "Invoice Number",
-        field: "reference_number",
+     {
+        headerName: "Broker Name",
+        field: "broker_name",
         width: 200,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
         }
+      },
+      {
+        headerName: "Invoice Number",
+        field: "reference_number",
+        width: 200,
+        
       },
       {
         headerName: "Value",
@@ -550,6 +566,163 @@ export class SuperUserInvoiceComponent implements OnInit{
         width: 200
       }
     ];
+
+
+     // This grid is for NonShipment Items
+    this.gridOptionsNonShipment = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsNonShipment.columnDefs = [
+     {
+        headerName: "Broker Name",
+        field: "broker_name",
+        width: 200,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Invoice Number",
+        field: "reference_number",
+        width: 200,
+        
+      },
+      {
+        headerName: "Value",
+        field: "value",
+        width: 100
+      },
+      {
+        headerName: "Shipped Quantity",
+        field: "shippedQuantity",
+        width: 100
+      },
+      {
+        headerName: "Del Name",
+        field: "consignee_name",
+        width: 150
+      },
+      {
+        headerName: "Del Addr1",
+        field: "consignee_addr1",
+        width: 150
+      },
+      {
+        headerName: "Del Addr2 (suburb)",
+        field: "consignee_Suburb",
+        width: 150
+      },
+      {
+        headerName: "Del Addr3 (state)",
+        field: "consignee_State",
+        width: 150
+      },
+      {
+        headerName: "deladdr4 (country)",
+        field: "consignee_country",
+        width: 100
+      },
+      {
+        headerName: "Postcode",
+        field: "consignee_Postcode",
+        width: 100
+      },
+      {
+        headerName: "Email",
+        field: "email",
+        width: 200
+      },
+      {
+        headerName: "Telephone",
+        field: "consignee_Phone",
+        width: 200
+      },
+      {
+        headerName: "Product Description",
+        field: "product_Description",
+        width: 300
+      },
+      {
+        headerName: "Origin",
+        field: "shipper_Country",
+        width: 150
+      },
+      {
+        headerName: "Weight",
+        field: "weight",
+        width: 100
+      },
+      {
+        headerName: "Tracking Template",
+        field: "tracking_template",
+        width: 300
+      },
+      {
+        headerName: "Tracking Number",
+        field: "barcodelabelNumber",
+        width: 300
+      },
+      {
+        headerName: "Inventory Short Name",
+        field: "inventory_short_name",
+        width: 200
+      },
+      {
+        headerName: "Supplier",
+        field: "supplier",
+        width: 100
+      },
+      {
+        headerName: "Bill me",
+        field: "bill_me",
+        width: 300
+      },
+      {
+        headerName: "ServiceType",
+        field: "servicetype",
+        width: 250
+      },
+      {
+        headerName: "BagName",
+        field: "bagName",
+        width: 200
+      },
+      {
+        headerName: "Length",
+        field: "dimensions_Length",
+        width: 200
+      },
+      {
+        headerName: "Width",
+        field: "dimensions_Width",
+        width: 200
+      },
+      {
+        headerName: "Height",
+        field: "dimensions_Height",
+        width: 200
+      },
+      {
+        headerName: "Currency",
+        field: "currency",
+        width: 200
+      },
+      {
+        headerName: "Cost_Freight",
+        field: "Cost_Freight",
+        width: 200
+      },
+      {
+        headerName: "Cost_Insurance",
+        field: "Cost_Insurance",
+        width: 100
+      },
+      {
+        headerName: "ABN_ARN Number",
+        field: "ABN_ARN Number",
+        width: 200
+      }
+    ];
+  
   }
 
   ngOnInit() {
@@ -558,10 +731,14 @@ export class SuperUserInvoiceComponent implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
+      this.childmenuSix= false;
       this.exportTypeDropdown = [
         { "name": "Export Consignment", "value": "export-consignment" },
         { "name": "Export Delete", "value": "export-delete" },
-        { "name": "Export Shipment", "value": "export-shipment" }
+        { "name": "Export Shipment", "value": "export-shipment" 
+        },
+        { "name": "Export Non Shipment", "value": "export-nonshipment" 
+        }
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.exportFileType = this.exportTypeDropdown[0].value;
@@ -597,14 +774,23 @@ export class SuperUserInvoiceComponent implements OnInit{
         this.consignmentFlag = true;
         this.deletedFlag = false;
         this.shipmentFlag = false;
+        this.nonshipmentFlag = false;
     }else if(event.value.value === 'export-delete'){
         this.consignmentFlag = false;
         this.deletedFlag = true;
         this.shipmentFlag = false;
+        this.nonshipmentFlag = false;
     }else if(event.value.value === 'export-shipment'){
         this.consignmentFlag = false;
         this.deletedFlag = false;
         this.shipmentFlag = true;
+        this.nonshipmentFlag = false;
+    }
+    else if(event.value.value === 'export-nonshipment'){
+        this.consignmentFlag = false;
+        this.deletedFlag = false;
+        this.shipmentFlag = false;
+        this.nonshipmentFlag = true;
     }
   };
 
@@ -819,14 +1005,16 @@ export class SuperUserInvoiceComponent implements OnInit{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [  "Ref No.", "Article ID" ]
+            headers: [ "Broker Name" ,"Ref No.", "Article ID" ]
           };
           let reference_No = 'reference_No';
+          let brokername ='brokername'
           let article_Id = 'article_Id';
           for (var delketeVal in deletedSelectedRows) {
               var deleteObj = deletedSelectedRows[delketeVal];
               var deleteMainObj = (
                 deleteMainObj={},
+                  deleteMainObj[brokername]= deleteObj.brokername != null ? deleteObj.brokername: '', deleteMainObj,
                 deleteMainObj[reference_No]= deleteObj.reference_number != null ? deleteObj.reference_number: '', deleteMainObj,
                 deleteMainObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteMainObj
               );
@@ -851,11 +1039,12 @@ export class SuperUserInvoiceComponent implements OnInit{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ "Invoice Number", "value",	"Shipped Quantity",	"Del Name",	"Del Addr1",	"Del Addr2 (suburb)", "Del Addr3 (state)",
+            headers: [ "Broker Name","Invoice Number", "value",	"Shipped Quantity",	"Del Name",	"Del Addr1",	"Del Addr2 (suburb)", "Del Addr3 (state)",
               "Del Addr4 (country)", "PostCode",	"Email",	"Telephone",	"Product Description",	"Origin",	"Weight",
               "Tracking Template",	"Tracking Number",	"Inventory short name",	"Supplier",	"Bill Me",	"ServiceType",	"BagName",
               "Length",	"Width",	"Height",	"Currency",	"Cost Freight",	"Cost Insurance",	"ABN ARN Number" ]
           };
+          let broker_name ='broker_name';
           let invoice_number = 'invoice_number';
           let value = 'value';
           let shipped_quantity = 'shipped_quantity';
@@ -889,6 +1078,7 @@ export class SuperUserInvoiceComponent implements OnInit{
               var shipmentObj = shipmentSelectedRows[importVal];
               var shipmentMainObj = (
                 shipmentMainObj={},
+                shipmentMainObj[broker_name]= shipmentObj.broker_name != null ? shipmentObj.broker_name: '',shipmentMainObj,
                 shipmentMainObj[invoice_number]= shipmentObj.reference_number != null ? shipmentObj.reference_number: '', shipmentMainObj,
                 shipmentMainObj[value]= shipmentObj.value != null ? shipmentObj.value: '', shipmentMainObj,
                 shipmentMainObj[shipped_quantity]= shipmentObj.shippedQuantity != null ? shipmentObj.shippedQuantity: '', shipmentMainObj,
@@ -925,7 +1115,96 @@ export class SuperUserInvoiceComponent implements OnInit{
         this.errorMsg = "**Please select the below records to download the Shipment Consignment details";
       } 
   };
+downloadNonShipmentData(){
+console.log("imhere");
+    var nonshipmentSelectedRows = this.gridOptionsNonShipment.api.getSelectedRows();
+    if(nonshipmentSelectedRows.length > 0 ){
+        var currentTime = new Date();
+        var shipmentList = [];
+        var fileName = '';
+            fileName = "NonShipment-Consignment"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ "Broker Name","Invoice Number", "value", "Shipped Quantity", "Del Name", "Del Addr1",  "Del Addr2 (suburb)", "Del Addr3 (state)",
+              "Del Addr4 (country)", "PostCode",  "Email",  "Telephone",  "Product Description",  "Origin", "Weight",
+              "Tracking Template",  "Tracking Number",  "Inventory short name", "Supplier", "Bill Me",  "ServiceType",  "BagName",
+              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ]
+          };
+          let broker_name ='broker_name';
+          let invoice_number = 'invoice_number';
+          let value = 'value';
+          let shipped_quantity = 'shipped_quantity';
+          let delname = 'delname';
+          let deladdr1 = 'deladdr1';
+          let deladdr2 = 'deladdr2';
+          let deladdr3 = 'deladdr3';
+          let deladdr4 = 'deladdr4';
+          let postcode = 'postcode';
+          let email = 'email';
+          let telephone = 'telephone';
+          let product_description = 'product_description';
+          let origin = 'origin';
+          let weight = 'weight';
+          let tracking_template = 'tracking_template';
+          let tracking_number = 'tracking_number';
+          let inventory_short_name = 'inventory_short_name';
+          let supplier = 'supplier';
+          let bill_me = 'bill_me';
+          let ServiceType = 'ServiceType';
+          let BagName = 'BagName';
+          let Length = 'Length';
+          let Width = 'Width';
+          let Height = 'Height';
+          let Currency = 'Currency';
+          let Cost_Freight = 'Cost_Freight';
+          let Cost_Insurance = 'Cost_Insurance';
+          let ABN_ARN = 'ABN_ARN';
 
+          for (var importVal in nonshipmentSelectedRows ) {
+              var shipmentObj = nonshipmentSelectedRows[importVal];
+              var shipmentMainObj = (
+                shipmentMainObj={},
+                shipmentMainObj[broker_name]= shipmentObj.broker_name != null ? shipmentObj.broker_name: '',shipmentMainObj,
+                shipmentMainObj[invoice_number]= shipmentObj.reference_number != null ? shipmentObj.reference_number: '', shipmentMainObj,
+                shipmentMainObj[value]= shipmentObj.value != null ? shipmentObj.value: '', shipmentMainObj,
+                shipmentMainObj[shipped_quantity]= shipmentObj.shippedQuantity != null ? shipmentObj.shippedQuantity: '', shipmentMainObj,
+                shipmentMainObj[delname]= shipmentObj.consignee_name != null ? shipmentObj.consignee_name: '', shipmentMainObj,
+                shipmentMainObj[deladdr1]= shipmentObj.consignee_addr1 != null ? shipmentObj.consignee_addr1: '', shipmentMainObj,
+                shipmentMainObj[deladdr2]= shipmentObj.consignee_Suburb != null ? shipmentObj.consignee_Suburb: '', shipmentMainObj,
+                shipmentMainObj[deladdr3]= shipmentObj.consignee_State != null ? shipmentObj.consignee_State: '', shipmentMainObj,
+                shipmentMainObj[deladdr4]= shipmentObj.consignee_country != null ? shipmentObj.consignee_country: 'AU', shipmentMainObj,
+                shipmentMainObj[postcode]= shipmentObj.consignee_Postcode != null ? shipmentObj.consignee_Postcode: '', shipmentMainObj,
+                shipmentMainObj[email]= shipmentObj.email != null ? shipmentObj.email: '', shipmentMainObj,
+                shipmentMainObj[telephone]= shipmentObj.consignee_Phone != null ? shipmentObj.consignee_Phone: '', shipmentMainObj,
+                shipmentMainObj[product_description]= shipmentObj.product_Description != null ? shipmentObj.product_Description: '', shipmentMainObj,
+                shipmentMainObj[origin]= shipmentObj.shipper_Country != null ? shipmentObj.shipper_Country: '', shipmentMainObj,
+                shipmentMainObj[weight]= shipmentObj.weight != null ? shipmentObj.weight: '', shipmentMainObj,
+                shipmentMainObj[tracking_template]= shipmentObj.tracking_template != null ? shipmentObj.tracking_template: '', shipmentMainObj,
+                shipmentMainObj[tracking_number]= shipmentObj.barcodelabelNumber != null ? shipmentObj.barcodelabelNumber: '', shipmentMainObj,
+                shipmentMainObj[inventory_short_name]= shipmentObj.inventory_short_name != null ? shipmentObj.inventory_short_name: '', shipmentMainObj,
+                shipmentMainObj[supplier]= shipmentObj.supplier != null ? shipmentObj.supplier: '', shipmentMainObj,
+                shipmentMainObj[bill_me]= shipmentObj.bill_me != null ? shipmentObj.bill_me: 1, shipmentMainObj,
+                shipmentMainObj[ServiceType]= shipmentObj.servicetype != null ? shipmentObj.servicetype: '', shipmentMainObj,
+                shipmentMainObj[BagName]= shipmentObj.BagName != null ? shipmentObj.BagName: 1, shipmentMainObj,
+                shipmentMainObj[Length]= shipmentObj.dimensions_Length != null ? shipmentObj.dimensions_Length: '', shipmentMainObj,
+                shipmentMainObj[Width]= shipmentObj.dimensions_Width != null ? shipmentObj.dimensions_Width: '', shipmentMainObj,
+                shipmentMainObj[Height]= shipmentObj.dimensions_Height != null ? shipmentObj.dimensions_Height: '', shipmentMainObj,
+                shipmentMainObj[Currency]= shipmentObj.currency != null ? shipmentObj.currency: '', shipmentMainObj,
+                shipmentMainObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', shipmentMainObj,
+                shipmentMainObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', shipmentMainObj,
+                shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj
+              );
+              shipmentList.push(shipmentMainObj)
+          }
+        new Angular2Csv(shipmentList, fileName, options);        
+      }else{
+        this.errorMsg = "**Please select the below records to download the NonShipment Consignment details";
+      } 
+  };
   exportSearch(){
     this.errorMsg = null;
     this.successMsg = '';
@@ -972,6 +1251,21 @@ export class SuperUserInvoiceComponent implements OnInit{
         }, 5000);
        });
      }
+     else if(this.errorMsg == null && this.exportFileType === 'export-nonshipment'){
+      this.spinner.show();
+      this.trackingDataService.exportNonShipment(this.fromDate, this.toDate, (resp) => {
+        this.spinner.hide();
+        if(resp.status == 400 ){
+          this.successMsg = resp.error.errorMessage;
+        }
+        if(resp.status == undefined ){
+          this.rowDataShipment = resp;
+        }
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+       });
+     }
   };
 
   onConsignmentChange() {
@@ -986,6 +1280,10 @@ export class SuperUserInvoiceComponent implements OnInit{
 
   onShipmentChange(){
     var shipmentSelectedRows = this.gridOptionsShipment.api.getSelectedRows();
+    this.errorMsg = null;
+  }
+ onNonShipmentChange(){
+    var nonshipmentSelectedRows = this.gridOptionsNonShipment.api.getSelectedRows();
     this.errorMsg = null;
   }
  

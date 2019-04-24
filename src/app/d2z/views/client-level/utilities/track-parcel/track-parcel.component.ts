@@ -62,6 +62,7 @@ export class UtilitiesTrackParcel implements OnInit{
         this.trackingDataService.trackPracel(result, (resp) => {
           this.spinner.hide();
           this.trackEvents = resp;
+          console.log(this.trackEvents);
           this.showEvents = this.trackEvents[0].referenceNumber ? true : false;
           this.showDownload = this.trackEvents[0].referenceNumber ? true : false;
           setTimeout(() => {this.spinner.hide()}, 5000);
@@ -83,6 +84,8 @@ export class UtilitiesTrackParcel implements OnInit{
         for (var importVal in this.trackEvents) {
           var adminObj = this.trackEvents[importVal];
             for(var i in adminObj.trackingEvents){
+             if(JSON.stringify(i) == JSON.stringify("0")){
+         
             var trackdata = adminObj.trackingEvents[i];
                 var importObj = (
                 importObj={}, 
@@ -91,6 +94,7 @@ export class UtilitiesTrackParcel implements OnInit{
                 importObj[EventTime]= trackdata.trackEventDateOccured != null ? trackdata.trackEventDateOccured: '', importObj,
                 importObj[EventName]= trackdata.eventDetails != null ? trackdata.eventDetails: '', importObj);
                 trackingList.push(importObj)
+                }
                 }
             };
 
