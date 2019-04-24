@@ -62,6 +62,7 @@ export class UtilitiesTrackParcel implements OnInit{
         this.trackingDataService.trackPracel(result, (resp) => {
           this.spinner.hide();
           this.trackEvents = resp;
+          console.log(this.trackEvents);
           this.showEvents = this.trackEvents[0].referenceNumber ? true : false;
           this.showDownload = this.trackEvents[0].referenceNumber ? true : false;
           setTimeout(() => {this.spinner.hide()}, 5000);
