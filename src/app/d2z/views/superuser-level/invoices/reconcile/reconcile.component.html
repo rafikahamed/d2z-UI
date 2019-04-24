@@ -36,6 +36,7 @@
         </div>
         
         <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="tabChanged($event)">
+          
           <mat-tab label="Invoices / Reconcile">  
               <div class="delete_search">
                   <div class="container">
@@ -255,7 +256,7 @@
                            Upload Fastway Data
                   </button>
 
-                  <div style="padding:20px; margin-top:30px">
+                  <div *ngIf="pcaFlag" style="padding:20px; margin-top:30px">
                     <p> Please select the below records to upload the Fastway Data </p>
                     <div class="col-md-10">
                           <ag-grid-angular 
@@ -280,6 +281,60 @@
                                     (selectionChanged)="onFastWayChange($event)">
                           </ag-grid-angular>
                       </div>
+                  </div>
+
+                  <div *ngIf="ubiFlag" style="padding:20px; margin-top:30px">
+                    <p> Please select the below records to upload the reconcile Data </p>
+                    <div class="col-md-10">
+                          <ag-grid-angular 
+                                    #agGrid style="width: 100%; height: 450px;" 
+                                    class="ag-theme-balham" 
+                                    [autoGroupColumnDef]="autoGroupColumnDef"
+                                    [rowData]="rowDataSupplier1"
+                                    [enableSorting]="true"
+                                    [enableFilter]="true"
+                                    [suppressRowClickSelection]="true"
+                                    [groupSelectsChildren]="true"
+                                    [debug]="true"
+                                    [rowSelection]="rowSelection"
+                                    [enableColResize]="true"
+                                    [rowGroupPanelShow]="rowGroupPanelShow"
+                                    [pivotPanelShow]="pivotPanelShow"
+                                    [enableRangeSelection]="true"
+                                    [pagination]="true"
+                                    [defaultColDef]="defaultColDef"
+                                    [gridOptions]="gridOptionsSuplier1" 
+                                    [pagination]="true"
+                                    (selectionChanged)="onSupplier1Change($event)">
+                          </ag-grid-angular>
+                      </div>
+                  </div>
+
+                  <div *ngIf="freiPostFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to download the Deleted Consignment </p>
+                      <div class="col-md-10">
+                            <ag-grid-angular 
+                                      #agGrid style="width:100%; height:450px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowDataSupplier2"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsSuplier2" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onSupplier2Change($event)">
+                            </ag-grid-angular>
+                        </div>
                   </div>
 
                   <div class="col-md-2">

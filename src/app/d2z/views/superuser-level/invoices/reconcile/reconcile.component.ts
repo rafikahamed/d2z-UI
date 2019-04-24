@@ -41,6 +41,8 @@ export class SuperUserReconcileComponent implements OnInit {
   private gridOptionsSuplier1: GridOptions;
   private gridOptionsSuplier2: GridOptions;
   private gridOptionsFastWay: GridOptions;
+  private gridOptionsNonD2zSuplier1: GridOptions;
+  private gridOptionsNonD2zSuplier2: GridOptions;
   supplierTypeDropdown: dropdownTemplate[];
   nonD2zSupplierTypeDropdown: dropdownTemplate[];
   private rowDataSupplier1: any[];
@@ -88,9 +90,55 @@ export class SuperUserReconcileComponent implements OnInit {
         width: 400
       }
     ];
-
+    
     this.gridOptionsSuplier2 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsSuplier2.columnDefs = [
+      {
+        headerName: "Invoice Number",
+        field: "refrenceNumber",
+        width: 400,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Charged Weight",
+        field: "chargedWeight",
+        width: 400
+      },
+      {
+        headerName: "Cost (AUD)",
+        field: "cost",
+        width: 300
+      }
+    ];
+
+    this.gridOptionsNonD2zSuplier1 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsNonD2zSuplier1.columnDefs = [
+      {
+        headerName: "Article No",
+        field: "articleNo",
+        width: 400,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Normal Rate/Parcel",
+        field: "normalRateParcel",
+        width: 400
+      },
+      {
+        headerName: "Article Actual Weight",
+        field: "articleActualWeight",
+        width: 400
+      }
+    ];
+
+    this.gridOptionsNonD2zSuplier2 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsNonD2zSuplier2.columnDefs = [
       {
         headerName: "Invoice Number",
         field: "refrenceNumber",
@@ -159,7 +207,9 @@ export class SuperUserReconcileComponent implements OnInit {
     this.supplierType = this.supplierTypeDropdown[0].value;
     this.nonD2zSupplierTypeDropdown = [
       { "name": "PCA Fastway Invoice", "value": "PCAStarTrackInvoice" },
-      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" }
+      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" },
+      { "name": "UBI Template", "value": "UBITemplate" },
+      { "name": "Freipost template", "value": "freipostTemplate" }
     ];
     this.nonD2zSupplierType = this.nonD2zSupplierTypeDropdown[0].value;
   };
@@ -396,9 +446,9 @@ export class SuperUserReconcileComponent implements OnInit {
     this.errorMsg = null;
     this.successMsg = null;
     if(event.index == 0){
-     
+      console.log("First Tab-----")
     }else if(event.index == 1){
-    
+      console.log("Second Tab-----")
     }
   };
 
