@@ -108,7 +108,7 @@
                     </button>
 
                     <div *ngIf="suplier1Flag" style="padding:20px; margin-top:30px">
-                      <p> Please select the below records to upload the reconcile Data </p>
+                      <p> Please select the below records to upload the UBI Data: </p>
                       <div class="col-md-10">
                             <ag-grid-angular 
                                       #agGrid style="width: 100%; height: 450px;" 
@@ -135,7 +135,7 @@
                     </div>
 
                     <div *ngIf="suplier2Flag" style="padding:20px; margin-top:30px">
-                        <p> Please select the below records to download the Deleted Consignment </p>
+                        <p> Please select the below records to upload the Freipost Data: </p>
                         <div class="col-md-10">
                               <ag-grid-angular 
                                         #agGrid style="width:100%; height:450px;" 
@@ -250,14 +250,33 @@
                   
                   <button type="button"
                           class="btn btn-info" 
+                          *ngIf="pcaFlag"
                           (click)="uploadFastWayData()"
                           style="background-color: #16A085; float:right; margin-right:20px">
                           <span class="glyphicon glyphicon-cloud-upload"></span>
-                           Upload Fastway Data
+                           Upload Fastway/StarTrack Data
+                  </button>
+
+                  <button type="button"
+                          class="btn btn-info" 
+                          *ngIf="ubiNonD2zFlag"
+                          (click)="uploadFastWayData()"
+                          style="background-color: #16A085; float:right; margin-right:20px">
+                          <span class="glyphicon glyphicon-cloud-upload"></span>
+                          Upload Non D2Z UBI Data
+                  </button>
+
+                  <button type="button"
+                          class="btn btn-info" 
+                          *ngIf="freiPostNonD2zFlag"
+                          (click)="uploadFastWayData()"
+                          style="background-color: #16A085; float:right; margin-right:20px">
+                          <span class="glyphicon glyphicon-cloud-upload"></span>
+                          Upload Non-D2Z FreiPost Data
                   </button>
 
                   <div *ngIf="pcaFlag" style="padding:20px; margin-top:30px">
-                    <p> Please select the below records to upload the Fastway Data </p>
+                    <p> Please select the below records to upload the PCA Fastway/StarTrack Data </p>
                     <div class="col-md-10">
                           <ag-grid-angular 
                                     #agGrid style="width: 100%; height: 450px;" 
@@ -283,14 +302,14 @@
                       </div>
                   </div>
 
-                  <div *ngIf="ubiFlag" style="padding:20px; margin-top:30px">
-                    <p> Please select the below records to upload the reconcile Data </p>
+                  <div *ngIf="ubiNonD2zFlag" style="padding:20px; margin-top:30px">
+                    <p> Please select the below records to upload the UBI Data </p>
                     <div class="col-md-10">
                           <ag-grid-angular 
                                     #agGrid style="width: 100%; height: 450px;" 
                                     class="ag-theme-balham" 
                                     [autoGroupColumnDef]="autoGroupColumnDef"
-                                    [rowData]="rowDataSupplier1"
+                                    [rowData]="rowDataNonD2zSupplier1"
                                     [enableSorting]="true"
                                     [enableFilter]="true"
                                     [suppressRowClickSelection]="true"
@@ -303,21 +322,21 @@
                                     [enableRangeSelection]="true"
                                     [pagination]="true"
                                     [defaultColDef]="defaultColDef"
-                                    [gridOptions]="gridOptionsSuplier1" 
+                                    [gridOptions]="gridOptionsNonD2zSuplier1" 
                                     [pagination]="true"
                                     (selectionChanged)="onSupplier1Change($event)">
                           </ag-grid-angular>
                       </div>
                   </div>
 
-                  <div *ngIf="freiPostFlag" style="padding:20px; margin-top:30px">
-                      <p> Please select the below records to download the Deleted Consignment </p>
+                  <div *ngIf="freiPostNonD2zFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to upload the FreiPost data: </p>
                       <div class="col-md-10">
                             <ag-grid-angular 
                                       #agGrid style="width:100%; height:450px;" 
                                       class="ag-theme-balham" 
                                       [autoGroupColumnDef]="autoGroupColumnDef"
-                                      [rowData]="rowDataSupplier2"
+                                      [rowData]="rowDataNonD2zSupplier2"
                                       [enableSorting]="true"
                                       [enableFilter]="true"
                                       [suppressRowClickSelection]="true"
@@ -330,7 +349,7 @@
                                       [enableRangeSelection]="true"
                                       [pagination]="true"
                                       [defaultColDef]="defaultColDef"
-                                      [gridOptions]="gridOptionsSuplier2" 
+                                      [gridOptions]="gridOptionsNonD2zSuplier2" 
                                       [pagination]="true"
                                       (selectionChanged)="onSupplier2Change($event)">
                             </ag-grid-angular>

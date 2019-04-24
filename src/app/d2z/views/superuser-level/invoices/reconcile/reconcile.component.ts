@@ -31,6 +31,9 @@ export class SuperUserReconcileComponent implements OnInit {
   downloadReconcile: Boolean;
   suplier1Flag: Boolean;
   suplier2Flag: Boolean;
+  pcaFlag: Boolean;
+  ubiNonD2zFlag: Boolean;
+  freiPostNonD2zFlag: Boolean;
   downloadNonD2zReconcile: Boolean;
   fastWayFlag: Boolean;
   startTrackFlag: Boolean;
@@ -48,10 +51,14 @@ export class SuperUserReconcileComponent implements OnInit {
   private rowDataSupplier1: any[];
   private rowDataSupplier2: any[];
   private rowDataFastWay: any[];
+  private rowDataNonD2zSupplier1: any[];
+  private rowDataNonD2zSupplier2: any[];
   file:File;
   public supplierOneList = [];
   public supplierTwoList = [];
   public fastWatStarTrackList = [];
+  public supplierOneNonD2zList = [];
+  public supplierTwoNonD2zList = [];
   constructor(
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
@@ -314,6 +321,19 @@ export class SuperUserReconcileComponent implements OnInit {
     this.successMsg = null;
     this.downloadNonD2zReconcile= false;
     this.nonD2zSupplierType = event.value ? event.value.value : '';
+    if(this.nonD2zSupplierType == 'PCAStarTrackInvoice'){
+      this.ubiNonD2zFlag = false;
+      this.freiPostNonD2zFlag = false;
+      this.pcaFlag = true;
+    }else if(this.nonD2zSupplierType == 'UBITemplate'){
+      this.pcaFlag = false;
+      this.freiPostNonD2zFlag = false;
+      this.ubiNonD2zFlag = true;
+    }else if(this.nonD2zSupplierType == 'freipostTemplate'){
+      this.pcaFlag = false;
+      this.ubiNonD2zFlag = false;
+      this.freiPostNonD2zFlag = true;
+    }
   };
 
   supplierClear(){
@@ -446,9 +466,12 @@ export class SuperUserReconcileComponent implements OnInit {
     this.errorMsg = null;
     this.successMsg = null;
     if(event.index == 0){
-      console.log("First Tab-----")
+      this.suplier1Flag = true;
+      this.suplier2Flag = false;
     }else if(event.index == 1){
-      console.log("Second Tab-----")
+      this.pcaFlag = true;
+      this.ubiNonD2zFlag =  false;
+      this.freiPostNonD2zFlag =  false;
     }
   };
 
@@ -462,7 +485,79 @@ export class SuperUserReconcileComponent implements OnInit {
     var worksheet;
     this.errorMsg = null;
     let fileReader = new FileReader();
-    fileReader.readAsArrayBuffer(this.file);
+    if(this.nonD2zSupplierType == 'UBITemplate'){
+      this.supplierOneNonD2zList= [];
+      this.rowDataNonD2zSupplier1 = [];
+      fileReader.readAsArrayBuffer(this.file);
+      let articleNo = 'articleNo';
+      let normalRateParcel = 'normalRateParcel';
+      let articleActualWeight = 'articleActualWeight';
+      let supplierType = 'supplierType';
+      fileReader.onload = (e) => {
+          this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            var exportData = XLSX.utils.sheet_to_json(worksheet);
+            for (var importVal in exportData) {
+              var reconcile = exportData[importVal];
+              
+              if(this.errorMsg == null){
+                var reconcileObj = (
+                  reconcileObj={}, 
+                  reconcileObj[articleNo]= reconcile['Article No.'] != undefined ? reconcile['Article No.'] : '', reconcileObj,
+                  reconcileObj[normalRateParcel]= reconcile['Normal Rate/Parcel'] != undefined ? reconcile['Normal Rate/Parcel'] : '', reconcileObj,
+                  reconcileObj[articleActualWeight]= reconcile['Article Actual Weight'] != undefined ? reconcile['Article Actual Weight'] : '', reconcileObj,
+                  reconcileObj[supplierType]= 'UBI', reconcileObj
+                );
+              this.supplierOneNonD2zList.push(reconcileObj)
+              this.rowDataNonD2zSupplier1 = this.supplierOneNonD2zList;
+              }
+          }
+        }
+    }else if(this.nonD2zSupplierType == 'freipostTemplate'){
+      this.supplierTwoNonD2zList= [];
+      this.rowDataNonD2zSupplier2  = [];
+      fileReader.readAsArrayBuffer(this.file);
+      let refrenceNumber = 'refrenceNumber';
+      let chargedWeight = 'chargedWeight';
+      let cost = 'cost';
+      let supplierType = 'supplierType';
+  
+      fileReader.onload = (e) => {
+          this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            var exportData = XLSX.utils.sheet_to_json(worksheet);
+            for (var importVal in exportData) {
+              var reconcile = exportData[importVal];
+              
+              if(this.errorMsg == null){
+                var reconcileTwoObj = (
+                  reconcileTwoObj={}, 
+                  reconcileTwoObj[refrenceNumber]= reconcile['Invoice Number'] != undefined ? reconcile['Invoice Number'] : '', reconcileTwoObj,
+                  reconcileTwoObj[chargedWeight]= reconcile['Charged Weight'] != undefined ? reconcile['Charged Weight'] : '', reconcileTwoObj,
+                  reconcileTwoObj[cost]= reconcile['Cost (AUD)'] != undefined ? reconcile['Cost (AUD)'] : '', reconcileTwoObj,
+                  reconcileTwoObj[supplierType]= 'freipost', reconcileTwoObj
+                );
+              this.supplierTwoNonD2zList.push(reconcileTwoObj)
+              this.rowDataNonD2zSupplier2 = this.supplierTwoNonD2zList;
+              }
+          }
+        }
+    }else if(this.nonD2zSupplierType == 'PCAStarTrackInvoice'){
+      this.fastWatStarTrackList= [];
+      this.rowDataFastWay  = [];
+      fileReader.readAsArrayBuffer(this.file);
       let articleNo = 'articleNo';
       let refrenceNumber = 'refrenceNumber';
       let postCode = 'postCode';
@@ -496,6 +591,7 @@ export class SuperUserReconcileComponent implements OnInit {
               }
           }
         }
+    }
   };
 
   supplierNonD2zClear(){
@@ -509,7 +605,13 @@ export class SuperUserReconcileComponent implements OnInit {
     this.errorMsg = null;
     this.successMsg = null;
     var fastwayData = [];
-    fastwayData = this.gridOptionsFastWay.api.getSelectedRows();
+    if(this.pcaFlag){
+      fastwayData = this.gridOptionsFastWay.api.getSelectedRows();
+    }else if(this.ubiNonD2zFlag){
+      fastwayData = this.gridOptionsNonD2zSuplier1.api.getSelectedRows();
+    }else if(this.freiPostNonD2zFlag){
+      fastwayData = this.gridOptionsNonD2zSuplier2.api.getSelectedRows();
+    }
     if(fastwayData.length > 0 ){
       this.spinner.show();
       this.consigmentUploadService.reconcileNonD2zData(fastwayData, (resp) => {
