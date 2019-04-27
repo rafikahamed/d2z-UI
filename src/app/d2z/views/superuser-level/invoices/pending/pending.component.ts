@@ -174,6 +174,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
           let postage = 'postage';
           let fuelSurcharge = 'fuelSurcharge';
           let total = 'total';
+          let serviceType = 'serviceType';
           
            for(var downloadInvoice in downloadInvoiceData){
               var invoiceData = downloadInvoiceData[downloadInvoice];
@@ -185,7 +186,8 @@ export class SuperUserInvoicePendingComponent implements OnInit {
                 invoiceObj[weight]= invoiceData.weight != null ? invoiceData.weight : '', invoiceObj,
                 invoiceObj[postage]= invoiceData.postage != null ? invoiceData.postage : '', invoiceObj,
                 invoiceObj[fuelSurcharge]= invoiceData.fuelsurcharge != null ? invoiceData.fuelsurcharge : '', invoiceObj,
-                invoiceObj[total]= invoiceData.total != null ? invoiceData.total : '', invoiceObj
+                invoiceObj[total]= invoiceData.total != null ? invoiceData.total : '', invoiceObj,
+                invoiceObj[serviceType]= invoiceData.serviceType != null ? invoiceData.serviceType : '', invoiceObj
               );
               invoiceDownloadFinalList.push(invoiceObj);
            }
@@ -198,7 +200,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
              decimalseparator: '.',
              showLabels: true, 
              useBom: true,
-             headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total']
+             headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type']
              };
              new Angular2Csv(invoiceDownloadFinalList, fileName, options);   
              this.invoiceApproveFlag = true;
@@ -234,6 +236,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         let postage = 'postage';
         let fuelSurcharge = 'fuelSurcharge';
         let total = 'total';
+        let serviceType = 'serviceType';
         
          for(var downloadApproveInvoice in downloadInvoiceApprovedData){
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
@@ -245,7 +248,9 @@ export class SuperUserInvoicePendingComponent implements OnInit {
               invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
               invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
               invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
-              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj
+              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
+              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
+              invoiceApproveObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : '', invoiceApproveObj
             );
             invoiceApprovedDownloadFinalList.push(invoiceApproveObj);
          };
@@ -258,7 +263,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total']
+            headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type']
           };
         new Angular2Csv(invoiceApprovedDownloadFinalList, fileName, options);   
         this.invoiceBilledFlag = true;
