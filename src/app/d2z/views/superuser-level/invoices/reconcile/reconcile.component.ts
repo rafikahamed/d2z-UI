@@ -395,6 +395,7 @@ export class SuperUserReconcileComponent implements OnInit {
     let invoicedAmount = 'invoicedAmount';
     let correctAmount = 'correctAmount';
     let chargeDifference = 'chargeDifference';
+    let zone = 'zone';
 
     var reconcileNumbers = [];
     if(this.supplierType == 'UBITemplate'){
@@ -429,7 +430,8 @@ export class SuperUserReconcileComponent implements OnInit {
           reconcileObj[weightDifference]= reconcile.weightDifference != null ? reconcile.weightDifference : '', reconcileObj,
           reconcileObj[invoicedAmount]= reconcile.invoicedAmount != null ? reconcile.invoicedAmount : '', reconcileObj,
           reconcileObj[correctAmount]= reconcile.correctAmount != null ? reconcile.correctAmount : '', reconcileObj,
-          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj
+          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj,
+          reconcileObj[zone]= reconcile.zone != null ? reconcile.zone : '', reconcileObj
         );
         reconcileObjList.push(reconcileObj);
      };
@@ -443,7 +445,8 @@ export class SuperUserReconcileComponent implements OnInit {
             showLabels: true, 
             useBom: true,
             headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z postage',
-            'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference' ]
+            'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference',
+            'Zone' ]
           };
         new Angular2Csv(reconcileObjList, fileName, options); 
     })
@@ -641,13 +644,29 @@ export class SuperUserReconcileComponent implements OnInit {
     let invoicedAmount = 'invoicedAmount';
     let correctAmount = 'correctAmount';
     let chargeDifference = 'chargeDifference';
+    let zone = 'zone';
 
     var reconcileNonD2zNumbers = [];
-    var fastWayTrackData = this.gridOptionsFastWay.api.getSelectedRows();
-    for (var fastWay in fastWayTrackData) {
-        var fastWayObj = fastWayTrackData[fastWay];
-        reconcileNonD2zNumbers.push(fastWayObj.articleNo);
-    }
+    if(this.pcaFlag){
+      var fastwayStarData = this.gridOptionsFastWay.api.getSelectedRows();
+         for (var fastwayOne in fastwayStarData) {
+             var reconcileFastway = fastwayStarData[fastwayOne];
+             reconcileNonD2zNumbers.push(reconcileFastway.articleNo);
+         }
+     }else if(this.ubiNonD2zFlag){
+      var supplierUbiData = this.gridOptionsNonD2zSuplier1.api.getSelectedRows();
+         for (var ubiData in supplierUbiData) {
+             var reconcileUbiData = supplierUbiData[ubiData];
+             reconcileNonD2zNumbers.push(reconcileUbiData.articleNo);
+         }
+     }else if(this.freiPostNonD2zFlag){
+      var supplierFreiPostData = this.gridOptionsNonD2zSuplier2.api.getSelectedRows();
+         for (var freiPostData in supplierFreiPostData) {
+             var reconcileFeriPost = supplierFreiPostData[freiPostData];
+             reconcileNonD2zNumbers.push(reconcileFeriPost.refrenceNumber);
+         }
+     } 
+
     this.spinner.show();
     this.consigmentUploadService.downloadNonD2zReconcile(reconcileNonD2zNumbers, (resp) => {
       this.spinner.hide();
@@ -667,7 +686,8 @@ export class SuperUserReconcileComponent implements OnInit {
           reconcileObj[weightDifference]= reconcile.weightDifference != null ? reconcile.weightDifference : '', reconcileObj,
           reconcileObj[invoicedAmount]= reconcile.invoicedAmount != null ? reconcile.invoicedAmount : '', reconcileObj,
           reconcileObj[correctAmount]= reconcile.correctAmount != null ? reconcile.correctAmount : '', reconcileObj,
-          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj
+          reconcileObj[chargeDifference]= reconcile.chargeDifference != null ? reconcile.chargeDifference : '', reconcileObj,
+          reconcileObj[zone]= reconcile.zone != null ? reconcile.zone : '', reconcileObj
         );
         reconcileObjList.push(reconcileObj);
      };
@@ -681,7 +701,8 @@ export class SuperUserReconcileComponent implements OnInit {
             showLabels: true, 
             useBom: true,
             headers: [ 'Customer', 'Shipment Number', 'Article ID', 'Reference Number', 'Supplier Charge', 'D2Z postage',
-            'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference' ]
+            'Cost Difference', 'Supplier Weight', 'D2Z Weight', 'Weight Difference', 'Postage',  'Correct Amount', 'Charge Difference',
+            'Zone' ]
           };
         new Angular2Csv(reconcileObjList, fileName, options); 
     })
