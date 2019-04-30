@@ -407,22 +407,22 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         let fuelSurcharge = 'fuelSurcharge';
         let total = 'total';
         let serviceType = 'serviceType';
-        
+        console.log(downloadInvoiceApprovedData);
         for(var downloadApproveInvoice in downloadInvoiceApprovedData){
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
-            var invoiceApproveObj = (
-              invoiceApproveObj={}, 
-              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
-              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
-              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
-              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
-              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
-              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
-              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
-              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
-              invoiceApproveObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : ''
+            var invoiceApproveNonD2zObj = (
+              invoiceApproveNonD2zObj={}, 
+              invoiceApproveNonD2zObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : '', invoiceApproveNonD2zObj
             );
-            invoicePendingDownloadFinalList.push(invoiceApproveObj);
+            invoicePendingDownloadFinalList.push(invoiceApproveNonD2zObj);
          };
         var currentTime = new Date();
         var fileName = '';
