@@ -19,6 +19,25 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperFour: boolean;
   childmenuSuperFive: boolean;
   childmenuSuperSix:boolean;
+  client: boolean;
+  clientAdd: boolean;
+  clientUpdate: Boolean;
+  tracking: boolean;
+  trackingUpload: boolean;
+  trackingArrival: boolean;
+  rates: boolean;
+  ratesAdd: boolean;
+  ratesUpdate: boolean;
+  ratesD2z: boolean;
+  invoices: boolean;
+  invoicePending: boolean;
+  invoiceReconcile: boolean;
+  invoiceNotBilled: boolean;
+  invoiceNonD2z: boolean;
+  reports: boolean;
+  reportShipment: boolean;
+  reportLog: boolean;
+  reportDelivery: boolean;
   userName: String;
 
   constructor(
@@ -34,7 +53,38 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperFour = menuSelection.childmenuSuperFour;
     this.childmenuSuperFive = menuSelection.childmenuSuperFive;
     this.childmenuSuperSix = menuSelection.childmenuSuperSix;
-    console.log(this.consigmentUploadService.userMessage)
+    console.log(this.consigmentUploadService.userMessage);
+
+    var role = this.consigmentUploadService.userMessage.role_Id;
+    if(role == 1){
+      this.client = true;
+      this.clientAdd = true;
+      this.clientUpdate = true;
+      this.tracking = true;
+      this.trackingUpload = true;
+      this.trackingArrival = true;
+      this.rates= true;
+      this.ratesAdd= true;
+      this.ratesUpdate= true;
+      this.ratesD2z= true;
+      this.invoices= true;
+      this.invoicePending= true;
+      this.invoiceReconcile= true;
+      this.invoiceNotBilled= true;
+      this.invoiceNonD2z= true;
+      this.reports= true;
+      this.reportShipment= true;
+      this.reportLog= true;
+      this.reportDelivery = true;
+    }else if(role == 4){
+      this.tracking = true;
+      this.trackingArrival = true;
+      this.invoices= true;
+      this.invoicePending= true;
+      this.invoiceNonD2z= true;
+      this.reports= true;
+      this.reportDelivery = true;
+    }
   }
 
   super_user(arrow) {
