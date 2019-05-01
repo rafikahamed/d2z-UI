@@ -33,6 +33,8 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperThree = menuSelection.childmenuSuperThree;
     this.childmenuSuperFour = menuSelection.childmenuSuperFour;
     this.childmenuSuperFive = menuSelection.childmenuSuperFive;
+    this.childmenuSuperSix = menuSelection.childmenuSuperSix;
+    console.log(this.consigmentUploadService.userMessage)
   }
 
   super_user(arrow) {
