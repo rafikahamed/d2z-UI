@@ -325,7 +325,6 @@ export class ConsigmentUploadService implements OnInit{
   };
 
   reconcileNonD2zData(reconcilNnD2z, callback): any {
-    console.log("reached services -----")
     this.http.post(baseUrl+'/superUser-level/reconcileInfo-NonD2z',reconcilNnD2z
     ).subscribe((resp) => {
       callback(resp);
