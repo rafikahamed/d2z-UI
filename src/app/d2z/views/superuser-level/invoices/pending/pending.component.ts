@@ -536,7 +536,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         this.spinner.hide();
         this.rowDataApproved = resp;
         if(!resp){
-            this.errorMsg = "Invalid Credentials!";
+            this.errorMsg = "Something Went wrong";
         }  
       })
     }else if(event.index == 2){
@@ -546,7 +546,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         this.spinner.hide();
         this.rowDataNonD2zPending = resp;
         if(!resp){
-            this.errorMsg = "Invalid Credentials!";
+            this.errorMsg = "Something Went wrong!";
         }  
       })
     }else if(event.index == 3){
@@ -556,11 +556,71 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         this.spinner.hide();
         this.rowDataNonD2zApproved = resp;
         if(!resp){
-            this.errorMsg = "Invalid Credentials!";
+            this.errorMsg = "Something Went wrong!";
         }  
       })
     }
-  }
+  };
+
+  clearInvoiceD2zPending(){
+    this.rowData = [];
+    this.invoiceApproveFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoicePendingData((resp) => {
+      this.spinner.hide();
+      this.rowData = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
+
+  clearInvoiceD2zApproved(){
+    this.rowDataApproved = [];
+    this.invoiceBilledFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoiceApprovedData((resp) => {
+      this.spinner.hide();
+      this.rowDataApproved = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
+
+  clearInvoiceNDPending(){
+    this.rowDataNonD2zPending = [];
+    this.nonD2zInvoiceApproveFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoiceNonD2zPendingData((resp) => {
+      this.spinner.hide();
+      this.rowDataNonD2zPending = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
+
+  clearInvoiceNDApproved(){
+    this.rowDataNonD2zApproved = [];
+    this.nonD2zInvoiceBilledFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoiceNonD2zApprovedData((resp) => {
+      this.spinner.hide();
+      this.rowDataNonD2zApproved = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
 
 }
 

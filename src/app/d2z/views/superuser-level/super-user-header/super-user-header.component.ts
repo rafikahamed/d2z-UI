@@ -53,8 +53,6 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperFour = menuSelection.childmenuSuperFour;
     this.childmenuSuperFive = menuSelection.childmenuSuperFive;
     this.childmenuSuperSix = menuSelection.childmenuSuperSix;
-    console.log(this.consigmentUploadService.userMessage);
-
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
