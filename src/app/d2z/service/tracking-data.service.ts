@@ -3,9 +3,11 @@ import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-// const baseUrl = "http://localhost:8080/v1/d2z";
-// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
-const baseUrl = "https://www.d2z.com.au/v1/d2z";
+const hostname = document.location.hostname;
+const apiName = document.location.hostname == "www.speedcouriers.com.au" ? "speedcouriers" : "d2z";
+const baseUrl = "https://"+hostname+"/v1/"+apiName;
+//const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+//const baseUrl = "http://"+hostname+":8080/v1/d2z";
 
 @Injectable()
 export class TrackingDataService implements OnInit{
@@ -13,7 +15,10 @@ export class TrackingDataService implements OnInit{
   constructor(
       private http: HttpClient, 
       private router: Router
-  ){}
+  ){
+    console.log("API Name --->"+apiName);
+    console.log("hostname --->"+hostname);
+  }
 
   ngOnInit(){}
 
@@ -285,8 +290,8 @@ exportNonShipment( fromDate, toDate, callback): any {
     });
   }
 
-  shipmentAllocation( referenceNumberList, shipmentNumber, callback): any {
-    this.http.put(baseUrl+'/broker-level/consignments/'+referenceNumberList+'/shipment/'+shipmentNumber, '').subscribe((resp) => {
+  shipmentAllocation( referenceNumbers, shipmentNumber, callback): any {
+    this.http.put(baseUrl+'/broker-level/consignments/shipment/'+shipmentNumber, referenceNumbers).subscribe((resp) => {
       callback(resp);
       if (resp) {
         

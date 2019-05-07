@@ -53,7 +53,7 @@
                              <li *ngIf="reports"><a (click)="super_user_reports(arrow)"><i class="fa fa-file"></i> REPORTS <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperSix ? 'block' : 'none'}">
                                 <li *ngIf="reportShipment"><a routerLink="/superuser/invoice-report">Shipment Summary</a></li>
-                                <li *ngIf="reportDelivery"><a>Delivery Report</a></li>
+                                <li *ngIf="reportDelivery"><a routerLink="/superuser/reports/delivery-report">Delivery Report</a></li>
                                 <li *ngIf="reportLog"><a>API Log Report</a></li>
                                <!-- <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>

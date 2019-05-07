@@ -54,11 +54,11 @@ import { SuperUserNonD2zClientComponent } from 'app/d2z/views/superuser-level/in
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
-import { StepsModule } from 'primeng/steps';
-import { MenuItem } from 'primeng/api';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
+import { AuthGuard } from 'app/d2z/service/auth-guard.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { SuperUserInvoiceComponent } from 'app/d2z/views/superuser-level/utilities/invoice-report/invoice-report.component'
+import { SuperUserDeliveryReportComponent } from 'app/d2z/views/superuser-level/reports/delivery-report/delivery-report.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -72,9 +72,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AccordionModule,
     UserIdleModule.forRoot({idle: 300, timeout: 30, ping: 1}),
     RouterModule.forRoot([
-          { path: "", redirectTo: "home", pathMatch: "full" },
+          { path: "",  redirectTo : document.location.host == "localhost:5000" ? "home" :"main", pathMatch: "full" },
+          {
+            path: "main",
+            component: ClientHomeComponent
+          },
           { path: "home", component: HomeComponent },
-          { path: "main", component: ClientHomeComponent },
+          // { path: "main", component: ClientHomeComponent },
           { path: "consignment/fileUpload", component: ZebraFileUpload},
           { path: "consignment/delete", component: ZebraDelete},
           { path: "printLabels/zebra", component: ZebraPdfFileUpload},
@@ -114,7 +118,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoices/pending", component: SuperUserInvoicePendingComponent},
           { path: "superuser/invoices/reconcile", component: SuperUserReconcileComponent},
           { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent},
-          { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent}
+          { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent},
+          { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent}
     ], { useHash: true }),
     UiModule
   ],
@@ -164,7 +169,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserInvoicePendingComponent,
     SuperUserReconcileComponent,
     SuperUserNotBilledComponent,
-    SuperUserNonD2zClientComponent
+    SuperUserNonD2zClientComponent,
+    SuperUserDeliveryReportComponent
   ],
   entryComponents: [],
   providers: [
