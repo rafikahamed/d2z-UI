@@ -60,20 +60,24 @@ export class SuperUserAddClientComponent implements OnInit{
 
     ngOnInit(){
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
-      this.categories = [
-          {name: '1PS', value: '1PS'},
-          {name: '2PS', value: '2PS'},
-          {name: '3PS', value: '3PS'},
-          {name: '4PS', value: '4PS'},
-          {name: '5PS', value: '5PS'},
-          {name: '1PM', value: '1PM'},
-          {name: '1PME', value: '1PME'},
-          {name: '1PM3', value: '1PM3'},
-          {name: '1PP', value: '1PP'},
-          {name: '1PS2', value: '1PS2'},
-          {name: 'FWS', value: 'FWS'},
-          {name: 'STS', value: 'STS'}
-      ];
+      this.consignmenrServices.mlidList( (resp) => {
+        this.spinner.hide();
+        this.categories = resp;
+      })
+      // this.categories = [
+      //     {name: '1PS', value: '1PS'},
+      //     {name: '2PS', value: '2PS'},
+      //     {name: '3PS', value: '3PS'},
+      //     {name: '4PS', value: '4PS'},
+      //     {name: '5PS', value: '5PS'},
+      //     {name: '1PM', value: '1PM'},
+      //     {name: '1PME', value: '1PME'},
+      //     {name: '1PM3', value: '1PM3'},
+      //     {name: '1PP', value: '1PP'},
+      //     {name: '1PS2', value: '1PS2'},
+      //     {name: 'FWS', value: 'FWS'},
+      //     {name: 'STS', value: 'STS'}
+      // ];
       this.getLoginDetails();
     };
 
