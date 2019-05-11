@@ -2,8 +2,6 @@ import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { LoginService } from 'app/d2z/service/login.service';
-import {SelectItem} from 'primeng/api';
 declare var $: any;
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -35,7 +33,7 @@ export class UtilitiesTracking implements OnInit{
   selectedCity2: City;
   englishFlag:boolean;
   chinessFlag:boolean;
-
+  system: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService,
@@ -57,6 +55,7 @@ export class UtilitiesTracking implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.user_Id= this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];

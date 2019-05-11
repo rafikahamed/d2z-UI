@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 const hostname = document.location.hostname;
-const apiName = document.location.hostname == "www.speedcouriers.com.au" ? "speedcouriers" : "d2z";
+const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 const baseUrl = "https://"+hostname+"/v1/"+apiName;
 //const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 //const baseUrl = "http://"+hostname+":8080/v1/d2z";
@@ -16,10 +16,7 @@ export class LoginService implements OnInit{
   constructor(
       private http: HttpClient, 
       private router: Router
-  ){
-    console.log("API Name --->"+apiName);
-    console.log("hostname --->"+hostname);
-   }
+  ){}
 
   ngOnInit() {}
   

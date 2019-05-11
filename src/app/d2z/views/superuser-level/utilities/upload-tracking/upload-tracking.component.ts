@@ -35,6 +35,7 @@ export class SuperUserUploadTrackingComponent implements OnInit{
   private rowData: any[];
   private defaultColDef;
   userName: String;
+  system: String;
   role_id: String;
   shipmentAllocateForm: FormGroup;
   constructor(
@@ -85,6 +86,7 @@ export class SuperUserUploadTrackingComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.childmenu = false;
       this.childmenuTwo = false;
       this.childmenuThree = false;

@@ -39,12 +39,15 @@ export class SuperUserHeaderComponent implements OnInit {
   reportLog: boolean;
   reportDelivery: boolean;
   userName: String;
+  pageSwitch: String;
 
   constructor(
     public consigmentUploadService: ConsigmentUploadService
   ){}
 
   ngOnInit() {
+    this.pageSwitch = document.location.hostname.includes("speedcouriers.com.au") == true ? "/login" :"/home";
+    console.log(this.pageSwitch);
     this.userName =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';
     var menuSelection  = this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
     this.childmenuSuperOne = menuSelection.childmenuSuperOne;

@@ -37,6 +37,7 @@ export class ZebraFileUpload implements OnInit{
     successReferenceNumber: any[];
     errorDetails1: String;
     file:File;
+    system:String;
     arrayBuffer:any;
     exportTypeDropdown: dropdownTemplate[];  
     selectedExportType: dropdownTemplate;
@@ -77,6 +78,7 @@ export class ZebraFileUpload implements OnInit{
     };
 
     ngOnInit(){
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.userMessage = this.consigmentUploadService.userMessage;
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
@@ -561,7 +563,7 @@ export class ZebraFileUpload implements OnInit{
       if(!this.carrierType){
         this.errorMsg = this.englishFlag ? "**Please select the Carrier Type to upload the records" : "**请选择运营商类型以上传记录" ;
       }else if(selectedRows.length == 0){
-        this.errorMsg = this.englishFlag ? "**Please select the below records to upload the file into D2Z system" : "**请选择以下记录将文件上传到D2Z系统" ;
+        this.errorMsg = this.englishFlag ? "**Please select the below records to upload the file into system" : "**请选择以下记录将文件上传到D2Z系统" ;
       }
 
       if(selectedRows.length > 0 && this.errorMsg == null){
@@ -575,7 +577,7 @@ export class ZebraFileUpload implements OnInit{
             this.show = true;
             $('#fileUploadModal').modal('show');  
           }else{  
-            this.successMsg = this.englishFlag ? 'File data uploaded successfully to D2Z System' : '文件数据成功上传到D2Z系统';
+            this.successMsg = this.englishFlag ? 'File data uploaded successfully to System' : '文件数据成功上传到D2Z系统';
             this.successReferenceNumber = resp;
             this.showSuccess = true;
             $('#fileUploadModal').modal('show');

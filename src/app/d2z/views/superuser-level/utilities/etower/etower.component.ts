@@ -32,6 +32,7 @@ export class EtowerTrackingComponent implements OnInit{
   private defaultColDef;
   userName: String;
   role_id: String;
+  system: String;
   shipmentAllocateForm: FormGroup;
   constructor(
     public trackingDataService : TrackingDataService,
@@ -66,6 +67,7 @@ export class EtowerTrackingComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.childmenu = false;
       this.childmenuTwo = false;
       this.childmenuThree = false;

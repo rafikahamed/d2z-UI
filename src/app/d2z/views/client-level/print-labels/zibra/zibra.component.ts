@@ -39,7 +39,7 @@ export class ZebraPdfFileUpload implements OnInit{
   cities2: City[];  
   englishFlag:boolean;
   chinessFlag:boolean;
-  
+  system: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService,
@@ -62,6 +62,7 @@ export class ZebraPdfFileUpload implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];

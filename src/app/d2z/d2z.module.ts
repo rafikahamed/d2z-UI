@@ -7,6 +7,7 @@ import { UserIdleModule } from 'angular-user-idle';
 import { UiModule } from 'app/ui/ui.module';
 import { d2zComponent } from 'app/d2z/d2z.component';
 import { HomeComponent } from 'app/d2z/views/home/home.component';
+import { LoginComponent } from 'app/d2z/views/login/login.component';
 import { ClientHomeComponent } from 'app/d2z/views/client-level/client-home/client-home.component';
 import { PolicyComponent } from 'app/d2z/views/policy/policy.component'
 import{ ServiceComponent } from 'app/d2z/views/service/service.component'
@@ -72,13 +73,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AccordionModule,
     UserIdleModule.forRoot({idle: 300, timeout: 30, ping: 1}),
     RouterModule.forRoot([
-          { path: "",  redirectTo : document.location.host == "localhost:5000" ? "home" :"main", pathMatch: "full" },
-          {
-            path: "main",
-            component: ClientHomeComponent
-          },
+          { path: "",  redirectTo : document.location.hostname.includes("speedcouriers.com.au") == true ? "login" :"home", pathMatch: "full" },
           { path: "home", component: HomeComponent },
-          // { path: "main", component: ClientHomeComponent },
+          { path: "login", component: LoginComponent },
+          { path: "main", component: ClientHomeComponent },
           { path: "consignment/fileUpload", component: ZebraFileUpload},
           { path: "consignment/delete", component: ZebraDelete},
           { path: "printLabels/zebra", component: ZebraPdfFileUpload},
@@ -154,10 +152,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserUploadTrackingComponent,
     SuperUserInvoiceComponent,
     PolicyComponent,
-   ServiceComponent,
-   AboutComponent,
-   WhyChooseComponent,
-   ContactComponent,
+    ServiceComponent,
+    AboutComponent,
+    WhyChooseComponent,
+    ContactComponent,
     TrackParcelComponent,
     EtowerTrackingComponent,
     ClientHeaderComponent,
@@ -170,7 +168,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserReconcileComponent,
     SuperUserNotBilledComponent,
     SuperUserNonD2zClientComponent,
-    SuperUserDeliveryReportComponent
+    SuperUserDeliveryReportComponent,
+    LoginComponent
   ],
   entryComponents: [],
   providers: [

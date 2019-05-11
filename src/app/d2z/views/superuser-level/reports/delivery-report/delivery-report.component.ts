@@ -40,6 +40,7 @@ export class SuperUserDeliveryReportComponent implements OnInit{
   toDate: String;
   userName: String;
   role_id: String;
+  system: String;
   private gridOptionsConsignment: GridOptions;
   private gridOptionsDeleted: GridOptions;
   private gridOptionsShipment: GridOptions;
@@ -724,6 +725,7 @@ export class SuperUserDeliveryReportComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.childmenu = false;
       this.childmenuTwo = false;
       this.childmenuThree = false;

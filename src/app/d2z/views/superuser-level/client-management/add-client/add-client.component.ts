@@ -31,6 +31,7 @@ export class SuperUserAddClientComponent implements OnInit{
       directCategories: any[];
       userName: String;
       role_id: String;
+      system: String;
       constructor(
         public trackingDataService : TrackingDataService,
         private spinner: NgxSpinnerService,
@@ -58,6 +59,7 @@ export class SuperUserAddClientComponent implements OnInit{
     }
 
     ngOnInit(){
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.categories = [
           {name: '1PS', value: '1PS'},
           {name: '2PS', value: '2PS'},
@@ -72,9 +74,6 @@ export class SuperUserAddClientComponent implements OnInit{
           {name: 'FWS', value: 'FWS'},
           {name: 'STS', value: 'STS'}
       ];
-      // this.directCategories = [
-      //   {name: 'UnTracked', value: 'unTracked'}
-      // ];
       this.getLoginDetails();
     };
 

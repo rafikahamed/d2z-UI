@@ -52,6 +52,7 @@ export class UpdateClientComponent implements OnInit{
       originCategories: City[];
       userName: String;
       role_id: String;
+      system: String;
       constructor(
          public trackingDataService : TrackingDataService,
          private spinner: NgxSpinnerService,
@@ -84,6 +85,7 @@ export class UpdateClientComponent implements OnInit{
   }
 
   ngOnInit(){
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.spinner.show();
     this.trackingDataService.companyList(this.consignmenrServices.userMessage.user_id, (resp) => {
       this.spinner.hide();

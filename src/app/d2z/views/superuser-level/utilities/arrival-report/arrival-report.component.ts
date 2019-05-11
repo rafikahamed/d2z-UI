@@ -31,6 +31,7 @@ export class SuperUserArrivalReportComponent implements OnInit{
   successMsg: String;
   userName: String;
   role_id: String;
+  system:String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -95,6 +96,7 @@ export class SuperUserArrivalReportComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.childmenu = false;
       this.childmenuTwo = false;
       this.childmenuThree = false;

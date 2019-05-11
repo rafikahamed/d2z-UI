@@ -30,6 +30,7 @@ export class ZebraPdfPrintLabels implements OnInit{
   private rowData: any[];
   private defaultColDef;
   file:File;
+  system:String;
   cities2: City[];  
   englishFlag:boolean;
   chinessFlag:boolean;
@@ -56,6 +57,7 @@ export class ZebraPdfPrintLabels implements OnInit{
 
   ngOnInit() {
       this.spinner.show();
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;

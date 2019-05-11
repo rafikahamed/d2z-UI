@@ -1,9 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { LoginService } from 'app/d2z/service/login.service';
-import {SelectItem} from 'primeng/api';
 declare var $: any;
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -31,6 +28,7 @@ export class ZebraDelete implements OnInit{
   private rowData: any[];
   private defaultColDef;
   file:File;
+  system:String;
   cities2: City[];  
   user_Id: String;
   constructor(
@@ -55,6 +53,7 @@ export class ZebraDelete implements OnInit{
 
   ngOnInit() {
       this.spinner.show();
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id= this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
@@ -386,7 +385,7 @@ export class ZebraDelete implements OnInit{
           setTimeout(() => { this.spinner.hide() }, 5000);
         })
       }else{
-          this.errorMsg = this.englishFlag ? "**Please select the below records to delete the entry into D2Z system" : '**请选择以下记录以删除进入D2Z系统的条目';
+          this.errorMsg = this.englishFlag ? "**Please select the below records to delete the entry into system" : '**请选择以下记录以删除进入D2Z系统的条目';
       } 
   } 
 

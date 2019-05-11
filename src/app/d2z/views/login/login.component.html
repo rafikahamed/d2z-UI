@@ -1,0 +1,55 @@
+<div class="container">
+        <div class="card card-container">
+            
+            <h1 class="text"> Speed Couriers </h1>
+            
+            <img id="profile-img" 
+                 class="profile-img-card" 
+                 src="../../../../assets/img/speed-courier.png"/>
+            
+            <p id="profile-name" class="profile-name-card">
+            </p>
+
+            <form class="form-signin" [formGroup]="loginForm">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="text" 
+                        class="fa fa-home"
+                        formControlName="userName"
+                        id="inputEmail" 
+                        class="form-control" 
+                        placeholder="User Name" 
+                        required>
+                <input type="password" 
+                        id="inputPassword" 
+                        formControlName="passWord"
+                        class="form-control" 
+                        placeholder="Password" 
+                        required>
+               
+                <button 
+                        class="btn btn-lg btn-primary btn-block btn-signin" 
+                        type="submit"
+                        (click)="login()"
+                        style="margin-top:20px; margin-bottom:20px">
+                        Sign in
+                </button>
+                
+            </form>
+
+            <ngx-spinner
+                    bdColor="rgba(51,51,51,0.8)"
+                    size="medium"
+                    color="#fff"
+                    loadingText="Loading..."
+                    type="ball-clip-rotate-multiple">
+            </ngx-spinner>
+
+            <div>
+                    <p class="err_msg">{{errorMsg}}</p>
+            </div>
+           
+            <a class="forgot-password">
+                *Forgot password, Please send email to Us
+            </a>
+        </div>
+    </div>

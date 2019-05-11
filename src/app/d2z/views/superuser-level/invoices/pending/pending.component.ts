@@ -36,7 +36,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   private rowDataNonD2zPending: any[];
   private rowDataNonD2zApproved: any[];
   private invoiceDownloadList: any[];
-  
+  system: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService
@@ -130,6 +130,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.spinner.show();
     this.invoiceApproveFlag = false;

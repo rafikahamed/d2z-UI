@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
+import { Component, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 declare var $: any;
@@ -24,6 +24,7 @@ export class ManifestComponent implements OnInit{
   private rowData: any[];
   private defaultColDef;
   file:File;
+  system: String;
   cities2: City[];
   englishFlag:boolean;
   chinessFlag:boolean;
@@ -52,6 +53,7 @@ export class ManifestComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
@@ -353,7 +355,7 @@ export class ManifestComponent implements OnInit{
     }
     if(selectedRows.length == 0){
       if(this.englishFlag){
-          this.errorMsg = "**Please select the below records to update the manifest entry into D2Z system";
+          this.errorMsg = "**Please select the below records to update the manifest entry into the system";
       }else if(this.chinessFlag){
           this.errorMsg = "**请选择以下记录以将清单条目更新到D2Z系统";
       }

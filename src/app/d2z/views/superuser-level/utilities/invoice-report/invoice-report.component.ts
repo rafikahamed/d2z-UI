@@ -55,6 +55,7 @@ export class SuperUserInvoiceComponent implements OnInit{
   selectedExportType: dropdownTemplate;
   shipmentAllocateForm: FormGroup;
   exportFileType: String;
+  system: String;
   constructor(
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
@@ -725,6 +726,7 @@ export class SuperUserInvoiceComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.childmenu = false;
       this.childmenuTwo = false;
       this.childmenuThree = false;

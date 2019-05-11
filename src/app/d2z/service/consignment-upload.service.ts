@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
-const apiName = document.location.hostname == "www.speedcouriers.com.au" ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
-//const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
+//  const baseUrl = "https://"+hostname+"/v1/"+apiName;
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 //const baseUrl = "http://"+hostname+":8080/v1/d2z";
 
 @Injectable()
@@ -35,10 +35,7 @@ export class ConsigmentUploadService implements OnInit{
   constructor(  
       private http: HttpClient, 
       private router: Router
-  ){
-    console.log("API Name --->"+apiName);
-    console.log("hostname --->"+hostname);
-  }
+  ){}
 
   versionFlag(message) {
     this.messageSource.next(message)

@@ -32,6 +32,7 @@ export class AllocateShipmentComponent implements OnInit{
   successMsg: String;
   userName: String;
   role_id: String;
+  system: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -191,6 +192,7 @@ export class AllocateShipmentComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.getLoginDetails();
       this.userId = this.consigmentUploadService.userMessage.user_id;

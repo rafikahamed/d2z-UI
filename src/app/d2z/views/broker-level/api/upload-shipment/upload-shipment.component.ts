@@ -25,6 +25,7 @@ export class APIUploadShipmentComponent implements OnInit{
   show: Boolean;
   successMsg: String;
   userName: String;
+  system: String;
   role_id: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
@@ -67,6 +68,7 @@ export class APIUploadShipmentComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.getLoginDetails();
   };
 

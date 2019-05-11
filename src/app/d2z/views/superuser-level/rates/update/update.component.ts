@@ -48,6 +48,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
   private rowData: any[];
   private defaultColDef;
   file:File;
+  system: String;
 
   constructor(
     public consignmenrServices: ConsigmentUploadService,
@@ -127,6 +128,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.spinner.show();
     this.consignmenrServices.brokerlist( (resp) => {

@@ -23,6 +23,7 @@ export class AddClientComponent implements OnInit{
       show: Boolean;
       userName: String;
       role_id: String;
+      system: String;
       directCategories : City[];
       originCategories: City[];
       constructor(
@@ -57,6 +58,7 @@ export class AddClientComponent implements OnInit{
   }
 
   ngOnInit(){
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     for (var i = 0; i < this.consignmenrServices.userMessage.serviceType.length; i++) {
       var service_type = this.consignmenrServices.userMessage.serviceType[i];
       if(service_type === 'UnTracked'){

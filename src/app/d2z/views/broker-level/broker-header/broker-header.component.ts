@@ -20,7 +20,7 @@ export class BrokerHeaderComponent implements OnInit {
   englishFlag:boolean;
   chinessFlag:boolean;
   userName: String;
-
+  pageSwitch: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private _compiler: Compiler
@@ -29,6 +29,8 @@ export class BrokerHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageSwitch = document.location.hostname.includes("speedcouriers.com.au") == true ? "/login" :"/home";
+    console.log(this.pageSwitch);
     this.userName =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';
     var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
     this.englishFlag = lanObject.englishFlag;

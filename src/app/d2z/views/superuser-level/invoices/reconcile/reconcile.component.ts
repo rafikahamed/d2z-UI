@@ -56,6 +56,7 @@ export class SuperUserReconcileComponent implements OnInit {
   private rowDataNonD2zSupplier1: any[];
   private rowDataNonD2zSupplier2: any[];
   file:File;
+  system: String;
   public supplierOneList = [];
   public supplierTwoList = [];
   public fastWatStarTrackList = [];
@@ -205,6 +206,7 @@ export class SuperUserReconcileComponent implements OnInit {
   };
  
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.suplier1Flag =true;
     this.suplier2Flag =false;

@@ -1,6 +1,4 @@
 import { Component, AfterContentChecked, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { GridOptions } from "ag-grid";
 import * as XLSX from 'xlsx';
@@ -28,7 +26,7 @@ export class SuperUserNotBilledComponent implements OnInit {
   private notBilledList : any[];
   private notBilledNonD2zList : any [];
   private defaultColDef;
-
+  system: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService
@@ -113,6 +111,7 @@ export class SuperUserNotBilledComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.spinner.show();
     this.consigmentUploadService.notBilledData((resp) => {

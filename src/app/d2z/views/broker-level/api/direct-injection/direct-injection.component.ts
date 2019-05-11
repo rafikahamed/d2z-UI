@@ -27,6 +27,7 @@ export class DirectInjectionComponent implements OnInit{
   userName: String;
   role_id: String;
   successMsg: String;
+  system: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -92,6 +93,7 @@ export class DirectInjectionComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.getLoginDetails();
       this.trackingDataService.companyList( this.consigmentUploadService.userMessage.user_id, (resp) => {
