@@ -1,6 +1,4 @@
 import { Component, AfterContentChecked, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { GridOptions } from "ag-grid";
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -34,6 +32,7 @@ export class SuperUserNonD2zClientComponent implements OnInit {
   private rowGroupPanelShow;
   private defaultColDef;
   file:File;
+  system: String;
   private gridOptions: GridOptions;
   private rowData: any[];
   public nonD2ZList = [];
@@ -120,6 +119,7 @@ export class SuperUserNonD2zClientComponent implements OnInit {
   };
  
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.spinner.show();
     this.consigmentUploadService.fetchNonBrokerUserName((resp) => {
@@ -232,7 +232,7 @@ export class SuperUserNonD2zClientComponent implements OnInit {
           setTimeout(() => { this.spinner.hide() }, 5000);
         })
     }else{
-      this.errorMsg = '**Please select the below records to upload the Non D2Z Client data';
+      this.errorMsg = '**Please select the below records to upload the data';
     }
   };
 

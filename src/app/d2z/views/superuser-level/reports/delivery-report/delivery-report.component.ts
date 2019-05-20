@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { GridOptions } from "ag-grid";
@@ -16,12 +15,12 @@ interface dropdownTemplate {
 }
 
 @Component({
-  selector: 'hms-invoice-report',
-  templateUrl: './invoice-report.component.html',
-  styleUrls: ['./invoice-report.component.css']
+  selector: 'hms-delivery-report',
+  templateUrl: './delivery-report.component.html',
+  styleUrls: ['./delivery-report.component.css']
 })
 
-export class SuperUserInvoiceComponent implements OnInit{
+export class SuperUserDeliveryReportComponent implements OnInit{
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -41,6 +40,7 @@ export class SuperUserInvoiceComponent implements OnInit{
   toDate: String;
   userName: String;
   role_id: String;
+  system: String;
   private gridOptionsConsignment: GridOptions;
   private gridOptionsDeleted: GridOptions;
   private gridOptionsShipment: GridOptions;
@@ -55,7 +55,6 @@ export class SuperUserInvoiceComponent implements OnInit{
   selectedExportType: dropdownTemplate;
   shipmentAllocateForm: FormGroup;
   exportFileType: String;
-  system: String;
   constructor(
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
@@ -726,7 +725,7 @@ export class SuperUserInvoiceComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.childmenu = false;
       this.childmenuTwo = false;
       this.childmenuThree = false;

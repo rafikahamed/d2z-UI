@@ -15,6 +15,7 @@ export class SuperUserMainComponent implements OnInit {
 
   userName: String;
   role_id: String;
+  system: String;
   constructor(
     public consignmenrServices: ConsigmentUploadService
   ){
@@ -22,6 +23,7 @@ export class SuperUserMainComponent implements OnInit {
 
   ngOnInit() {
     this.getLoginDetails();
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
   }
 
   getLoginDetails(){

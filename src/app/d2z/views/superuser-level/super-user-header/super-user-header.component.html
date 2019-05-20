@@ -21,44 +21,45 @@
                                 <li><a routerLink="/superuser-main">Information</a></li>
                                 </ul>
                             </li>
-                            <li><a (click)="super_user_zebra(arrow)"><i class="fa fa-user-plus"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="client"><a (click)="super_user_zebra(arrow)"><i class="fa fa-user-plus"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTwo ? 'block' : 'none'}">
-                                <li><a routerLink="/superuser/add-client">Add Client</a></li>
-                                <li><a routerLink="/superuser/update-client">Update Client</a></li>
+                                <li *ngIf="clientAdd"><a routerLink="/superuser/add-client">Add Client</a></li>
+                                <li *ngIf="clientUpdate"><a routerLink="/superuser/update-client">Update Client</a></li>
                                 </ul>
                             </li>
-                            <li><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="tracking"><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperThree ? 'block' : 'none'}">
-                                <li><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
-                                <li><a routerLink="/superuser/arrival-report">Arrival Upload</a></li>
+                                <li *ngIf="trackingUpload"><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
+                                <li *ngIf="trackingArrival"><a routerLink="/superuser/arrival-report">Arrival Upload</a></li>
                                  <!--<li><a routerLink="/superuser/invoice-report">Export Report</a></li>
                                <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
-                            <li><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFour? 'block' : 'none'}">
-                                <li><a routerLink="/superuser/rates/add">Add</a></li>
-                                <li><a routerLink="/superuser/rates/update">Update</a></li>
-                                <li><a routerLink="/superuser/rates/d2z-rates">D2Z Rates</a></li>
+                                <li *ngIf="ratesAdd"><a routerLink="/superuser/rates/add">Add</a></li>
+                                <li *ngIf="ratesUpdate"><a routerLink="/superuser/rates/update">Update</a></li>
+                                <li *ngIf="ratesD2z"><a routerLink="/superuser/rates/d2z-rates">D2Z Rates</a></li>
                                 </ul>
                             </li>
-                            <li><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="invoices"><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFive ? 'block' : 'none'}">
-                                <li><a routerLink="/superuser/invoices/pending">Pending</a></li>
-                                <li><a routerLink="/superuser/invoices/reconcile">Reconcile</a></li>
-                                <li><a routerLink="/superuser/invoice/not-billed">Not Billed</a></li>
-                                <li><a routerLink="/superuser/invoice/non-d2zClient">Non D2Z-Client</a></li>
+                                <li *ngIf="invoicePending"><a routerLink="/superuser/invoices/pending">Pending</a></li>
+                                <li *ngIf="invoiceReconcile"><a routerLink="/superuser/invoices/reconcile">Reconcile</a></li>
+                                <li *ngIf="invoiceNotBilled"><a routerLink="/superuser/invoice/not-billed">Not Billed</a></li>
+                                <li *ngIf="invoiceNonD2z"><a routerLink="/superuser/invoice/non-d2zClient">Non D2Z-Client</a></li>
                                 </ul>
                             </li>
-                             <li><a (click)="super_user_reports(arrow)"><i class="fa fa-file"></i> REPORTS <span class="fa fa-chevron-down" #arrow></span></a>
+                             <li *ngIf="reports"><a (click)="super_user_reports(arrow)"><i class="fa fa-file"></i> REPORTS <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperSix ? 'block' : 'none'}">
-                               
-                                <li><a routerLink="/superuser/invoice-report">Shipment Summary</a></li>
+                                <li *ngIf="reportShipment"><a routerLink="/superuser/invoice-report">Shipment Summary</a></li>
+                                <li *ngIf="reportDelivery"><a routerLink="/superuser/reports/delivery-report">Delivery Report</a></li>
+                                <li *ngIf="reportLog"><a>API Log Report</a></li>
                                <!-- <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
                             <li>
-                              <a routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
+                              <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
                           </li>
                         </ul>
                     </div>

@@ -25,6 +25,7 @@ export class BrokerPdfComponent implements OnInit{
   userName: String;
   role_id: String;
   userId: String;
+  system: String;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -198,6 +199,7 @@ export class BrokerPdfComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.getLoginDetails();
       this.userId = this.consigmentUploadService.userMessage.user_id;
@@ -335,7 +337,7 @@ export class BrokerPdfComponent implements OnInit{
           }, 5000);
         });
       }else{
-        this.errorMsg = "**Please select the below records to delete the entry into D2Z system";
+        this.errorMsg = "**Please select the below records to delete the entry into the system";
       } 
   } 
 

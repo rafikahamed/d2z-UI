@@ -31,7 +31,7 @@ export class SuperUserD2ZRatesComponent implements OnInit {
   mlidDropdown: dropdownTemplate[];
   selectedMlid: dropdownTemplate;
   mlid: String;
-
+  system: String;
   errorMsg: String;
   successMsg:  String;
   arrayBuffer:any;
@@ -120,6 +120,7 @@ export class SuperUserD2ZRatesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.spinner.show();
     this.consignmenrServices.mlidList( (resp) => {

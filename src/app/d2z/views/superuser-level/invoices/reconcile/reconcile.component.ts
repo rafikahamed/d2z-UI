@@ -24,7 +24,9 @@ export class SuperUserReconcileComponent implements OnInit {
   arrayBuffer:any;
   userName: String;
   role_id: String;
-  errorMsg:String;
+  errorMsg: String;
+  errorDetails1: String;
+  errorDetails: String;
   supplierType: String;
   nonD2zSupplierType: String;
   show: Boolean;
@@ -54,6 +56,7 @@ export class SuperUserReconcileComponent implements OnInit {
   private rowDataNonD2zSupplier1: any[];
   private rowDataNonD2zSupplier2: any[];
   file:File;
+  system: String;
   public supplierOneList = [];
   public supplierTwoList = [];
   public fastWatStarTrackList = [];
@@ -203,6 +206,7 @@ export class SuperUserReconcileComponent implements OnInit {
   };
  
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.suplier1Flag =true;
     this.suplier2Flag =false;
@@ -345,35 +349,97 @@ export class SuperUserReconcileComponent implements OnInit {
 
   uploadSupplier1Data(){
     this.errorMsg = null;
+    this.successMsg = null;
+    this.errorDetails1 = null;
+    this.show = false;
     var supplier1Data = [];
     supplier1Data = this.gridOptionsSuplier1.api.getSelectedRows();
     if(supplier1Data.length > 0){
       this.spinner.show();
       this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
-          $('#reconcileModal').modal('show');  
-          this.downloadReconcile = true;
-          setTimeout(() => { this.spinner.hide() }, 5000);
+          if(resp.error){
+            this.errorMsg = resp.error.errorMessage;
+            this.errorDetails = resp.error.errorDetails;
+            this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
+            this.show = true;
+            $('#reconcileModal').modal('show');  
+          }else{
+            this.successMsg = resp.message;
+            this.downloadReconcile = true;
+            $('#reconcileModal').modal('show');  
+          }
         })
     }else{
       this.errorMsg = '**Please select the below records to upload the reconcile data';
     }
   };
 
+  downLoadReconcile(){
+    var fileName = "Reference Number Details";
+    if(this.errorMsg == 'Reference Number must be unique'){
+      var options = { 
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        showLabels: true, 
+        useBom: true,
+        headers: ['Reference Number']
+      }
+    }else if(this.errorMsg == 'Article Id must be unique'){
+      var options = { 
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        showLabels: true, 
+        useBom: true,
+        headers: ['Article Id']
+      }
+    };
+    var refernceNumberList = [];
+    let referenceNumber = 'referenceNumber';
+    let articleId = 'articleId';
+    for(var refNum in this.errorDetails){
+        var data = this.errorDetails[refNum];
+          if(this.errorMsg == 'Reference Number must be unique'){
+              var importObj = (
+                importObj={}, 
+                importObj[referenceNumber]= data, importObj
+              )
+          }else if(this.errorMsg == 'Article Id must be unique'){
+            var importObj = (
+              importObj={}, 
+              importObj[articleId]= data, importObj
+            )
+          }
+        
+        refernceNumberList.push(importObj)
+    };
+    new Angular2Csv(refernceNumberList, fileName, options);
+  };
+
   uploadSupplier2Data(){
     this.errorMsg = null;
+    this.successMsg = null;
+    this.errorDetails1 = null;
+    this.show = false;
     var supplier2Data = [];
     supplier2Data = this.gridOptionsSuplier2.api.getSelectedRows();
     if(supplier2Data.length > 0 ){
       this.spinner.show();
       this.consigmentUploadService.reconcileData(supplier2Data, (resp) => {
         this.spinner.hide();
-        this.successMsg = resp.message;
-        $('#reconcileModal').modal('show');  
-        //this.downloadReconcileReport(resp);
-        this.downloadReconcile = true;
-        setTimeout(() => { this.spinner.hide() }, 5000);
+        if(resp.error){
+          this.errorMsg = resp.error.errorMessage;
+          this.errorDetails = resp.error.errorDetails;
+          this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
+          this.show = true;
+          $('#reconcileModal').modal('show');  
+        }else{
+          this.successMsg = resp.message;
+          this.downloadReconcile = true;
+          $('#reconcileModal').modal('show'); 
+        }
       })
     }else{
       this.errorMsg = '**Please select the below records to upload the reconcile data';
@@ -468,6 +534,7 @@ export class SuperUserReconcileComponent implements OnInit {
   tabChanged(event){
     this.errorMsg = null;
     this.successMsg = null;
+    this.errorDetails1 = null;
     if(event.index == 0){
       this.suplier1Flag = true;
       this.suplier2Flag = false;
@@ -600,13 +667,19 @@ export class SuperUserReconcileComponent implements OnInit {
   supplierNonD2zClear(){
     $("#reconcileNonD2zCntrl").val('');
     this.rowDataFastWay = [];
+    this.rowDataNonD2zSupplier1 = [];
+    this.rowDataNonD2zSupplier2 = [];
+    this.show = false;
+    this.errorDetails1 = null;
     this.errorMsg = null;
     this.successMsg = null;
   };
 
   uploadFastWayData(){
     this.errorMsg = null;
+    this.show = false;
     this.successMsg = null;
+    this.errorDetails1 = null;
     var fastwayData = [];
     if(this.pcaFlag){
       fastwayData = this.gridOptionsFastWay.api.getSelectedRows();
@@ -619,10 +692,17 @@ export class SuperUserReconcileComponent implements OnInit {
       this.spinner.show();
       this.consigmentUploadService.reconcileNonD2zData(fastwayData, (resp) => {
         this.spinner.hide();
-        this.successMsg = resp.message;
-        $('#reconcileModal').modal('show');  
-        this.downloadNonD2zReconcile = true;
-        setTimeout(() => { this.spinner.hide() }, 5000);
+        if(resp.error){
+          this.errorMsg = resp.error.errorMessage;
+          this.errorDetails = resp.error.errorDetails;
+          this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
+          this.show = true;
+          $('#reconcileModal').modal('show'); 
+        }else{
+          this.successMsg = resp.message;
+          $('#reconcileModal').modal('show'); 
+          this.downloadNonD2zReconcile = true;
+        }
       })
     }else{
       this.errorMsg = '**Please select the below records to upload the reconcile data';

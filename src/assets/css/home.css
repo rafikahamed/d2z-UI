@@ -2095,6 +2095,7 @@ border: 1px solid #eee;
 }
 #footer .copyright p{
 	color:#fff;
+	margin-top: 10px;
 }
 #footer .copyright p span{
 	margin:0 5px;
@@ -4093,4 +4094,8 @@ ul.top_profiles li:nth-child(odd){
 	text-decoration: none !important;
 	background-color:transparent !important;
 	
+}
+
+p {
+    margin: 0 0 5px !important;
 }

@@ -28,6 +28,7 @@ export class DownloadShipmentComponent implements OnInit{
   userName: String;
   role_id: String;
   userId: String;
+  system: String;
   private gridOptions: GridOptions;
   private gridOptionsTemplate1: GridOptions;
   private autoGroupColumnDef;
@@ -372,6 +373,7 @@ export class DownloadShipmentComponent implements OnInit{
   }
 
   ngOnInit() {
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.template1 = true;
       this.getLoginDetails();

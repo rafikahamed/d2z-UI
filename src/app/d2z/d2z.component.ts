@@ -11,7 +11,9 @@ export class d2zComponent implements OnInit{
     private userIdle: UserIdleService,
     private spinner: NgxSpinnerService
   ) {
-
+// console.log("document.location.hostname : "+document.location.hostname);
+// console.log("document.location.host : "+document.location.host);
+// console.log("document.location.pathname : "+document.location.pathname);
     this.userIdle.startWatching();
 
     this.userIdle.onTimerStart().subscribe((count) => {

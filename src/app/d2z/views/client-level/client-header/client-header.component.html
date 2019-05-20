@@ -13,7 +13,6 @@
           </div>
         </div>
         
-        
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="margin-top: -30px">
             <div class="menu_section">
                 <ul class="nav side-menu">
@@ -88,8 +87,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a *ngIf="englishFlag" routerLink="/home"><i class="fa fa-sign-out"></i> Logout</a>
-                    <a *ngIf="chinessFlag" routerLink="/home"><i class="fa fa-sign-out"></i> 登出</a>
+                    <a *ngIf="englishFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
+                    <a *ngIf="chinessFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> 登出</a>
                 </li>
                 
                 </ul>

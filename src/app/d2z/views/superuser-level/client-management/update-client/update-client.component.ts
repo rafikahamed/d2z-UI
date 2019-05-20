@@ -41,6 +41,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       errorMsg: string;
       userName: String;
       role_id: String;
+      system: String;
       successMsg: String;
       companyName: String;
       brokerAddClientForm: FormGroup;
@@ -79,6 +80,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
   }
 
   ngOnInit(){
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.childmenuTwo = false;
     this.childmenuThree = false;
     this.childmenuFour  = false;

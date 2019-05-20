@@ -1,7 +1,5 @@
 import { Component, AfterContentChecked, OnInit, Compiler } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginService } from 'app/d2z/service/login.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 declare var $: any;
 declare const require: any;
@@ -15,6 +13,8 @@ declare const require: any;
 export class BrokerMainComponent implements OnInit {
   userName: String;
   role_id: String;
+  system: String;
+
   constructor(
     public consignmenrServices: ConsigmentUploadService,
     private _compiler: Compiler
@@ -24,6 +24,7 @@ export class BrokerMainComponent implements OnInit {
 
   ngOnInit() {
     this.getLoginDetails();
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
   };
 
   getLoginDetails(){

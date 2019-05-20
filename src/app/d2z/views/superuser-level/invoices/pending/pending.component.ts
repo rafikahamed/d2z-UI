@@ -36,7 +36,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   private rowDataNonD2zPending: any[];
   private rowDataNonD2zApproved: any[];
   private invoiceDownloadList: any[];
-  
+  system: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService
@@ -130,6 +130,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
     this.getLoginDetails();
     this.spinner.show();
     this.invoiceApproveFlag = false;
@@ -407,22 +408,22 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         let fuelSurcharge = 'fuelSurcharge';
         let total = 'total';
         let serviceType = 'serviceType';
-        
+        console.log(downloadInvoiceApprovedData);
         for(var downloadApproveInvoice in downloadInvoiceApprovedData){
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
-            var invoiceApproveObj = (
-              invoiceApproveObj={}, 
-              invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
-              invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
-              invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
-              invoiceApproveObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveObj,
-              invoiceApproveObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveObj,
-              invoiceApproveObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveObj,
-              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
-              invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
-              invoiceApproveObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : ''
+            var invoiceApproveNonD2zObj = (
+              invoiceApproveNonD2zObj={}, 
+              invoiceApproveNonD2zObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[weight]= invoiceApprovedData.weight != null ? invoiceApprovedData.weight : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[postage]= invoiceApprovedData.postage != null ? invoiceApprovedData.postage : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[fuelSurcharge]= invoiceApprovedData.fuelsurcharge != null ? invoiceApprovedData.fuelsurcharge : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveNonD2zObj,
+              invoiceApproveNonD2zObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : '', invoiceApproveNonD2zObj
             );
-            invoicePendingDownloadFinalList.push(invoiceApproveObj);
+            invoicePendingDownloadFinalList.push(invoiceApproveNonD2zObj);
          };
         var currentTime = new Date();
         var fileName = '';
@@ -536,7 +537,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         this.spinner.hide();
         this.rowDataApproved = resp;
         if(!resp){
-            this.errorMsg = "Invalid Credentials!";
+            this.errorMsg = "Something Went wrong";
         }  
       })
     }else if(event.index == 2){
@@ -546,7 +547,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         this.spinner.hide();
         this.rowDataNonD2zPending = resp;
         if(!resp){
-            this.errorMsg = "Invalid Credentials!";
+            this.errorMsg = "Something Went wrong!";
         }  
       })
     }else if(event.index == 3){
@@ -556,11 +557,71 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         this.spinner.hide();
         this.rowDataNonD2zApproved = resp;
         if(!resp){
-            this.errorMsg = "Invalid Credentials!";
+            this.errorMsg = "Something Went wrong!";
         }  
       })
     }
-  }
+  };
+
+  clearInvoiceD2zPending(){
+    this.rowData = [];
+    this.invoiceApproveFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoicePendingData((resp) => {
+      this.spinner.hide();
+      this.rowData = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
+
+  clearInvoiceD2zApproved(){
+    this.rowDataApproved = [];
+    this.invoiceBilledFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoiceApprovedData((resp) => {
+      this.spinner.hide();
+      this.rowDataApproved = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
+
+  clearInvoiceNDPending(){
+    this.rowDataNonD2zPending = [];
+    this.nonD2zInvoiceApproveFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoiceNonD2zPendingData((resp) => {
+      this.spinner.hide();
+      this.rowDataNonD2zPending = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
+
+  clearInvoiceNDApproved(){
+    this.rowDataNonD2zApproved = [];
+    this.nonD2zInvoiceBilledFlag = false;
+    this.spinner.show();
+    this.successMsg = null;
+    this.errorMsg = null;
+    this.consigmentUploadService.invoiceNonD2zApprovedData((resp) => {
+      this.spinner.hide();
+      this.rowDataNonD2zApproved = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong!";
+      }  
+    })
+  };
 
 }
 

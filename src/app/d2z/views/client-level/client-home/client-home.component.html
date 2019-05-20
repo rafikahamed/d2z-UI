@@ -4,7 +4,7 @@
 
           <client-header > </client-header>
     
-          <div class="right_col" role="main">
+          <div class="right_col" style="margin-left:130px" role="main">
             <div class="row tile_count">
               <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                 <span class="count_top"><i class="fa fa-user"></i> Consignments created </span>
@@ -28,6 +28,14 @@
               </div> -->
             </div>
           </div>
+
+          <ngx-spinner
+                bdColor="rgba(51,51,51,0.8)"
+                size="medium"
+                color="#fff"
+                loadingText="Loading..."
+                type="ball-circus">
+          </ngx-spinner>
 
       </div>
     </div>
