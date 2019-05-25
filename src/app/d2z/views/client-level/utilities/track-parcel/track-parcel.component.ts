@@ -91,7 +91,7 @@ export class UtilitiesTrackParcel implements OnInit{
                 importObj={}, 
                 importObj[ReferenceNumber]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', importObj,
                 importObj[BarCodeLabelNumber]= adminObj.barcodelabelNumber != null ? adminObj.barcodelabelNumber: '', importObj,
-                importObj[EventTime]= trackdata.trackEventDateOccured != null ? trackdata.trackEventDateOccured: '', importObj,
+                importObj[EventTime]= trackdata.trackEventDateOccured != null ? "'"+trackdata.trackEventDateOccured+"'": '', importObj,
                 importObj[EventName]= trackdata.eventDetails != null ? trackdata.eventDetails: '', importObj);
                 trackingList.push(importObj)
                 }
