@@ -32,7 +32,7 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px;
+    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
 }
 
 .generate_pdf_btn{
@@ -40,7 +40,7 @@ body{
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px;
+    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important;
 }
 
 .left_col{

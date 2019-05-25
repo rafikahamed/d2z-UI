@@ -32,11 +32,11 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px;
+    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
 }
 
 .print_label_btn{
-    background-color: #16A085; float:right; margin-right:20px; margin-top:5px; 
+    background-color: #16A085; float:right; margin-right:20px !important; margin-top:5px !important; 
 }
 
 .err_msg{

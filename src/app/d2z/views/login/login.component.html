@@ -1,7 +1,8 @@
 <div class="container">
         <div class="card card-container">
             
-            <h1 class="text"> Speed Couriers </h1>
+            <h1 class="text">Speed Couriers/速度快递员</h1>
+                <h1 class="chiness-text">  </h1>
             
             <img id="profile-img" 
                  class="profile-img-card" 
@@ -17,13 +18,13 @@
                         formControlName="userName"
                         id="inputEmail" 
                         class="form-control" 
-                        placeholder="User Name" 
+                        placeholder="User Name / 用户名" 
                         required>
                 <input type="password" 
                         id="inputPassword" 
                         formControlName="passWord"
                         class="form-control" 
-                        placeholder="Password" 
+                        placeholder="Password / 密码" 
                         required>
                
                 <button 
@@ -31,7 +32,7 @@
                         type="submit"
                         (click)="login()"
                         style="margin-top:20px; margin-bottom:20px">
-                        Sign in
+                        Sign in / 登入
                 </button>
                 
             </form>
@@ -48,8 +49,16 @@
                     <p class="err_msg">{{errorMsg}}</p>
             </div>
            
+            
             <a class="forgot-password">
                 *Forgot password, Please send email to Us
             </a>
+
+            <div style="margin-top:15px">
+                <a class="forgot-password">
+                    *忘记密码，请发邮件给我们
+                </a>
+            </div>
+            
         </div>
     </div>

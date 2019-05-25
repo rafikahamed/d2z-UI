@@ -5,9 +5,10 @@ import 'rxjs/add/operator/map';
 
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
-// const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 // const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+// const baseUrl = "http://52.65.135.232:8080/v1/d2z";
 
 @Injectable()
 export class TrackingDataService implements OnInit{
@@ -324,6 +325,20 @@ exportNonShipment( fromDate, toDate, callback): any {
       callback(error);
     });
   };
+
+  fetchApiLogReport( client, fromDate, toDate, callback): any {
+    this.http.get(baseUrl+'/superUser-level/d2z-apiLogs', {
+      params: { client: client, fromDate: fromDate, toDate: toDate }
+    }).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
 
 }
 

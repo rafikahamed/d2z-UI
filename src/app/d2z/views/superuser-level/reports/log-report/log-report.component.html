@@ -1,0 +1,246 @@
+
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+      <div class="main_container">
+
+        <super-user-header></super-user-header>
+
+        <div class="right_col" role="main">
+              <div class="row tile_count">
+                  <div class="page-title">
+                        <div class="title_left">
+                          <h3 style="margin-left: 10px;"> Utilities / API Log Report </h3>
+                        </div>
+                  </div>
+              </div>
+              
+              <div class="delete_search">
+                  <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Client Type : </p>
+                            <div>
+                                  <p-dropdown [options]="clientDropdown" 
+                                                [(ngModel)]="selectedClientType" 
+                                                optionLabel="name" 
+                                                [style]="{'width':'100%'}"
+                                                (onChange)="onClientTypeChange($event)">
+                                  </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <p > From Date : </p>
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker" 
+                                            placeholder="Choose a date" 
+                                            (dateChange)="FromDateChange($event)">
+                                <mat-datepicker-toggle
+                                             matSuffix 
+                                             [for]="picker">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3">
+                            <p > To Date : </p>
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="pickerTo" 
+                                                placeholder="Choose a date" 
+                                                (dateChange)="ToDateChange($event)">
+                                <mat-datepicker-toggle 
+                                              matSuffix 
+                                              [for]="pickerTo">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerTo></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3" style="margin-top:30px">
+                             <button type="button" 
+                                     class="btn btn-info" 
+                                     (click)="logSearch()"
+                                    style="background-color: #16A085; margin-left:30px">
+                                    <span class="glyphicon glyphicon-search"></span>
+                              Search
+                            </button>
+                        </div>
+
+                    </div>
+                  </div>
+
+              </div>
+
+              <div class="delete_panel">
+                  <ngx-spinner
+                      bdColor="rgba(51,51,51,0.8)"
+                      size="medium"
+                      color="#fff"
+                      loadingText="Loading..."
+                      type="ball-clip-rotate-multiple">
+                  </ngx-spinner>
+
+                  <div>
+                    <p class="success_msg">{{successMsg}}</p>
+                  </div>
+  
+                  <div>
+                    <p class="err_msg">{{errorMsg}}</p>
+                  </div>
+                  
+                  <button *ngIf="etowerFlag" sitype="button" class="btn btn-info" 
+                                (click)="downloadeTowerData()"
+                                style="background-color: #16A085; float:right; margin-right:20px">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Download eTower Data
+                  </button>
+
+                  <button *ngIf="auPostFlag" type="button" class="btn btn-info" 
+                                (click)="downloadAuPostData()"
+                                style="background-color: #16A085; float:right; margin-right:20px">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Download AU Post Data
+                  </button>
+
+                  <button *ngIf="fdmFlag" type="button" class="btn btn-info" 
+                                (click)="downloadFdmData()"
+                                style="background-color: #16A085; float:right; margin-right:20px">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Download FDM Data
+                  </button>
+
+                  <button *ngIf="freipostFlag" type="button" class="btn btn-info" 
+                                (click)="downloadFreipostData()"
+                                style="background-color: #16A085; float:right; margin-right:20px">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Download Freipost Data
+                  </button>
+
+                  <div *ngIf="etowerFlag" style="padding:20px; margin-top:30px">
+                    <p> Please select the below records to download the Etower Details </p>
+                      <div>
+                          <ag-grid-angular 
+                                    #agGrid style="width: 100%; height: 380px;" 
+                                    class="ag-theme-balham" 
+                                    [autoGroupColumnDef]="autoGroupColumnDef"
+                                    [rowData]="rowDataEtower"
+                                    [enableSorting]="true"
+                                    [enableFilter]="true"
+                                    [suppressRowClickSelection]="true"
+                                    [groupSelectsChildren]="true"
+                                    [debug]="true"
+                                    [rowSelection]="rowSelection"
+                                    [enableColResize]="true"
+                                    [rowGroupPanelShow]="rowGroupPanelShow"
+                                    [pivotPanelShow]="pivotPanelShow"
+                                    [enableRangeSelection]="true"
+                                    [pagination]="true"
+                                    [defaultColDef]="defaultColDef"
+                                    [gridOptions]="gridOptionsEtower" 
+                                    [pagination]="true"
+                                    (selectionChanged)="onEtowerChange($event)">
+                          </ag-grid-angular>
+                      </div>
+                  </div>
+
+                  <div *ngIf="auPostFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to download the AU Post Details </p>
+                        <div>
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 380px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowDataAUPost"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsAupost" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onAuPostChange($event)">
+                            </ag-grid-angular>
+                        </div>
+                  </div>
+
+                  <div *ngIf="fdmFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to download the FDM Details </p>
+                        <div>
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 380px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowDataFdm"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsFdm" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onFdmChange($event)">
+                            </ag-grid-angular>
+                        </div>
+                  </div>
+
+              <div *ngIf="freipostFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to download the Non Freipost Details </p>
+                        <div>
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 380px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowDataFreipost"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsFreipost" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onFreipostChange($event)">
+                            </ag-grid-angular>
+                        </div>
+                  </div>
+              </div>
+        </div>
+
+        <footer id="footer" class="wow fadeIn">
+            <div class="copyright">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="text">
+                        <p>&copy; Copyright 2018<span></span><a>{{system}}</a> (Distributor)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </footer>
+
+      </div>
+    </div>
+  </body>

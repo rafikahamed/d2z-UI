@@ -6,7 +6,7 @@ body, html {
 
 .err_msg{
     color: #db3030;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     margin-bottom: 15px;
 }
@@ -39,8 +39,8 @@ body, html {
 }
 
 .profile-img-card {
-    width: 96px;
-    height: 96px;
+    width: 230px;
+    height: 88px;
     margin: 0 auto 10px;
     display: block;
     -moz-border-radius: 50%;
@@ -133,12 +133,18 @@ body, html {
 }
 
 .text{
-    font-size: 36px;
+    font-size: 26px;
+    font-family: auto;
+    margin-top: 0px;
+    /* margin-left: 20px; */
+}
+
+.chiness-text{
+    font-size: 20px;
     font-family: auto;
     margin-top: 0px;
     margin-left: 35px;
 }
-
 
 .modal-backdrop.in{
     opacity: 0;

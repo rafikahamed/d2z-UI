@@ -10,7 +10,7 @@ import { HomeComponent } from 'app/d2z/views/home/home.component';
 import { LoginComponent } from 'app/d2z/views/login/login.component';
 import { ClientHomeComponent } from 'app/d2z/views/client-level/client-home/client-home.component';
 import { PolicyComponent } from 'app/d2z/views/policy/policy.component'
-import{ ServiceComponent } from 'app/d2z/views/service/service.component'
+import { ServiceComponent } from 'app/d2z/views/service/service.component'
 import { AboutComponent } from 'app/d2z/views/about/about.component'
 import { ContactComponent } from 'app/d2z/views/contact/contact.component'
 import { WhyChooseComponent } from 'app/d2z/views/whychoose/whychoose.component'
@@ -56,10 +56,10 @@ import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
-import { AuthGuard } from 'app/d2z/service/auth-guard.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { SuperUserInvoiceComponent } from 'app/d2z/views/superuser-level/utilities/invoice-report/invoice-report.component'
 import { SuperUserDeliveryReportComponent } from 'app/d2z/views/superuser-level/reports/delivery-report/delivery-report.component';
+import { SuperUserLogReportComponent } from 'app/d2z/views/superuser-level/reports/log-report/log-report.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -105,10 +105,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoice-report", component: SuperUserInvoiceComponent},
           { path: "superuser/etrack", component: EtowerTrackingComponent},
           { path: "policy", component: PolicyComponent},
-          {path: "contact",component: ContactComponent},
-          {path: "about",component: AboutComponent},
-          {path: "whychoose",component:WhyChooseComponent},
-          {path: "service", component : ServiceComponent},
+          { path: "contact",component: ContactComponent},
+          { path: "about",component: AboutComponent},
+          { path: "whychoose",component:WhyChooseComponent},
+          { path: "service", component : ServiceComponent},
           { path: "track-parcel", component: TrackParcelComponent},
           { path: "superuser/rates/add", component: SuperUserRatesAddComponent},
           { path: "superuser/rates/update", component: SuperUserRatesUpdateComponent},
@@ -117,7 +117,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoices/reconcile", component: SuperUserReconcileComponent},
           { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent},
           { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent},
-          { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent}
+          { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent},
+          { path: "superuser/reports/log-report", component: SuperUserLogReportComponent }
     ], { useHash: true }),
     UiModule
   ],
@@ -169,7 +170,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserNotBilledComponent,
     SuperUserNonD2zClientComponent,
     SuperUserDeliveryReportComponent,
-    LoginComponent
+    LoginComponent,
+    SuperUserLogReportComponent
   ],
   entryComponents: [],
   providers: [

@@ -13,13 +13,13 @@ body{
     padding: 20px;
     margin-bottom: 20px;
     padding-bottom: 50px;
-    width:90%;
+    width:96%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .delete_panel{
-    width: 90%; 
+    width: 96%; 
     border: 2px solid #ccc; 
     height: 600px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
@@ -28,11 +28,11 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px; margin-top: 10px;
+    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important; margin-top: 10px !important;
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px; margin-top: 10px;
+    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important; margin-top: 10px !important;
 }
 
 .h3, h3 {
