@@ -42,7 +42,7 @@ export class MLIDComponent implements OnInit {
     private spinner: NgxSpinnerService
   ){
    
-   this.errorMsgDownload = null;
+   
     this.successMsg = null;
   
    
@@ -140,7 +140,7 @@ fileReader.onload = (e) => {
     if(this.DownloadserviceType ==  undefined){
       this.errorMsg = "**Please select Service Type";
       }
-      if(this.errorMsgDownload == null){
+      if(this.errorMsg == null){
       this.spinner.show();
        var invoiceDownloadFinalList = [];
       this.consigmentUploadService.downloadMlidData(this.DownloadserviceType,  (resp) => {
@@ -214,10 +214,7 @@ $('#invoice').modal('show');
       }
           
     };
-  refresh()
-  {
-this.File 
-  };
+  
 
  addmlid(){
     this.spinner.show();
