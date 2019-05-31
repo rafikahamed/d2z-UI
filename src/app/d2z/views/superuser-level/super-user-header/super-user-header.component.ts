@@ -19,7 +19,9 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperFour: boolean;
   childmenuSuperFive: boolean;
   childmenuSuperSix:boolean;
+  childmenuSuperSeven:boolean;
   client: boolean;
+  mlid:boolean;
   clientAdd: boolean;
   clientUpdate: Boolean;
   tracking: boolean;
@@ -56,10 +58,12 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperFour = menuSelection.childmenuSuperFour;
     this.childmenuSuperFive = menuSelection.childmenuSuperFive;
     this.childmenuSuperSix = menuSelection.childmenuSuperSix;
+     this.childmenuSuperSeven = menuSelection.childmenuSuperSeven;
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
       this.clientAdd = true;
+      this.mlid = true;
       this.clientUpdate = true;
       this.tracking = true;
       this.trackingUpload = true;
@@ -135,6 +139,19 @@ export class SuperUserHeaderComponent implements OnInit {
     menuSuperObj.childmenuSuperFour = !this.childmenuSuperFour;
     this.consigmentUploadService.menuSuperSelection(menuSuperObj);
     this.childmenuSuperFour = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperFour;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+super_user_mlid(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperSeven = !this.childmenuSuperSeven;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperSeven = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperSeven;
     if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

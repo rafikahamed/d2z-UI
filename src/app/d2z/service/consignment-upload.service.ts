@@ -30,7 +30,7 @@ export class ConsigmentUploadService implements OnInit{
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
-                        "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true});
+                        "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true});
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
 
   constructor(  
@@ -263,8 +263,11 @@ export class ConsigmentUploadService implements OnInit{
     });
   }
 
-  brokerlist(callback): any {
-    this.http.get(baseUrl+'/superUser-level/brokerList').subscribe((resp:userMessage) => {
+ 
+deleteMlid (service, callback): any {
+    this.http.get(baseUrl+'/superUser-level/deleteMLID', {
+      params: { service: service  }
+    }).subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
       } else {
@@ -272,6 +275,20 @@ export class ConsigmentUploadService implements OnInit{
       }
     }, (error) => {
       callback(error);
+    });
+  }
+
+   addMlid(addMlidData, callback): any {
+    console.log(addMlidData);
+    this.http.post(baseUrl+'/superUser-level/addMLID',addMlidData
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
     });
   };
 
@@ -288,6 +305,7 @@ export class ConsigmentUploadService implements OnInit{
     });
   };
 
+
   superUserD2ZRatesBroker(addD2ZData, callback): any {
     this.http.post(baseUrl+'/superUser-level/d2zRates',addD2ZData
     ).subscribe((resp) => {
@@ -300,9 +318,19 @@ export class ConsigmentUploadService implements OnInit{
         callback(error);
     });
   };
-
+ brokerlist(callback): any {
+    this.http.get(baseUrl+'/superUser-level/brokerList').subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
   mlidList(callback): any {
-    this.http.get(baseUrl+'/superUser-level/mlidList').subscribe((resp) => {
+    this.http.get(baseUrl+'/superUser-level/mlidList').subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
       } else {
@@ -397,6 +425,20 @@ export class ConsigmentUploadService implements OnInit{
     });
   };
 
+downloadMlidData( service, callback): any {
+    this.http.get(baseUrl+'/superUser-level/downloadMLID', {
+      params: { service: service  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      console.log(resp)
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
   downloadNonD2zInvoiceData( brokerList, airwaybillList, billed, invoiced, callback): any {
     this.http.get(baseUrl+'/superUser-level/download-nonD2z-Invoice', {
       params: { 
