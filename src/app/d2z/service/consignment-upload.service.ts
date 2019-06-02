@@ -31,7 +31,8 @@ export class ConsigmentUploadService implements OnInit{
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
-                        "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true});
+                        "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true,
+                        "childmenuSuperEight":true});
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
 
   constructor(  

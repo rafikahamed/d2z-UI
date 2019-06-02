@@ -1,0 +1,52 @@
+<body class="nav-md" #maintoggle>
+  <div class="container body">
+    <div class="main_container">
+     
+      <super-user-header></super-user-header>
+
+     <div class="right_col" role="main">
+        <div class="row tile_count">
+              <div class="page-title">
+                      <div class="title_left">
+                        <h3 style="margin-left: 10px"> Labels / Zebra Scan PDF </h3>
+                      </div>
+              </div>
+        </div>
+
+        <div class="col-md-12 utlities_pdf_search">
+            <ngx-spinner
+                bdColor="rgba(51,51,51,0.8)"
+                size="medium"
+                color="#fff"
+                loadingText="Loading..."
+                type="ball-clip-rotate-multiple">
+            </ngx-spinner>
+            
+            <div> <p class="successMsg">{{successMsg}}</p> </div>
+
+            <div> <p class="errMsg">{{errorMsg}}</p> </div>
+
+            <form [formGroup]="trackingPrintForm">
+              <div class="row">
+                <div class="col-md-4" 
+                      style="font-size: 16px"> 
+                      Article Id or Reference Number :
+                </div>
+
+                <div class="col-md-4"> 
+                      <textarea rows="4" 
+                              cols="50" 
+                              id="pdf-Util" 
+                              style="border: 1px solid #ccc" 
+                              formControlName="refBarNum"
+                              (input)="downloadLable()">
+                        </textarea>
+                </div>
+              </div>
+            </form>
+          
+        </div>
+     </div>
+    </div>
+  </div>
+</body>

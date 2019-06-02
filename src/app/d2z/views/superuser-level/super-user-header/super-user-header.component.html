@@ -35,6 +35,12 @@
                                <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
+                            <li *ngIf="labels"><a (click)="super_user_labels(arrow)"><i class="fa fa-print"></i> Zebra Scan <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperEight? 'block' : 'none'}">
+                                <li *ngIf="zebraPrint"><a routerLink="/superuser/labels/print">Print</a></li>
+                                <li *ngIf="zebraPdf"><a routerLink="/superuser/labels/pdf">PDF</a></li>
+                                </ul>
+                            </li>
                             <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFour? 'block' : 'none'}">
                                 <li *ngIf="ratesAdd"><a routerLink="/superuser/rates/add">Add</a></li>
@@ -63,20 +69,15 @@
                                 <li *ngIf="reportShipment"><a routerLink="/superuser/invoice-report">Shipment Summary</a></li>
                                 <li *ngIf="reportDelivery"><a routerLink="/superuser/reports/delivery-report">Delivery Report</a></li>
                                 <li *ngIf="reportLog"><a routerLink="/superuser/reports/log-report">API Log Report</a></li>
-
-
-                               <!-- <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
  
-                            
                             <li>
                               <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Loogout</a>
                           </li>
                         </ul>
                     </div>
               </div>
-
 
     </div>
 </div>

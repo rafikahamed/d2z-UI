@@ -20,6 +20,7 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperFive: boolean;
   childmenuSuperSix:boolean;
   childmenuSuperSeven:boolean;
+  childmenuSuperEight:boolean;
   client: boolean;
   mlid:boolean;
   clientAdd: boolean;
@@ -40,6 +41,9 @@ export class SuperUserHeaderComponent implements OnInit {
   reportShipment: boolean;
   reportLog: boolean;
   reportDelivery: boolean;
+  labels: boolean;
+  zebraPrint: boolean;
+  zebraPdf: boolean;
   userName: String;
   pageSwitch: String;
 
@@ -58,7 +62,8 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperFour = menuSelection.childmenuSuperFour;
     this.childmenuSuperFive = menuSelection.childmenuSuperFive;
     this.childmenuSuperSix = menuSelection.childmenuSuperSix;
-     this.childmenuSuperSeven = menuSelection.childmenuSuperSeven;
+    this.childmenuSuperSeven = menuSelection.childmenuSuperSeven;
+    this.childmenuSuperEight = menuSelection.childmenuSuperEight;
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
@@ -81,6 +86,9 @@ export class SuperUserHeaderComponent implements OnInit {
       this.reportShipment= true;
       this.reportLog= true;
       this.reportDelivery = true;
+      this.labels= true;
+      this.zebraPrint= true;
+      this.zebraPdf= true;
     }else if(role == 4){
       this.tracking = true;
       this.trackingArrival = true;
@@ -187,5 +195,20 @@ super_user_mlid(arrow){
       arrow.className = 'fa fa-chevron-down';
     }
   }
+
+  super_user_labels(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperEight = !this.childmenuSuperEight;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperEight = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperEight;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
 }
 
