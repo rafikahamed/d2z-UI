@@ -60,6 +60,7 @@ import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { SuperUserInvoiceComponent } from 'app/d2z/views/superuser-level/utilities/invoice-report/invoice-report.component'
 import { SuperUserDeliveryReportComponent } from 'app/d2z/views/superuser-level/reports/delivery-report/delivery-report.component';
 import { SuperUserLogReportComponent } from 'app/d2z/views/superuser-level/reports/log-report/log-report.component';
+import{ MLIDComponent } from 'app/d2z/views/superuser-level/mlid/mlid.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -118,7 +119,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent},
           { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent},
           { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent},
-          { path: "superuser/reports/log-report", component: SuperUserLogReportComponent }
+           { path: "superuser/mld", component:MLIDComponent},
+          { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
+         
     ], { useHash: true }),
     UiModule
   ],
@@ -171,7 +174,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserNonD2zClientComponent,
     SuperUserDeliveryReportComponent,
     LoginComponent,
-    SuperUserLogReportComponent
+    SuperUserLogReportComponent,
+    MLIDComponent
   ],
   entryComponents: [],
   providers: [

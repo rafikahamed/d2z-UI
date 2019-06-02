@@ -42,6 +42,13 @@
                                 <li *ngIf="ratesD2z"><a routerLink="/superuser/rates/d2z-rates">D2Z Rates</a></li>
                                 </ul>
                             </li>
+
+                            <li *ngIf="mlid"><a (click)="super_user_mlid(arrow)"><i class="fa fa-money"></i> MLID <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperSeven? 'block' : 'none'}">
+                                <li ><a routerLink="/superuser/mld">Add/Delete/Download</a></li>
+                               
+                                </ul>
+                            </li>
                             <li *ngIf="invoices"><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFive ? 'block' : 'none'}">
                                 <li *ngIf="invoicePending"><a routerLink="/superuser/invoices/pending">Pending</a></li>
@@ -50,16 +57,21 @@
                                 <li *ngIf="invoiceNonD2z"><a routerLink="/superuser/invoice/non-d2zClient">Non D2Z-Client</a></li>
                                 </ul>
                             </li>
+
                              <li *ngIf="reports"><a (click)="super_user_reports(arrow)"><i class="fa fa-file"></i> REPORTS <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperSix ? 'block' : 'none'}">
                                 <li *ngIf="reportShipment"><a routerLink="/superuser/invoice-report">Shipment Summary</a></li>
                                 <li *ngIf="reportDelivery"><a routerLink="/superuser/reports/delivery-report">Delivery Report</a></li>
                                 <li *ngIf="reportLog"><a routerLink="/superuser/reports/log-report">API Log Report</a></li>
+
+
                                <!-- <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
+ 
+                            
                             <li>
-                              <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
+                              <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Loogout</a>
                           </li>
                         </ul>
                     </div>
