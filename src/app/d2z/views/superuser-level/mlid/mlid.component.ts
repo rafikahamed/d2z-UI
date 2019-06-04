@@ -33,6 +33,8 @@ export class MLIDComponent implements OnInit {
 
   serviceDropdownValue = [];
   serviceTypeDropdown: dropdownTemplate[];  
+  serviceTypeDeleteDropdown: dropdownTemplate[];
+  serviceDeleteDropdownValue = [];
   selectedserviceType: dropdownTemplate;
   AddserviceType: String;
   DeleteserviceType:String;
@@ -66,7 +68,19 @@ this.consigmentUploadService.mlidList( (resp) => {
       })
       this.serviceTypeDropdown = this.serviceDropdownValue;
        console.log( this.serviceTypeDropdown);
-    })
+    });
+
+    this.consigmentUploadService.mliddeleteList( (resp) => {
+      this.serviceListMainData = resp;
+      
+      var that = this;
+      resp.forEach(function(entry) {
+      console.log(entry.name);
+        that.serviceDeleteDropdownValue.push(entry);
+      })
+      this.serviceTypeDeleteDropdown = this.serviceDeleteDropdownValue;
+       console.log( this.serviceTypeDropdown);
+    });
   }
 onServiceTypeChangeAdd(event){
 console.log( event);
@@ -155,7 +169,8 @@ fileReader.onload = (e) => {
           let mlid = 'mlid';
           let injectionState = 'injectionState';
           
-         
+         if(downloadInvoiceData.length > 0)
+         {
            for(var downloadInvoice in downloadInvoiceData){
               var invoiceData = downloadInvoiceData[downloadInvoice];
               var invoiceObj = (
@@ -172,7 +187,7 @@ fileReader.onload = (e) => {
            }
            var currentTime = new Date();
            var fileName = '';
-           fileName = "MLID_LIST"+"-"+currentTime.toLocaleDateString();
+           fileName = this.DownloadserviceType+"-"+currentTime.toLocaleDateString();
            var options = { 
              fieldSeparator: ',',
              quoteStrings: '"',
@@ -182,7 +197,8 @@ fileReader.onload = (e) => {
              headers: [ 'Service Type', 'ZoneID', 'Destination Zone', 'MinWeight', 'MaxWeight', 'MLID', 'Injection State']
              };
              new Angular2Csv(invoiceDownloadFinalList, fileName, options);   
-           
+           }
+
         })
         }
         else{

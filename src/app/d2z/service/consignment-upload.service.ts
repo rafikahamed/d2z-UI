@@ -340,7 +340,17 @@ deleteMlid (service, callback): any {
       callback(error);
     });
   };
-
+mliddeleteList(callback): any {
+    this.http.get(baseUrl+'/superUser-level/mliddeleteList').subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
   reconcileData(reconcile, callback): any {
     this.http.post(baseUrl+'/superUser-level/reconcileInfo',reconcile
     ).subscribe((resp) => {
