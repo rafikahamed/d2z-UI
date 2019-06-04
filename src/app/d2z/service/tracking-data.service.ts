@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-// const baseUrl = "https://"+hostname+"/v1/"+apiName;
-const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+const baseUrl = "https://"+hostname+"/v1/"+apiName;
+// const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 // const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 // const baseUrl = "http://52.65.135.232:8080/v1/d2z";
 
@@ -32,6 +32,20 @@ export class TrackingDataService implements OnInit{
             }, (error) => {
                 callback(error);
             });
+  };
+
+  generateSuperUserTrackLabel( referenceNum, callback ): any {
+    this.http.post(baseUrl+'/superUser-level/tracking-label', referenceNum, {responseType: 'arraybuffer'}
+          ).subscribe((resp) => {
+            callback(resp);
+            if (resp) {
+              
+            } else {
+                console.error("Not Found!")
+            }
+          }, (error) => {
+              callback(error);
+          });
   };
 
   manifestCreation( manifestNumber, refrenceNumber, callback): any {
