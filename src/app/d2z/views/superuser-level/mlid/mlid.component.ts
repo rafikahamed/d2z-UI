@@ -118,6 +118,9 @@ incomingfile(event) {
   let Maxweight ='Maxweight';
   let MLID ='MLID';
   let InjectionState ='InjectionState';
+  let destinationzone = 'destinationzone';
+
+
 fileReader.onload = (e) => {
         this.arrayBuffer = fileReader.result;
           var data = new Uint8Array(this.arrayBuffer);
@@ -138,6 +141,7 @@ fileReader.onload = (e) => {
                 importObj[Minweight]= dataObj['Minweight'] != undefined ? dataObj['Minweight'] : '', importObj,
                 importObj[Maxweight]= dataObj['Maxweight'] != undefined ? dataObj['Maxweight'] : '', importObj,
                 importObj[MLID]= dataObj['MLID'] != undefined ? dataObj['MLID'] : '', importObj,
+                importObj[destinationzone]= dataObj['destinationzone'] != undefined ? dataObj['destinationzone'] : '', importObj,
                 importObj[InjectionState]= dataObj['InjectionState'] != undefined ? dataObj['InjectionState'] : '', importObj
               );
             this.mildlist.push(importObj)
@@ -168,6 +172,7 @@ fileReader.onload = (e) => {
           let maxweight = 'maxweight';
           let mlid = 'mlid';
           let injectionState = 'injectionState';
+         
           
          if(downloadInvoiceData.length > 0)
          {
@@ -187,7 +192,7 @@ fileReader.onload = (e) => {
            }
            var currentTime = new Date();
            var fileName = '';
-           fileName = this.DownloadserviceType+"-"+currentTime.toLocaleDateString();
+           fileName = this.DownloadserviceType+"_"+currentTime.toLocaleDateString();
            var options = { 
              fieldSeparator: ',',
              quoteStrings: '"',
