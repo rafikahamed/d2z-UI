@@ -21,8 +21,10 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperSix:boolean;
   childmenuSuperSeven:boolean;
   childmenuSuperEight:boolean;
+  childmenuSuperNine:boolean;
   client: boolean;
   mlid:boolean;
+  auweight:boolean;
   clientAdd: boolean;
   clientUpdate: Boolean;
   tracking: boolean;
@@ -64,11 +66,13 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperSix = menuSelection.childmenuSuperSix;
     this.childmenuSuperSeven = menuSelection.childmenuSuperSeven;
     this.childmenuSuperEight = menuSelection.childmenuSuperEight;
+    this.childmenuSuperNine = menuSelection.childmenuSuperNine;
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
       this.clientAdd = true;
       this.mlid = true;
+      this.auweight = true;
       this.clientUpdate = true;
       this.tracking = true;
       this.trackingUpload = true;
@@ -168,7 +172,19 @@ super_user_mlid(arrow){
       arrow.className = 'fa fa-chevron-down';
     }
   }
-
+super_user_auweight(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperNine = !this.childmenuSuperNine;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperNine = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperNine;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
   super_user_invoices(arrow){
     var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
     menuSuperObj.childmenuSuperFive = !this.childmenuSuperFive;

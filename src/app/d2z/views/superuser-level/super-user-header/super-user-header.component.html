@@ -55,6 +55,13 @@
                                
                                 </ul>
                             </li>
+
+                            <li *ngIf="auweight"><a (click)="super_user_auweight(arrow)"><i class="fa fa-file"></i> Au Weight <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperNine? 'block' : 'none'}">
+                                <li ><a routerLink="/superuser/auweight">Au weight</a></li>
+                               
+                                </ul>
+                            </li>
                             <li *ngIf="invoices"><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFive ? 'block' : 'none'}">
                                 <li *ngIf="invoicePending"><a routerLink="/superuser/invoices/pending">Pending</a></li>

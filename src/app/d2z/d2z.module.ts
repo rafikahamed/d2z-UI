@@ -63,6 +63,7 @@ import { SuperUserZebraScanPDF } from 'app/d2z/views/superuser-level/zebra-label
 import { SuperUserZebraScanPrint } from 'app/d2z/views/superuser-level/zebra-labels/print/print.component';
 import { SuperUserLogReportComponent } from 'app/d2z/views/superuser-level/reports/log-report/log-report.component';
 import { MLIDComponent } from 'app/d2z/views/superuser-level/mlid/mlid.component';
+import{AUweightComponent} from 'app/d2z/views/superuser-level/auweight/auweight.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -122,6 +123,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent},
           { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent},
           { path: "superuser/mld", component:MLIDComponent},
+           { path: "superuser/auweight", component:AUweightComponent},
           { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
           { path: "superuser/labels/pdf", component: SuperUserZebraScanPDF },
           { path: "superuser/labels/print", component: SuperUserZebraScanPrint }
@@ -179,6 +181,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LoginComponent,
     SuperUserLogReportComponent,
     MLIDComponent,
+   AUweightComponent,
     SuperUserZebraScanPDF,
     SuperUserZebraScanPrint
   ],
