@@ -21,18 +21,18 @@ body{
 .delete_panel{
     width: 80%; 
     border: 2px solid #ccc; 
-    height: 660px; 
+    height: 600px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
     margin-bottom: 10px; 
     font-size: 16px;
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important; margin-top: 10px !important;
+    color:green; font-size: 14px;font-weight: 500; margin-left: 20px; margin-top: 10px;
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important; margin-top: 10px !important;
+    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px; margin-top: 10px;
 }
 
 .h3, h3 {
@@ -527,4 +527,3 @@ ul.top_profiles li:nth-child(odd){
     width: 250px;
     padding: 5px;
 }
-

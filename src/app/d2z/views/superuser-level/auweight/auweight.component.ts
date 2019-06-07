@@ -1,17 +1,15 @@
-import { Component, AfterContentChecked, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
+import 'rxjs/add/operator/filter';
 import { GridOptions } from "ag-grid";
-import * as XLSX from 'xlsx';
-import { NgxSpinnerService } from 'ngx-spinner';
-declare var $: any;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import _ from 'lodash';
-interface dropdownTemplate {
-  name: string;
-  value: string;
-}
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import * as XLSX from 'xlsx';
+declare var $: any;
+
 @Component({
   selector: 'hms-superuser-level-auweight',
   templateUrl: './auweight.component.html',
@@ -19,74 +17,96 @@ interface dropdownTemplate {
 })
 
 export class AUweightComponent implements OnInit {
-  userName: String;
-  role_id: String;
-  errorMsg: string;
+  childmenu: boolean;
+  childmenuTwo:boolean;
+  childmenuThree:boolean;
+  childmenuFour:boolean;
+  childmenuFive:boolean;
+  public importList = [];
  
-  successMsg: String;
- public ArticleList = [];
- AddList= [];
-  system: String;
+  manifestNumber: string;
+  arrayBuffer:any;
   file:File;
- arrayBuffer:any;
-  serviceListMainData = [];
-
-  serviceDropdownValue = [];
-  serviceTypeDropdown: dropdownTemplate[];  
-  serviceTypeDeleteDropdown: dropdownTemplate[];
-  serviceDeleteDropdownValue = [];
-  selectedserviceType: dropdownTemplate;
-  AddserviceType: String;
-  DeleteserviceType:String;
-  DownloadserviceType:String;
+  errorMsg: string;
+  show: Boolean;
+  successMsg: String;
+  private gridOptions: GridOptions;
+  private autoGroupColumnDef;
+  private rowGroupPanelShow;
+  private rowData: any[];
+  private defaultColDef;
+  userName: String;
+  system: String;
+  role_id: String;
+  shipmentAllocateForm: FormGroup;
   constructor(
-    public consigmentUploadService: ConsigmentUploadService,
-    private spinner: NgxSpinnerService
-  ){
    
-   
-    this.successMsg = null;
-  
-   
-
+    private spinner: NgxSpinnerService,
+    public consigmentUploadService: ConsigmentUploadService
+  ) {
+    this.show = false;
+    this.shipmentAllocateForm = new FormGroup({
+      shipmentNumber: new FormControl()
+    });
+    this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptions.columnDefs = [
+      {
+        headerName: "Article ID",
+        field: "Article ID",
+        width: 300,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      }
+      
+    ];
+    this.autoGroupColumnDef = {
+      headerCheckboxSelection: true,
+      cellRenderer: "agGroupCellRenderer",
+      cellRendererParams: { checkbox: true }
+    };      
+    this.rowGroupPanelShow = "always";
+    this.defaultColDef = {
+      editable: true
+    };
   }
 
   ngOnInit() {
-    this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
-    this.getLoginDetails();
-    this.spinner.show();
-   
-   
-  
-
-
-    
+      this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
+      this.childmenu = false;
+      this.childmenuTwo = false;
+      this.childmenuThree = false;
+      this.childmenuFour  = false;
+      this.childmenuFive = false;
+      this.getLoginDetails();
   }
 
   getLoginDetails(){
-    if(this.consigmentUploadService.userMessage != undefined){
+    if(this.consigmentUploadService.userMessage  != undefined){
       this.userName = this.consigmentUploadService.userMessage.userName;
       this.role_id = this.consigmentUploadService.userMessage.role_Id;
     }
   };
-incomingfile(event) {
-    
+  
+  incomingfile(event) {
+    this.rowData = [];
     this.file = event.target.files[0]; 
-    this.importArticleID();
+    this.uploadArticleID();
   }
 
-   importArticleID(){
+  uploadArticleID(){
     var worksheet;
-    this.errorMsg = null;
-    let fileReader = new FileReader();
-  this.ArticleList = [];
-    fileReader.readAsArrayBuffer(this.file);
-  let ArticleID   ='ArticleID';        
-  
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList= [];
+      fileReader.readAsArrayBuffer(this.file);
+      let ArticleID   ='ArticleID';     
 
+      
 
-fileReader.onload = (e) => {
-        this.arrayBuffer = fileReader.result;
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
           var data = new Uint8Array(this.arrayBuffer);
           var arr = new Array();
           for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
@@ -103,27 +123,27 @@ fileReader.onload = (e) => {
                 importObj[ArticleID]= dataObj['Article ID'] != undefined ? dataObj['Article ID'] : '', importObj
               
               );
-            this.ArticleList.push(importObj)
-            
-            }
+              this.importList.push(importObj)
+              this.rowData = this.importList;
+              }
+          }
         }
-      }
-  };
+  }
 
-  downloadweight(){
+
+downloadauweight(){
     console.log("in Download");
      this.errorMsg = null;
     this.successMsg = null;
-     if(this.ArticleList.length == 0)
-      {
-        this.errorMsg = "Please Upload File";
-
-      }
-      if(this.errorMsg == null){
-      console.log(this.ArticleList);
+     var selectedRows = this.gridOptions.api.getSelectedRows();
+    if(selectedRows.length == 0){
+      this.errorMsg = "**Please select the below records to upload the tracking details";
+    }
+      if(this.errorMsg == null  && selectedRows.length > 0){
+      console.log(selectedRows);
       this.spinner.show();
        var invoiceDownloadFinalList = [];
-     this.consigmentUploadService.downloadauweight(this.ArticleList,  (resp) => {
+     this.consigmentUploadService.downloadauweight(selectedRows,  (resp) => {
           this.spinner.hide();
            console.log(resp);
           var downloadInvoiceData = resp;
@@ -158,19 +178,30 @@ fileReader.onload = (e) => {
              };
              new Angular2Csv(invoiceDownloadFinalList, fileName, options);   
            }
+           else
+           {
+           this.successMsg = "No record Found";
+ $('#allocateShipmentModal').modal('show');
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 5000); 
+           }
 
         })
         }
-        else{
-$('#invoice').modal('show');  
-      }
+       
         
    
   };
 
 
+  
 
-
+  onSelectionChange() {
+    var selectedRows = this.gridOptions.api.getSelectedRows();
+    this.errorMsg = null;
+  }
+ 
 }
 
 

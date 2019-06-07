@@ -56,9 +56,9 @@
                                 </ul>
                             </li>
 
-                            <li *ngIf="auweight"><a (click)="super_user_auweight(arrow)"><i class="fa fa-file"></i> Au Weight <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="auweight"><a (click)="super_user_auweight(arrow)"><i class="fa fa-file"></i> Au Post Weight <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperNine? 'block' : 'none'}">
-                                <li ><a routerLink="/superuser/auweight">Au weight</a></li>
+                                <li ><a routerLink="/superuser/auweight">Au Post Weight</a></li>
                                
                                 </ul>
                             </li>
@@ -80,7 +80,7 @@
                             </li>
  
                             <li>
-                              <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Loogout</a>
+                              <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
                           </li>
                         </ul>
                     </div>
