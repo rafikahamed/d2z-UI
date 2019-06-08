@@ -37,14 +37,14 @@
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenubrkFour ? 'block' : 'none'}">
                     <li><a routerLink="/broker/allocate-shipment">Allocate Shipment Data</a></li>
                     <li><a routerLink="/broker/scan-shipment">Scan to Shipment</a></li>
+                    <li><a routerLink="/broker/api/upload-shipment">Upload File - Create Shipment</a></li>
                     <li><a routerLink="/broker/download-shipment">Download Shipment Data</a></li>
                     </ul>
                 </li>
                 <li><a (click)="broker_api(arrow)"><i class="fa fa-bar-chart-o"></i> API <span class="fa fa-chevron-down" #arrow></span></a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenubrkFive ? 'block' : 'none'}">
                       <li><a routerLink="/broker/api/direct-injection">Direct Injection Data</a></li>
-                      <li><a routerLink="/broker/api/upload-shipment">Upload File - Create Shipment</a></li>
-                      <li><a routerLink="/broker/api/download-shipment">Download Shipment Data - API</a></li>
+                      <!-- <li><a routerLink="/broker/api/download-shipment">Download Shipment Data - API</a></li> -->
                     </ul>
                 </li>
                 <li>
