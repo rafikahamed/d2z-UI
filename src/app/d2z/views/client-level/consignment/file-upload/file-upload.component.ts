@@ -83,7 +83,9 @@ export class ZebraFileUpload implements OnInit{
       this.chinessFlag = lanObject.chinessFlag;
       this.exportTypeDropdown = [
         { "name": "eParcel", "value": "eParcel" },
-        { "name": "Express", "value": "Express" }
+        { "name": "Express", "value": "Express" },
+        { "name": "Fastway", "value": "fastway" },
+        { "name": "Multi Carrier", "value": "multiCarrier" }
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.router.events.subscribe((evt) => {
@@ -545,6 +547,9 @@ export class ZebraFileUpload implements OnInit{
       this.errorDetails1 = '';
       this.showSuccess = false;
       this.show = false;
+      var fastwayArray = ["FWS","FWM"];
+      var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS"];
+      
       for(var k = 0; k != selectedRows.length; ++k){
         if(selectedRows[k].carrier == 'eParcel'){
           if(selectedRows[k].serviceType == '1PME'){
@@ -553,6 +558,18 @@ export class ZebraFileUpload implements OnInit{
           }
         }else if(selectedRows[k].carrier == 'Express'){
           if(selectedRows[k].serviceType != '1PME'){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
+        }else if(selectedRows[k].carrier == 'fastway'){
+          console.log(fastwayArray.includes(selectedRows[k].serviceType))
+          if( !fastwayArray.includes(selectedRows[k].serviceType)){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
+        }else if(selectedRows[k].carrier == 'multiCarrier'){
+          console.log(multiCarrierArray.includes(selectedRows[k].serviceType));
+          if(!multiCarrierArray.includes(selectedRows[k].serviceType)){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
