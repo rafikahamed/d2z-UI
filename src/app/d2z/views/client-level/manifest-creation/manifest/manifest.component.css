@@ -45,14 +45,14 @@ body{
     color: #ca2929; 
     font-size:15px; 
     font-weight:500; 
-    margin-left: 15px;
+    margin-left: 20px !important;
 }
 
 .success-msg{
     color:green; 
     font-size:15px;
     font-weight:500;
-    margin-left: 20px;
+    margin-left: 20px !important;
 }
 
 .h3, h3 {
