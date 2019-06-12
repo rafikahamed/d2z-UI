@@ -1,14 +1,11 @@
 import { Component, ElementRef, ViewChild, OnInit, Compiler } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { LoginService } from 'app/d2z/service/login.service';
 import { GridOptions } from "ag-grid";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
-import { isDifferent } from '@angular/core/src/render3/util';
 declare var $: any;
 
 interface dropdownTemplate {
@@ -45,6 +42,7 @@ export class ZebraFileUpload implements OnInit{
     englishFlag:boolean;
     chinessFlag:boolean;
     carrierType: String;
+    serviceType: String;
     // FileHeading = ['Reference number', 'Consignee Company', 'Consignee Name', 'Consignee Address 1', 'Consignee Suburb', 'Consignee State', 'Consignee Postcode',
     //                'Consignee Phone', 'Product Description', 'Value', 'Currency', 'Shipped Quantity', 'Weight', 'Dim_X', 'Dim_Y',
     //                'Dim_Z', 'Service type', 'Shipper Name', 'Shipper Address', 'Shipper City', 'Shipper State', 'Shipper Postcode',
@@ -85,7 +83,9 @@ export class ZebraFileUpload implements OnInit{
       this.chinessFlag = lanObject.chinessFlag;
       this.exportTypeDropdown = [
         { "name": "eParcel", "value": "eParcel" },
-        { "name": "Express", "value": "Express" }
+        { "name": "Express", "value": "Express" },
+        { "name": "Fastway", "value": "fastway" },
+        { "name": "Multi Carrier", "value": "multiCarrier" }
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.router.events.subscribe((evt) => {
@@ -529,7 +529,8 @@ export class ZebraFileUpload implements OnInit{
                 this.errorMsg = 'Consginee Address 2 should not contain more than 50 character';
                 break;
               }
-              this.importList.push(importObj)
+              this.importList.push(importObj);
+              this.serviceType = this.importList[0].serviceType;
               this.rowData = this.importList;
               }
           }
@@ -546,14 +547,30 @@ export class ZebraFileUpload implements OnInit{
       this.errorDetails1 = '';
       this.showSuccess = false;
       this.show = false;
+      var fastwayArray = ["FWS","FWM"];
+      var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS"];
+      var nonEparcel = ["MCM","MCM1","MCM2","MCM3","MCS","FWS","FWM","1PME"];
+      
       for(var k = 0; k != selectedRows.length; ++k){
         if(selectedRows[k].carrier == 'eParcel'){
-          if(selectedRows[k].serviceType == '1PME'){
+          if(nonEparcel.includes(selectedRows[k].serviceType)){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
         }else if(selectedRows[k].carrier == 'Express'){
           if(selectedRows[k].serviceType != '1PME'){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
+        }else if(selectedRows[k].carrier == 'fastway'){
+          console.log(fastwayArray.includes(selectedRows[k].serviceType))
+          if( !fastwayArray.includes(selectedRows[k].serviceType)){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
+        }else if(selectedRows[k].carrier == 'multiCarrier'){
+          console.log(multiCarrierArray.includes(selectedRows[k].serviceType));
+          if(!multiCarrierArray.includes(selectedRows[k].serviceType)){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
@@ -695,14 +712,23 @@ export class ZebraFileUpload implements OnInit{
             refernceNumberList.push(importObj)
           }
       }else{
-        for(var refNum in this.successReferenceNumber){
-          var importObj = (
-            importObj={}, 
-            importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
-            this.successReferenceNumber[refNum].barcodeLabelNumber ? importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44) : '', importObj
-          )
-            refernceNumberList.push(importObj)
-          }
+          for(var refNum in this.successReferenceNumber){
+              if(this.successReferenceNumber[refNum].carrier == "FastwayM"){
+                var importObj = (
+                  importObj={}, 
+                  importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+                  importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
+                  )
+                  refernceNumberList.push(importObj)
+              }else{
+                var importObj = (
+                  importObj={}, 
+                  importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+                  importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44) : '', importObj
+                  )
+                  refernceNumberList.push(importObj)
+              }
+            }
       }
       new Angular2Csv(refernceNumberList, fileName, options);
     };

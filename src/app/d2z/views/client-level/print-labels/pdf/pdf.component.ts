@@ -1,12 +1,10 @@
-import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Compiler} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { LoginService } from 'app/d2z/service/login.service';
-import {SelectItem} from 'primeng/api';
 declare var $: any;
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
+import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 interface City {
@@ -37,6 +35,7 @@ export class ZebraPdfPrintLabels implements OnInit{
 
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
+    public trackingDataService: TrackingDataService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private _compiler: Compiler
@@ -456,74 +455,74 @@ export class ZebraPdfPrintLabels implements OnInit{
     var dateString = year+month+day+"-"+hour+minutes+seconds;
     var selectedRows = this.gridOptions.api.getSelectedRows();
     var printLabelList = [];
-        let referenceNumber = 'referenceNumber';
-        let consigneeName = 'consigneeName';
-        let consigneeAddr1 = 'consigneeAddr1';
-        let consigneeSuburb = 'consigneeSuburb';
-        let consigneeState = 'consigneeState';
-        let consigneePostcode = 'consigneePostcode';
-        let consigneePhone = 'consigneePhone';
-        let weight = 'weight';
-        let shipperName = 'shipperName';
-        let shipperAddr1 = 'shipperAddr1';
-        let shipperAddr2 = 'shipperAddr2';
-        let shipperCity = 'shipperCity';
-        let shipperState = 'shipperState';
-        let shipperCountry = 'shipperCountry';
-        let shipperPostcode = 'shipperPostcode';
-        let barcodeLabelNumber = 'barcodeLabelNumber';
-        let datamatrix = 'datamatrix';
-        let injectionState = 'injectionState';
-        let sku = 'sku';
-        let labelSenderName = 'labelSenderName';
-        let deliveryInstructions = 'deliveryInstructions';
-        let consigneeCompany = 'consigneeCompany';
-        let carrier = 'carrier';
-        let consigneeAddr2 = 'consigneeAddr2';
-        let returnAddress1 = 'returnAddress1';
-        let returnAddress2 = 'returnAddress2';
+        // let referenceNumber = 'referenceNumber';
+        // let consigneeName = 'consigneeName';
+        // let consigneeAddr1 = 'consigneeAddr1';
+        // let consigneeSuburb = 'consigneeSuburb';
+        // let consigneeState = 'consigneeState';
+        // let consigneePostcode = 'consigneePostcode';
+        // let consigneePhone = 'consigneePhone';
+        // let weight = 'weight';
+        // let shipperName = 'shipperName';
+        // let shipperAddr1 = 'shipperAddr1';
+        // let shipperAddr2 = 'shipperAddr2';
+        // let shipperCity = 'shipperCity';
+        // let shipperState = 'shipperState';
+        // let shipperCountry = 'shipperCountry';
+        // let shipperPostcode = 'shipperPostcode';
+        // let barcodeLabelNumber = 'barcodeLabelNumber';
+        // let datamatrix = 'datamatrix';
+        // let injectionState = 'injectionState';
+        // let sku = 'sku';
+        // let labelSenderName = 'labelSenderName';
+        // let deliveryInstructions = 'deliveryInstructions';
+        // let consigneeCompany = 'consigneeCompany';
+        // let carrier = 'carrier';
+        // let consigneeAddr2 = 'consigneeAddr2';
+        // let returnAddress1 = 'returnAddress1';
+        // let returnAddress2 = 'returnAddress2';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
-          var printObj = (
-              printObj={}, 
-              printObj[referenceNumber]= labelObj.reference_number, printObj,
-              printObj[consigneeName]= labelObj.consignee_name, printObj,
-              printObj[consigneeAddr1]= labelObj.consignee_addr1, printObj,
-              printObj[consigneeSuburb]= labelObj.consignee_Suburb, printObj,
-              printObj[consigneeState] = labelObj.consignee_State, printObj,
-              printObj[consigneePostcode]= labelObj.consignee_Postcode, printObj,
-              printObj[consigneePhone]= labelObj.consignee_Phone, printObj,
-              printObj[weight]= labelObj.weight, printObj,
-              printObj[shipperName]= labelObj.shipper_Name, printObj,
-              printObj[shipperAddr1]= labelObj.shipper_Addr1, printObj,
-              printObj[shipperAddr2]= labelObj.shipper_Addr2, printObj,
-              printObj[shipperCity] = labelObj.shipper_City, printObj,
-              printObj[shipperState]= labelObj.shipper_State, printObj,
-              printObj[shipperCountry]= labelObj.shipper_Country, printObj,
-              printObj[shipperPostcode]= labelObj.shipper_Postcode, printObj,
-              printObj[barcodeLabelNumber]= labelObj.barcodelabelNumber, printObj,
-              printObj[datamatrix]= labelObj.datamatrix, printObj,
-              printObj[injectionState]= labelObj.injectionState, printObj,
-              printObj[sku]= labelObj.sku, printObj,
-              printObj[labelSenderName]= labelObj.labelSenderName, printObj,
-              printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
-              printObj[consigneeCompany]= labelObj.consigneeCompany, printObj,
-              printObj[carrier]= labelObj.carrier, printObj,
-              printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj,
-              printObj[returnAddress1]= labelObj.returnAddress1 ? labelObj.returnAddress1 : '', printObj,
-              printObj[returnAddress2]= labelObj.returnAddress2 ? labelObj.returnAddress2 : '', printObj
-          );
-          printLabelList.push(printObj)
+          // var printObj = (
+          //     printObj={}, 
+          //     printObj[referenceNumber]= labelObj.reference_number, printObj,
+          //     printObj[consigneeName]= labelObj.consignee_name, printObj,
+          //     printObj[consigneeAddr1]= labelObj.consignee_addr1, printObj,
+          //     printObj[consigneeSuburb]= labelObj.consignee_Suburb, printObj,
+          //     printObj[consigneeState] = labelObj.consignee_State, printObj,
+          //     printObj[consigneePostcode]= labelObj.consignee_Postcode, printObj,
+          //     printObj[consigneePhone]= labelObj.consignee_Phone, printObj,
+          //     printObj[weight]= labelObj.weight, printObj,
+          //     printObj[shipperName]= labelObj.shipper_Name, printObj,
+          //     printObj[shipperAddr1]= labelObj.shipper_Addr1, printObj,
+          //     printObj[shipperAddr2]= labelObj.shipper_Addr2, printObj,
+          //     printObj[shipperCity] = labelObj.shipper_City, printObj,
+          //     printObj[shipperState]= labelObj.shipper_State, printObj,
+          //     printObj[shipperCountry]= labelObj.shipper_Country, printObj,
+          //     printObj[shipperPostcode]= labelObj.shipper_Postcode, printObj,
+          //     printObj[barcodeLabelNumber]= labelObj.barcodelabelNumber, printObj,
+          //     printObj[datamatrix]= labelObj.datamatrix, printObj,
+          //     printObj[injectionState]= labelObj.injectionState, printObj,
+          //     printObj[sku]= labelObj.sku, printObj,
+          //     printObj[labelSenderName]= labelObj.labelSenderName, printObj,
+          //     printObj[deliveryInstructions]= labelObj.deliveryInstructions, printObj,
+          //     printObj[consigneeCompany]= labelObj.consigneeCompany, printObj,
+          //     printObj[carrier]= labelObj.carrier, printObj,
+          //     printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj,
+          //     printObj[returnAddress1]= labelObj.returnAddress1 ? labelObj.returnAddress1 : '', printObj,
+          //     printObj[returnAddress2]= labelObj.returnAddress2 ? labelObj.returnAddress2 : '', printObj
+          // );
+          printLabelList.push(labelObj.reference_number);
         }
       if(selectedRows.length > 0){
         this.spinner.show();
-        
-        this.consigmentUploadService.generateLabel(printLabelList, (resp) => {
+        this.trackingDataService.generateTrackLabel(printLabelList.join(','), (resp) => {
+        //this.consigmentUploadService.generateLabel(printLabelList, (resp) => {
           this.spinner.hide();
           var pdfFile = new Blob([resp], {type: 'application/pdf'});
           var pdfUrl = URL.createObjectURL(pdfFile);
-          var fileName = "D2Z-Label.pdf";
+          var fileName = "D2Z-Label-"+dateString+".pdf";
           var a = document.createElement("a");
               document.body.appendChild(a);
               a.href = pdfUrl;
