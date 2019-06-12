@@ -17,7 +17,7 @@
               <div class="delete_search">
                   <div class="container">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <p> Client Type : </p>
                             <div>
                                   <p-dropdown [options]="clientDropdown" 
@@ -32,7 +32,7 @@
                         <div class="col-md-3">
                             <p > From Date : </p>
                             <mat-form-field>
-                                <input matInput [matDatepicker]="picker" 
+                                <input #frominput matInput [matDatepicker]="picker" 
                                             placeholder="Choose a date" 
                                             (dateChange)="FromDateChange($event)">
                                 <mat-datepicker-toggle
@@ -46,7 +46,7 @@
                         <div class="col-md-3">
                             <p > To Date : </p>
                             <mat-form-field>
-                                <input matInput [matDatepicker]="pickerTo" 
+                                <input #toinput matInput [matDatepicker]="pickerTo" 
                                                 placeholder="Choose a date" 
                                                 (dateChange)="ToDateChange($event)">
                                 <mat-datepicker-toggle 
@@ -57,16 +57,27 @@
                               </mat-form-field>
                         </div>
 
-                        <div class="col-md-3" style="margin-top:30px">
+                        <div class="col-md-2" style="margin-top:30px">
                              <button type="button" 
                                      class="btn btn-info" 
                                      (click)="logSearch()"
-                                    style="background-color: #16A085; margin-left:30px">
+                                    style="background-color: #16A085; margin-left:10px">
                                     <span class="glyphicon glyphicon-search"></span>
                               Search
                             </button>
+
+
                         </div>
 
+ <div class="col-md-2" style="margin-top:30px">
+                           <button type="button" 
+                              class="btn btn-info" 
+                              (click)="clearDetails()"
+                              style="background-color: #16A085;">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                               Refresh
+                      </button>
+</div>
                     </div>
                   </div>
 

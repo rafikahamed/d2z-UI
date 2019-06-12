@@ -17,7 +17,7 @@
                   <div class="delete_search">
                       <div class="container">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <p> Export Type : </p>
                                 <div>
                                       <p-dropdown [options]="exportTypeDropdown" 
@@ -32,7 +32,7 @@
                             <div class="col-md-3">
                                 <p > From Date : </p>
                                 <mat-form-field>
-                                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+                                    <input #frominput matInput [matDatepicker]="picker" placeholder="Choose a date" 
                                                 (dateChange)="FromDateChange($event)">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
@@ -42,22 +42,32 @@
                             <div class="col-md-3">
                                 <p > To Date : </p>
                                 <mat-form-field>
-                                    <input matInput [matDatepicker]="pickerTo" placeholder="Choose a date" 
+                                    <input #toinput matInput [matDatepicker]="pickerTo" placeholder="Choose a date" 
                                                             (dateChange)="ToDateChange($event)">
                                     <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                                     <mat-datepicker #pickerTo></mat-datepicker>
                                   </mat-form-field>
                             </div>
 
-                            <div class="col-md-3" style="margin-top:30px">
+                            <div class="col-md-2" style="margin-top:30px">
                                  <button type="button" 
                                          class="btn btn-info" 
                                          (click)="exportSearch()"
-                                        style="background-color: #16A085; margin-left:30px">
+                                        style="background-color: #16A085; margin-left:10px">
                                         <span class="glyphicon glyphicon-search"></span>
                                   Search
                                 </button>
                             </div>
+
+                             <div class="col-md-2" style="margin-top:30px">
+                           <button type="button" 
+                              class="btn btn-info" 
+                              (click)="clearDetails(frominput,toinput)"
+                              style="background-color: #16A085;">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                               Refresh
+                      </button>
+</div>
 
                         </div>
                       </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, ViewChild,OnInit} from '@angular/core';
+import {  MatInput } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/filter';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
@@ -20,7 +21,16 @@ interface dropdownTemplate {
 })
 
 export class SuperUserLogReportComponent implements OnInit{
+@ViewChild('frominput', {
+  read: MatInput
+}) frominput: MatInput;
+
+@ViewChild('toinput', {
+  read: MatInput
+}) toinput: MatInput;
+
   public importList = [];
+  
   errorMsg: string;
   show: Boolean;
   etowerFlag: Boolean;
@@ -374,6 +384,27 @@ export class SuperUserLogReportComponent implements OnInit{
       }else{
         this.errorMsg = "**Please select the below records to download the eTower Response details";
       } 
+  };
+
+   clearDetails(){
+
+    
+
+        if(this.clientType === 'etower'){
+          this.rowDataEtower = [];
+        }else if(this.clientType === 'auPost'){
+          this.rowDataAUPost = [];
+        }else if(this.clientType === 'fdm'){
+          this.rowDataFdm = [];
+        }else if(this.clientType === 'freiPost'){
+          this.rowDataFreipost = [];
+        }
+       
+  this.frominput.value = '';
+  this.toinput.value = '';
+    this.successMsg = null;
+    this.errorMsg = null;
+   
   };
 
   downloadAuPostData(){

@@ -17,6 +17,7 @@ declare var $: any;
 })
 
 export class AUweightComponent implements OnInit {
+@ViewChild('userPhoto') userPhoto: ElementRef;
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -52,7 +53,7 @@ export class AUweightComponent implements OnInit {
     this.gridOptions.columnDefs = [
       {
         headerName: "Article ID",
-        field: "Article ID",
+        field: "ArticleID",
         width: 300,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
@@ -124,13 +125,22 @@ export class AUweightComponent implements OnInit {
               
               );
               this.importList.push(importObj)
+              console.log(this.importList);
               this.rowData = this.importList;
               }
           }
         }
   }
 
+  clearDetails(){
 
+    this.rowData= [];
+ this.userPhoto.nativeElement.value = null;
+   
+    this.successMsg = null;
+    this.errorMsg = null;
+   
+  };
 downloadauweight(){
     console.log("in Download");
      this.errorMsg = null;

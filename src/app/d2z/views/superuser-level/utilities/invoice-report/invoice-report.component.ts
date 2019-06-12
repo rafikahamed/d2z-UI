@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {  MatInput } from '@angular/material';
 import 'rxjs/add/operator/filter';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { GridOptions } from "ag-grid";
@@ -22,6 +23,13 @@ interface dropdownTemplate {
 })
 
 export class SuperUserInvoiceComponent implements OnInit{
+@ViewChild('frominput', {
+  read: MatInput
+}) frominput: MatInput;
+
+@ViewChild('toinput', {
+  read: MatInput
+}) toinput: MatInput;
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -1206,6 +1214,28 @@ console.log("imhere");
         this.errorMsg = "**Please select the below records to download the Shipment Consignment details";
       } 
   };
+
+    clearDetails(){
+
+    
+
+        if(this.exportFileType === 'export-consignment'){
+          this.rowDataConsignment = [];
+        }else if(this.exportFileType === 'export-delete'){
+          this.rowDataDeleted = [];
+        }else if(this.exportFileType === 'export-shipment'){
+          this.rowDataShipment = [];
+        }else if(this.exportFileType === 'export-nonshipment'){
+          this.rowDataShipment = [];
+        }
+       
+  this.frominput.value = '';
+  this.toinput.value = '';
+    this.successMsg = null;
+    this.errorMsg = null;
+   
+  };
+
     exportSearch(){
     this.errorMsg = null;
     this.successMsg = '';
