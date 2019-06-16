@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component,ViewChild, OnInit } from '@angular/core';
+import { NgForm,FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
@@ -19,6 +19,7 @@ interface dropdownTemplate {
 })
 
 export class SuperUserUpdateClientComponent implements OnInit{
+@ViewChild('myForm') myForm: NgForm;
       childmenu: boolean;
       childmenuTwo:boolean;
       childmenuThree:boolean;
@@ -107,7 +108,12 @@ export class SuperUserUpdateClientComponent implements OnInit{
       this.role_id = this.consignmenrServices.userMessage.role_Id;
     }
   };
+resetClient()
+{
 
+this.myForm.resetForm();
+  
+};
   onCompanyDropdownchange(event){
    if(event.value){
     this.companyName = event.value.value;

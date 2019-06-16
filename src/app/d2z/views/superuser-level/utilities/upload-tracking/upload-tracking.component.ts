@@ -16,6 +16,7 @@ declare var $: any;
 })
 
 export class SuperUserUploadTrackingComponent implements OnInit{
+@ViewChild('userPhoto') userPhoto: ElementRef;
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -176,7 +177,15 @@ export class SuperUserUploadTrackingComponent implements OnInit{
           }
         }
   }
+clearDetails(){
 
+    this.rowData= [];
+ this.userPhoto.nativeElement.value = null;
+   
+    this.successMsg = null;
+    this.errorMsg = null;
+   
+  };
   allocateTracking(){
     this.errorMsg = null;
     this.successMsg = '';

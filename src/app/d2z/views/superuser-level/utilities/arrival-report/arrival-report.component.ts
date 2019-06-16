@@ -16,6 +16,7 @@ declare var $: any;
 })
 
 export class SuperUserArrivalReportComponent implements OnInit{
+@ViewChild('userPhoto') userPhoto: ElementRef;
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -118,6 +119,15 @@ export class SuperUserArrivalReportComponent implements OnInit{
     this.arrivalExport();
   }
 
+clearDetails(){
+
+    this.rowData= [];
+ this.userPhoto.nativeElement.value = null;
+   
+    this.successMsg = null;
+    this.errorMsg = null;
+   
+  };
   arrivalExport(){
       var worksheet;
       this.errorMsg = null;

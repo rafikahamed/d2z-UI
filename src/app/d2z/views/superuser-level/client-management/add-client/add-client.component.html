@@ -18,7 +18,7 @@
                        <tbody>
                           <tr>
                                      <td colspan="1" style="border: 0px;">
-                                        <form class="well form-horizontal" [formGroup]="brokerAddClientForm">
+                                        <form #myForm ="ngForm"class="well form-horizontal" [formGroup]="brokerAddClientForm">
                                            <fieldset>
                                               <div class="form-group">
                                                  <label class="col-md-4 control-label">Company Name</label>
@@ -258,6 +258,17 @@
                                                                    class="btn btn-primary btn btn-info"
                                                                    (click)="addClient()"
                                                                    id="submit-id-signup"/>
+
+                                                                   <button type="button" 
+                              class="btn btn-info" 
+                              (click)="resetClient()"
+                              style="background-color: #16A085; margin-right:10px">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                               Refresh
+                      </button>
+                                                                  
+                                                                  
+
                                                         </div>
                                                     </div> 
                                            </fieldset>
