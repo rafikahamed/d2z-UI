@@ -35,9 +35,9 @@
                                <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
-                            <li *ngIf="labels"><a (click)="super_user_labels(arrow)"><i class="fa fa-print"></i> Zebra Scan <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="labels"><a (click)="super_user_labels(arrow)"><i class="fa fa-print"></i> Scan & Print Labels<span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperEight? 'block' : 'none'}">
-                                <li *ngIf="zebraPrint"><a routerLink="/superuser/labels/print">Print</a></li>
+                                <li *ngIf="zebraPrint"><a routerLink="/superuser/labels/print">Zebra</a></li>
                                 <li *ngIf="zebraPdf"><a routerLink="/superuser/labels/pdf">PDF</a></li>
                                 </ul>
                             </li>

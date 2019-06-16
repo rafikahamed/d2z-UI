@@ -713,21 +713,27 @@ export class ZebraFileUpload implements OnInit{
           }
       }else{
           for(var refNum in this.successReferenceNumber){
-              if(this.successReferenceNumber[refNum].carrier == "FastwayM"){
-                var importObj = (
+              var importObj = (
                   importObj={}, 
                   importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
                   importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
-                  )
-                  refernceNumberList.push(importObj)
-              }else{
-                var importObj = (
-                  importObj={}, 
-                  importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
-                  importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44) : '', importObj
-                  )
-                  refernceNumberList.push(importObj)
-              }
+              )
+              refernceNumberList.push(importObj);
+              // if(this.successReferenceNumber[refNum].carrier == "FastwayM"){
+              //   var importObj = (
+              //     importObj={}, 
+              //     importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+              //     importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
+              //     )
+              //     refernceNumberList.push(importObj)
+              // }else{
+              //   var importObj = (
+              //     importObj={}, 
+              //     importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+              //     importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44) : '', importObj
+              //     )
+              //     refernceNumberList.push(importObj)
+              // }
             }
       }
       new Angular2Csv(refernceNumberList, fileName, options);

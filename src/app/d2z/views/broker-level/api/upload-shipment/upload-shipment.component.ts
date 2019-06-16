@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -142,9 +141,12 @@ export class APIUploadShipmentComponent implements OnInit{
         console.log(refrenceNumList.toString())
         this.trackingDataService.shipmentAllocation(refrenceNumList.toString(), this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.responseMessage;
-          $('#allocateShipmentModal').modal('show');
-          if(!resp){
+          if(resp.error.errorDetails){
+            this.successMsg = resp.error.errorDetails;
+            $('#allocateShipmentModal').modal('show');
+          }else{
+            this.successMsg = resp.responseMessage;
+            $('#allocateShipmentModal').modal('show');
           }
           setTimeout(() => {
             this.spinner.hide();
