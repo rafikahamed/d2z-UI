@@ -1,4 +1,4 @@
-import { Component, AfterContentChecked, OnInit } from '@angular/core';
+import { Component, ViewChild,ElementRef,AfterContentChecked, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
@@ -19,7 +19,7 @@ interface dropdownTemplate {
 })
 
 export class SuperUserRatesAddComponent implements OnInit {
-
+@ViewChild('userPhoto') userPhoto: ElementRef;
   userName: String;
   role_id: String;
   brokerListMainData = [];
@@ -150,7 +150,19 @@ export class SuperUserRatesAddComponent implements OnInit {
       }
     })
   };
+clearDetails(){
 
+   
+   this.selectedInjectionType = null;
+   this.selectedserviceType = null;
+   this.selectedBrokerType = null;
+
+ this.userPhoto.nativeElement.value = null;
+   
+    this.successMsg = null;
+    this.errorMsg = null;
+   
+  };
   incomingfile(event) {
     this.rowData = [];
     this.file = event.target.files[0]; 

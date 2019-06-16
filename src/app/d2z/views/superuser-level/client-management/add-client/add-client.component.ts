@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component,ElementRef,ViewChild, OnInit } from '@angular/core';
+import { NgForm,FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
@@ -19,6 +19,7 @@ interface City {
 })
 
 export class SuperUserAddClientComponent implements OnInit{
+@ViewChild('myForm') myForm: NgForm;
       errorMsg: string;
       successMsg: String;
       brokerAddClientForm: FormGroup;
@@ -87,7 +88,12 @@ export class SuperUserAddClientComponent implements OnInit{
         this.role_id = this.consignmenrServices.userMessage.role_Id;
       }
     };
+resetClient()
+{
 
+this.myForm.resetForm();
+  
+}
     addClient(){
       let companyName = 'companyName';
       let contactName = 'contactName';
