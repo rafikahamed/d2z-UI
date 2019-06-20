@@ -522,7 +522,8 @@ export class ZebraPdfPrintLabels implements OnInit{
           this.spinner.hide();
           var pdfFile = new Blob([resp], {type: 'application/pdf'});
           var pdfUrl = URL.createObjectURL(pdfFile);
-          var fileName = "D2Z-Label-"+dateString+".pdf";
+        //  var fileName = "D2Z-Label-"+dateString+".pdf";
+        var fileName = "label-"+dateString+".pdf";
           var a = document.createElement("a");
               document.body.appendChild(a);
               a.href = pdfUrl;

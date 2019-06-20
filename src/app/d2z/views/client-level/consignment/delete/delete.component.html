@@ -22,6 +22,7 @@
 
                         <div class="col-md-4">
                             <p-dropdown 
+
                               [options]="cities2" 
                               [(ngModel)]="selectedCity2" 
                               optionLabel="name" 
@@ -52,8 +53,25 @@
                                     搜索
                             </button>
                         </div>
+                         <div class="col-md-2">
+ <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="englishFlag"
+                              (click)="clearUpload()"
+                              style="background-color: #16A085">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                              Refresh
+                    </button>
 
-                     
+                    <button type="button" 
+                              class="btn btn-info" 
+                              *ngIf="chinessFlag" 
+                              (click)="clearUpload()"
+                              style="background-color: #16A085">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                              刷新
+                    </button>
+                     </div>
                   </div>
 
                    <!-- Modal -->

@@ -43,6 +43,28 @@ export class UtilitiesScanPdf implements OnInit{
     }
 
     downloadLable(){
+     var today = new Date();
+        var day = today.getDate() + "";
+        var month = (today.getMonth() + 1) + "";
+        var year = today.getFullYear() + "";
+        var hour = today.getHours() + "";
+        var minutes = today.getMinutes() + "";
+        var seconds = today.getSeconds() + "";
+
+        day = checkZero(day);
+        month = checkZero(month);
+        year = checkZero(year);
+        hour = checkZero(hour);
+        minutes = checkZero(minutes);
+        seconds = checkZero(seconds);
+
+        function checkZero(data){
+          if(data.length == 1){
+            data = "0" + data;
+          }
+          return data;
+        };
+    var dateString = year+month+day+"-"+hour+minutes+seconds;
       this.errorMsg=null;
       this.successMsg=null;
       var elem = document.getElementById("pdf-Util");
@@ -61,7 +83,8 @@ export class UtilitiesScanPdf implements OnInit{
                     }else{
                       var pdfFile = new Blob([resp], {type: 'application/pdf'});
                       var pdfUrl = URL.createObjectURL(pdfFile);
-                      var fileName = fileRefNum+"-tracking.pdf";
+                     // var fileName = fileRefNum+"-tracking.pdf";
+                     var fileName = fileRefNum+"-label"+dateString+".pdf";
                       var a = document.createElement("a");
                           document.body.appendChild(a);
                           a.href = pdfUrl;

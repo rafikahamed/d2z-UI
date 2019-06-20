@@ -150,7 +150,7 @@ export class UtilitiesTracking implements OnInit{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Reference Number', 'Consignee Name', 'BarCode Label Number' ]
+            headers: [ 'Reference Number', 'Consignee Name', 'Article ID' ]
           };
         new Angular2Csv(selectedRows, fileName, options);        
       }else{

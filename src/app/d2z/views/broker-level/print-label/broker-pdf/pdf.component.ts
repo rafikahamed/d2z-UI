@@ -236,6 +236,28 @@ export class BrokerPdfComponent implements OnInit{
   }
 
   downloadLabel(){
+   var today = new Date();
+        var day = today.getDate() + "";
+        var month = (today.getMonth() + 1) + "";
+        var year = today.getFullYear() + "";
+        var hour = today.getHours() + "";
+        var minutes = today.getMinutes() + "";
+        var seconds = today.getSeconds() + "";
+
+        day = checkZero(day);
+        month = checkZero(month);
+        year = checkZero(year);
+        hour = checkZero(hour);
+        minutes = checkZero(minutes);
+        seconds = checkZero(seconds);
+
+        function checkZero(data){
+          if(data.length == 1){
+            data = "0" + data;
+          }
+          return data;
+        };
+    var dateString = year+month+day+"-"+hour+minutes+seconds;
     var selectedRows = this.gridOptions.api.getSelectedRows();
     var printLabelList = [];
         let referenceNumber = 'referenceNumber';
@@ -300,7 +322,8 @@ export class BrokerPdfComponent implements OnInit{
             this.spinner.hide();
             var pdfFile = new Blob([resp], {type: 'application/pdf'});
             var pdfUrl = URL.createObjectURL(pdfFile);
-            var fileName = "file_name.pdf";
+          //  var fileName = "file_name.pdf";
+          var fileName = "label-"+dateString+".pdf";
             var a = document.createElement("a");
                 document.body.appendChild(a);
                 a.href = pdfUrl;

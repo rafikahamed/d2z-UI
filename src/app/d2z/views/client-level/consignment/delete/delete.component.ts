@@ -22,6 +22,7 @@ export class ZebraDelete implements OnInit{
   successMsg: String;
   englishFlag:boolean;
   chinessFlag:boolean;
+  selectedCity2:City;
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -366,6 +367,14 @@ export class ZebraDelete implements OnInit{
       }, 5000);
     })
   }
+
+   clearUpload(){
+     this.selectedCity2 = null;
+      this.rowData = [];
+    
+      this.errorMsg = null;
+      this.successMsg = null;
+    };
 
   deleteLabels(){
     var selectedRows = this.gridOptions.api.getSelectedRows();
