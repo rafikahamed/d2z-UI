@@ -36,6 +36,7 @@ import { DownloadShipmentComponent } from 'app/d2z/views/broker-level/create-shi
 import { DirectInjectionComponent } from 'app/d2z/views/broker-level/api/direct-injection/direct-injection.component';
 import { APIUploadShipmentComponent } from 'app/d2z/views/broker-level/api/upload-shipment/upload-shipment.component';
 import { APIDownloadShipmentComponent } from 'app/d2z/views/broker-level/api/download-shipment/download-shipment.component';
+import { BrokerTrackParcelComponent } from 'app/d2z/views/broker-level/utilities/track-parcel/track-parcel.component';
 import { SuperUserMainComponent } from 'app/d2z/views/superuser-level/super-user/super-main.component';
 import { SuperUserAddClientComponent } from 'app/d2z/views/superuser-level/client-management/add-client/add-client.component';
 import { SuperUserUpdateClientComponent } from 'app/d2z/views/superuser-level/client-management/update-client/update-client.component';
@@ -101,6 +102,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "broker/api/direct-injection", component : DirectInjectionComponent},
           { path: "broker/api/upload-shipment", component : APIUploadShipmentComponent},
           { path: "broker/api/download-shipment", component : APIDownloadShipmentComponent},
+          { path: "broker/util/Tracking", component : BrokerTrackParcelComponent},
           { path: "superuser-main", component : SuperUserMainComponent},
           { path: "superuser/add-client", component : SuperUserAddClientComponent},
           { path: "superuser/update-client", component : SuperUserUpdateClientComponent},
@@ -148,6 +150,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     UpdateClientComponent,
     BrokerPrintComponent,
     BrokerPdfComponent,
+    BrokerTrackParcelComponent,
     AllocateShipmentComponent,
     ScanShipmentComponent,
     DownloadShipmentComponent,

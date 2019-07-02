@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
-//  const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+//const baseUrl = "https://"+hostname+"/v1/"+apiName;
+ const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 // const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 // New Stage URL
 // const baseUrl = "http://52.65.135.232:8080/v1/d2z";
@@ -27,7 +27,7 @@ export class ConsigmentUploadService implements OnInit{
   menuSourceSelection = this.menuSource.asObservable();
 
   private menuBrokerSource = new BehaviorSubject({"childmenubrkOne":false, "childmenubrkTwo":true, "childmenubrkThree":true,
-                        "childmenubrkFour":true, "childmenubrkFive": true});
+                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true});
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,

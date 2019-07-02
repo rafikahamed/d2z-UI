@@ -1,0 +1,135 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+          <div class="main_container">
+            
+            <broker-header> </broker-header>
+
+             <div class="right_col" role="main">
+              <div class ="row">
+                  <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px;"> Utilities / Tracking Details </h3>
+                                </div>
+                        </div>
+                  </div>
+            
+                 
+
+                  <div class="col-md-12 track_search_area">
+                        <ngx-spinner
+                              bdColor="rgba(51,51,51,0.8)"
+                              size="medium"
+                              color="#fff"
+                              loadingText="Loading..."
+                              type="ball-clip-rotate-multiple">
+                        </ngx-spinner>
+                        
+                        <div>
+                            <p style="color: #ca2929; font-size:14px; font-weight:500;">{{errorMsg}}</p>
+                        </div>
+
+                        <div>
+                            <p style="color:green; font-size: 14px;font-weight: 500;">{{successMsg}}</p>
+                        </div>
+                        
+                        <form [formGroup]="trackParcelForm">
+                            <div class="col-md-2" style="font-size: 16px" > Reference Number/Article ID: </div>
+                            
+                            <div class="col-md-5"> 
+                                <textarea rows="4" 
+                                            cols="50" 
+                                            style="border: 1px solid #ccc" 
+                                         
+                                            id="trackId" 
+                                            placeholder="you can search 30 items, please provide the reference number in next line" 
+                                            formControlName="trackingNumber">
+                                </textarea>
+                               
+                            </div>
+
+                            <div class="col-md-1">
+                                <button type="button" 
+                                        class="btn btn-info" 
+                                     
+                                        (click)="trackParcel()"
+                                        style="background-color: #16A085; float:right; margin-top:40px;">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        Search
+                                </button>
+
+                              
+                            </div>
+                        </form>
+                  </div>
+
+                  <h3 class="page-title" style="margin-left: 15px"> Tracking Events:</h3>
+                 
+                  <button type="button" 
+                            class="btn btn-info" 
+                            *ngIf="showDownload" 
+                            (click)="downloadTrackingDetails()"
+                            style="background-color: #16A085; float:right; margin-right:35px">
+                            <span class="glyphicon glyphicon-cloud-download"></span>
+                          Download Tracking Details
+                  </button>
+
+                  <div class="col-md-12">
+                       
+                      <div *ngIf="showEvents" class="track_search">
+                        <div *ngFor="let trackData of trackEvents; let i = index">
+                          <p-accordion>
+                              <p-accordionTab header={{trackData.referenceNumber}} [selected]="true" >
+                                 <h3 style="margin-left:35px" > 
+                                     <span class="fa fa-barcode"></span>
+                                     Article Id : &nbsp; &nbsp; {{trackData.barcodelabelNumber}}</h3> 
+                                
+                                  <div style="margin-top: -70px; margin-bottom: -70px">
+                                      <div id="content">
+                                          <ul class="timeline">
+                                            <li *ngFor="let event of trackData.trackingEvents;let i = index"
+                                                class="event" [attr.data-date]="event.trackEventDateOccured">
+                                              <p>{{event.eventDetails}}</p>
+                                            </li>
+                                          </ul>
+                                      </div>
+                                      <!-- <ol class="progtrckr" data-progtrckr-steps="8">
+                                          <li class=" {{trackData.consignmentCreated!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Consignment Created</li>
+                                          <li class=" {{trackData.shipmentCreated!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Shipment Created </li>
+                                          <li class=" {{trackData.heldByCustoms!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Held By Customs</li>
+                                          <li class=" {{trackData.clearedCustoms!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Cleared Customs</li>
+                                          <li class=" {{trackData.received!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Received</li>
+                                          <li class=" {{trackData.processedByFacility!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Processed By Facility</li>
+                                          <li class=" {{trackData.inTransit!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">InTransit</li>
+                                          <li class=" {{trackData.delivered!= null ? 'progtrckr-done' : 'progtrckr-todo'}}">Delivered</li>
+                                      </ol> -->
+                                      <!-- <ol class="progtrckrtext" data-progtrckr-steps="8">
+                                          <li class="progtrckrtext-done">{{trackData.consignmentCreated}}</li>
+                                          <li class="progtrckrtext-done">{{trackData.shipmentCreated}} </li>
+                                          <li class="progtrckrtext-done">{{trackData.heldByCustoms}}</li>
+                                          <li class="progtrckrtext-done">{{trackData.clearedCustoms}}</li>
+                                          <li class="progtrckrtext-done">{{trackData.received}}</li>
+                                          <li class="progtrckrtext-done">{{trackData.processedByFacility}}</li>
+                                          <li class="progtrckrtext-todo">{{trackData.inTransit}}</li>
+                                          <li class="progtrckrtext-todo">{{trackData.delivered}}</li>
+                                      </ol> -->
+                                  </div>
+                              </p-accordionTab>
+                          </p-accordion>
+                        </div>
+                      </div>
+
+                      <div *ngIf="!showEvents" class="track_search">
+                            <div style="color: palevioletred; font-size:17px"> 
+                                Tracking details not yet assigned, Please check after sometime
+                            </div>
+                      </div>
+                  </div>
+              
+                </div>
+            </div>
+          
+          </div>
+        </div>
+      </body>
+    
