@@ -47,6 +47,12 @@
                       <!-- <li><a routerLink="/broker/api/download-shipment">Download Shipment Data - API</a></li> -->
                     </ul>
                 </li>
+                <li><a (click)="broker_util(arrow)"><i class="fa fa-table"></i> UTILITIES <span class="fa fa-chevron-down" #arrow></span></a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenubrkSix ? 'block' : 'none'}">
+                      <li><a routerLink="/broker/util/Tracking">Track Parcels</a></li>
+                      <!-- <li><a routerLink="/broker/api/download-shipment">Download Shipment Data - API</a></li> -->
+                    </ul>
+                </li>
                 <li>
                     <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
                 </li>
