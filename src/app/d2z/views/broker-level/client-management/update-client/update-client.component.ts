@@ -27,6 +27,9 @@ export class UpdateClientComponent implements OnInit{
       typeSubThreeFlag: boolean;
       typeSubFourFlag: boolean;
       typeSubFiveFlag: boolean;
+      typeSubSixFlag: boolean;
+      typeSubSevenFlag: boolean;
+
       oneCheckFlag: boolean;
       twoCheckFlag: boolean;
       threeCheckFlag: boolean;
@@ -40,6 +43,8 @@ export class UpdateClientComponent implements OnInit{
       subThreeCheckFlag: boolean;
       subFourCheckFlag: boolean;
       subFiveCheckFlag: boolean;
+      subSixCheckFlag: boolean;
+      subSevenCheckFlag: boolean;
       errorMsg: string;
       successMsg: String;
       companyName: String;
@@ -120,6 +125,10 @@ export class UpdateClientComponent implements OnInit{
     this.typeSubThreeFlag = this.consignmenrServices.userMessage.serviceType.includes('1PS2')? true : false;
     this.typeSubFourFlag = this.consignmenrServices.userMessage.serviceType.includes('FWS') ? true : false;
     this.typeSubFiveFlag = this.consignmenrServices.userMessage.serviceType.includes('STS') ? true : false;
+    this.typeSubSixFlag = this.consignmenrServices.userMessage.serviceType.includes('2PSP') ? true : false;
+    this.typeSubSevenFlag = this.consignmenrServices.userMessage.serviceType.includes('MCS') ? true : false;
+    console.log("in update");
+    console.log( this.typeSubSevenFlag);
     this.getLoginDetails();
   };
 
@@ -161,6 +170,8 @@ export class UpdateClientComponent implements OnInit{
       this.subThreeCheckFlag = resp.serviceType.includes('1PS2') ? true :  false;
       this.subFourCheckFlag = resp.serviceType.includes('FWS') ? true :  false;
       this.subFiveCheckFlag = resp.serviceType.includes('STS') ? true :  false;
+       this.subSixCheckFlag = resp.serviceType.includes('2PSP') ? true :  false;
+        this.subSevenCheckFlag = resp.serviceType.includes('MCS') ? true :  false;
       this.serviceTypeArray = resp.serviceType;
       this.spinner.hide();
       setTimeout(() => {this.spinner.hide()}, 5000);

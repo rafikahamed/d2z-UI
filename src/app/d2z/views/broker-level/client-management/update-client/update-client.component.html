@@ -296,6 +296,17 @@
                                                                                         <input type="checkbox" id="STS" (change)="onServiceTypeChange($event)" value="STS" [checked]="subFiveCheckFlag">
                                                                                         <label>STS</label>
                                                                                 </div>
+
+
+<div *ngIf="typeSubSixFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="2PSP" (change)="onServiceTypeChange($event)" value="2PSP" [checked]="subSixCheckFlag">
+                                                                                        <label>2PSP</label>
+                                                                                </div>
+
+<div  *ngIf="typeSubSevenFlag" class= "checkbox-items">
+                                                                                        <input type="checkbox" id="MCS" (change)="onServiceTypeChange($event)" value="MCS" [checked]="subSevenCheckFlag">
+                                                                                        <label>MCS</label>
+                                                                                </div>
                                                                         </div>   
                                                                 </div>
                                                                 </div>
