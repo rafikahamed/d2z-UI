@@ -27,7 +27,8 @@ export class ZebraPdfFileUpload implements OnInit{
   fileName: string;
   errorMsg: string;
   successMsg: String;
-  user_Id: String;
+  user_Id: string;
+  userName: string
   private gridOptions: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
@@ -63,7 +64,8 @@ export class ZebraPdfFileUpload implements OnInit{
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
-      this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
+      this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id : '';
+      this.userName = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
@@ -464,6 +466,8 @@ export class ZebraPdfFileUpload implements OnInit{
         let consigneeAddr2 = 'consigneeAddr2';
         let returnAddress1 = 'returnAddress1';
         let returnAddress2 = 'returnAddress2';
+        let userID = 'userID';
+        let userName = 'userName';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -494,7 +498,9 @@ export class ZebraPdfFileUpload implements OnInit{
               printObj[carrier]= labelObj.carrier, printObj,
               printObj[consigneeAddr2]= labelObj.consignee_addr2, printObj,
               printObj[returnAddress1]= labelObj.returnAddress1 ? labelObj.returnAddress1 : '', printObj,
-              printObj[returnAddress2]= labelObj.returnAddress2 ? labelObj.returnAddress2 : '', printObj
+              printObj[returnAddress2]= labelObj.returnAddress2 ? labelObj.returnAddress2 : '', printObj,
+              printObj[userID]= parseInt(this.user_Id), printObj,
+              printObj[userName]= this.userName , printObj
           );
           printLabelList.push(printObj);
         }
