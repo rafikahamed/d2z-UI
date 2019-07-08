@@ -64,7 +64,10 @@ import { SuperUserZebraScanPDF } from 'app/d2z/views/superuser-level/zebra-label
 import { SuperUserZebraScanPrint } from 'app/d2z/views/superuser-level/zebra-labels/print/print.component';
 import { SuperUserLogReportComponent } from 'app/d2z/views/superuser-level/reports/log-report/log-report.component';
 import { MLIDComponent } from 'app/d2z/views/superuser-level/mlid/mlid.component';
-import{AUweightComponent} from 'app/d2z/views/superuser-level/auweight/auweight.component';
+import { AUweightComponent } from 'app/d2z/views/superuser-level/auweight/auweight.component';
+import { completedEnquiryComponent } from 'app/d2z/views/client-level/enquiry/completed-enquiry/completed-enquiry.component';
+import { CreateEnquiryComponent } from 'app/d2z/views/client-level/enquiry/create-enquiry/create-enquiry.component';
+import { OutstandingEnquiryComponent } from 'app/d2z/views/client-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -91,6 +94,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "utilities/scanPrintLabels", component: UtilitiesScanPrint},
           { path: "utilities/scanPdf", component: UtilitiesScanPdf},
           { path: "manifest/creation", component: ManifestComponent},
+          { path: "enquiry/create-enquiry", component: CreateEnquiryComponent},
+          { path: "enquiry/outstanding-enquiry", component: OutstandingEnquiryComponent},
+          { path: "enquiry/completed-enquiry", component: completedEnquiryComponent},
           { path: "broker-main", component: BrokerMainComponent},
           { path: "broker/add-client", component : AddClientComponent},
           { path: "broker/update-client", component : UpdateClientComponent},
@@ -125,7 +131,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent},
           { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent},
           { path: "superuser/mld", component:MLIDComponent},
-           { path: "superuser/auweight", component:AUweightComponent},
+          { path: "superuser/auweight", component:AUweightComponent},
           { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
           { path: "superuser/labels/pdf", component: SuperUserZebraScanPDF },
           { path: "superuser/labels/print", component: SuperUserZebraScanPrint }
@@ -184,9 +190,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LoginComponent,
     SuperUserLogReportComponent,
     MLIDComponent,
-   AUweightComponent,
+    AUweightComponent,
     SuperUserZebraScanPDF,
-    SuperUserZebraScanPrint
+    SuperUserZebraScanPrint,
+    completedEnquiryComponent,
+    CreateEnquiryComponent,
+    OutstandingEnquiryComponent
   ],
   entryComponents: [],
   providers: [

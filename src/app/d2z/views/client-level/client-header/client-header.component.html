@@ -87,19 +87,23 @@
                     </ul>
                 </li>
 
-                <!-- <li>
-                    <a *ngIf="englishFlag" (click)="toggle_maniFest(arrow)">
+                <li>
+                    <a *ngIf="englishFlag" (click)="toggle_enquiry(arrow)">
                         <i class="fa fa-bar-chart-o"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span>
                     </a>
-                    <a *ngIf="chinessFlag" (click)="toggle_maniFest(arrow)">
+                    <a *ngIf="chinessFlag" (click)="toggle_enquiry(arrow)">
                             <i class="fa fa-bar-chart-o"></i> 创建清单 <span class="fa fa-chevron-down" #arrow>
                             </span>
                     </a>
-                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuFive ? 'block' : 'none'}">
-                        <li *ngIf="englishFlag"><a routerLink="/manifest/creation">Create Manifest</a></li>
-                        <li *ngIf="chinessFlag"><a routerLink="/manifest/creation">创建清单</a></li>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSix ? 'block' : 'none'}">
+                        <li *ngIf="englishFlag"><a routerLink="/enquiry/create-enquiry">Create Enquiry</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/create-enquiry">创建清单</a></li>
+                        <li *ngIf="englishFlag"><a routerLink="/enquiry/outstanding-enquiry">OutStanding Enquiries</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/outstanding-enquiry">创建清单</a></li>
+                        <li *ngIf="englishFlag"><a routerLink="/enquiry/completed-enquiry">Completed Enquiries</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/completed-enquiry">创建清单</a></li>
                     </ul>
-                </li> -->
+                </li>
 
                 <li>
                     <a *ngIf="englishFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
