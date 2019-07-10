@@ -433,7 +433,7 @@ export class ZebraFileUpload implements OnInit{
           }
           return data;
         }
-        var dateString = year+month+day+"-"+hour+minutes+seconds;
+        var dateString = year+month+day+hour+minutes+seconds;
 
         fileReader.onload = (e) => {
             this.arrayBuffer = fileReader.result;
