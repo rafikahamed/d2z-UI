@@ -538,3 +538,13 @@ ul.top_profiles li{
 ul.top_profiles li:nth-child(odd){
     background-color:#eee
 }
+
+@media all and (min-width: 768px) {
+    tr td {
+      vertical-align: middle !important;
+    }
+    tr span:not([class]) {
+      padding: 1rem 1rem;
+    }
+  }
+  
