@@ -1,0 +1,40 @@
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+        <div class="main_container">
+            
+            <client-header> </client-header>
+
+            <div class="right_col" role="main">
+                <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px" *ngIf="englishFlag"> Enquiry / Create Enquiry </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 清单 / 创建 </h3>
+                                </div>
+                        </div>
+                </div>
+    
+                <div class="manifest_panel">
+                     
+                </div>
+            </div>
+
+            <footer id="footer" class="wow fadeIn">
+                    <div class="copyright">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="text">
+                                <p *ngIf="englishFlag">&copy; Copyright 2018<span></span><a>{{system}}</a> (Distributor)</p>
+                                <p *ngIf="chinessFlag">&copy; 版权 2018<span></span><a>{{system}}</a> (分销商)</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            </footer>
+
+        </div>
+    </div>
+</body>
+    

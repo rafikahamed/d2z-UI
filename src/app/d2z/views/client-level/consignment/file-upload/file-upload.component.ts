@@ -28,6 +28,7 @@ export class ZebraFileUpload implements OnInit{
     successMsg: String;
     show: Boolean;
     showSuccess: Boolean;
+    stsFlag: Boolean;
     errorMsg: String;
     userMessage: userMessage;
     errorDetails: any[];
@@ -63,6 +64,7 @@ export class ZebraFileUpload implements OnInit{
       this._compiler.clearCache();
       this.show = false;
       this.showSuccess = false;
+      this.stsFlag = false;
       this.gridOptions = <GridOptions>{rowSelection: "multiple"};
       this.autoGroupColumnDef = {
         headerCheckboxSelection: true,
@@ -594,10 +596,26 @@ export class ZebraFileUpload implements OnInit{
             this.show = true;
             $('#fileUploadModal').modal('show');  
           }else{  
-            this.successMsg = this.englishFlag ? 'File data uploaded successfully to System' : '文件数据成功上传到D2Z系统';
-            this.successReferenceNumber = resp;
-            this.showSuccess = true;
-            $('#fileUploadModal').modal('show');
+            for (var data in resp) {
+              var dataObj = resp[data];
+                if(dataObj.message != null){
+                  this.stsFlag = true;
+                }else{
+                  this.stsFlag = false;
+                }
+            }
+
+            if(!this.stsFlag){
+              this.successMsg = this.englishFlag ? 'File data uploaded successfully to System' : '文件数据成功上传到D2Z系统';
+              this.successReferenceNumber = resp;
+              this.showSuccess = true;
+              $('#fileUploadModal').modal('show');
+            }else{
+              this.successMsg = this.englishFlag ? 'Having Issue with Uploaing File' : '文件数据成功上传到D2Z系统';
+              this.successReferenceNumber = resp;
+              this.showSuccess = true;
+              $('#fileUploadModal').modal('show');
+            }
           }
           setTimeout(() => { this.spinner.hide() }, 5000);
         });
@@ -662,15 +680,26 @@ export class ZebraFileUpload implements OnInit{
         }
       }
     }else{
-        var options = { 
-          fieldSeparator: ',',
-          quoteStrings: '"',
-          decimalseparator: '.',
-          showLabels: true, 
-          useBom: true,
-          headers: ['Reference Number', 'BarCode Label Number']
+        if(!this.stsFlag){
+            var options = { 
+              fieldSeparator: ',',
+              quoteStrings: '"',
+              decimalseparator: '.',
+              showLabels: true, 
+              useBom: true,
+              headers: ['Reference Number', 'BarCode Label Number']
+            }
+        }else{
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Message']
           }
-      }
+        }
+    }
       
       var refernceNumberList = [];
       let referenceNumber = 'referenceNumber';
@@ -679,6 +708,7 @@ export class ZebraFileUpload implements OnInit{
       let suburb = 'suburb';
       let state = 'state';
       let barCodeNumber = 'barCodeNumber';
+      let errorMsg = 'errorMsg';
       if(!this.showSuccess) {
         for(var refNum in this.errorDetails){
           var a = this.errorDetails[refNum].split("-") // Delimiter is a string
@@ -712,29 +742,25 @@ export class ZebraFileUpload implements OnInit{
             refernceNumberList.push(importObj)
           }
       }else{
+        if(!this.stsFlag){
           for(var refNum in this.successReferenceNumber){
-              var importObj = (
-                  importObj={}, 
-                  importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
-                  importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
-              )
-              refernceNumberList.push(importObj);
-              // if(this.successReferenceNumber[refNum].carrier == "FastwayM"){
-              //   var importObj = (
-              //     importObj={}, 
-              //     importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
-              //     importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
-              //     )
-              //     refernceNumberList.push(importObj)
-              // }else{
-              //   var importObj = (
-              //     importObj={}, 
-              //     importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
-              //     importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber.substring(21, 44) : '', importObj
-              //     )
-              //     refernceNumberList.push(importObj)
-              // }
-            }
+            var importObj = (
+                importObj={}, 
+                importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+                importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
+            )
+            refernceNumberList.push(importObj);
+          }
+        }else if(this.stsFlag){
+          console.log(this.successReferenceNumber)
+          for(var refNum in this.successReferenceNumber){
+            var importObj = (
+                importObj={}, 
+                importObj[errorMsg]= this.successReferenceNumber[refNum].message, importObj
+            )
+            refernceNumberList.push(importObj);
+          }
+        }
       }
       new Angular2Csv(refernceNumberList, fileName, options);
     };

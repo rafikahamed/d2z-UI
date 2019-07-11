@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit{
     menuSelection.childmenuThree = true;
     menuSelection.childmenuFour = true;
     menuSelection.childmenuFive = true;
+    menuSelection.childmenuSix = true;
+    
     var menuBrokerSelection  = this.consigmentUploadService.menuBrokerSourceSelection.source['_value'];
     menuBrokerSelection.childmenubrkOne = false;
     menuBrokerSelection.childmenubrkTwo = true;

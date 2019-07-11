@@ -22,6 +22,7 @@
     "@angular/router": "^5.0.0",
     "ag-grid": "^18.1.0",
     "ag-grid-angular": "^18.1.0",
+    "angular-bootstrap-md": "^8.0.0",
     "angular-user-idle": "^1.1.0",
     "angular2-csv": "^0.2.5",
     "jquery": "^3.3.1",

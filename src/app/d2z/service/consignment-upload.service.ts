@@ -23,7 +23,7 @@ export class ConsigmentUploadService implements OnInit{
   currentMessage = this.messageSource.asObservable();
 
   private menuSource = new BehaviorSubject({"childmenuOne":false, "childmenuTwo":true, "childmenuThree":true,
-                        "childmenuFour":true, "childmenuFive": true});
+                        "childmenuFour":true, "childmenuFive": true, "childmenuSix":true});
   menuSourceSelection = this.menuSource.asObservable();
 
   private menuBrokerSource = new BehaviorSubject({"childmenubrkOne":false, "childmenubrkTwo":true, "childmenubrkThree":true,
