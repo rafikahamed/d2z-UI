@@ -96,11 +96,13 @@ export class SuperUserHeaderComponent implements OnInit {
     }else if(role == 4){
       this.tracking = true;
       this.trackingArrival = true;
-      this.invoices= true;
-      this.invoicePending= true;
-      this.invoiceNonD2z= true;
+      
       this.reports= true;
-      this.reportDelivery = true;
+      this.reportShipment = true;
+        this.auweight = true;
+         this.labels= true;
+      this.zebraPrint= true;
+      this.zebraPdf= true;
     }
   }
 
