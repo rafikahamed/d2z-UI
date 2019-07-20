@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-//const baseUrl = "https://"+hostname+"/v1/"+apiName;
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
  const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 // const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 // New Stage URL
@@ -205,6 +205,47 @@ export class ConsigmentUploadService implements OnInit{
       if (resp) {
       } else {
         console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+
+  createEnquiry( enquiryData, callback): any {
+    this.http.post(baseUrl+'/create-enquiry',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+
+  fetchEnquiry( status, fromDate, toDate, userId, callback): any {
+    this.http.get(baseUrl+'/enquiry', {
+      params: { status: status, fromDate: fromDate, toDate: toDate, userId: userId  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  completedEnquiry(userId, callback): any {
+    this.http.get(baseUrl+'/completed-Enquiry',{
+      params: { userId: userId  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+      console.error("Not Found!")
       }
     }, (error) => {
       callback(error);

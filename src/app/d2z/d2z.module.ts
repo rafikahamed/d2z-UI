@@ -70,7 +70,6 @@ import { CreateEnquiryComponent } from 'app/d2z/views/client-level/enquiry/creat
 import { OutstandingEnquiryComponent } from 'app/d2z/views/client-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-
 @NgModule({
   imports: [
     CommonModule,
