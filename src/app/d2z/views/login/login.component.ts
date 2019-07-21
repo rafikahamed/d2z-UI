@@ -52,8 +52,9 @@ export class LoginComponent implements OnInit{
     menuBrokerSelection.childmenubrkThree = true;
     menuBrokerSelection.childmenubrkFour = true;
     menuBrokerSelection.childmenubrkFive = true;
-     menuBrokerSelection.childmenubrkSix = true;
-    
+    menuBrokerSelection.childmenubrkSix = true;
+    menuBrokerSelection.childmenubrkSeven = true;
+
     var menuSuperSelection  = this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
     menuSuperSelection.childmenuSuperOne = false;
     menuSuperSelection.childmenuSuperTwo = true;

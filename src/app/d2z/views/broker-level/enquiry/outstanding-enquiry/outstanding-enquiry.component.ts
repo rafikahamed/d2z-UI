@@ -18,7 +18,7 @@ interface dropdownTemplate {
   styleUrls: ['./outstanding-enquiry.component.css']
 })
 
-export class OutstandingEnquiryComponent implements OnInit{
+export class BrokerOutstandingEnquiryComponent implements OnInit{
   manifestForm: FormGroup;
   fileName: string;
   errorMsg: string;
@@ -167,13 +167,19 @@ export class OutstandingEnquiryComponent implements OnInit{
     this.errorMsg = null;
   };
 
-  enquirySearch(){
+  enquiryBrokerSearch(){
     this.spinner.show();
-    this.consigmentUploadService.fetchEnquiry(this.status, this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.user_Id, (resp) => {
+    var userIds = [];
+    this.consigmentUploadService.fetchUserId(this.user_Id, (resp) => {
       this.spinner.hide();
-      this.rowData = resp;
-      setTimeout(() => {
-        this.spinner.hide() }, 5000);
+      userIds.push(resp);
+      userIds.push(this.user_Id);
+      console.log(userIds.toString())
+      this.spinner.show();
+        this.consigmentUploadService.fetchEnquiry(this.status, this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", userIds.toString(), (resp) => {
+            this.spinner.hide();
+            this.rowData = resp;
+          })
     })
   }
  

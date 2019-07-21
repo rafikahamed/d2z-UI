@@ -69,6 +69,9 @@ import { completedEnquiryComponent } from 'app/d2z/views/client-level/enquiry/co
 import { CreateEnquiryComponent } from 'app/d2z/views/client-level/enquiry/create-enquiry/create-enquiry.component';
 import { OutstandingEnquiryComponent } from 'app/d2z/views/client-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrokerCompletedEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/completed-enquiry/completed-enquiry.component';
+import { BrokerCreateEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/create-enquiry/create-enquiry.component';
+import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
 
 @NgModule({
   imports: [
@@ -108,6 +111,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
           { path: "broker/api/direct-injection", component : DirectInjectionComponent},
           { path: "broker/api/upload-shipment", component : APIUploadShipmentComponent},
           { path: "broker/api/download-shipment", component : APIDownloadShipmentComponent},
+          { path: "broker/create-enquiry", component: BrokerCreateEnquiryComponent},
+          { path: "broker/outstanding-enquiry", component: BrokerOutstandingEnquiryComponent},
+          { path: "broker/completed-enquiry", component: BrokerCompletedEnquiryComponent},
           { path: "broker/util/Tracking", component : BrokerTrackParcelComponent},
           { path: "superuser-main", component : SuperUserMainComponent},
           { path: "superuser/add-client", component : SuperUserAddClientComponent},
@@ -195,7 +201,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SuperUserZebraScanPrint,
     completedEnquiryComponent,
     CreateEnquiryComponent,
-    OutstandingEnquiryComponent
+    OutstandingEnquiryComponent,
+    BrokerCompletedEnquiryComponent,
+    BrokerCreateEnquiryComponent,
+    BrokerOutstandingEnquiryComponent
   ],
   entryComponents: [],
   providers: [

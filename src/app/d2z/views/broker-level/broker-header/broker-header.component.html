@@ -53,6 +53,17 @@
                       <!-- <li><a routerLink="/broker/api/download-shipment">Download Shipment Data - API</a></li> -->
                     </ul>
                 </li>
+
+                <li>
+                    <a (click)="broker_enquiry(arrow)">
+                            <i class="fa fa-bar-chart-o"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span> </a>
+                        <ul class="nav child_menu" [ngStyle]="{'display': !childmenubrkSeven ? 'block' : 'none'}">
+                            <li><a routerLink="/broker/create-enquiry">Create Enquiry</a></li>
+                            <li><a routerLink="/broker/outstanding-enquiry">OutStanding Enquiries</a></li>
+                            <li><a routerLink="/broker/completed-enquiry">Completed Enquiries</a></li>
+                        </ul>
+                </li> 
+
                 <li>
                     <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
                 </li>

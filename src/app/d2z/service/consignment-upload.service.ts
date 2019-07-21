@@ -27,7 +27,7 @@ export class ConsigmentUploadService implements OnInit{
   menuSourceSelection = this.menuSource.asObservable();
 
   private menuBrokerSource = new BehaviorSubject({"childmenubrkOne":false, "childmenubrkTwo":true, "childmenubrkThree":true,
-                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true});
+                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true, "childmenubrkSeven":true});
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
@@ -227,6 +227,20 @@ export class ConsigmentUploadService implements OnInit{
   fetchEnquiry( status, fromDate, toDate, userId, callback): any {
     this.http.get(baseUrl+'/enquiry', {
       params: { status: status, fromDate: fromDate, toDate: toDate, userId: userId  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  fetchUserId( userId, callback): any {
+    this.http.get(baseUrl+'/userId', {
+      params: { userId: userId  }
     }).subscribe((resp) => {
       callback(resp);
       if (resp) {

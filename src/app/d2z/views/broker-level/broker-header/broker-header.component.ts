@@ -18,6 +18,7 @@ export class BrokerHeaderComponent implements OnInit {
   childmenubrkFour:boolean;
   childmenubrkFive:boolean;
   childmenubrkSix:boolean;
+  childmenubrkSeven:boolean;
   englishFlag:boolean;
   chinessFlag:boolean;
   userName: String;
@@ -44,6 +45,7 @@ export class BrokerHeaderComponent implements OnInit {
     this.childmenubrkFour = menuSelection.childmenubrkFour;
     this.childmenubrkFive = menuSelection.childmenubrkFive;
     this.childmenubrkSix = menuSelection.childmenubrkSix;
+    this.childmenubrkSeven = menuSelection.childmenubrkSeven;
   }
 
   broker_main(arrow) {
@@ -118,6 +120,7 @@ export class BrokerHeaderComponent implements OnInit {
       arrow.className = 'fa fa-chevron-down';
     }
   }
+
   broker_util(arrow){
     var menubrkObj= this.consigmentUploadService.menuBrokerSourceSelection.source['_value'];
     menubrkObj.childmenubrkSix = !this.childmenubrkSix;
@@ -128,6 +131,20 @@ export class BrokerHeaderComponent implements OnInit {
       arrow.className = 'fa fa-chevron-up';
     }
     else {
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
+  broker_enquiry(arrow){
+    var menubrkObj= this.consigmentUploadService.menuBrokerSourceSelection.source['_value'];
+    menubrkObj.childmenubrkSeven = !this.childmenubrkSeven;
+    this.consigmentUploadService.menuBrokerSelection(menubrkObj);
+    this.childmenubrkSeven = this.consigmentUploadService.menuBrokerSourceSelection.source['_value'].childmenubrkSeven;
+    if (arrow.className === 'fa fa-chevron-down') {
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else {
       arrow.className = '';
       arrow.className = 'fa fa-chevron-down';
     }
