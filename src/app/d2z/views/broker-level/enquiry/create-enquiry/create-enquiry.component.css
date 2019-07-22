@@ -31,7 +31,7 @@ body{
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important;
+    color: #ca2929; font-size:14px; font-weight:500;
 }
 
 .input-text{

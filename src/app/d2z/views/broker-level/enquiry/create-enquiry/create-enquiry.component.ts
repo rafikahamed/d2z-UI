@@ -79,14 +79,27 @@ export class BrokerCreateEnquiryComponent implements OnInit{
   }
 
     creatEnquiry(){
+      this.errorMsg = '';
+      this.importIndividualList = [];
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
       let pod = 'pod';
       let comments = 'comments';
       let userId = 'userId';
-      for (var fieldVal in this.fieldArray) {
-        var fieldObj = this.fieldArray[fieldVal];
+      var newBrokerEnquiryArray = [];
+      if(this.newAttribute.type){
+        newBrokerEnquiryArray.push(this.newAttribute);
+      }
+      if(this.fieldArray.length > 0){
+        for (var fieldVal in this.fieldArray) {
+          var enquiryObj = this.fieldArray[fieldVal];
+          newBrokerEnquiryArray.push(enquiryObj);
+        }
+      }
+
+      for (var fieldVal in newBrokerEnquiryArray) {
+        var fieldObj = newBrokerEnquiryArray[fieldVal];
         var enquiryObj = (
           enquiryObj={}, 
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
@@ -98,22 +111,30 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         );
         this.importIndividualList.push(enquiryObj);
       }
-      this.spinner.show();
-      console.log(this.importIndividualList)
-      this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-        this.spinner.hide();
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 5000);
-      });
+      if(this.importIndividualList.length > 0){
+        this.spinner.show();
+        this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
+            this.spinner.hide();
+            this.successMsg = resp.message;
+            $('#brokerEnquiry').modal('show');
+            this.fieldArray = [];
+            this.newAttribute = {};
+        });
+      }else{
+        this.errorMsg = "** Atleast add one enquiry to proceed";
+      }
+      
     }
 
     enquiryTabChanged(event){
       console.log(event.index)
       if(event.index == 0){
         this.fieldArray = [];
+        this.newAttribute = {};
+        this.errorMsg = '';
       }else if(event.index == 1){
         this.fieldCreateArray = [];
+        this.errorMsg = '';
       }
     }
 
@@ -188,6 +209,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
     };
 
     creatFileEnquiry(){
+      this.importFileList = [];
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
@@ -207,14 +229,20 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         );
         this.importFileList.push(enquiryObj);
       }
-      console.log(this.importFileList);
-      this.spinner.show();
-      this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
-        this.spinner.hide();
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 5000);
-      })
+      
+      if(this.importFileList.length > 0 ){
+          this.spinner.show();
+          this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
+            this.spinner.hide();
+            this.fieldCreateArray = [];
+            $('#brokerEnquiry').modal('show');
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 5000);
+          })
+      }else{
+        this.errorMsg = "** Atleast add one enquiry to proceed";
+      }
     }
 
 }

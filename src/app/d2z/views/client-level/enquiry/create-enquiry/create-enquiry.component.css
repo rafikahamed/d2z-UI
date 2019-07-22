@@ -17,6 +17,10 @@ body{
 }
 
 
+.table-bordered .tbody .tr .td {
+    border : none;
+}
+
 .manifest_panel{
     width: 100%; 
     border: 2px solid #ccc; 
@@ -27,11 +31,11 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
+    color:green; font-size: 14px;font-weight: 500;
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important;
+    color: #ca2929; font-size:14px; font-weight:500;
 }
 
 .input-text{

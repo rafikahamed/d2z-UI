@@ -14,7 +14,21 @@
                                     </div>
                             </div>
                     </div>
-    
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="brokerEnquiry" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
                     <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="enquiryTabChanged($event)">
                         <mat-tab label="Enquiry / Individual">
                             <ngx-spinner
@@ -24,8 +38,25 @@
                                 loadingText="Loading..."
                                 type="ball-circus">
                             </ngx-spinner>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="brokerEnquiry" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
                             <div style="padding:20px">
                                     <p> Customer Service Profile </p>
+                                    <div style="margin-top: 10px;">
+                                            <p class="err_msg">{{errorMsg}}</p>
+                                    </div>
                                 <table class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
@@ -212,9 +243,26 @@
                                     </div>
                                          
                             </div> 
+
+                             <!-- Modal -->
+                             <div class="modal fade" id="brokerEnquiry" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
                             
                             <div *ngIf="showFile">
                                     <p> Customer Service Profile </p>
+                                    <div style="margin-top: 10px;">
+                                            <p class="err_msg">{{errorMsg}}</p>
+                                    </div>
                                     <table class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>

@@ -64,6 +64,7 @@ export class CreateEnquiryComponent{
     addFieldValue() {
         this.fieldArray.push(this.newAttribute)
         this.newAttribute = {};
+        this.errorMsg = '';
     }
 
     deleteFieldValue(index) {
@@ -79,14 +80,26 @@ export class CreateEnquiryComponent{
   }
 
     creatEnquiry(){
+      this.importIndividualList = [];
+      this.errorMsg = '';
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
       let pod = 'pod';
       let comments = 'comments';
       let userId = 'userId';
-      for (var fieldVal in this.fieldArray) {
-        var fieldObj = this.fieldArray[fieldVal];
+      var newEnquiryArray = [];
+      if(this.newAttribute.type){
+        newEnquiryArray.push(this.newAttribute);
+      }
+      if(this.fieldArray.length > 0){
+        for (var fieldVal in this.fieldArray) {
+          var enquiryObj = this.fieldArray[fieldVal];
+          newEnquiryArray.push(enquiryObj);
+        }
+      }
+      for (var fieldVal in newEnquiryArray) {
+        var fieldObj = newEnquiryArray[fieldVal];
         var enquiryObj = (
           enquiryObj={}, 
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
@@ -98,22 +111,31 @@ export class CreateEnquiryComponent{
         );
         this.importIndividualList.push(enquiryObj);
       }
-      this.spinner.show();
+     
       console.log(this.importIndividualList)
-      this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-        this.spinner.hide();
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 5000);
-      });
+      if(this.importIndividualList.length > 0){
+         this.spinner.show();
+         this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
+              this.spinner.hide();
+              this.successMsg = resp.message;
+              $('#enquiry').modal('show');
+              this.fieldArray = [];
+              this.newAttribute = {};
+         });
+      }else{
+        this.errorMsg = "** Atleast add one enquiry to proceed";
+      }
     }
 
     enquiryTabChanged(event){
       console.log(event.index)
       if(event.index == 0){
         this.fieldArray = [];
+        this.newAttribute = {};
+        this.errorMsg = '';
       }else if(event.index == 1){
         this.fieldCreateArray = [];
+        this.errorMsg = '';
       }
     }
 
@@ -188,6 +210,7 @@ export class CreateEnquiryComponent{
     };
 
     creatFileEnquiry(){
+      this.importFileList = [];
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
@@ -207,14 +230,20 @@ export class CreateEnquiryComponent{
         );
         this.importFileList.push(enquiryObj);
       }
-      console.log(this.importFileList);
-      this.spinner.show();
-      this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
-        this.spinner.hide();
-        setTimeout(() => {
+      if(this.importFileList.length > 0){
+        this.spinner.show();
+        this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
           this.spinner.hide();
-        }, 5000);
-      })
+          this.successMsg = resp.message;
+          this.fieldCreateArray = [];
+          $('#enquiry').modal('show');
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 5000);
+        })
+      }else{
+        this.errorMsg = "** Atleast add one enquiry to proceed";
+      }
     }
 
 }
