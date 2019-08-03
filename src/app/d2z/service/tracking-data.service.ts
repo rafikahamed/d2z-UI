@@ -7,7 +7,7 @@ const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 // const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+//const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 // const baseUrl = "http://52.65.135.232:8080/v1/d2z";
 
 @Injectable()
@@ -304,6 +304,18 @@ exportNonShipment( fromDate, toDate, callback): any {
 
   shipmentAllocation( referenceNumbers, shipmentNumber, callback): any {
     this.http.put(baseUrl+'/broker-level/consignments/shipment/'+shipmentNumber, referenceNumbers).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
+    this.http.put(baseUrl+'/broker-level/consignments/shipmentarticleid/'+shipmentNumber, referenceNumbers).subscribe((resp) => {
       callback(resp);
       if (resp) {
         

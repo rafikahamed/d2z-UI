@@ -12,18 +12,35 @@
                             </div>
                       </div>
                   </div>
-                  
+                 
+                      
                   <div class="delete_search">
-                      <div>
-                            <div style="float: left">
-                              <p style="float: left"> Select the File to upload the Data: </p>
+                    <div class="container">
+                        <div class="row">
+                           
+                                <div class ="col-md-2">
+                                      <p-dropdown [options]="exportTypeDropdown" 
+                                                    [(ngModel)]="selectedExportType" 
+                                                    optionLabel="name" 
+                                                    [style]="{'width':'100%'}"
+                                                    (onChange)="onExportTypeChange($event)">
+                                      </p-dropdown>
+                                </div>
+                            
+                             <div class="col-md-4">
+                            
+                              <p> Select the File to upload the Data: </p>
+                            </div>
+                            <div>
                               <input type="file" 
-                                     style="display: inline-block; margin-left:25px" 
+                                     style="display: inline-block;" 
                                      (change)="incomingfile($event)" 
                                             placeholder="Upload file" accept=".xlsx">
                             </div> 
                       </div>
-                  </div>
+                  
+                     </div>
+</div>
 
                   <div class="delete_panel">
                       <ngx-spinner
@@ -85,7 +102,7 @@
     
                       <div style="padding:20px">
                         <p> Please select the below records to allocate the shipment </p>
-                          <div>
+                          <div  *ngIf="ReferenceFlag">
                               <ag-grid-angular 
                                         #agGrid style="width: 100%; height: 450px;" 
                                         class="ag-theme-balham" 
@@ -108,6 +125,30 @@
                                         (selectionChanged)="onSelectionChange($event)">
                               </ag-grid-angular>
                           </div>
+<div  *ngIf="ArticleFlag">
+                              <ag-grid-angular 
+                                        #agGrid style="width: 100%; height: 450px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowDataArticle"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="articlegridOptions" 
+                                        [pagination]="true"
+                                        (selectionChanged)="onSelectionArticleChange($event)">
+                              </ag-grid-angular>
+                          </div>
+
                       </div>
                   </div>
                   <!-- /top tiles -->
