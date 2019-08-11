@@ -57,6 +57,7 @@ export class DownloadShipmentComponent implements OnInit{
     };
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptions.columnDefs = [
+
       {
         headerName: "Reference number",
         field: "referenceNumber",
@@ -81,11 +82,11 @@ export class DownloadShipmentComponent implements OnInit{
         field: "consigneeName",
         width: 200
       },
-      {
+    /** {
         headerName: "Consignee  Company",
         field: "consigneeCompany",
         width: 100
-      },
+      },*/
       {
         headerName: "Consignee Phone",
         field: "consigneePhone",
@@ -146,11 +147,11 @@ export class DownloadShipmentComponent implements OnInit{
         field: "shipperAddress",
         width: 140
       },
-      {
+    /** {
         headerName: "shipperCity",
         field: "shipperCity",
         width: 140
-      },
+      },*/
       {
         headerName: "shipperState",
         field: "shipperState",
@@ -171,7 +172,7 @@ export class DownloadShipmentComponent implements OnInit{
         field: "shipperContact",
         width: 140
       },
-      {
+     /** {
         headerName: "insurance",
         field: "insurance",
         width: 140
@@ -210,7 +211,7 @@ export class DownloadShipmentComponent implements OnInit{
         headerName: "fbashipmentID",
         field: "fbashipmentID",
         width: 250
-      }
+      }*/
     ];
 
     this.gridOptionsTemplate1 = <GridOptions>{ rowSelection: "multiple" };
@@ -367,7 +368,7 @@ export class DownloadShipmentComponent implements OnInit{
       {
         headerName: "fbashipmentID",
         field: "fbashipmentID",
-        width: 250
+        width: 25
       }
     ];
   }
@@ -456,22 +457,23 @@ export class DownloadShipmentComponent implements OnInit{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ "CUSTOMER_REF", "CONNOTE NO.", "WEIGHT", "CNEE","CNEE COMPANY","TEL","ADDRESS","SUBURB","STATE","P/C","DESTINATION",
-	    		  "PCS","COMMODITY","INNER ITEMS","UNIT VALUE","TTL VALUE","CMETER","SHIPPER","SHIPPER ADD","SHIPPER CITY","SHIPPER STATE","SHIPPER PC",
-            "SHIPPER COUNTRY CODE","SHIPPER CONTACT","INSURANCE","RECEIVER","RECEIVER TEL","RECEIVER ADDRESS","RECEIVER SUBURB",
-            "RECEIVER STATE","RECEIVER P/C","CLEAR","FBA PO","FBA SHIPMENT ID","INVOICE_REF","IMPORTER_ABN","VENDOR_ID","CONSIGNOR_TIN" ]
+            headers: [ "TYPE" ,"CUSTOMER_REF", "CONNOTE NO.", "WEIGHT", "CNEE", "TEL","ADDRESS","SUBURB","STATE","P/C","DESTINATION","DESTINATION1",
+            "PCS","COMMODITY","INNER ITEMS","UNIT VALUE","TTL VALUE","CMETER","SHIPPER","SHIPPER ADD","SHIPPER STATE","SHIPPER PC",
+            "SHIPPER COUNTRY CODE","SHIPPER CONTACT","SAC" ]
           };
+          let TYPE = 'TYPE';
           let CUSTOMER_REF = 'CUSTOMER_REF';
           let CONNOTE_NO = 'CONNOTE_NO';
           let WEIGHT = 'WEIGHT';
           let CNEE = 'CNEE';
-          let CNEE_COMPANY = 'CNEE_COMPANY';
+         
           let TEL = 'TEL';
           let ADDRESS = 'ADDRESS';
           let SUBURB = 'SUBURB';
           let STATE = 'STATE';
           let PC = 'PC';
           let DESTINATION = 'DESTINATION';
+           let DESTINATION1 = 'DESTINATION';
           let PCS = 'PCS';
           let COMMODITY = 'COMMODITY';
           let INNER_ITEMS = 'INNER_ITEMS';
@@ -480,41 +482,30 @@ export class DownloadShipmentComponent implements OnInit{
           let CMETER = 'CMETER';
           let SHIPPER = 'SHIPPER';
           let SHIPPER_ADD = 'SHIPPER_ADD';
-          let SHIPPER_CITY = 'SHIPPER_CITY';
+         
           let SHIPPER_STATE = 'SHIPPER_STATE';
           let SHIPPER_PC = 'SHIPPER_PC';
           let SHIPPER_COUNTRY_CODE = 'SHIPPER_COUNTRY_CODE';
           let SHIPPER_CONTACT = 'SHIPPER_CONTACT';
-          let INSURANCE = 'INSURANCE';
-          let RECEIVER = 'RECEIVER';
-          let RECEIVER_TEL = 'RECEIVER_TEL';
-          let RECEIVER_ADDRESS = 'RECEIVER_ADDRESS';
-          let RECEIVER_SUBURB = 'RECEIVER_SUBURB';
-          let RECEIVER_STATE = 'RECEIVER_STATE';
-          let RECEIVER_PC = 'RECEIVER_PC';
-          let CLEAR = 'CLEAR';
-          let FBA_PO = 'FBA_PO';
-          let FBA_SHIPMENT_ID = 'FBA_SHIPMENT_ID';
-          let INVOICE_REF = 'INVOICE_REF';
-          let IMPORTER_ABN = 'IMPORTER_ABN';
-          let VENDOR_ID = 'VENDOR_ID';
-          let CONSIGNOR_TIN = 'CONSIGNOR_TIN';
+          let SAC = 'SAC';
       
           for (var importVal in selectedRowsTemplate1) {
               var adminObj = selectedRowsTemplate1[importVal];
               var importObj = (
                   importObj={}, 
+                  importObj[TYPE] = 'Parcel',importObj,
                   importObj[CUSTOMER_REF]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', importObj,
                   importObj[CONNOTE_NO]= adminObj.con_no != null ? adminObj.con_no : '', importObj,
                   importObj[WEIGHT]= adminObj.weight != null ? adminObj.weight : '', importObj,
                   importObj[CNEE]= adminObj.consigneeName != null ? adminObj.consigneeName : '', importObj,
-                  importObj[CNEE_COMPANY] = adminObj.consigneeCompany != null ? adminObj.consigneeCompany : '', importObj,
+                
                   importObj[TEL]= adminObj.consigneePhone != null ? adminObj.consigneePhone : '', importObj,
                   importObj[ADDRESS]= adminObj.consigneeAddress != null ? adminObj.consigneeAddress : '', importObj,
                   importObj[SUBURB]= adminObj.consigneeSuburb != null ? adminObj.consigneeSuburb : '', importObj,
                   importObj[STATE]= adminObj.consigneeState != null ? adminObj.consigneeState : '', importObj,
                   importObj[PC]= adminObj.consigneePostcode != null ? adminObj.consigneePostcode : '',  importObj,
                   importObj[DESTINATION]= adminObj.destination != null ? adminObj.destination : '', importObj,
+                    importObj[DESTINATION1]= '1', importObj,
                   importObj[PCS]= adminObj.quantity != null ? adminObj.quantity : '', importObj,
                   importObj[COMMODITY]= adminObj.commodity != null ? adminObj.commodity : '', importObj,
                   importObj[INNER_ITEMS]= 1, importObj,
@@ -523,26 +514,13 @@ export class DownloadShipmentComponent implements OnInit{
                   importObj[CMETER]= '', importObj,
                   importObj[SHIPPER]= adminObj.shipperName != null ? adminObj.shipperName : '', importObj,
                   importObj[SHIPPER_ADD]= adminObj.shipperAddress != null ? adminObj.shipperAddress : '', importObj,
-                  importObj[SHIPPER_CITY]= adminObj.shipperCity != null ? adminObj.shipperCity : '',  importObj,
+                 
                   importObj[SHIPPER_STATE]= adminObj.shipperState != null ? adminObj.shipperState : '', importObj,
                   importObj[SHIPPER_PC]= adminObj.shipperPostcode != null ? adminObj.shipperPostcode : '', importObj,
                   importObj[SHIPPER_COUNTRY_CODE]= adminObj.shipperCountry != null ? adminObj.shipperCountry : '', importObj,
-                  importObj[SHIPPER_CONTACT]= adminObj.shipperContact != null ? adminObj.shipperContact : '', importObj,
-                  importObj[INSURANCE] = '', importObj,
-                  importObj[RECEIVER]= adminObj.shipperName != null ? adminObj.shipperName : '', importObj,
-                  importObj[RECEIVER_TEL]= '', importObj,
-                  importObj[RECEIVER_ADDRESS]= adminObj.shipperAddress != null ? adminObj.shipperAddress : '', importObj,
-                  importObj[RECEIVER_SUBURB]= adminObj.shipperCity != null ? adminObj.shipperCity : '',  importObj,
-                  importObj[RECEIVER_STATE]= adminObj.shipperState != null ? adminObj.shipperState : '', importObj,
-                  importObj[RECEIVER_PC]= adminObj.shipperPostcode != null ? adminObj.shipperPostcode : '', importObj,
-                  importObj[CLEAR]= adminObj.clear !=null ? adminObj.clear :'', importObj,
-                  importObj[FBA_PO]= adminObj.fbapo != null ? adminObj.fbapo : '', importObj,
-                  importObj[FBA_SHIPMENT_ID]= adminObj.fbashipmentID != null ? adminObj.fbashipmentID : '', importObj,
-                  importObj[INVOICE_REF]= adminObj.invoiceRef != null ? adminObj.invoiceRef : '', importObj,
-                  importObj[IMPORTER_ABN] = adminObj.importerAbn != null ? adminObj.importerAbn : '', importObj,
-                  importObj[VENDOR_ID]= adminObj.vendorId != null ? adminObj.vendorId : '', importObj,
-                  importObj[CONSIGNOR_TIN]= adminObj.consignorTin != null ? adminObj.consignorTin : '', importObj
-              );
+                  importObj[SHIPPER_CONTACT]= adminObj.shipperContact != null ? adminObj.shipperContact : '', importObj
+
+                );
               shipmentList.push(importObj)
           }
         new Angular2Csv(shipmentList, fileName, options); 
@@ -565,17 +543,17 @@ export class DownloadShipmentComponent implements OnInit{
               decimalseparator: '.',
               showLabels: true, 
               useBom: true,
-              headers: ["Level Number",	"House Airwaybill Number (NO MORE THAN 21 DIGITS)",	"Mawb Reference",	"Debtor Code",	"Shipper", 
-                "Shipper Address 1 (NO MORE THAN 49 CHARACTERS)",	"Shipper Address 2 (NO MORE THAN 49 CHARACTERS)",	"City",	"UNLOCODE",	"Country",
-                "Shipper Address 4",	"Shipper Address 5",	"Shipper Contact",	"Consignee (FULL NAME PLEASE)",	"Consignee Address 1 (ADDRESS ONLY)",
-                "Suburb",	"POSTCODE",	"STATE",	"COUNTRY",	"Consignee Contact",	"Consignee Phone",	"Consignee Email",	"Origin",	"Destination",
-                "Actual Weight",	"Weight Measure",	"Number of Pieces",	"Service Type",	"HAWB Reference",	
-                "Alternate Reference",	"Description of Goods (NO MORE THAN 35 CHARACTERS PLEASE)",	"Customs Value",	"Customs Value Currency",
-                "Clearance Reference",	"Length",	"Width",	"Height",	"Cubic Measure",	"Cubic Measure Unit",	"Cubic Weight",
-              	"COD Amount",	"COD Amount Currency",	"Origin Station",	"Origin Member",	"Bag Number",
-                "Notes",	"Shipper Address Location",	"Shipper Address State",	"Shipper Address Postcode",	"Shipper Address Country",
-                "Shipper Phone", "Shipper Email",	"Consignee Address Location",	"Consignee Address State", "Consignee Address Postcode",
-                "Consignee Address Country",	"Vendor ID", "Importer ID"]
+              headers: ["Level Number", "House Airwaybill Number (NO MORE THAN 21 DIGITS)", "Mawb Reference", "Debtor Code",  "Shipper", 
+                "Shipper Address 1 (NO MORE THAN 49 CHARACTERS)", "Shipper Address 2 (NO MORE THAN 49 CHARACTERS)", "City", "UNLOCODE", "Country",
+                "Shipper Address 4",  "Shipper Address 5",  "Shipper Contact",  "Consignee (FULL NAME PLEASE)", "Consignee Address 1 (ADDRESS ONLY)",
+                "Suburb", "POSTCODE", "STATE",  "COUNTRY",  "Consignee Contact",  "Consignee Phone",  "Consignee Email",  "Origin", "Destination",
+                "Actual Weight",  "Weight Measure", "Number of Pieces", "Service Type", "HAWB Reference", 
+                "Alternate Reference",  "Description of Goods (NO MORE THAN 35 CHARACTERS PLEASE)", "Customs Value",  "Customs Value Currency",
+                "Clearance Reference",  "Length", "Width",  "Height", "Cubic Measure",  "Cubic Measure Unit", "Cubic Weight",
+                "COD Amount", "COD Amount Currency",  "Origin Station", "Origin Member",  "Bag Number",
+                "Notes",  "Shipper Address Location", "Shipper Address State",  "Shipper Address Postcode", "Shipper Address Country",
+                "Shipper Phone", "Shipper Email", "Consignee Address Location", "Consignee Address State", "Consignee Address Postcode",
+                "Consignee Address Country",  "Vendor ID", "Importer ID"]
             };
             let Level_Number = 'Level_Number';
             let Airwaybill_Number = 'Airwaybill_Number';

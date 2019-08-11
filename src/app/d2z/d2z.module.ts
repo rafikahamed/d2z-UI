@@ -28,6 +28,7 @@ import { ManifestComponent } from 'app/d2z/views/client-level/manifest-creation/
 import { BrokerMainComponent } from 'app/d2z/views/broker-level/broker-main/broker-main.component';
 import { AddClientComponent } from 'app/d2z/views/broker-level/client-management/add-client/add-client.component';
 import { UpdateClientComponent } from 'app/d2z/views/broker-level/client-management/update-client/update-client.component';
+import{BrokerAddServiceComponent} from 'app/d2z/views/broker-level/client-management/add-service/add-service.component';
 import { BrokerPdfComponent } from 'app/d2z/views/broker-level/print-label/broker-pdf/pdf.component';
 import { BrokerPrintComponent } from 'app/d2z/views/broker-level/print-label/broker-print/print.component';
 import { AllocateShipmentComponent } from 'app/d2z/views/broker-level/create-shipment/allocate-shipment/allocate-shipment.component';
@@ -103,6 +104,7 @@ import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/en
           { path: "broker-main", component: BrokerMainComponent},
           { path: "broker/add-client", component : AddClientComponent},
           { path: "broker/update-client", component : UpdateClientComponent},
+          { path: "broker/add-service", component : BrokerAddServiceComponent},
           { path: "broker/print", component : BrokerPrintComponent},
           { path: "broker/pdf", component : BrokerPdfComponent},
           { path: "broker/allocate-shipment", component : AllocateShipmentComponent},
@@ -160,6 +162,7 @@ import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/en
     BrokerMainComponent,
     AddClientComponent,
     UpdateClientComponent,
+    BrokerAddServiceComponent,
     BrokerPrintComponent,
     BrokerPdfComponent,
     BrokerTrackParcelComponent,

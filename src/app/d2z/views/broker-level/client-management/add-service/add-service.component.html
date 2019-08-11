@@ -1,0 +1,124 @@
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+        <div class="main_container">
+
+         <broker-header> </broker-header>
+
+        <div class="right_col" role="main">
+            <div class="row tile_count">
+                    <div class="page-title">
+                            <div class="title_left">
+                                    <h3 style="margin-left: 10px;"> consignment / ADD Service</h3>
+                            </div>
+                    </div>
+            </div>    
+            
+            <div class="container">
+                <table class="table table-striped" style="width:60%">
+                       <tbody>
+                          <tr>
+                                     <td colspan="1" style="border: 0px;">
+                                        <form #myForm ="ngForm"class="well form-horizontal" [formGroup]="brokerAddServiceForm">
+                                           <fieldset>
+                                              <div class="form-group">
+                                                 <label class="col-md-4 control-label">User Name</label>
+                                                 <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-user"></i>
+                                                            </span>
+                                                            <input id="userName" 
+                                                                   formControlName="userName"
+                                                                   placeholder="User Name" 
+                                                                   class="form-control" 
+                                                                   required="true" 
+                                                                   type="text">
+                                                            </div>
+                                                 </div>
+                                              </div>
+                                              <div class="form-group">
+                                                 <label class="col-md-4 control-label">Service Type</label>
+                                                 <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                    <i class="glyphicon glyphicon-home">
+                                                                    </i></span>
+                                                                    <input id="serviceType" 
+                                                                            formControlName="serviceType"
+                                                                            placeholder=" Service Type" 
+                                                                            class="form-control" 
+                                                                            required="true" 
+                                                                            type="text"></div>
+                                                 </div>
+                                              </div>
+                                             <div class="form-group"> 
+                                                    <div class="aab controls col-md-4"></div>
+                                                        <div class="controls col-md-8" style="margin-top:15px">
+                                                            <input type="submit" 
+                                                                   class="btn btn-primary btn btn-info"
+                                                                   (click)="addService()"
+                                                                   id="submit-id-signup"/>
+
+                                                                   <button type="button" 
+                              class="btn btn-info" 
+                              (click)="resetService()"
+                              style="background-color: #16A085; margin-right:10px">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                               Refresh
+                      </button>
+                                                                  
+                                                                  
+
+                                                        </div>
+                                                    </div> 
+                                           </fieldset>
+                                        </form>
+                                     </td>
+                          </tr>
+                       </tbody>
+                </table>
+
+                <ngx-spinner
+                    bdColor="rgba(51,51,51,0.8)"
+                    size="medium"
+                    color="#fff"
+                    loadingText="Loading..."
+                    type="ball-clip-rotate-multiple">
+                </ngx-spinner>
+
+                <!-- Modal -->
+                <div class="modal fade" id="addClientModal" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                            </div>
+                        <div class="modal-footer">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    
+              <footer id="footer" class="wow fadeIn">
+                <div class="copyright">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="text">
+                                <p>&copy; Copyright 2018<span></span><a>{{system}}</a> (Distributor)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+    
+          </div>
+    </div>
+</body>
+    

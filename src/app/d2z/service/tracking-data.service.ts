@@ -5,13 +5,9 @@ import 'rxjs/add/operator/map';
 
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
-//  const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-//const baseUrl = "http://18.220.140.225:8080/v1/d2z";
-//production
-// const baseUrl = "http://54.252.222.216:8080/v1/d2z";
-// New Stage URL
-// const baseUrl = "http://52.65.135.232:8080/v1/d2z";
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+
 
 @Injectable()
 export class TrackingDataService implements OnInit{
@@ -318,7 +314,7 @@ exportNonShipment( fromDate, toDate, callback): any {
     });
   }
 shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
-    this.http.put(baseUrl+'/broker-level/consignments/shipmentarticleid/'+shipmentNumber, referenceNumbers).subscribe((resp) => {
+    this.http.put(baseUrl+'/consignments/shipmentarticleid/'+shipmentNumber, referenceNumbers).subscribe((resp) => {
       callback(resp);
       if (resp) {
         
