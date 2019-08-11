@@ -12,7 +12,7 @@ const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
   public newUserSubject = new Subject<any>();
-  userMessage: userMessage;
+  userMessage:userMessage;
   englishFlag:boolean;
   chinessFlag:boolean;
 
