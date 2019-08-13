@@ -457,12 +457,12 @@ export class DownloadShipmentComponent implements OnInit{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ "TYPE" ,"CUSTOMER_REF", "CONNOTE NO.", "WEIGHT", "CNEE", "TEL","ADDRESS","SUBURB","STATE","P/C","DESTINATION","DESTINATION1",
+            headers: [ "TYPE" , "CONNOTE NO.", "WEIGHT", "CNEE", "TEL","ADDRESS","SUBURB","STATE","P/C","DESTINATION","DESTINATION1",
             "PCS","COMMODITY","INNER ITEMS","UNIT VALUE","TTL VALUE","CMETER","SHIPPER","SHIPPER ADD","SHIPPER STATE","SHIPPER PC",
             "SHIPPER COUNTRY CODE","SHIPPER CONTACT","SAC" ]
           };
           let TYPE = 'TYPE';
-          let CUSTOMER_REF = 'CUSTOMER_REF';
+        
           let CONNOTE_NO = 'CONNOTE_NO';
           let WEIGHT = 'WEIGHT';
           let CNEE = 'CNEE';
@@ -496,7 +496,7 @@ export class DownloadShipmentComponent implements OnInit{
               var importObj = (
                   importObj={}, 
                   importObj[TYPE] = 'Parcel',importObj,
-                  importObj[CUSTOMER_REF]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', importObj,
+                 
                   importObj[CONNOTE_NO]= adminObj.con_no != null ? adminObj.con_no : '', importObj,
                   importObj[WEIGHT]= adminObj.weight != null ? adminObj.weight : '', importObj,
                   importObj[CNEE]= adminObj.consigneeName != null ? adminObj.consigneeName : '', importObj,
