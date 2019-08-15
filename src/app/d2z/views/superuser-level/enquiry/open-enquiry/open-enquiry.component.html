@@ -15,14 +15,35 @@
                 </div>
 
                 <div>
-                    <p> Customer Service Profile </p>    
+                    <h3> Customer Service Profile </h3> 
+                    
+                    <div class="modal fade" id="superEnquiry" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ngx-spinner
+                        bdColor="rgba(51,51,51,0.8)"
+                        size="medium"
+                        color="#fff"
+                        loadingText="Loading..."
+                        type="ball-clip-rotate-multiple">
+                    </ngx-spinner>
                     
                     <div style="margin-top: 10px;">
                             <p class="err_msg">{{errorMsg}}</p>
                     </div>
 
                     <div style="width:100%; border:1px solid #ccc; overflow:auto">
-                        <table class="table" style="width:2000px;">
+                        <table class="table" style="width:2200px;">
                             <thead>
                                 <tr>
                                     <th>Broker Name</th>
@@ -40,40 +61,45 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let field of fieldCreateArray; let i = index">
+                                <tr *ngFor="let field of openEnquiryArray; let i = index">
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.brokerName" 
+                                            [(ngModel)]="field.userName" 
                                             class="form-control" 
                                             type="text" 
-                                            name="{{field.brokerName}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.enquiryOpenDate" 
-                                            class="form-control" 
-                                            type="text" 
-                                            name="{{field.enquiryOpenDate}}" />
+                                            disabled=true
+                                            name="{{field.userName}}" />
                                     </td>
                                     <td>
                                         <input 
                                             [(ngModel)]="field.ticketNumber" 
                                             class="form-control" 
                                             type="text" 
+                                            disabled=true
                                             name="{{field.ticketNumber}}" />
                                     </td>
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.trackingNumber" 
+                                            [(ngModel)]="field.trackingEventDateOccured" 
                                             class="form-control" 
                                             type="text" 
-                                            name="{{field.trackingNumber}}" />
+                                            disabled=true
+                                            name="{{field.trackingEventDateOccured}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.articleID" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.articleID}}" />
                                     </td>
                                     <td>
                                         <input 
                                             [(ngModel)]="field.consigneeName" 
                                             class="form-control" 
                                             type="text" 
+                                            disabled=true
                                             name="{{field.consigneeName}}" />
                                     </td>
                                     <td>
@@ -81,25 +107,27 @@
                                             [(ngModel)]="field.status" 
                                             class="form-control" 
                                             type="text" 
+                                            disabled=true
                                             name="{{field.status}}" />
                                     </td>
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.deliveryDate" 
+                                            [(ngModel)]="field.trackingDeliveryDate" 
                                             class="form-control" 
                                             type="text" 
-                                            name="{{field.deliveryDate}}" />
+                                            disabled=true
+                                            name="{{field.trackingDeliveryDate}}" />
                                     </td>
                                     <td>
                                         <textarea [(ngModel)]="field.comments" 
-                                                class="form-control" cols="35" rows="2" 
+                                                class="form-control" cols="35" rows="3" 
                                                 name="{{field.comments}}">
                                         </textarea>
                                     </td>
                                     <td>
-                                        <textarea [(ngModel)]="field.updatedComments" 
-                                                class="form-control" cols="35" rows="2" 
-                                                name="{{field.updatedComments}}">
+                                        <textarea [(ngModel)]="field.d2zComments" 
+                                                class="form-control" cols="35" rows="3" 
+                                                name="{{field.d2zComments}}">
                                         </textarea>
                                     </td>
                                     <td>
@@ -136,7 +164,7 @@
                         <button type="button" 
                                 class="btn btn-info" 
                                 (click)="UpdateEnquiry()"
-                                style="background-color: #16A085; float:right; margin:10px;">
+                                style="background-color: #16A085; float:right; margin-top:10px;">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 Submit
                         </button>

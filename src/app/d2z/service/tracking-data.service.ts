@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 //const baseUrl = "https://"+hostname+"/v1/"+apiName;
-//const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class TrackingDataService implements OnInit{
@@ -232,7 +232,8 @@ export class TrackingDataService implements OnInit{
       callback(error);
     });
   };
-exportNonShipment( fromDate, toDate, callback): any {
+
+  exportNonShipment( fromDate, toDate, callback): any {
     this.http.get(baseUrl+'/superUser-level/export/nonshipment', {
       params: { fromDate: fromDate, toDate: toDate }
     }).subscribe((resp) => {
@@ -245,6 +246,32 @@ exportNonShipment( fromDate, toDate, callback): any {
       callback(error);
     });
   };
+
+  openEnquiryDetails( callback): any {
+    this.http.get(baseUrl+'/superUser-level/open-enquiry').subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  updateEnquiry(enquiryDetails, callback): any {
+    this.http.put(baseUrl+'/superUser-level/Update-enquiry',enquiryDetails
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
   fetchShipmentDetails( shipmentNumber, userId, callback): any {
     this.http.get(baseUrl+'/consignments/shipment', {
       params: { shipmentNumber: shipmentNumber, userId: userId }

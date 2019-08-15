@@ -13,24 +13,13 @@ import * as XLSX from 'xlsx';
 })
 
 export class superUserOpenEnquiryComponent{
-
-  private fieldArray: Array<any> = [];
-  private fieldCreateArray: Array<any> = [];
-  private newAttribute: any = {};
-  private newCreateAttribute: any = {};
+  private openEnquiryArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
-  type: String;
-  file:File;
   user_Id: String;
   system: String;
   arrayBuffer:any;
-  public importList = [];
-  public importIndividualList = [];
-  public importFileList = [];
-  englishFlag:boolean;
-  chinessFlag:boolean;
-  showFile:boolean;
+  public openEnquiryList = [];
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -50,28 +39,47 @@ export class superUserOpenEnquiryComponent{
         }
         window.scrollTo(0, 0)
       })
-      this.fieldCreateArray = [
-        {"brokerName": "rafik", "enquiryOpenDate":"2019-08-10", "ticketNumber":"INC868686868", "trackingNumber":"i8686886868",
-        "consigneeName":"rafik ahamed", "status":"Open", "deliveryDate":"2019-08-12", "Comments":"Having issue with given parcel", 
-        "updatedComments":"", "sendUpdate":"Y", "closeEnquiry":"Y", "attachment":""},
-        {"brokerName": "rafik", "enquiryOpenDate":"2019-08-10", "ticketNumber":"INC868686868", "trackingNumber":"i8686886868",
-        "consigneeName":"rafik ahamed", "status":"Open", "deliveryDate":"2019-08-12", "Comments":"Having issue with given parcel", 
-        "updatedComments":"", "sendUpdate":"N", "closeEnquiry":"Y", "attachment":""},
-        {"brokerName": "rafik", "enquiryOpenDate":"2019-08-10", "ticketNumber":"INC868686868", "trackingNumber":"i8686886868",
-        "consigneeName":"rafik ahamed", "status":"Open", "deliveryDate":"2019-08-12", "Comments":"Having issue with given parcel", 
-        "updatedComments":"", "sendUpdate":"N", "closeEnquiry":"Y", "attachment":""},
-        {"brokerName": "rafik", "enquiryOpenDate":"2019-08-10", "ticketNumber":"INC868686868", "trackingNumber":"i8686886868",
-        "consigneeName":"rafik ahamed", "status":"Open", "deliveryDate":"2019-08-12", "Comments":"Having issue with given parcel", 
-        "updatedComments":"", "sendUpdate":"N", "closeEnquiry":"Y", "attachment":""},
-        {"brokerName": "rafik", "enquiryOpenDate":"2019-08-10", "ticketNumber":"INC868686868", "trackingNumber":"i8686886868",
-        "consigneeName":"rafik ahamed", "status":"Open", "deliveryDate":"2019-08-12", "Comments":"Having issue with given parcel", 
-        "updatedComments":"", "sendUpdate":"Y", "closeEnquiry":"Y", "attachment":""}
-      ];
+      this.spinner.show();
+      this.trackingDataService.openEnquiryDetails((resp) => {
+        this.spinner.hide();
+        this.openEnquiryArray = resp; 
+        setTimeout(() => {
+          this.spinner.hide() }, 5000);
+      });
   };
 
 
   UpdateEnquiry(){
-    console.log(this.fieldCreateArray);
+    this.openEnquiryList = [];
+    let articleID = 'articleID';
+    let comments = 'comments';
+    let d2zComments = 'd2zComments';
+    let sendUpdate = 'sendUpdate';
+    let status = 'status';
+
+      for (var enquiryVal in this.openEnquiryArray) {
+        var fieldObj = this.openEnquiryArray[enquiryVal];
+        var openEnquiryObj = (
+          openEnquiryObj={}, 
+          openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
+          openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
+          openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
+          openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
+          openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
+        );
+        this.openEnquiryList.push(openEnquiryObj);
+      }
+      console.log(this.openEnquiryList);
+      this.spinner.show();
+      this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
+        this.spinner.hide();
+        $('#superEnquiry').modal('show');
+        console.log(resp)
+        this.successMsg = resp.message;
+        setTimeout(() => {
+          this.spinner.hide() }, 5000);
+      });
+
   }
   
 
