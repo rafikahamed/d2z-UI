@@ -457,12 +457,12 @@ export class DownloadShipmentComponent implements OnInit{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ "TYPE" ,"CUSTOMER_REF", "CONNOTE NO.", "WEIGHT", "CNEE", "TEL","ADDRESS","SUBURB","STATE","P/C","DESTINATION","DESTINATION1",
+            headers: [ "TYPE" , "CONNOTE NO.", "WEIGHT", "CNEE", "TEL","ADDRESS","SUBURB","STATE","P/C","DESTINATION","DESTINATION1",
             "PCS","COMMODITY","INNER ITEMS","UNIT VALUE","TTL VALUE","CMETER","SHIPPER","SHIPPER ADD","SHIPPER STATE","SHIPPER PC",
             "SHIPPER COUNTRY CODE","SHIPPER CONTACT","SAC" ]
           };
           let TYPE = 'TYPE';
-          let CUSTOMER_REF = 'CUSTOMER_REF';
+        
           let CONNOTE_NO = 'CONNOTE_NO';
           let WEIGHT = 'WEIGHT';
           let CNEE = 'CNEE';
@@ -473,10 +473,10 @@ export class DownloadShipmentComponent implements OnInit{
           let STATE = 'STATE';
           let PC = 'PC';
           let DESTINATION = 'DESTINATION';
-           let DESTINATION1 = 'DESTINATION';
+           let DESTINATION1 = 'DESTINATION1';
           let PCS = 'PCS';
           let COMMODITY = 'COMMODITY';
-          let INNER_ITEMS = 'INNER_ITEMS';
+          let INNER_ITEMS = 'INNER ITEMS';
           let UNIT_VALUE = 'UNIT_VALUE';
           let TTL_VALUE = 'TTL_VALUE';
           let CMETER = 'CMETER';
@@ -490,11 +490,13 @@ export class DownloadShipmentComponent implements OnInit{
           let SAC = 'SAC';
       
           for (var importVal in selectedRowsTemplate1) {
+
               var adminObj = selectedRowsTemplate1[importVal];
+              console.log(adminObj.destination);
               var importObj = (
                   importObj={}, 
                   importObj[TYPE] = 'Parcel',importObj,
-                  importObj[CUSTOMER_REF]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', importObj,
+                 
                   importObj[CONNOTE_NO]= adminObj.con_no != null ? adminObj.con_no : '', importObj,
                   importObj[WEIGHT]= adminObj.weight != null ? adminObj.weight : '', importObj,
                   importObj[CNEE]= adminObj.consigneeName != null ? adminObj.consigneeName : '', importObj,
@@ -505,10 +507,10 @@ export class DownloadShipmentComponent implements OnInit{
                   importObj[STATE]= adminObj.consigneeState != null ? adminObj.consigneeState : '', importObj,
                   importObj[PC]= adminObj.consigneePostcode != null ? adminObj.consigneePostcode : '',  importObj,
                   importObj[DESTINATION]= adminObj.destination != null ? adminObj.destination : '', importObj,
-                    importObj[DESTINATION1]= '1', importObj,
+                    importObj[DESTINATION1]= 'AUSTRALIA', importObj,
                   importObj[PCS]= adminObj.quantity != null ? adminObj.quantity : '', importObj,
                   importObj[COMMODITY]= adminObj.commodity != null ? adminObj.commodity : '', importObj,
-                  importObj[INNER_ITEMS]= 1, importObj,
+                  importObj[INNER_ITEMS]= '1', importObj,
                   importObj[UNIT_VALUE] = adminObj.value != null ? adminObj.value : '', importObj,
                   importObj[TTL_VALUE]= adminObj.value != null ? adminObj.value : '', importObj,
                   importObj[CMETER]= '', importObj,
@@ -521,6 +523,7 @@ export class DownloadShipmentComponent implements OnInit{
                   importObj[SHIPPER_CONTACT]= adminObj.shipperContact != null ? adminObj.shipperContact : '', importObj
 
                 );
+                console.log(importObj);
               shipmentList.push(importObj)
           }
         new Angular2Csv(shipmentList, fileName, options); 
