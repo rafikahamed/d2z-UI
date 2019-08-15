@@ -22,6 +22,7 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperSeven:boolean;
   childmenuSuperEight:boolean;
   childmenuSuperNine:boolean;
+  childmenuSuperTen:boolean;
   client: boolean;
   mlid:boolean;
   auweight:boolean;
@@ -44,6 +45,9 @@ export class SuperUserHeaderComponent implements OnInit {
   reportLog: boolean;
   reportDelivery: boolean;
   labels: boolean;
+  enquiry: boolean;
+  openEnquiry: boolean;
+  completedEnquiry: boolean;
   zebraPrint: boolean;
   zebraPdf: boolean;
   userName: String;
@@ -67,6 +71,7 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperSeven = menuSelection.childmenuSuperSeven;
     this.childmenuSuperEight = menuSelection.childmenuSuperEight;
     this.childmenuSuperNine = menuSelection.childmenuSuperNine;
+    this.childmenuSuperTen = menuSelection.childmenuSuperTen;
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
@@ -93,14 +98,16 @@ export class SuperUserHeaderComponent implements OnInit {
       this.labels= true;
       this.zebraPrint= true;
       this.zebraPdf= true;
+      this.enquiry= true;
+      this.openEnquiry= true;
+      this.completedEnquiry= true;
     }else if(role == 4){
       this.tracking = true;
       this.trackingArrival = true;
-      
       this.reports= true;
       this.reportShipment = true;
-        this.auweight = true;
-         this.labels= true;
+      this.auweight = true;
+      this.labels= true;
       this.zebraPrint= true;
       this.zebraPdf= true;
     }
@@ -219,6 +226,20 @@ super_user_auweight(arrow){
     menuSuperObj.childmenuSuperEight = !this.childmenuSuperEight;
     this.consigmentUploadService.menuSuperSelection(menuSuperObj);
     this.childmenuSuperEight = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperEight;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
+  super_user_enquiry(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperTen = !this.childmenuSuperTen;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperTen = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperTen;
     if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

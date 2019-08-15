@@ -1,0 +1,151 @@
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+        <div class="main_container">
+            
+            <super-user-header></super-user-header>
+
+            <div class="right_col" role="main">
+                
+                <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px"> Enquiry / Open Enquiry </h3>
+                                </div>
+                        </div>
+                </div>
+
+                <div>
+                    <p> Customer Service Profile </p>    
+                    
+                    <div style="margin-top: 10px;">
+                            <p class="err_msg">{{errorMsg}}</p>
+                    </div>
+
+                    <div style="width:100%; border:1px solid #ccc; overflow:auto">
+                        <table class="table" style="width:2000px;">
+                            <thead>
+                                <tr>
+                                    <th>Broker Name</th>
+                                    <th>Enquiry Open Date</th>
+                                    <th>Ticket Number</th>
+                                    <th>Tracking Number</th>
+                                    <th>Consignee Name</th>
+                                    <th>Tracking Status</th>
+                                    <th>Delivery Date</th>
+                                    <th>Broker/Client Comments</th>
+                                    <th>D2Z Comments</th>
+                                    <th>Send Update</th>
+                                    <th>Close Enquiry</th>
+                                    <th>Upload attachment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let field of fieldCreateArray; let i = index">
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.brokerName" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.brokerName}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.enquiryOpenDate" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.enquiryOpenDate}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.ticketNumber" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.ticketNumber}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.trackingNumber" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.trackingNumber}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.consigneeName" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.consigneeName}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.status" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.status}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.deliveryDate" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.deliveryDate}}" />
+                                    </td>
+                                    <td>
+                                        <textarea [(ngModel)]="field.comments" 
+                                                class="form-control" cols="35" rows="2" 
+                                                name="{{field.comments}}">
+                                        </textarea>
+                                    </td>
+                                    <td>
+                                        <textarea [(ngModel)]="field.updatedComments" 
+                                                class="form-control" cols="35" rows="2" 
+                                                name="{{field.updatedComments}}">
+                                        </textarea>
+                                    </td>
+                                    <td>
+                                        <input style="margin-left:15px; width:18px; height:18px" 
+                                            [(ngModel)]="field.sendUpdate" 
+                                            class="form-control" 
+                                            type="checkbox" 
+                                            [checked]="field.sendUpdate"
+                                            name="{{field.sendUpdate}}" />
+                                    </td>
+                                    <td>
+                                        <input style="margin-left:15px; width:18px; height:18px" 
+                                            [(ngModel)]="field.closeEnquiry" 
+                                            class="form-control" 
+                                            type="checkbox" 
+                                            [checked]="field.closeEnquiry"
+                                            name="{{field.closeEnquiry}}" />
+                                    </td>
+                                    <td>
+                                        <input type="file" 
+                                                [(ngModel)]="field.attachment" 
+                                                class="form-control" 
+                                                name="{{field.attachment}}"
+                                                name="pic" accept="pdf/*">
+                                    </td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                        <button type="button" 
+                                class="btn btn-info" 
+                                (click)="UpdateEnquiry()"
+                                style="background-color: #16A085; float:right; margin:10px;">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                Submit
+                        </button>
+                </div>
+
+              
+
+            </div>
+        </div>
+    </div>
+</body>
+    

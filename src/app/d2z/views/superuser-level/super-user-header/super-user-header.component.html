@@ -21,12 +21,14 @@
                                 <li><a routerLink="/superuser-main">Information</a></li>
                                 </ul>
                             </li>
+
                             <li *ngIf="client"><a (click)="super_user_zebra(arrow)"><i class="fa fa-user-plus"></i> CLIENT MANAGEMENT <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTwo ? 'block' : 'none'}">
                                 <li *ngIf="clientAdd"><a routerLink="/superuser/add-client">Add Client</a></li>
                                 <li *ngIf="clientUpdate"><a routerLink="/superuser/update-client">Update Client</a></li>
                                 </ul>
                             </li>
+
                             <li *ngIf="tracking"><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperThree ? 'block' : 'none'}">
                                 <li *ngIf="trackingUpload"><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
@@ -35,13 +37,22 @@
                                <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
                                 </ul>
                             </li>
+
                             <li *ngIf="labels"><a (click)="super_user_labels(arrow)"><i class="fa fa-print"></i> Scan & Print Labels<span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperEight? 'block' : 'none'}">
                                 <li *ngIf="zebraPrint"><a routerLink="/superuser/labels/print">Zebra</a></li>
                                 <li *ngIf="zebraPdf"><a routerLink="/superuser/labels/pdf">PDF</a></li>
                                 </ul>
                             </li>
-                            <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
+
+                            <li *ngIf="enquiry"><a (click)="super_user_enquiry(arrow)"><i class="fa fa-picture-o"> </i> Enquiry <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTen? 'block' : 'none'}">
+                                <li *ngIf="openEnquiry"><a routerLink="/superuser/enquiry/open-enquiry">Master Enquiries </a></li>
+                                <li *ngIf="completedEnquiry"><a routerLink="/superuser/enquiry/completed-enquiry">Completed Enquiries </a></li>
+                                </ul>
+                            </li>
+                            
+                            <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-usd"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFour? 'block' : 'none'}">
                                 <li *ngIf="ratesAdd"><a routerLink="/superuser/rates/add">Add</a></li>
                                 <li *ngIf="ratesUpdate"><a routerLink="/superuser/rates/update">Update</a></li>
@@ -52,14 +63,12 @@
                             <li *ngIf="mlid"><a (click)="super_user_mlid(arrow)"><i class="fa fa-money"></i> MLID <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperSeven? 'block' : 'none'}">
                                 <li ><a routerLink="/superuser/mld">Add/Delete/Download</a></li>
-                               
                                 </ul>
                             </li>
 
-                            <li *ngIf="auweight"><a (click)="super_user_auweight(arrow)"><i class="fa fa-file"></i> Au Post Weight <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="auweight"><a (click)="super_user_auweight(arrow)"><i class="fa fa-truck"></i> Au Post Weight <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperNine? 'block' : 'none'}">
                                 <li ><a routerLink="/superuser/auweight">Au Post Weight</a></li>
-                               
                                 </ul>
                             </li>
                             <li *ngIf="invoices"><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>

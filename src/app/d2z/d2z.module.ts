@@ -28,7 +28,7 @@ import { ManifestComponent } from 'app/d2z/views/client-level/manifest-creation/
 import { BrokerMainComponent } from 'app/d2z/views/broker-level/broker-main/broker-main.component';
 import { AddClientComponent } from 'app/d2z/views/broker-level/client-management/add-client/add-client.component';
 import { UpdateClientComponent } from 'app/d2z/views/broker-level/client-management/update-client/update-client.component';
-import{BrokerAddServiceComponent} from 'app/d2z/views/broker-level/client-management/add-service/add-service.component';
+import { BrokerAddServiceComponent } from 'app/d2z/views/broker-level/client-management/add-service/add-service.component';
 import { BrokerPdfComponent } from 'app/d2z/views/broker-level/print-label/broker-pdf/pdf.component';
 import { BrokerPrintComponent } from 'app/d2z/views/broker-level/print-label/broker-print/print.component';
 import { AllocateShipmentComponent } from 'app/d2z/views/broker-level/create-shipment/allocate-shipment/allocate-shipment.component';
@@ -73,6 +73,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrokerCompletedEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/completed-enquiry/completed-enquiry.component';
 import { BrokerCreateEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/create-enquiry/create-enquiry.component';
 import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
+import { superUserOpenEnquiryComponent } from 'app/d2z/views/superuser-level/enquiry/open-enquiry/open-enquiry.component';
+import { superUserCompletedEnquiryComponent } from 'app/d2z/views/superuser-level/enquiry/completed-enquiry/completed-enquiry.component';
 
 @NgModule({
   imports: [
@@ -142,7 +144,9 @@ import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/en
           { path: "superuser/auweight", component:AUweightComponent},
           { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
           { path: "superuser/labels/pdf", component: SuperUserZebraScanPDF },
-          { path: "superuser/labels/print", component: SuperUserZebraScanPrint }
+          { path: "superuser/enquiry/open-enquiry", component: superUserOpenEnquiryComponent },
+          { path: "superuser/enquiry/completed-enquiry", component: superUserCompletedEnquiryComponent }
+         
     ], { useHash: true }),
     UiModule
   ],
@@ -207,7 +211,9 @@ import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/en
     OutstandingEnquiryComponent,
     BrokerCompletedEnquiryComponent,
     BrokerCreateEnquiryComponent,
-    BrokerOutstandingEnquiryComponent
+    BrokerOutstandingEnquiryComponent,
+    superUserOpenEnquiryComponent,
+    superUserCompletedEnquiryComponent
   ],
   entryComponents: [],
   providers: [
