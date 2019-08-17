@@ -44,10 +44,10 @@
                 </li>
                 <li>
                     <a *ngIf="englishFlag" (click)="toggle_pdf(arrow)">
-                        <i class="fa fa-desktop"></i> PRINT LABELS <span class="fa fa-chevron-down" #arrow></span>
+                        <i class="fa fa-print"></i> PRINT LABELS <span class="fa fa-chevron-down" #arrow></span>
                     </a>
                     <a *ngIf="chinessFlag" (click)="toggle_pdf(arrow)">
-                            <i class="fa fa-desktop"></i> 打印标签 <span class="fa fa-chevron-down" #arrow></span>
+                            <i class="fa fa-print"></i> 打印标签 <span class="fa fa-chevron-down" #arrow></span>
                         </a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenuThree ? 'block' : 'none'}">
                     <li ><a routerLink="/printLabels/zebra">ZEBRA</a></li>
@@ -89,10 +89,10 @@
 
                 <li>
                     <a *ngIf="englishFlag" (click)="toggle_enquiry(arrow)">
-                        <i class="fa fa-bar-chart-o"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span>
+                        <i class="fa fa-desktop"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span>
                     </a>
                     <a *ngIf="chinessFlag" (click)="toggle_enquiry(arrow)">
-                            <i class="fa fa-bar-chart-o"></i> 创建清单 <span class="fa fa-chevron-down" #arrow>
+                            <i class="fa fa-desktop"></i> 创建清单 <span class="fa fa-chevron-down" #arrow>
                             </span>
                     </a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSix ? 'block' : 'none'}">

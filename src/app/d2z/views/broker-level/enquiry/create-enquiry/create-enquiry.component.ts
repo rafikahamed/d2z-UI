@@ -234,7 +234,12 @@ export class BrokerCreateEnquiryComponent implements OnInit{
           this.spinner.show();
           this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
             this.spinner.hide();
-            this.fieldCreateArray = [];
+            if(resp.error){
+              this.successMsg = resp.error.message;
+            }else{
+              this.fieldCreateArray = [];
+              this.successMsg = resp.message;
+            }
             $('#brokerEnquiry').modal('show');
             setTimeout(() => {
               this.spinner.hide();

@@ -16,6 +16,16 @@
 
                 <div>
                     <h3> Customer Service Profile </h3> 
+
+                    <div style="float:right">
+                        <button type="button" 
+                        class="btn btn-info" 
+                        (click)="downloadEnquiryDetails()"
+                        style="background-color: #16A085; margin-top: -50px">
+                        <span class="glyphicon glyphicon-cloud-download"></span>
+                            Download  Enquiry
+                        </button>
+                    </div>
                     
                     <div class="modal fade" id="superEnquiry" role="dialog">
                         <div class="modal-dialog">
@@ -47,8 +57,8 @@
                             <thead>
                                 <tr>
                                     <th>Broker Name</th>
-                                    <th>Enquiry Open Date</th>
                                     <th>Ticket Number</th>
+                                    <th>Enquiry Open Date</th>
                                     <th>Tracking Number</th>
                                     <th>Consignee Name</th>
                                     <th>Tracking Status</th>

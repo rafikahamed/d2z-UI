@@ -5,6 +5,7 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
   selector: 'hms-open-enquiry',
@@ -50,40 +51,97 @@ export class superUserOpenEnquiryComponent{
 
 
   UpdateEnquiry(){
-    this.openEnquiryList = [];
-    let articleID = 'articleID';
-    let comments = 'comments';
-    let d2zComments = 'd2zComments';
-    let sendUpdate = 'sendUpdate';
-    let status = 'status';
 
-      for (var enquiryVal in this.openEnquiryArray) {
-        var fieldObj = this.openEnquiryArray[enquiryVal];
-        var openEnquiryObj = (
-          openEnquiryObj={}, 
-          openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
-          openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
-          openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
-          openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
-          openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
-        );
-        this.openEnquiryList.push(openEnquiryObj);
-      }
-      console.log(this.openEnquiryList);
-      this.spinner.show();
-      this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
-        this.spinner.hide();
-        $('#superEnquiry').modal('show');
-        console.log(resp)
-        this.successMsg = resp.message;
-        setTimeout(() => {
-          this.spinner.hide() }, 5000);
-      });
+    if(this.openEnquiryArray.length > 0 ){
+      this.openEnquiryList = [];
+      let articleID = 'articleID';
+      let comments = 'comments';
+      let d2zComments = 'd2zComments';
+      let sendUpdate = 'sendUpdate';
+      let status = 'status';
 
+        for (var enquiryVal in this.openEnquiryArray) {
+          var fieldObj = this.openEnquiryArray[enquiryVal];
+          var openEnquiryObj = (
+            openEnquiryObj={}, 
+            openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
+            openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
+            openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
+            openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
+            openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
+          );
+          this.openEnquiryList.push(openEnquiryObj);
+        }
+        this.spinner.show();
+        this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
+          this.spinner.hide();
+          $('#superEnquiry').modal('show');
+          if(resp.error){
+            this.successMsg = resp.error.message;
+          }else{
+            this.successMsg = resp.message;
+            this.trackingDataService.openEnquiryDetails((resp) => {
+              this.openEnquiryArray = resp; 
+            });
+          }
+          setTimeout(() => {
+            this.spinner.hide() }, 5000);
+        })
+      }else{
+        this.errorMsg =  "**Data is not Avilable to download";
+    } 
+  }
+
+
+  downloadEnquiryDetails(){
+    var enquiryDownloadData = []
+      if(this.openEnquiryArray.length > 0 ){
+        let articleID = 'articleID';
+        let consigneeName = 'consigneeName';
+        let consigneeaddr1 = 'consigneeaddr1';
+        let consigneeSuburb = 'consigneeSuburb';
+        let consigneeState = 'consigneeState';
+        let productDescription = 'productDescription';
+        let consigneePostcode = 'consigneePostcode';
+        let trackingStatus = 'trackingStatus';
+        let trackingDeliveryDate ='trackingDeliveryDate';
+        let comments ='comments';
+        for(var enquiryData in this.openEnquiryArray){
+            var invoiceApprovedData = this.openEnquiryArray[enquiryData];
+            var invoiceApproveObj = (
+              invoiceApproveObj={}, 
+              invoiceApproveObj[articleID]= invoiceApprovedData.articleID != null ? invoiceApprovedData.articleID : '' , invoiceApproveObj,
+              invoiceApproveObj[consigneeName]= invoiceApprovedData.consigneeName != null ? invoiceApprovedData.consigneeName : '', invoiceApproveObj,
+              invoiceApproveObj[consigneeaddr1]= invoiceApprovedData.consigneeaddr1 != null ?  invoiceApprovedData.consigneeaddr1 : '', invoiceApproveObj,
+              invoiceApproveObj[consigneeSuburb]= invoiceApprovedData.consigneeSuburb != null ? invoiceApprovedData.consigneeSuburb : '', invoiceApproveObj,
+              invoiceApproveObj[consigneeState]= invoiceApprovedData.consigneeState != null ? invoiceApprovedData.consigneeState : '', invoiceApproveObj,
+              invoiceApproveObj[consigneePostcode]= invoiceApprovedData.consigneePostcode != null ? invoiceApprovedData.consigneePostcode : '', invoiceApproveObj,
+              invoiceApproveObj[productDescription]= invoiceApprovedData.productDescription != null ? invoiceApprovedData.productDescription : '', invoiceApproveObj,
+              invoiceApproveObj[trackingStatus]= invoiceApprovedData.trackingStatus != null ? invoiceApprovedData.trackingStatus : '', invoiceApproveObj,
+              invoiceApproveObj[trackingDeliveryDate]= invoiceApprovedData.trackingDeliveryDate != null ? invoiceApprovedData.trackingDeliveryDate : '', invoiceApproveObj,
+              invoiceApproveObj[comments]= invoiceApprovedData.comments != null ? invoiceApprovedData.comments : '', invoiceApproveObj
+            );
+            enquiryDownloadData.push(invoiceApproveObj);
+         };
+
+          var currentTime = new Date();
+          var fileName = '';
+              fileName = "Enquiry-Details"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+              fieldSeparator: ',',
+              quoteStrings: '"',
+              decimalseparator: '.',
+              showLabels: true, 
+              useBom: true,
+              headers: [ 'Tracking Number', 'Consignee Name', 'Address', 'Suburb', 'State', 'Postcode', 'Description', 'Tracking Status','Expected Delivery Date','Broker/Client Comments']
+            };
+          new Angular2Csv(enquiryDownloadData, fileName, options); 
+      }else{
+          this.errorMsg =  "**Data is not Avilable to download";
+      } 
+    
   }
   
-
-
 }
 
 

@@ -279,7 +279,19 @@ adduserService( UserObject, callback ): any {
     }, (error) => {
       callback(error);
     });
-  }
+  };
+
+  superUserCompletedEnquiry(callback): any {
+    this.http.get(baseUrl+'/superUser-level/completed-enquiry').subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+      console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
 
   manifestFileData( fileName, callback): any {
     this.http.get(baseUrl+'/manifest-data', {

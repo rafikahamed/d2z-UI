@@ -79,13 +79,13 @@
                                   class="btn btn-info"
                                   (click)="clearInvoiceD2zPending()"
                                   style="background-color: #16A085; float:left; margin-left:130px; margin-top:-50px">
-                                  <span class="glyphicon glyphicon-refresh"></span>
+                                  <span class="glyphicon glyphicon-refresh"></span>Refresh
                             </button>
 
                             <button type="button" 
                                 class="btn btn-info" 
                                 (click)="downloadPendingInvoice()"
-                                style="background-color: #16A085; margin-right:20px; margin-top: 50px">
+                                style="background-color: #16A085; margin-left:50px">
                                 <span class="glyphicon glyphicon-cloud-download"></span>
                                     Download  Shipment
                             </button>
@@ -94,7 +94,7 @@
                                 class="btn btn-info" 
                                 (click)="invoiceApprove()"
                                 *ngIf="invoiceApproveFlag"
-                                style="background-color: #16A085; margin-right:20px; margin-top: 20px">
+                                style="background-color: #16A085; margin-left:60px; margin-top: 20px">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                     Approve Shipment
                             </button>
@@ -167,14 +167,15 @@
                           <button type="button" 
                             class="btn btn-info"
                             (click)="clearInvoiceD2zApproved()"
-                            style="background-color: #16A085; float:left; margin-left:130px; margin-top:-45px">
+                            style="background-color: #16A085; float:left; margin-left:115px; margin-top:-40px">
                             <span class="glyphicon glyphicon-refresh"></span>
+                            Refresh
                           </button>
 
                           <button type="button" 
                               class="btn btn-info" 
                               (click)="downloadApprovedInvoice()"
-                              style="background-color: #16A085; margin-right:20px; margin-top: 50px">
+                              style="background-color: #16A085; margin-left:40px;  margin-top:10px">
                               <span class="glyphicon glyphicon-cloud-download"></span>
                                   Download  Shipment
                           </button>
@@ -183,7 +184,7 @@
                               class="btn btn-info" 
                               (click)="billedInvoice()"
                               *ngIf="invoiceBilledFlag"
-                              style="background-color: #16A085; margin-right:20px; margin-top: 20px">
+                              style="background-color: #16A085; margin-left:65px; margin-top:20px">
                               <span class="glyphicon glyphicon-thumbs-up"></span>
                                   Billed Shipment
                           </button>
@@ -255,14 +256,15 @@
                           <button type="button" 
                               class="btn btn-info"
                               (click)="clearInvoiceNDPending()"
-                              style="background-color: #16A085; float:left; margin-left:130px; margin-top:-45px">
+                              style="background-color: #16A085; float:left; margin-left:115px; margin-top:-40px">
                               <span class="glyphicon glyphicon-refresh"></span>
+                              Refresh
                           </button>
 
                           <button type="button" 
                               class="btn btn-info" 
                               (click)="downloadNonD2zPendingInvoice()"
-                              style="background-color: #16A085; margin-right:20px; margin-top: 50px">
+                              style="background-color: #16A085; margin-right:20px; margin-top: 10px">
                               <span class="glyphicon glyphicon-cloud-download"></span>
                                   Download  Non-D2z Shipment
                           </button>
@@ -343,14 +345,15 @@
                           <button type="button" 
                               class="btn btn-info"
                               (click)="clearInvoiceNDApproved()"
-                              style="background-color: #16A085; float:left; margin-left:130px; margin-top:-45px">
+                              style="background-color: #16A085; float:left; margin-left:110px; margin-top:-40px">
                               <span class="glyphicon glyphicon-refresh"></span>
+                              Refresh
                           </button>
 
                           <button type="button" 
                               class="btn btn-info" 
                               (click)="downloadNonD2zApprovedInvoice()"
-                              style="background-color: #16A085; margin-right:20px; margin-top: 50px">
+                              style="background-color: #16A085; margin-right:20px; margin-top: 10px">
                               <span class="glyphicon glyphicon-cloud-download"></span>
                                   Download  Non-D2z Shipment
                           </button>
