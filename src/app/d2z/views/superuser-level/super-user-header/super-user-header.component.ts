@@ -110,6 +110,9 @@ export class SuperUserHeaderComponent implements OnInit {
       this.labels= true;
       this.zebraPrint= true;
       this.zebraPdf= true;
+      this.enquiry= true;
+      this.openEnquiry= true;
+      this.completedEnquiry= true;
     }
   }
 
