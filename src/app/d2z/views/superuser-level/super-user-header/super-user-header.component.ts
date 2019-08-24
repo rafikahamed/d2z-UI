@@ -23,6 +23,7 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperEight:boolean;
   childmenuSuperNine:boolean;
   childmenuSuperTen:boolean;
+  childmenuSuperEleven: boolean;
   client: boolean;
   mlid:boolean;
   auweight:boolean;
@@ -46,6 +47,10 @@ export class SuperUserHeaderComponent implements OnInit {
   reportDelivery: boolean;
   labels: boolean;
   enquiry: boolean;
+  returns: boolean;
+  scanReturns: boolean;
+  outstandingReturns: boolean;
+  actionReturns: boolean;
   openEnquiry: boolean;
   completedEnquiry: boolean;
   zebraPrint: boolean;
@@ -72,6 +77,7 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperEight = menuSelection.childmenuSuperEight;
     this.childmenuSuperNine = menuSelection.childmenuSuperNine;
     this.childmenuSuperTen = menuSelection.childmenuSuperTen;
+    this.childmenuSuperEleven = menuSelection.childmenuSuperEleven;
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
@@ -101,6 +107,10 @@ export class SuperUserHeaderComponent implements OnInit {
       this.enquiry= true;
       this.openEnquiry= true;
       this.completedEnquiry= true;
+      this.returns = true;
+      this.scanReturns = true;
+      this.outstandingReturns = true;
+      this.actionReturns = true;
     }else if(role == 4){
       this.tracking = true;
       this.trackingArrival = true;
@@ -113,6 +123,10 @@ export class SuperUserHeaderComponent implements OnInit {
       this.enquiry= true;
       this.openEnquiry= true;
       this.completedEnquiry= true;
+      this.returns = true;
+      this.scanReturns = true;
+      this.outstandingReturns = true;
+      this.actionReturns = true;
     }
   }
 
@@ -243,6 +257,20 @@ super_user_auweight(arrow){
     menuSuperObj.childmenuSuperTen = !this.childmenuSuperTen;
     this.consigmentUploadService.menuSuperSelection(menuSuperObj);
     this.childmenuSuperTen = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperTen;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
+  super_user_returns(arrow){
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperEleven = !this.childmenuSuperEleven;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperEleven = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperEleven;
     if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

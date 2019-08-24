@@ -21,16 +21,17 @@ export class ConsigmentUploadService implements OnInit{
   currentMessage = this.messageSource.asObservable();
 
   private menuSource = new BehaviorSubject({"childmenuOne":false, "childmenuTwo":true, "childmenuThree":true,
-                        "childmenuFour":true, "childmenuFive": true, "childmenuSix":true});
+                        "childmenuFour":true, "childmenuFive": true, "childmenuSix":true, "childmenuSeven":true});
   menuSourceSelection = this.menuSource.asObservable();
 
   private menuBrokerSource = new BehaviorSubject({"childmenubrkOne":false, "childmenubrkTwo":true, "childmenubrkThree":true,
-                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true, "childmenubrkSeven":true});
+                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true, "childmenubrkSeven":true,
+                        "childmenubrkEight":true});
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
                         "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true,
-                        "childmenuSuperEight":true, "childmenuSuperNine":true, "childmenuSuperTen":true});
+                        "childmenuSuperEight":true, "childmenuSuperNine":true, "childmenuSuperTen":true, "childmenuSuperEleven":true});
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
 
   constructor(  

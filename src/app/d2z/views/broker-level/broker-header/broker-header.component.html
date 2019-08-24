@@ -57,13 +57,22 @@
 
                 <li>
                     <a (click)="broker_enquiry(arrow)">
-                            <i class="fa fa-bar-chart-o"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span> </a>
+                            <i class="fa fa-desktop"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span> </a>
                         <ul class="nav child_menu" [ngStyle]="{'display': !childmenubrkSeven ? 'block' : 'none'}">
                             <li><a routerLink="/broker/create-enquiry">Create Enquiry</a></li>
                             <li><a routerLink="/broker/outstanding-enquiry">OutStanding Enquiries</a></li>
                             <li><a routerLink="/broker/completed-enquiry">Completed Enquiries</a></li>
                         </ul>
                 </li> 
+
+                <!-- <li>
+                    <a (click)="broker_returns(arrow)">
+                            <i class="fa fa-empire"></i>  Returns <span class="fa fa-chevron-down" #arrow></span> </a>
+                        <ul class="nav child_menu" [ngStyle]="{'display': !childmenubrkEight ? 'block' : 'none'}">
+                            <li><a routerLink="/broker/returns/outstanding">OutStanding Returns</a></li>
+                            <li><a routerLink="/broker/returns/action">Action Returns</a></li>
+                        </ul>
+                </li>  -->
 
                 <li>
                     <a routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>

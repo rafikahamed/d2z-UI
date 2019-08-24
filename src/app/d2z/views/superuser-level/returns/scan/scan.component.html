@@ -1,0 +1,200 @@
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+        <div class="main_container">
+            
+            <super-user-header></super-user-header>
+
+            <div class="right_col" role="main">
+                
+                <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px"> Returns / Scan </h3>
+                                </div>
+                        </div>
+                </div>
+
+                <div>
+                    <div class="modal fade" id="superEnquiry" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ngx-spinner
+                        bdColor="rgba(51,51,51,0.8)"
+                        size="medium"
+                        color="#fff"
+                        loadingText="Loading..."
+                        type="ball-clip-rotate-multiple">
+                    </ngx-spinner>
+
+                    <div>
+                        <p> Super User Level - Scan </p>    
+                        <div style="margin-top: 10px;">
+                                <p class="err_msg">{{errorMsg}}</p>
+                        </div>
+                        <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Scan Type</th>
+                                                <th>Scan Details</th>
+                                                <th>Return Reason</th>
+                                                <th>Broker Name</th>
+                                                <th>Client Nmae</th>
+                                                <th>Consignee Name</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let field of fieldArray; let i = index">
+                                                <td>
+                                                    <p-dropdown 
+                                                        [options]="scanType" 
+                                                        [(ngModel)]="field.type" 
+                                                        optionLabel="name" 
+                                                        [showClear]="true"
+                                                        [editable]="true"
+                                                        [style]="{'width':'100%'}"
+                                                        (onChange)="onScanTypeChange($event)">
+                                                    </p-dropdown>
+                                                </td>
+                                                <td>
+                                                    <input 
+                                                        [(ngModel)]="field.scan" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        name="{{field.scan}}" />
+                                                </td>
+                                                <td>
+                                                    <p-dropdown 
+                                                    [options]="reasonType" 
+                                                    [(ngModel)]="field.reason" 
+                                                    optionLabel="name" 
+                                                    [showClear]="true"
+                                                    [editable]="true"
+                                                    [style]="{'width':'100%'}"
+                                                    (onChange)="onReasonTypeChange($event)">
+                                                </p-dropdown>
+                                                </td>
+                                                <td>
+                                                    <input 
+                                                        [(ngModel)]="field.brokerName" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        name="{{field.scan}}" />
+                                                </td>
+                                                <td>
+                                                    <input 
+                                                        [(ngModel)]="field.clientNmae" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        name="{{field.scan}}" />
+                                                </td>
+                                                <td>
+                                                    <input 
+                                                        [(ngModel)]="field.consigneeName" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        name="{{field.scan}}" />
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-default"  
+                                                    type="button" 
+                                                    style="background-color: #16A085; color: white;"
+                                                    (click)="deleteFieldValue(i)">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    Delete</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <p-dropdown 
+                                                        [options]="scanType" 
+                                                        [(ngModel)]="newAttribute.type" 
+                                                        optionLabel="name" 
+                                                        [showClear]="true"
+                                                        [editable]="true"
+                                                        [style]="{'width':'100%'}"
+                                                        (onChange)="onScanTypeChange($event)">
+                                                    </p-dropdown>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" 
+                                                            type="text" 
+                                                            id="newAttributeScan" 
+                                                            [(ngModel)]="newAttribute.scan" 
+                                                            name="newAttributeScan" />
+                                                </td>
+                                                <td>
+                                                    <p-dropdown 
+                                                        [options]="reasonType" 
+                                                        [(ngModel)]="newAttribute.reason" 
+                                                        optionLabel="name" 
+                                                        [showClear]="true"
+                                                        [editable]="true"
+                                                        [style]="{'width':'100%'}"
+                                                        (onChange)="onReasonTypeChange($event)">
+                                                    </p-dropdown>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" 
+                                                            type="text" 
+                                                            id="newAttributeBrokerName" 
+                                                            [(ngModel)]="newAttribute.brokerName" 
+                                                            name="newAttributeBrokerName" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" 
+                                                            type="text" 
+                                                            id="newAttributeClientName" 
+                                                            [(ngModel)]="newAttribute.clientNmae" 
+                                                            name="newAttributeClientName" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" 
+                                                            type="text" 
+                                                            id="newAttributeConsigneeName" 
+                                                            [(ngModel)]="newAttribute.consigneeName" 
+                                                            name="newAttributeConsigneeName" />
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-default" 
+                                                    type="button" 
+                                                    style="background-color: #16A085; color: white;"
+                                                    (click)="addFieldValue()">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    Add
+                                                </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                        <button type="button" 
+                                class="btn btn-info" 
+                                (click)="UpdateEnquiry()"
+                                style="background-color: #16A085; float:right; margin-top:10px;">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                Submit
+                        </button>
+                </div>
+
+              
+
+            </div>
+        </div>
+    </div>
+</body>
+    

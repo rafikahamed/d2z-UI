@@ -69,12 +69,19 @@ import { AUweightComponent } from 'app/d2z/views/superuser-level/auweight/auweig
 import { completedEnquiryComponent } from 'app/d2z/views/client-level/enquiry/completed-enquiry/completed-enquiry.component';
 import { CreateEnquiryComponent } from 'app/d2z/views/client-level/enquiry/create-enquiry/create-enquiry.component';
 import { OutstandingEnquiryComponent } from 'app/d2z/views/client-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
+import { ReturnsOutStandingComponent } from 'app/d2z/views/client-level/returns/outstanding/outstanding.component';
+import { ReturnsActionComponent } from 'app/d2z/views/client-level/returns/action/action.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrokerCompletedEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/completed-enquiry/completed-enquiry.component';
 import { BrokerCreateEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/create-enquiry/create-enquiry.component';
 import { BrokerOutstandingEnquiryComponent } from 'app/d2z/views/broker-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
 import { superUserOpenEnquiryComponent } from 'app/d2z/views/superuser-level/enquiry/open-enquiry/open-enquiry.component';
 import { superUserCompletedEnquiryComponent } from 'app/d2z/views/superuser-level/enquiry/completed-enquiry/completed-enquiry.component';
+import { BrokerReturnsOutstandingComponent } from 'app/d2z/views/broker-level/returns/outstanding/outstanding.component';
+import { BrokerReturnsActionComponent } from 'app/d2z/views/broker-level/returns/action/action.component';
+import { superUserReturnsActionComponent } from 'app/d2z/views/superuser-level/returns/action/action.component';
+import { superUserReturnsOutstandingComponent } from 'app/d2z/views/superuser-level/returns/outstanding/outstanding.component';
+import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/returns/scan/scan.component';
 
 @NgModule({
   imports: [
@@ -145,8 +152,14 @@ import { superUserCompletedEnquiryComponent } from 'app/d2z/views/superuser-leve
           { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
           { path: "superuser/labels/pdf", component: SuperUserZebraScanPDF },
           { path: "superuser/enquiry/open-enquiry", component: superUserOpenEnquiryComponent },
-          { path: "superuser/enquiry/completed-enquiry", component: superUserCompletedEnquiryComponent }
-         
+          { path: "superuser/enquiry/completed-enquiry", component: superUserCompletedEnquiryComponent },
+          { path: "returns/outstanding", component: ReturnsOutStandingComponent },
+          { path: "returns/action", component: ReturnsActionComponent },
+          { path: "broker/returns/outstanding", component: BrokerReturnsOutstandingComponent },
+          { path: "broker/returns/action", component: BrokerReturnsActionComponent },
+          { path: "superuser/returns/scan", component: superUserReturnsScanComponent },
+          { path: "superuser/returns/outstanding", component: superUserReturnsOutstandingComponent },
+          { path: "superuser/returns/action", component: superUserReturnsActionComponent }
     ], { useHash: true }),
     UiModule
   ],
@@ -213,7 +226,14 @@ import { superUserCompletedEnquiryComponent } from 'app/d2z/views/superuser-leve
     BrokerCreateEnquiryComponent,
     BrokerOutstandingEnquiryComponent,
     superUserOpenEnquiryComponent,
-    superUserCompletedEnquiryComponent
+    superUserCompletedEnquiryComponent,
+    ReturnsOutStandingComponent,
+    ReturnsActionComponent,
+    BrokerReturnsOutstandingComponent,
+    BrokerReturnsActionComponent,
+    superUserReturnsActionComponent,
+    superUserReturnsOutstandingComponent,
+    superUserReturnsScanComponent
   ],
   entryComponents: [],
   providers: [

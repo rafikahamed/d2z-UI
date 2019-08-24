@@ -103,12 +103,28 @@
                         <li *ngIf="englishFlag"><a routerLink="/enquiry/completed-enquiry">Completed Enquiries</a></li>
                         <li *ngIf="chinessFlag"><a routerLink="/enquiry/completed-enquiry">创建清单</a></li>
                     </ul>
-                </li> 
+                 </li>
 
-                <li>
+                 <!-- <li>
+                    <a *ngIf="englishFlag" (click)="toggle_returns(arrow)">
+                        <i class="fa fa-empire"></i>  Returns <span class="fa fa-chevron-down" #arrow></span>
+                    </a>
+                    <a *ngIf="chinessFlag" (click)="toggle_returns(arrow)">
+                            <i class="fa fa-empire"></i> 回报 <span class="fa fa-chevron-down" #arrow>
+                            </span>
+                    </a>
+                    <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSeven ? 'block' : 'none'}">
+                        <li *ngIf="englishFlag"><a routerLink="/returns/outstanding">Outstanding Returns</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/returns/outstanding">杰出的回报</a></li>
+                        <li *ngIf="englishFlag"><a routerLink="/returns/action">Action Returns</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/returns/action">行动回报</a></li>
+                    </ul>
+                 </li>  -->
+
+                 <li>
                     <a *ngIf="englishFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
                     <a *ngIf="chinessFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> 登出</a>
-                </li>
+                 </li>
                 
                 </ul>
             </div>
