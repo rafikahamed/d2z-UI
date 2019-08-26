@@ -30,6 +30,7 @@ export class superUserReturnsScanComponent{
   public importList = [];
   public importIndividualList = [];
   public importFileList = [];
+  public importReturnsList = [];
   englishFlag:boolean;
   chinessFlag:boolean;
   showFile:boolean;
@@ -87,178 +88,92 @@ export class superUserReturnsScanComponent{
 
     deleteFieldFileValue(index) {
       this.fieldCreateArray.splice(index, 1);
-  }
+    }
 
-    creatEnquiry(){
-      this.importIndividualList = [];
-      this.errorMsg = '';
-      let type = 'type';
-      let identifier = 'identifier';
-      let enquiry = 'enquiry';
-      let pod = 'pod';
-      let comments = 'comments';
-      let userId = 'userId';
-      var newEnquiryArray = [];
+    onBlurMethod(event){
+     var scanType = this.type;
+     var scanValue = event.target.value;
+     this.spinner.show();
+     this.consigmentUploadService.fetchReturnsClientDetails(scanValue, (resp) => {
+        this.spinner.hide();
+        this.successMsg = resp.message;
+        this.newAttribute.brokerName = resp.brokerName;
+        this.newAttribute.clientName = resp.clientName;
+        this.newAttribute.consigneeName = resp.consigneeName;
+        this.newAttribute.userId = resp.userId;
+        this.newAttribute.clientBrokerId = resp.clientBrokerId;
+        this.newAttribute.roleId = resp.roleId;
+        this.newAttribute.carrier = resp.carrier;
+        this.newAttribute.referenceNumber = resp.referenceNumber;
+        this.newAttribute.barcodelabelNumber = resp.barcodelabelNumber;
+        this.newAttribute.articleId = resp.articleId;
+      });
+    }
+
+    returnEnquiry(){
+      // console.log(this.fieldArray);
+      // console.log(this.newAttribute);
+      this.importReturnsList = [];
+      var newReturnsArray = [];
       if(this.newAttribute.type){
-        newEnquiryArray.push(this.newAttribute);
+        newReturnsArray.push(this.newAttribute);
       }
       if(this.fieldArray.length > 0){
         for (var fieldVal in this.fieldArray) {
           var enquiryObj = this.fieldArray[fieldVal];
-          newEnquiryArray.push(enquiryObj);
+          newReturnsArray.push(enquiryObj);
         }
       }
-      for (var fieldVal in newEnquiryArray) {
-        var fieldObj = newEnquiryArray[fieldVal];
-        var enquiryObj = (
-          enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
-          enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod =! undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
-          enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
-        );
-        this.importIndividualList.push(enquiryObj);
-      }
-     
-      console.log(this.importIndividualList)
-      if(this.importIndividualList.length > 0){
-         this.spinner.show();
-         this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-              this.spinner.hide();
-              this.successMsg = resp.message;
-              $('#enquiry').modal('show');
-              this.fieldArray = [];
-              this.newAttribute = {};
-         });
-      }else{
-        this.errorMsg = "** Atleast add one enquiry to proceed";
-      }
-    }
-
-    enquiryTabChanged(event){
-      console.log(event.index)
-      if(event.index == 0){
-        this.fieldArray = [];
-        this.newAttribute = {};
-        this.errorMsg = '';
-      }else if(event.index == 1){
-        this.fieldCreateArray = [];
-        this.errorMsg = '';
-      }
-    }
-
-    incomingfile(event) {
-      this.file = event.target.files[0]; 
-      this.fileExport();
-    };
-
-    clearEnquiry(){
-      console.log("Clear Data")
-      $("#enquiryFileControl").val('');
-      this.fieldCreateArray = [];
-      this.importList = [];
-      this.errorMsg = null;
-      this.successMsg = null;
-    };
-
-    fileExport(){
-      var worksheet;
-      this.errorMsg = null;
-      let fileReader = new FileReader();
-      this.importList= [];
-      fileReader.readAsArrayBuffer(this.file);
-        let type = 'type';
-        let identifier = 'identifier';
-        let enquiry = 'enquiry';
-        let pod = 'pod';
-        let comments = 'comments';
-        fileReader.onload = (e) => {
-            this.arrayBuffer = fileReader.result;
-            var data = new Uint8Array(this.arrayBuffer);
-            var arr = new Array();
-            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-            var bstr = arr.join("");
-            var workbook = XLSX.read(bstr, {type:"binary"});
-            var first_sheet_name = workbook.SheetNames[0];
-            var worksheet = workbook.Sheets[first_sheet_name];
-            var exportData = XLSX.utils.sheet_to_json(worksheet);
-            for (var importVal in exportData) {
-              var dataObj = exportData[importVal];
-              for(var keyVal in dataObj){
-                var newLine = "\r\n"
-              }
-
-              if(!dataObj['Parcel Type']){
-                this.errorMsg = "Parcel Type is mandatory";
-              }else if(!dataObj['Parcel Details']){
-                this.errorMsg = "Parcel Details is mandatory";
-              }else if(!dataObj['Delivery Enquiry']){
-                this.errorMsg = "Delivery Enquiry is mandatory";
-              }else if(!dataObj['Delivery POD']){
-                this.errorMsg = 'Delivery POD is mandatory';
-              }else if(!dataObj['Comments']){
-                this.errorMsg = 'Comments is mandatory';
-              }
-
-              if(this.errorMsg == null){
-                var importObj = (
-                  importObj={}, 
-                  importObj[type]= dataObj['Parcel Type'] != undefined ? dataObj['Parcel Type'] : '', importObj,
-                  importObj[identifier]= dataObj['Parcel Details'] != undefined ? dataObj['Parcel Details'] : '', importObj,
-                  importObj[enquiry]= dataObj['Delivery Enquiry'] == 'yes' ? true : false, importObj,
-                  importObj[pod]= dataObj['Delivery POD'] == 'yes' ? true : false, importObj,
-                  importObj[comments]= dataObj['Comments'] != undefined ? dataObj['Comments'] : '',  importObj
-              );
-              this.importList.push(importObj);
-              }
-           }
-        }
-        this.fieldCreateArray = this.importList;
-        this.showFile = true;
-    };
-
-    creatFileEnquiry(){
-      this.importFileList = [];
-      let type = 'type';
-      let identifier = 'identifier';
-      let enquiry = 'enquiry';
-      let pod = 'pod';
+      // console.log(newReturnsArray);
+      let scanType = 'scanType';
+      let articleId = 'articleId';
+      let barcodelabelNumber = 'barcodelabelNumber';
+      let referenceNumber = 'referenceNumber';
+      let returnReason = 'returnReason';
+      let brokerName = 'brokerName';
+      let clientName = 'clientName';
+      let consigneeName = 'consigneeName';
       let userId = 'userId';
-      let comments = 'comments';
-      for (var fieldVal in this.fieldCreateArray) {
-        var fieldObj = this.fieldCreateArray[fieldVal];
+      let clientBrokerId = 'clientBrokerId';
+      let carrier = 'carrier';
+
+      for (var fieldVal in newReturnsArray) {
+        var fieldObj = newReturnsArray[fieldVal];
         var enquiryObj = (
           enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type : '', enquiryObj,
-          enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry == true ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod == true ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
-          enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
+          enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+          enquiryObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', enquiryObj,
+          enquiryObj[barcodelabelNumber]= fieldObj.barcodelabelNumber != undefined ? fieldObj.barcodelabelNumber : '', enquiryObj,
+          enquiryObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : '', enquiryObj,
+          enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
+          enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
+          enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
+          enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
+          enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
+          enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
+          enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj
         );
-        this.importFileList.push(enquiryObj);
+        this.importReturnsList.push(enquiryObj);
       }
-      if(this.importFileList.length > 0){
+
+      if(this.importReturnsList.length > 0){
         this.spinner.show();
-        this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
-          this.spinner.hide();
-          if(resp.error){
-            this.successMsg = resp.error.message;
-          }else{
-            this.fieldCreateArray = [];
-            this.successMsg = resp.message;
-          }
-          $('#enquiry').modal('show');
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 5000);
-        })
+        this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
+             this.spinner.hide();
+             if(resp.error){
+                this.successMsg = resp.error.message;
+                $('#returnsScan').modal('show');
+             }else{
+                this.successMsg = resp.message;
+                $('#returnsScan').modal('show');
+                this.fieldArray = [];
+                this.newAttribute = {};
+             }
+        });
       }else{
-        this.errorMsg = "** Atleast add one enquiry to proceed";
+        this.errorMsg = "** Atleast add one Returns to proceed";
       }
-    }
+    };
 
 }
 
