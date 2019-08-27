@@ -7,12 +7,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'hms-create-enquiry',
-  templateUrl: './create-enquiry.component.html',
-  styleUrls: ['./create-enquiry.component.css']
+  selector: 'hms-returns-action',
+  templateUrl: './action.component.html',
+  styleUrls: ['./action.component.css']
 })
 
-export class BrokerCreateEnquiryComponent implements OnInit{
+export class ReturnsActionComponent{
   private fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};
@@ -64,6 +64,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
     addFieldValue() {
         this.fieldArray.push(this.newAttribute)
         this.newAttribute = {};
+        this.errorMsg = '';
     }
 
     deleteFieldValue(index) {
@@ -79,27 +80,26 @@ export class BrokerCreateEnquiryComponent implements OnInit{
   }
 
     creatEnquiry(){
-      this.errorMsg = '';
       this.importIndividualList = [];
+      this.errorMsg = '';
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
       let pod = 'pod';
       let comments = 'comments';
       let userId = 'userId';
-      var newBrokerEnquiryArray = [];
+      var newEnquiryArray = [];
       if(this.newAttribute.type){
-        newBrokerEnquiryArray.push(this.newAttribute);
+        newEnquiryArray.push(this.newAttribute);
       }
       if(this.fieldArray.length > 0){
         for (var fieldVal in this.fieldArray) {
           var enquiryObj = this.fieldArray[fieldVal];
-          newBrokerEnquiryArray.push(enquiryObj);
+          newEnquiryArray.push(enquiryObj);
         }
       }
-
-      for (var fieldVal in newBrokerEnquiryArray) {
-        var fieldObj = newBrokerEnquiryArray[fieldVal];
+      for (var fieldVal in newEnquiryArray) {
+        var fieldObj = newEnquiryArray[fieldVal];
         var enquiryObj = (
           enquiryObj={}, 
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
@@ -111,19 +111,20 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         );
         this.importIndividualList.push(enquiryObj);
       }
+     
+      console.log(this.importIndividualList)
       if(this.importIndividualList.length > 0){
-        this.spinner.show();
-        this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-            this.spinner.hide();
-            this.successMsg = resp.message;
-            $('#brokerEnquiry').modal('show');
-            this.fieldArray = [];
-            this.newAttribute = {};
-        });
+         this.spinner.show();
+         this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
+              this.spinner.hide();
+              this.successMsg = resp.message;
+              $('#enquiry').modal('show');
+              this.fieldArray = [];
+              this.newAttribute = {};
+         });
       }else{
         this.errorMsg = "** Atleast add one enquiry to proceed";
       }
-      
     }
 
     enquiryTabChanged(event){
@@ -229,22 +230,21 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         );
         this.importFileList.push(enquiryObj);
       }
-      
-      if(this.importFileList.length > 0 ){
-          this.spinner.show();
-          this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
+      if(this.importFileList.length > 0){
+        this.spinner.show();
+        this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
+          this.spinner.hide();
+          if(resp.error){
+            this.successMsg = resp.error.message;
+          }else{
+            this.fieldCreateArray = [];
+            this.successMsg = resp.message;
+          }
+          $('#enquiry').modal('show');
+          setTimeout(() => {
             this.spinner.hide();
-            if(resp.error){
-              this.successMsg = resp.error.message;
-            }else{
-              this.fieldCreateArray = [];
-              this.successMsg = resp.message;
-            }
-            $('#brokerEnquiry').modal('show');
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 5000);
-          })
+          }, 5000);
+        })
       }else{
         this.errorMsg = "** Atleast add one enquiry to proceed";
       }

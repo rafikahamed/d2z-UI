@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit{
     menuSuperSelection.childmenuSuperSix = true;
     menuSuperSelection.childmenuSuperSeven = true;
     menuSuperSelection.childmenuSuperEight = true;
+    menuSuperSelection.childmenuSuperNine = true;
+    menuSuperSelection.childmenuSuperTen = true;
 
     if(this.loginForm.status == 'VALID'){
       this.spinner.show();

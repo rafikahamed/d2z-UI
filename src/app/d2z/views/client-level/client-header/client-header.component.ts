@@ -18,6 +18,7 @@ export class ClientHeaderComponent implements OnInit {
   childmenuFour:boolean;
   childmenuFive:boolean;
   childmenuSix:boolean;
+  childmenuSeven:boolean;
   englishFlag:boolean;
   chinessFlag:boolean;
   userName: String;
@@ -44,6 +45,7 @@ export class ClientHeaderComponent implements OnInit {
     this.childmenuFour = menuSelection.childmenuFour;
     this.childmenuFive = menuSelection.childmenuFive;
     this.childmenuSix = menuSelection.childmenuSix;
+    this.childmenuSeven = menuSelection.childmenuSeven;
 
   }
 
@@ -124,6 +126,21 @@ export class ClientHeaderComponent implements OnInit {
     menuObj.childmenuSix = !this.childmenuSix;
     this.consigmentUploadService.menuSelection(menuObj);
     this.childmenuSix = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuSix;
+    if (arrow.className === 'fa fa-chevron-down') {
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }
+    else {
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
+
+  toggle_returns(arrow){
+    var menuObj= this.consigmentUploadService.menuSourceSelection.source['_value'];
+    menuObj.childmenuSeven = !this.childmenuSeven;
+    this.consigmentUploadService.menuSelection(menuObj);
+    this.childmenuSeven = this.consigmentUploadService.menuSourceSelection.source['_value'].childmenuSeven;
     if (arrow.className === 'fa fa-chevron-down') {
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

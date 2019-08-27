@@ -1,0 +1,189 @@
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+        <div class="main_container">
+            
+            <super-user-header></super-user-header>
+
+            <div class="right_col" role="main">
+                
+                <div class="row tile_count">
+                        <div class="page-title">
+                                <div class="title_left">
+                                  <h3 style="margin-left: 10px"> Returns / Action </h3>
+                                </div>
+                        </div>
+                </div>
+
+                <div>
+                    <h3> Customer Service Profile </h3> 
+
+                    <div style="float:right">
+                        <button type="button" 
+                        class="btn btn-info" 
+                        (click)="downloadEnquiryDetails()"
+                        style="background-color: #16A085; margin-top: -50px">
+                        <span class="glyphicon glyphicon-cloud-download"></span>
+                            Download  Enquiry
+                        </button>
+                    </div>
+                    
+                    <div class="modal fade" id="superEnquiry" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ngx-spinner
+                        bdColor="rgba(51,51,51,0.8)"
+                        size="medium"
+                        color="#fff"
+                        loadingText="Loading..."
+                        type="ball-clip-rotate-multiple">
+                    </ngx-spinner>
+                    
+                    <div style="margin-top: 10px;">
+                            <p class="err_msg">{{errorMsg}}</p>
+                    </div>
+
+                    <div style="width:100%; border:1px solid #ccc; overflow:auto">
+                        <table class="table" style="width:2200px;">
+                            <thead>
+                                <tr>
+                                    <th>Broker Name</th>
+                                    <th>Ticket Number</th>
+                                    <th>Enquiry Open Date</th>
+                                    <th>Tracking Number</th>
+                                    <th>Consignee Name</th>
+                                    <th>Tracking Status</th>
+                                    <th>Delivery Date</th>
+                                    <th>Broker/Client Comments</th>
+                                    <th>D2Z Comments</th>
+                                    <th>Send Update</th>
+                                    <th>Close Enquiry</th>
+                                    <th>Upload attachment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let field of openEnquiryArray; let i = index">
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.userName" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.userName}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.ticketNumber" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.ticketNumber}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.trackingEventDateOccured" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.trackingEventDateOccured}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.articleID" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.articleID}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.consigneeName" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.consigneeName}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.status" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.status}}" />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            [(ngModel)]="field.trackingDeliveryDate" 
+                                            class="form-control" 
+                                            type="text" 
+                                            disabled=true
+                                            name="{{field.trackingDeliveryDate}}" />
+                                    </td>
+                                    <td>
+                                        <textarea [(ngModel)]="field.comments" 
+                                                class="form-control" cols="35" rows="3" 
+                                                name="{{field.comments}}">
+                                        </textarea>
+                                    </td>
+                                    <td>
+                                        <textarea [(ngModel)]="field.d2zComments" 
+                                                class="form-control" cols="35" rows="3" 
+                                                name="{{field.d2zComments}}">
+                                        </textarea>
+                                    </td>
+                                    <td>
+                                        <input style="margin-left:15px; width:18px; height:18px" 
+                                            [(ngModel)]="field.sendUpdate" 
+                                            class="form-control" 
+                                            type="checkbox" 
+                                            [checked]="field.sendUpdate"
+                                            name="{{field.sendUpdate}}" />
+                                    </td>
+                                    <td>
+                                        <input style="margin-left:15px; width:18px; height:18px" 
+                                            [(ngModel)]="field.closeEnquiry" 
+                                            class="form-control" 
+                                            type="checkbox" 
+                                            [checked]="field.closeEnquiry"
+                                            name="{{field.closeEnquiry}}" />
+                                    </td>
+                                    <td>
+                                        <input type="file" 
+                                                [(ngModel)]="field.attachment" 
+                                                class="form-control" 
+                                                name="{{field.attachment}}"
+                                                name="pic" accept="pdf/*">
+                                    </td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                        <button type="button" 
+                                class="btn btn-info" 
+                                (click)="UpdateEnquiry()"
+                                style="background-color: #16A085; float:right; margin-top:10px;">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                Submit
+                        </button>
+                </div>
+
+              
+
+            </div>
+        </div>
+    </div>
+</body>
+    

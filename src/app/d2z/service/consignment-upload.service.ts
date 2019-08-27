@@ -8,7 +8,7 @@ const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 // const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-//const baseUrl = "https://www.d2z.com.au"+"/v1/"+apiName;
+
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -21,16 +21,19 @@ export class ConsigmentUploadService implements OnInit{
   currentMessage = this.messageSource.asObservable();
 
   private menuSource = new BehaviorSubject({"childmenuOne":false, "childmenuTwo":true, "childmenuThree":true,
-                        "childmenuFour":true, "childmenuFive": true, "childmenuSix":true});
+                        "childmenuFour":true, "childmenuFive": true, "childmenuSix":true, "childmenuSeven":true});
   menuSourceSelection = this.menuSource.asObservable();
 
   private menuBrokerSource = new BehaviorSubject({"childmenubrkOne":false, "childmenubrkTwo":true, "childmenubrkThree":true,
-                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true, "childmenubrkSeven":true});
+                        "childmenubrkFour":true, "childmenubrkFive": true,"childmenubrkSix":true, "childmenubrkSeven":true,
+                        "childmenubrkEight":true});
   menuBrokerSourceSelection = this.menuBrokerSource.asObservable();
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
                         "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true,
-                        "childmenuSuperEight":true, "childmenuSuperNine":true,"childmenuSuperTen":true});
+<
+                        "childmenuSuperEight":true, "childmenuSuperNine":true, "childmenuSuperTen":true, "childmenuSuperEleven":true,"childmenuSuperTwelve":true});
+
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
 
   constructor(  
@@ -304,7 +307,19 @@ outstandingJob( callback): any {
     }, (error) => {
       callback(error);
     });
-  }
+  };
+
+  superUserCompletedEnquiry(callback): any {
+    this.http.get(baseUrl+'/superUser-level/completed-enquiry').subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+      console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
 
   manifestFileData( fileName, callback): any {
     this.http.get(baseUrl+'/manifest-data', {
@@ -359,10 +374,9 @@ outstandingJob( callback): any {
     }, (error) => {
       callback(error);
     });
-  }
+  } 
 
- 
-deleteMlid (service, callback): any {
+ deleteMlid (service, callback): any {
     this.http.get(baseUrl+'/superUser-level/deleteMLID', {
       params: { service: service  }
     }).subscribe((resp:userMessage) => {
@@ -390,8 +404,8 @@ deleteMlid (service, callback): any {
     });
   };
 
-downloadauweight(ArticleData,callback):any{
- this.http.post(baseUrl+'/superUser-level/downloadAUweight',ArticleData
+ downloadauweight(ArticleData,callback):any{
+   this.http.post(baseUrl+'/superUser-level/downloadAUweight',ArticleData
     ).subscribe((resp) => {
       callback(resp);
       if (resp) {
@@ -429,7 +443,8 @@ downloadauweight(ArticleData,callback):any{
         callback(error);
     });
   };
- brokerlist(callback): any {
+
+  brokerlist(callback): any {
     this.http.get(baseUrl+'/superUser-level/brokerList').subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
@@ -440,6 +455,7 @@ downloadauweight(ArticleData,callback):any{
       callback(error);
     });
   };
+<<<<<<< HEAD
   joblist(callback): any {
     this.http.get(baseUrl+'/superUser-level/incomingList').subscribe((resp:userMessage) => {
       callback(resp);
@@ -451,6 +467,9 @@ downloadauweight(ArticleData,callback):any{
       callback(error);
     });
   };
+=======
+
+>>>>>>> bf1deab5cde99f98c0e89970f43bc539c353e5a3
   mlidList(callback): any {
     this.http.get(baseUrl+'/superUser-level/mlidList').subscribe((resp:userMessage) => {
       callback(resp);
@@ -462,7 +481,8 @@ downloadauweight(ArticleData,callback):any{
       callback(error);
     });
   };
-mliddeleteList(callback): any {
+
+  mliddeleteList(callback): any {
     this.http.get(baseUrl+'/superUser-level/mliddeleteList').subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
@@ -473,6 +493,7 @@ mliddeleteList(callback): any {
       callback(error);
     });
   };
+
   reconcileData(reconcile, callback): any {
     this.http.post(baseUrl+'/superUser-level/reconcileInfo',reconcile
     ).subscribe((resp) => {
@@ -627,8 +648,35 @@ downloadMlidData( service, callback): any {
     }, (error) => {
       callback(error);
     });
-  }
+  };
+
+    
+  fetchReturnsClientDetails( scanValue, callback): any {
+    this.http.get(baseUrl+'/superUser-level/clientDetails', {
+      params: { referenceNumber: scanValue, barcodeLabel: scanValue, articleId: scanValue  }
+    }).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
   
+  createReturns( importReturnsList, callback): any {
+    this.http.post(baseUrl+'/superUser-level/create-returns', importReturnsList
+    ).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
 
 }
 

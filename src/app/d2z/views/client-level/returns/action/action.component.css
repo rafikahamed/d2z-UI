@@ -7,31 +7,35 @@ body{
     line-height:1.471
 }
 
-
-.delete_search{
+.fileupload_search{
     padding: 20px;
     margin-bottom: 20px;
-    padding-bottom: 25px;
-    width:95%;
+    height: 130px;
+    width:100%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.delete_panel{
-    width: 95%; 
+
+.table-bordered .tbody .tr .td {
+    border : none;
+}
+
+.manifest_panel{
+    width: 100%; 
     border: 2px solid #ccc; 
-    height: 500px; 
+    height: 600px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
     margin-bottom: 10px; 
     font-size: 16px;
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
+    color:green; font-size: 14px;font-weight: 500;
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important;
+    color: #ca2929; font-size:14px; font-weight:500;
 }
 
 .input-text{
@@ -264,7 +268,6 @@ body .container.body .right_col{
     float: left;
     display: block;
     border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
 }
 .page-title .title_left h3{
     margin:9px 0
@@ -540,3 +543,13 @@ ul.top_profiles li{
 ul.top_profiles li:nth-child(odd){
     background-color:#eee
 }
+
+@media all and (min-width: 768px) {
+    tr td {
+      vertical-align: middle !important;
+    }
+    tr span:not([class]) {
+      padding: 1rem 1rem;
+    }
+  }
+  

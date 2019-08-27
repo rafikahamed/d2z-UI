@@ -7,12 +7,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'hms-create-enquiry',
-  templateUrl: './create-enquiry.component.html',
-  styleUrls: ['./create-enquiry.component.css']
+  selector: 'hms-broker-returns-action',
+  templateUrl: './action.component.html',
+  styleUrls: ['./action.component.css']
 })
 
-export class BrokerCreateEnquiryComponent implements OnInit{
+export class BrokerReturnsActionComponent implements OnInit{
   private fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};

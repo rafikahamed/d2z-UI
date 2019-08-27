@@ -234,8 +234,12 @@ export class CreateEnquiryComponent{
         this.spinner.show();
         this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
           this.spinner.hide();
-          this.successMsg = resp.message;
-          this.fieldCreateArray = [];
+          if(resp.error){
+            this.successMsg = resp.error.message;
+          }else{
+            this.fieldCreateArray = [];
+            this.successMsg = resp.message;
+          }
           $('#enquiry').modal('show');
           setTimeout(() => {
             this.spinner.hide();
