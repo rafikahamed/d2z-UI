@@ -1,0 +1,244 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+            <div class="main_container">
+             <super-user-header></super-user-header>
+    
+                <div class="right_col" role="main">
+                    
+                    <div class="row tile_count">
+                            <div class="page-title">
+                                    <div class="title_left">
+                                      <h3 style="margin-left: 10px" *ngIf="englishFlag"> Incoming Jobs / OutStanding Shipment </h3>
+                                    
+                                    </div>
+                            </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="brokerEnquiry" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                   
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="brokerEnquiry" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div style="padding:20px">
+                                    <p> Customer Service Profile </p>
+                                    <div style="margin-top: 10px;">
+                                            <p class="err_msg">{{errorMsg}}</p>
+                                    </div>
+                                    <div class="table-responsive" id="sailorTableArea">
+                               <table class="table table-striped table-bordered" id="sailorTable" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Broker</th>
+                                                        <th>Mlid</th>
+                                                        <th>Consignee</th>
+                                                        <th>Mawb</th>
+                                                        <th>Destination</th>
+                                                        <th>Flight</th>
+                                                        <th >ETA</th>
+                                                        <th>Piece</th>
+                                                        <th>Weight</th>
+                                                        <th>Hawb</th>
+                                                        <th>ATA</th>
+                                                        <th>Clear</th>
+                                                        <th>Held</th>
+                                                        <th>OutTurn</th>
+                                                        <th>Note</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let field of fieldArray; let i = index">
+                                                        <td>
+                                                              <input 
+                                                                [(ngModel)]="field.broker" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                readonly="true" 
+                                                                name="{{field.broker}}" />
+                                                        </td>
+                                                        <td>
+                                                              <input 
+                                                                [(ngModel)]="field.mlid" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                readonly="true" 
+                                                                name="{{field.mlid}}" />
+                                                        </td>
+                                                        <td>
+                                                           <input 
+                                                                [(ngModel)]="field.consignee" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                readonly="true" 
+                                                                name="{{field.consignee}}" />
+                                                        </td>
+                                                        <td>
+                                                            <input 
+                                                                [(ngModel)]="field.mawb" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                readonly="true" 
+                                                                name="{{field.mawb}}" />
+                                                        </td>
+                                                        <td>
+                                                              <input 
+                                                                [(ngModel)]="field.destination" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                readonly="true" 
+                                                                name="{{field.destination}}" />
+                                                        </td>
+                                                        <td>
+                                                            <input 
+                                                                [(ngModel)]="field.flight" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 readonly="true"
+                                                                name="{{field.flight}}" />
+                                                        </td>
+                                                        <td>
+                                                            <input 
+                                                                [(ngModel)]="field.eta" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 readonly="true"
+                                                                name="{{field.eta}}" />
+                                                   
+                                                        </td>
+                                                        <td>
+                                                            <input 
+                                                                [(ngModel)]="field.piece" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                readonly="true"
+                                                                name="{{field.piece}}" />
+                                                        </td>
+                                                        <td>
+                                                            <input 
+                                                                [(ngModel)]="field.weight" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                  readonly="true"
+                                                                name="{{field.weight}}" />
+                                                        </td>
+                                                        <td>
+                                                            <input 
+                                                                [(ngModel)]="field.hawb" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                  readonly="true"
+                                                                name="{{field.hawb}}" />
+                                                        </td>
+
+
+                                                           <td style="width:15%">
+                                                            <input 
+                                                                [(ngModel)]="field.ata" 
+                                                                class="form-control" 
+                                                               
+                                                                name="{{field.ata}}" 
+                                                                matInput [matDatepicker]="picker" 
+                                                        placeholder="Choose a date" 
+                                                        (dateChange)="FromDateChange($event)">
+                                            <mat-datepicker-toggle
+                                                         matSuffix 
+                                                         [for]="picker">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                                                
+                                                        </td>
+                                                          
+   <td>
+                                                            <input 
+                                                                [(ngModel)]="field.clear" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 
+                                                                name="{{field.clear}}" />
+                                                        </td>
+
+<td>
+                                                            <input 
+                                                                [(ngModel)]="field.held" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 
+                                                                name="{{field.held}}" />
+                                                        </td>
+
+<td>
+                                                            <input 
+                                                                [(ngModel)]="field.outturn" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 
+                                                                name="{{field.outturn}}" />
+                                                        </td>
+
+
+
+<td>
+                                                            <input 
+                                                                [(ngModel)]="field.note" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 
+                                                                name="{{field.note}}" />
+                                                        </td>
+
+
+                                                      </tr>
+                                                </tbody>
+                                </table>
+                            </div>
+                            </div>
+    
+                            <div class="col-md-12">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="creatEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            Submit
+                                    </button>
+                
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="chinessFlag" 
+                                            (click)="creatEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            刷新
+                                    </button>
+                            </div>
+                       
+                </div>
+            </div>
+        </div>
+    </body>
+        

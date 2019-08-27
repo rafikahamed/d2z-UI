@@ -8,6 +8,7 @@ const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 // const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+//const baseUrl = "https://www.d2z.com.au"+"/v1/"+apiName;
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -29,7 +30,7 @@ export class ConsigmentUploadService implements OnInit{
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
                         "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true,
-                        "childmenuSuperEight":true, "childmenuSuperNine":true});
+                        "childmenuSuperEight":true, "childmenuSuperNine":true,"childmenuSuperTen":true});
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
 
   constructor(  
@@ -81,7 +82,7 @@ export class ConsigmentUploadService implements OnInit{
   };
 
 adduserService( UserObject, callback ): any {
- 
+ console.log(":::"+baseUrl);
      this.http.get(baseUrl+'/userservice',{
       params: { userName: UserObject.userName, serviceType: UserObject.serviceType  }}
             ).subscribe((resp) => {
@@ -238,6 +239,31 @@ adduserService( UserObject, callback ): any {
     });
   }
 
+   createJob( enquiryData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/create-job',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+
+outstandingJob( callback): any {
+    this.http.get(baseUrl+'/superUser-level/incoming-job-list')
+    .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
   fetchEnquiry( status, fromDate, toDate, userId, callback): any {
     this.http.get(baseUrl+'/enquiry', {
       params: { status: status, fromDate: fromDate, toDate: toDate, userId: userId  }
@@ -308,6 +334,7 @@ adduserService( UserObject, callback ): any {
   }
 
   fileUploadDelete( refrenceNumList, callback): any {
+  console.log(refrenceNumList);
     this.http.post(baseUrl+'/consignment-delete',refrenceNumList
     ).subscribe((resp) => {
       callback(resp);
@@ -404,6 +431,17 @@ downloadauweight(ArticleData,callback):any{
   };
  brokerlist(callback): any {
     this.http.get(baseUrl+'/superUser-level/brokerList').subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+  joblist(callback): any {
+    this.http.get(baseUrl+'/superUser-level/incomingList').subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
       } else {

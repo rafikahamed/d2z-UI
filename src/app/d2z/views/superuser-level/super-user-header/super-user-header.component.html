@@ -25,6 +25,8 @@
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTwo ? 'block' : 'none'}">
                                 <li *ngIf="clientAdd"><a routerLink="/superuser/add-client">Add Client</a></li>
                                 <li *ngIf="clientUpdate"><a routerLink="/superuser/update-client">Update Client</a></li>
+
+                                <li><a routerLink="/superuser/add-service">Add Service</a></li>
                                 </ul>
                             </li>
                             <li *ngIf="tracking"><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
@@ -39,6 +41,14 @@
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperEight? 'block' : 'none'}">
                                 <li *ngIf="zebraPrint"><a routerLink="/superuser/labels/print">Zebra</a></li>
                                 <li *ngIf="zebraPdf"><a routerLink="/superuser/labels/pdf">PDF</a></li>
+                                </ul>
+                            </li>
+
+                             <li *ngIf="incomingJob"><a (click)="super_user_incomingJob(arrow)"><i class="fa fa-print"></i> Incoming Jobs<span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTen? 'block' : 'none'}">
+                                <li *ngIf="addShipment"><a routerLink="/superuser/incomingJobs/create">Add Shipment</a></li>
+                                <li *ngIf="incomingShipment"><a routerLink="/superuser/incomingJobs/outstanding">OutStanding Shipment</a></li>
+                                  <li *ngIf="outstandingShipment"><a routerLink="/superuser/labels/pdf">Closed Shipment</a></li>
                                 </ul>
                             </li>
                             <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
