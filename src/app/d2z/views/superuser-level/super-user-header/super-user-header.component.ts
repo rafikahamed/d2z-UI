@@ -129,7 +129,7 @@ export class SuperUserHeaderComponent implements OnInit {
       this.scanReturns = true;
       this.outstandingReturns = true;
       this.actionReturns = true;
->
+
     }else if(role == 4){
       this.tracking = true;
       this.trackingArrival = true;
@@ -164,9 +164,9 @@ export class SuperUserHeaderComponent implements OnInit {
   }
 super_user_incomingJob(arrow) {
     var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
-    menuSuperObj.childmenuSuperTen = !this.childmenuSuperTen;
+    menuSuperObj.childmenuSuperTwelve = !this.childmenuSuperTwelve;
     this.consigmentUploadService.menuSuperSelection(menuSuperObj);
-    this.childmenuSuperTen = this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperTen;
+    this.childmenuSuperTwelve= this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperTwelve;
     if (arrow.className === 'fa fa-chevron-down'){
       arrow.className = '';
       arrow.className = 'fa fa-chevron-up';

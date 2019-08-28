@@ -31,7 +31,7 @@ export class ConsigmentUploadService implements OnInit{
 
   private menuSuperSource = new BehaviorSubject({"childmenuSuperOne":false, "childmenuSuperTwo":true, "childmenuSuperThree":true,
                         "childmenuSuperFour":true, "childmenuSuperFive":true,"childmenuSuperSix":true,"childmenuSuperSeven":true,
-<
+
                         "childmenuSuperEight":true, "childmenuSuperNine":true, "childmenuSuperTen":true, "childmenuSuperEleven":true,"childmenuSuperTwelve":true});
 
   menuSuperSourceSelection = this.menuSuperSource.asObservable();
@@ -455,7 +455,7 @@ outstandingJob( callback): any {
       callback(error);
     });
   };
-<<<<<<< HEAD
+
   joblist(callback): any {
     this.http.get(baseUrl+'/superUser-level/incomingList').subscribe((resp:userMessage) => {
       callback(resp);
@@ -467,9 +467,9 @@ outstandingJob( callback): any {
       callback(error);
     });
   };
-=======
 
->>>>>>> bf1deab5cde99f98c0e89970f43bc539c353e5a3
+
+
   mlidList(callback): any {
     this.http.get(baseUrl+'/superUser-level/mlidList').subscribe((resp:userMessage) => {
       callback(resp);
