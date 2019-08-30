@@ -417,28 +417,23 @@ body .container.body .right_col{
     background-color:transparent
 }
 
+
 #sailorTableArea{
     max-height: 300px;
+    max-width: 1000px;
     overflow-x: auto;
     overflow-y: auto;
 }
-#sailorTable{
-    white-space: nowrap;
-}
 
-.tbody {
-      display:block;
-      max-height:500px;
-      overflow-y:auto;
-  }
- .thead, .tbody ,.tr {
-      display:table;
-      width:100%;
-      table-layout:fixed;
-  }
-  .thead {
-      width: calc( 100% - 1em )
-  } 
+#sailorTable
+{
+  
+    table-layout: fixed;
+    
+   
+
+}
+ 
 .tiles,.top_tiles{
     margin-bottom:0
 }

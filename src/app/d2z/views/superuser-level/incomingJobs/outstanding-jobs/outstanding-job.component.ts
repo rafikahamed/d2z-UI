@@ -20,27 +20,18 @@ export class SuperOutstandingJobComponent implements OnInit{
   errorMsg: string;
   successMsg: String;
   brokerUserName: String;
-  
+  displayedColumns = ["Broker", "Mlid", "Consignee"];
   consigneedata:String;
    brokerListMainData = [];
     MlidListMainData = [];
    fromDate: String;
   type: String;
-  brokerDropdown: City[];  
-  consigneeDropdown:City[];
-  consigneeDropdown2:City[];
-    consigneeDropdownmlid=[];
-  mlidDropdown:City[];
-    consigneeDropdown1:City[];
-    consigneeDropdown4:City[];
-  mlidDropdown1:City[];
-  brokerDropdownValue = [];
-  file:File;
+
   user_Id: String;
   system: String;
   arrayBuffer:any;
   
-  destinations:City[];
+ 
   public importList = [];
   public importIndividualList = [];
   public importFileList = [];
@@ -58,6 +49,7 @@ export class SuperOutstandingJobComponent implements OnInit{
   }
 
   ngOnInit() {
+  this.spinner.show();
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
@@ -72,7 +64,7 @@ export class SuperOutstandingJobComponent implements OnInit{
      
         console.log(entry.mlid);
       })
-      this.brokerDropdown = this.brokerDropdownValue;
+    
     })
   
      
@@ -88,29 +80,7 @@ export class SuperOutstandingJobComponent implements OnInit{
      
   };
 
- onBrokerTypeChange(event,i){
  
-   console.log("in Broker");
-
-   
-    var enquiryObj = this.fieldArray[i];
-     enquiryObj.mlid = [];
-      enquiryObj.mlidDropdown =[];
-      enquiryObj.consignee = [];
-        console.log(enquiryObj.consigneeDropdown);
-         enquiryObj.consigneeDropdown=[];
-    this.brokerUserName = event.value ? event.value.value: '';
-    var that = this;
-    this.brokerListMainData.forEach(function(entry) {
-      if(entry.brokerName.name == that.brokerUserName){
-       var enquiryObj = that.fieldArray[i];
-            enquiryObj.mlidDropdown = entry.mlid;
-            that.consigneeDropdown4= entry.consignee;
-            
-      }
-    })
-    
-  };
     FromDateChange(event){
     var str = event.target.value;
     var date = new Date(str),
@@ -119,78 +89,71 @@ export class SuperOutstandingJobComponent implements OnInit{
      this.fromDate = [ date.getFullYear(), mnth, day ].join("-");
   };
 
-    addFieldValue() {
- 
-  this.newAttribute.mlidDropdown = this.mlidDropdown1;
-  this.newAttribute.consigneeDropdown = this.consigneeDropdown2;
- 
-        this.fieldArray.push(this.newAttribute)
-        this.newAttribute = {};
-    }
-
-    deleteFieldValue(index) {
-        this.fieldArray.splice(index, 1);
-    }
-
+    
    
 
     creatEnquiry(){
 
-   if(this.errorMsg === "** This combination doesnt have same consignee")
-   {
-this.errorMsg === "** This combination doesnt have same consignee";
-   }
-   else{
+  
       this.errorMsg = '';
       this.importIndividualList = [];
-      let type = 'type';
+      let clear = 'clear';
+      let outturn = 'outturn';
+      let note ='note'
+      let ata = 'ata';
+      let held = 'held';
+      let jobid = 'jobid';
+      let broker = 'broker';
       let mlid = 'mlid';
-       let consignee = 'consignee';
-      let hawb = 'hawb';
-      let dest = 'dest';
+      let consignee = 'consignee';
+       let hawb = 'hawb';
+      let dest = 'destination';
       let weight = 'weight';
       let mawb = 'mawb';
       let flight = 'flight';
       let eta = 'eta';
-      let price = 'price';
+      let piece = 'piece';
       
     
       let userId = 'userId';
-      var newBrokerEnquiryArray = [];
-       console.log("hello"+Object["values"](this.newAttribute));
-      console.log("heer"+this.newAttribute.type);
-      if(this.newAttribute.type){
-        newBrokerEnquiryArray.push(this.newAttribute);
-      }
-      if(this.fieldArray.length > 0){
-        for (var fieldVal in this.fieldArray) {
-          var enquiryObj = this.fieldArray[fieldVal];
-          newBrokerEnquiryArray.push(enquiryObj);
-        }
-      }
+      var newBrokerEnquiryArray =  this.fieldArray;
+      
 
       for (var fieldVal in newBrokerEnquiryArray) {
         var fieldObj = newBrokerEnquiryArray[fieldVal];
-         
+        console.log(fieldObj);
+     if(fieldObj.checked === true)
+     {
+
         var enquiryObj = (
           enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+           enquiryObj[broker]= fieldObj.broker != undefined ? fieldObj.broker : '', enquiryObj,
           enquiryObj[mlid]= fieldObj.mlid != undefined ? fieldObj.mlid : '', enquiryObj,
-          enquiryObj[consignee]= fieldObj.consignee != undefined ? fieldObj.consignee.name: '', enquiryObj,
-           enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
-           enquiryObj[dest]= fieldObj.dest != undefined ? fieldObj.dest.name : '', enquiryObj,
+          enquiryObj[consignee]= fieldObj.consignee != undefined ? fieldObj.consignee: '', enquiryObj,
+          enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
+           enquiryObj[dest]= fieldObj.destination != undefined ? fieldObj.destination: '', enquiryObj,
               enquiryObj[flight]= fieldObj.flight != undefined ? fieldObj.flight : '', enquiryObj,
                  enquiryObj[eta]= fieldObj.eta != undefined ? fieldObj.eta : '', enquiryObj,
           enquiryObj[weight]= fieldObj.weight != undefined ? fieldObj.weight : '', enquiryObj,
-           enquiryObj[price]= fieldObj.price != undefined ? fieldObj.price : '', enquiryObj,
-            enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj
+           enquiryObj[piece]= fieldObj.piece != undefined ? fieldObj.piece : '', enquiryObj,
+            enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
+          enquiryObj[jobid]=fieldObj.jobid != undefined ? fieldObj.jobid : '', enquiryObj,
+          enquiryObj[clear]= fieldObj.clear != undefined ? fieldObj.clear : '', enquiryObj,
+          enquiryObj[outturn]= fieldObj.outturn != undefined ? fieldObj.outturn: '', enquiryObj,
+           enquiryObj[note]= fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
+           enquiryObj[held]= fieldObj.held != undefined ? fieldObj.held : '', enquiryObj,
+             
+                 enquiryObj[ata]= fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj
+         
         );
         this.importIndividualList.push(enquiryObj);
       }
+      }
       if(this.importIndividualList.length > 0 ){
+     
 console.log(this.importIndividualList);
   this.spinner.show();
-        this.consigmentUploadService.createJob(this.importIndividualList, (resp) => {
+        this.consigmentUploadService.updateJob(this.importIndividualList, (resp) => {
             this.spinner.hide();
             this.successMsg = resp.message;
             $('#brokerEnquiry').modal('show');
@@ -198,9 +161,10 @@ console.log(this.importIndividualList);
             this.newAttribute = {};
         });
       }else{
-        this.errorMsg = "** Atleast add one enquiry to proceed";
+        this.errorMsg = "** Atleast add one Job to proceed";
       }
-     } 
+      
+    
     }
 
    

@@ -255,6 +255,18 @@ adduserService( UserObject, callback ): any {
     });
   }
 
+updateJob( enquiryData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/update-job',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
 outstandingJob( callback): any {
     this.http.get(baseUrl+'/superUser-level/incoming-job-list')
     .subscribe((resp) => {

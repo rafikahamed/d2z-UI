@@ -319,7 +319,7 @@ this.errorMsg === "** This combination doesnt have same consignee";
             this.newAttribute = {};
         });
       }else{
-        this.errorMsg = "** Atleast add one enquiry to proceed";
+        this.errorMsg = "** Atleast add one Job to proceed";
       }
      } 
     }
