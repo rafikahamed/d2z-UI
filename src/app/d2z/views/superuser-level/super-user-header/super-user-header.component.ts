@@ -22,10 +22,19 @@ export class SuperUserHeaderComponent implements OnInit {
   childmenuSuperSeven:boolean;
   childmenuSuperEight:boolean;
   childmenuSuperNine:boolean;
+
+   childmenuSuperTwelve:boolean;
+
   childmenuSuperTen:boolean;
   childmenuSuperEleven: boolean;
+
   client: boolean;
   mlid:boolean;
+  incomingJob:boolean;
+  addShipment :boolean;
+  outstandingShipment:boolean;
+  incomingShipment:boolean;
+
   auweight:boolean;
   clientAdd: boolean;
   clientUpdate: Boolean;
@@ -75,8 +84,12 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperSeven = menuSelection.childmenuSuperSeven;
     this.childmenuSuperEight = menuSelection.childmenuSuperEight;
     this.childmenuSuperNine = menuSelection.childmenuSuperNine;
+
+    
+
     this.childmenuSuperTen = menuSelection.childmenuSuperTen;
     this.childmenuSuperEleven = menuSelection.childmenuSuperEleven;
+     this.childmenuSuperTwelve = menuSelection.childmenuSuperTwelve;
     var role = this.consigmentUploadService.userMessage.role_Id;
     if(role == 1){
       this.client = true;
@@ -103,6 +116,12 @@ export class SuperUserHeaderComponent implements OnInit {
       this.labels= true;
       this.zebraPrint= true;
       this.zebraPdf= true;
+
+      this.incomingJob = true;
+      this.addShipment = true;
+      this.incomingShipment = true;
+      this.outstandingShipment = true;
+
       this.enquiry= true;
       this.openEnquiry= true;
       this.completedEnquiry= true;
@@ -110,6 +129,7 @@ export class SuperUserHeaderComponent implements OnInit {
       this.scanReturns = true;
       this.outstandingReturns = true;
       this.actionReturns = true;
+
     }else if(role == 4){
       this.tracking = true;
       this.trackingArrival = true;
@@ -142,7 +162,19 @@ export class SuperUserHeaderComponent implements OnInit {
       arrow.className = 'fa fa-chevron-down';
     }
   }
-
+super_user_incomingJob(arrow) {
+    var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
+    menuSuperObj.childmenuSuperTwelve = !this.childmenuSuperTwelve;
+    this.consigmentUploadService.menuSuperSelection(menuSuperObj);
+    this.childmenuSuperTwelve= this.consigmentUploadService.menuSuperSourceSelection.source['_value'].childmenuSuperTwelve;
+    if (arrow.className === 'fa fa-chevron-down'){
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-up';
+    }else{
+      arrow.className = '';
+      arrow.className = 'fa fa-chevron-down';
+    }
+  }
   super_user_zebra(arrow) {
     var menuSuperObj= this.consigmentUploadService.menuSuperSourceSelection.source['_value'];
     menuSuperObj.childmenuSuperTwo = !this.childmenuSuperTwo;

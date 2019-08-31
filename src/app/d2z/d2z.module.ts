@@ -28,7 +28,10 @@ import { ManifestComponent } from 'app/d2z/views/client-level/manifest-creation/
 import { BrokerMainComponent } from 'app/d2z/views/broker-level/broker-main/broker-main.component';
 import { AddClientComponent } from 'app/d2z/views/broker-level/client-management/add-client/add-client.component';
 import { UpdateClientComponent } from 'app/d2z/views/broker-level/client-management/update-client/update-client.component';
-import { BrokerAddServiceComponent } from 'app/d2z/views/broker-level/client-management/add-service/add-service.component';
+
+import{SuperAddServiceComponent} from 'app/d2z/views/superuser-level/client-management/add-service/add-service.component';
+
+
 import { BrokerPdfComponent } from 'app/d2z/views/broker-level/print-label/broker-pdf/pdf.component';
 import { BrokerPrintComponent } from 'app/d2z/views/broker-level/print-label/broker-print/print.component';
 import { AllocateShipmentComponent } from 'app/d2z/views/broker-level/create-shipment/allocate-shipment/allocate-shipment.component';
@@ -56,6 +59,7 @@ import { SuperUserReconcileComponent } from 'app/d2z/views/superuser-level/invoi
 import { SuperUserNonD2zClientComponent } from 'app/d2z/views/superuser-level/invoices/non-d2z/non-d2z.component';
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
+import{MultiSelectModule} from 'primeng/multiselect';
 import { AccordionModule } from 'primeng/accordion';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
@@ -66,6 +70,8 @@ import { SuperUserZebraScanPrint } from 'app/d2z/views/superuser-level/zebra-lab
 import { SuperUserLogReportComponent } from 'app/d2z/views/superuser-level/reports/log-report/log-report.component';
 import { MLIDComponent } from 'app/d2z/views/superuser-level/mlid/mlid.component';
 import { AUweightComponent } from 'app/d2z/views/superuser-level/auweight/auweight.component';
+import { SuperIncomingJobComponent } from 'app/d2z/views/superuser-level/incomingJobs/create-jobs/create-job.component';
+import { SuperOutstandingJobComponent } from 'app/d2z/views/superuser-level/incomingJobs/outstanding-jobs/outstanding-job.component';
 import { completedEnquiryComponent } from 'app/d2z/views/client-level/enquiry/completed-enquiry/completed-enquiry.component';
 import { CreateEnquiryComponent } from 'app/d2z/views/client-level/enquiry/create-enquiry/create-enquiry.component';
 import { OutstandingEnquiryComponent } from 'app/d2z/views/client-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
@@ -91,6 +97,7 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
     NgxSpinnerModule,
     AgGridModule.withComponents([]),
     DropdownModule,
+    MultiSelectModule,
     AccordionModule,
     UserIdleModule.forRoot({idle: 300, timeout: 30, ping: 1}),
     RouterModule.forRoot([
@@ -113,7 +120,7 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
           { path: "broker-main", component: BrokerMainComponent},
           { path: "broker/add-client", component : AddClientComponent},
           { path: "broker/update-client", component : UpdateClientComponent},
-          { path: "broker/add-service", component : BrokerAddServiceComponent},
+          { path: "superuser/add-service", component : SuperAddServiceComponent},
           { path: "broker/print", component : BrokerPrintComponent},
           { path: "broker/pdf", component : BrokerPdfComponent},
           { path: "broker/allocate-shipment", component : AllocateShipmentComponent},
@@ -151,6 +158,13 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
           { path: "superuser/auweight", component:AUweightComponent},
           { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
           { path: "superuser/labels/pdf", component: SuperUserZebraScanPDF },
+
+          {path:"superuser/incomingJobs/create",component: SuperIncomingJobComponent},
+
+          {path:"superuser/incomingJobs/outstanding",component: SuperOutstandingJobComponent},
+          
+          { path: "superuser/labels/print", component: SuperUserZebraScanPrint },
+          
           { path: "superuser/enquiry/open-enquiry", component: superUserOpenEnquiryComponent },
           { path: "superuser/enquiry/completed-enquiry", component: superUserCompletedEnquiryComponent },
           { path: "returns/outstanding", component: ReturnsOutStandingComponent },
@@ -160,6 +174,7 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
           { path: "superuser/returns/scan", component: superUserReturnsScanComponent },
           { path: "superuser/returns/outstanding", component: superUserReturnsOutstandingComponent },
           { path: "superuser/returns/action", component: superUserReturnsActionComponent }
+
     ], { useHash: true }),
     UiModule
   ],
@@ -179,7 +194,7 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
     BrokerMainComponent,
     AddClientComponent,
     UpdateClientComponent,
-    BrokerAddServiceComponent,
+    SuperAddServiceComponent,
     BrokerPrintComponent,
     BrokerPdfComponent,
     BrokerTrackParcelComponent,
@@ -224,6 +239,9 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
     OutstandingEnquiryComponent,
     BrokerCompletedEnquiryComponent,
     BrokerCreateEnquiryComponent,
+
+    SuperIncomingJobComponent,
+    SuperOutstandingJobComponent,
     BrokerOutstandingEnquiryComponent,
     superUserOpenEnquiryComponent,
     superUserCompletedEnquiryComponent,
@@ -234,6 +252,7 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
     superUserReturnsActionComponent,
     superUserReturnsOutstandingComponent,
     superUserReturnsScanComponent
+
   ],
   entryComponents: [],
   providers: [

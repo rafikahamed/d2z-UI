@@ -19,7 +19,6 @@ interface dropdownTemplate {
 })
 
 export class BrokerOutstandingEnquiryComponent implements OnInit{
-  manifestForm: FormGroup;
   fileName: string;
   errorMsg: string;
   successMsg: String;
@@ -48,9 +47,6 @@ export class BrokerOutstandingEnquiryComponent implements OnInit{
     private _compiler: Compiler
   ) {
     this._compiler.clearCache();
-    this.manifestForm = new FormGroup({
-      manifestFile: new FormControl()
-    });
     this.autoGroupColumnDef = {
       headerCheckboxSelection: true,
       cellRenderer: "agGroupCellRenderer",

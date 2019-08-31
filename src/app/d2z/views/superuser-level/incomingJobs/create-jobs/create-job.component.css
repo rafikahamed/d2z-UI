@@ -7,18 +7,15 @@ body{
     line-height:1.471
 }
 
-.delete_search{
+.fileupload_search{
     padding: 20px;
     margin-bottom: 20px;
-    padding-bottom: 25px;
-    width:95%;
+    height: 130px;
+    width:100%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.table-bordered .tbody .tr .td {
-    border : none;
-}
 
 .manifest_panel{
     width: 100%; 
@@ -30,7 +27,7 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500;
+    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
 }
 
 .err_msg{

@@ -18,7 +18,7 @@ interface City {
   styleUrls: ['./add-service.component.css']
 })
 
-export class BrokerAddServiceComponent implements OnInit{
+export class SuperAddServiceComponent implements OnInit{
 @ViewChild('myForm') myForm: NgForm;
       errorMsg: string;
       successMsg: String;

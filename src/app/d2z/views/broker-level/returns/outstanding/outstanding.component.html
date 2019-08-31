@@ -9,394 +9,112 @@
                 <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
-                                  <h3 style="margin-left: 10px"> Returns / Outstanding </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="englishFlag"> Returns / Outstanding </h3>
+                                  <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 返回 / 优秀 </h3>
                                 </div>
                         </div>
                 </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="brokerEnquiry" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                </div>
-                                <div class="modal-footer">
+                <div class="delete_search">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <p> Status : </p>
+                                    <div style="margin-top:10px">
+                                        <p-dropdown 
+                                            [options]="statusDropdown" 
+                                            [(ngModel)]="selectedStatusType" 
+                                            optionLabel="name" 
+                                            [style]="{'width':'100%'}"
+                                            (onChange)="onStatusChange($event)">
+                                        </p-dropdown>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <p > From Date : </p>
+                                <mat-form-field>
+                                    <input #frominput matInput [matDatepicker]="picker" 
+                                                placeholder="Choose a date" 
+                                                (dateChange)="FromDateChange($event)">
+                                    <mat-datepicker-toggle
+                                                 matSuffix 
+                                                 [for]="picker">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-md-3">
+                                <p > To Date : </p>
+                                <mat-form-field>
+                                    <input #toinput matInput [matDatepicker]="pickerTo" 
+                                                    placeholder="Choose a date" 
+                                                    (dateChange)="ToDateChange($event)">
+                                    <mat-datepicker-toggle 
+                                                  matSuffix 
+                                                  [for]="pickerTo">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #pickerTo></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+
+                            <div>
+                                <div class="col-md-3" style="margin-top:30px">
+                                        <button type="button" 
+                                                class="btn btn-info" 
+                                                (click)="returnSearch()"
+                                               style="background-color: #16A085; margin-left:10px">
+                                               <span class="glyphicon glyphicon-search"></span>
+                                         Search
+                                       </button>
+                                   </div>
+                            </div>
                         </div>
+                    </div>
                 </div>
 
-                <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="enquiryTabChanged($event)">
-                    <mat-tab label="Enquiry / Individual">
-                        <ngx-spinner
-                            bdColor="rgba(51,51,51,0.8)"
-                            size="medium"
-                            color="#fff"
-                            loadingText="Loading..."
-                            type="ball-circus">
-                        </ngx-spinner>
-                        
-                        <!-- Modal -->
-                        <div class="modal fade" id="brokerEnquiry" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div style="padding:20px">
-                                <p> Customer Service Profile </p>
-                                <div style="margin-top: 10px;">
-                                        <p class="err_msg">{{errorMsg}}</p>
-                                </div>
-                            <table class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Parcel Type</th>
-                                                    <th>Parcel Details</th>
-                                                    <th>Delivery Enquiry</th>
-                                                    <th>Delivery POD</th>
-                                                    <th>Comments</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let field of fieldArray; let i = index">
-                                                    <td>
-                                                        <p-dropdown 
-                                                        [options]="cities2" 
-                                                        [(ngModel)]="field.type" 
-                                                        optionLabel="name" 
-                                                        [showClear]="true"
-                                                        [editable]="true"
-                                                        [style]="{'width':'100%'}"
-                                                        (onChange)="onFileChange($event)">
-                                                        </p-dropdown>
-                                                    </td>
-                                                    <td>
-                                                        <input [(ngModel)]="field.identifier" 
-                                                            class="form-control" 
-                                                            type="text" 
-                                                            name="{{field.identifier}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input style="margin-left:50px; width:18px; height:18px" 
-                                                            [(ngModel)]="field.enquiry" 
-                                                            class="form-control" 
-                                                            type="checkbox" 
-                                                            name="{{field.enquiry}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input style="margin-left:38px; width:18px; height:18px" 
-                                                            [(ngModel)]="field.pod" 
-                                                            class="form-control" 
-                                                            type="checkbox" 
-                                                            name="{{field.pod}}" />
-                                                    </td>
-                                                    <td>
-                                                        <textarea [(ngModel)]="field.comments" 
-                                                                class="form-control" cols="35" rows="2" 
-                                                                name="{{field.comments}}">
-                                                        </textarea>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-default"  
-                                                        type="button" 
-                                                        style="background-color: #16A085; color: white;"
-                                                        (click)="deleteFieldValue(i)">
-                                                        <span class="glyphicon glyphicon-trash"></span>
-                                                        Delete</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p-dropdown 
-                                                        [options]="cities2" 
-                                                        [(ngModel)]="newAttribute.type" 
-                                                        optionLabel="name" 
-                                                        [showClear]="true"
-                                                        [editable]="true"
-                                                        [style]="{'width':'100%'}"
-                                                        (onChange)="onFileChange($event)">
-                                                        </p-dropdown>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" 
-                                                                type="text" 
-                                                                id="newAttributeIdentifier" 
-                                                                [(ngModel)]="newAttribute.identifier" 
-                                                                name="newAttributeIdentifier" />
-                                                    </td>
-                                                    <td>
-                                                        <input style="margin-left:50px; width:18px; height:18px" 
-                                                                type="checkbox" 
-                                                                id="newAttributeEnquiry" 
-                                                                [(ngModel)]="newAttribute.enquiry" 
-                                                                name="newAttributeEnquiry" />
-                                                    </td>
-                                                    <td>
-                                                        <input style="margin-left:38px; width:18px; height:18px" 
-                                                                type="checkbox" 
-                                                                id="newAttributePod" 
-                                                                [(ngModel)]="newAttribute.pod"
-                                                                name="newAttributePod" />
-                                                    </td>
-                                                    <td>
-                                                        <textarea id="newAttributeComments" 
-                                                                class="form-control" cols="35" rows="2" 
-                                                                [(ngModel)]="newAttribute.comments"
-                                                                name="newAttributeComments">
-                                                        </textarea>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-default" 
-                                                        type="button" 
-                                                        style="background-color: #16A085; color: white;"
-                                                        (click)="addFieldValue()">
-                                                        <span class="glyphicon glyphicon-plus"></span>
-                                                        Add
-                                                    </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                            </table>
-                        </div>
+                <div class="delete_panel">
+                    <ngx-spinner
+                        bdColor="rgba(51,51,51,0.8)"
+                        size="medium"
+                        color="#fff"
+                        loadingText="Loading..."
+                        type="ball-clip-rotate-multiple">
+                    </ngx-spinner>
 
-                        <div class="col-md-12">
-                                <button type="button" 
-                                        class="btn btn-info" 
-                                        *ngIf="englishFlag"
-                                        (click)="creatEnquiry()"
-                                        style="background-color: #16A085; float:right; margin:-15px;">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                        Submit
-                                </button>
-            
-                                <button type="button" 
-                                        class="btn btn-info" 
-                                        *ngIf="chinessFlag" 
-                                        (click)="creatEnquiry()"
-                                        style="background-color: #16A085; float:right; margin:-15px;">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                        刷新
-                                </button>
-                        </div>
-                    </mat-tab>
+                    <div style="padding-top:10px">
+                        <h5> Outstanding Returns Details: </h5>
+                          <div>
+                              <ag-grid-angular 
+                                        #agGrid style="width: 95%; height: 400px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowData"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="gridOptions" 
+                                        [pagination]="true"
+                                        (selectionChanged)="onEnquiryChange($event)">
+                              </ag-grid-angular>
+                          </div>
+                      </div>
 
-                    <mat-tab label="Enquiry / File">
-                        <ngx-spinner
-                            bdColor="rgba(51,51,51,0.8)"
-                            size="medium"
-                            color="#fff"
-                            loadingText="Loading..."
-                            type="ball-circus">
-                        </ngx-spinner>
-                        <div class="fileupload_search">
-                                <div style="padding-right: 15px; margin-bottom:50px">
-                                    <a *ngIf="englishFlag" href="/assets/forms/D2Z Upload_Enquiry.xlsx" class="fa fa-file-excel-o" 
-                                            style="color: darkgreen; font-size:17px; float: left;" download>
-                                              **Please click here to download the template for Enquiry
-                                    </a>
-              
-                                    <a *ngIf="chinessFlag" href="/assets/forms/D2Z Upload_Enquiry.xlsx" class="fa fa-file-excel-o" 
-                                            style="color: darkgreen; font-size:17px; float: left;" download>
-                                              **请点击此处下载查询模板
-                                    </a>
-                                </div>
-              
-                                <div>
-                                  <p style="float:left; margin-left:50px" *ngIf="englishFlag"> Select File : </p>
-                                  <p style="float:left; margin-left:50px" *ngIf="chinessFlag"> 选择文件 : </p>
-                                  
-                                  <input type="file" 
-                                            style="margin-left:25px; float:left" 
-                                            (change)="incomingfile($event)" 
-                                            id="enquiryFileControl"
-                                            placeholder="Upload file" 
-                                            accept=".xlsx">
-              
-                                  <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                            (click)="clearEnquiry()"
-                                            style="background-color: #16A085; float:left; margin-left: 30px; margin-top:-7px">
-                                            <span class="glyphicon glyphicon-refresh"></span>
-                                            Refresh
-                                  </button>
-              
-                                  <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="chinessFlag" 
-                                            (click)="clearEnquiry()"
-                                            style="background-color: #16A085; float:left; margin-left: 30px; margin-top:-7px">
-                                            <span class="glyphicon glyphicon-refresh"></span>
-                                            刷新
-                                  </button>
-                                </div>
-                                     
-                        </div> 
-
-                         <!-- Modal -->
-                         <div class="modal fade" id="brokerEnquiry" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        
-                        <div *ngIf="showFile">
-                                <p> Customer Service Profile </p>
-                                <div style="margin-top: 10px;">
-                                        <p class="err_msg">{{errorMsg}}</p>
-                                </div>
-                                <table class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Parcel Type</th>
-                                                <th>Parcel Details</th>
-                                                <th>Delivery Enquiry</th>
-                                                <th>Delivery POD</th>
-                                                <th>Comments</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let field of fieldCreateArray; let i = index">
-                                                <td>
-                                                    <input 
-                                                        [(ngModel)]="field.type" 
-                                                        class="form-control" 
-                                                        type="text" 
-                                                        name="{{field.identifier}}" />
-                                                </td>
-                                                <td>
-                                                    <input 
-                                                        [(ngModel)]="field.identifier" 
-                                                        class="form-control" 
-                                                        type="text" 
-                                                        name="{{field.identifier}}" />
-                                                </td>
-                                                <td>
-                                                    <input style="margin-left:50px; width:18px; height:18px" 
-                                                        [(ngModel)]="field.enquiry" 
-                                                        class="form-control" 
-                                                        type="checkbox" 
-                                                        [checked]="field.enquiry"
-                                                        name="{{field.enquiry}}" />
-                                                </td>
-                                                <td>
-                                                    <input style="margin-left:38px; width:18px; height:18px" 
-                                                        [(ngModel)]="field.pod" 
-                                                        class="form-control" 
-                                                        type="checkbox" 
-                                                        [checked]="field.pod"
-                                                        name="{{field.pod}}" />
-                                                </td>
-                                                <td>
-                                                    <textarea [(ngModel)]="field.comments" 
-                                                            class="form-control" cols="35" rows="2" 
-                                                            name="{{field.comments}}">
-                                                    </textarea>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-default"  
-                                                    type="button" 
-                                                    style="background-color: #16A085; color: white;"
-                                                    (click)="deleteFieldFileValue(i)">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                    Delete</button>
-                                                </td>
-                                            </tr>
-                                            <!-- <tr>
-                                                <td>
-                                                        <input class="form-control" 
-                                                        type="text" 
-                                                        id="newAttributeType" 
-                                                        [(ngModel)]="newAttribute.type" 
-                                                        name="newAttributeType" />
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" 
-                                                            type="text" 
-                                                            id="newAttributeIdentifier" 
-                                                            [(ngModel)]="newAttribute.identifier" 
-                                                            name="newAttributeIdentifier" />
-                                                </td>
-                                                <td>
-                                                    <input style="margin-left:50px; width:18px; height:18px" 
-                                                            type="checkbox" 
-                                                            id="newAttributeEnquiry"
-                                                            [checked]="newAttribute.enquiry"
-                                                            [(ngModel)]="newAttribute.enquiry" 
-                                                            name="newAttributeEnquiry" />
-                                                </td>
-                                                <td>
-                                                    <input style="margin-left:38px; width:18px; height:18px" 
-                                                            type="checkbox" 
-                                                            id="newAttributePod" 
-                                                            [checked]="newAttribute.pod"
-                                                            [(ngModel)]="newAttribute.pod"
-                                                            name="newAttributePod" />
-                                                </td>
-                                                <td>
-                                                    <textarea id="newAttributeComments" 
-                                                            class="form-control" cols="35" rows="2" 
-                                                            [(ngModel)]="newAttribute.comments"
-                                                            name="newAttributeComments">
-                                                    </textarea>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-default" 
-                                                    type="button" 
-                                                    style="background-color: #16A085; color: white;"
-                                                    (click)="addFieldValue()">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    Add
-                                                </button>
-                                                </td>
-                                            </tr> -->
-                                        </tbody>
-                            </table>
-
-                            <div class="col-md-12">
-                                    <button type="button" 
-                                                class="btn btn-info" 
-                                                *ngIf="englishFlag"
-                                                (click)="creatFileEnquiry()"
-                                                style="background-color: #16A085; float:right; margin: 10px;">
-                                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                                Submit
-                                    </button>
-                    
-                                    <button type="button" 
-                                                class="btn btn-info" 
-                                                *ngIf="chinessFlag" 
-                                                (click)="creatFileEnquiry()"
-                                                style="background-color: #16A085; float:right; margin: 10px;">
-                                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                                刷新
-                                    </button>
-                            </div>
-
-                        </div>
-
-                    </mat-tab>
-                </mat-tab-group>
+                </div>
 
             </div>
+
         </div>
     </div>
 </body>

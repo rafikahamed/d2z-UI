@@ -1,10 +1,10 @@
 import { Component, OnInit, Compiler} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 declare var $: any;
+import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'hms-returns-broker-outstanding',
@@ -13,24 +13,19 @@ import * as XLSX from 'xlsx';
 })
 
 export class BrokerReturnsOutstandingComponent implements OnInit{
-  private fieldArray: Array<any> = [];
-  private fieldCreateArray: Array<any> = [];
-  private newAttribute: any = {};
-  private newCreateAttribute: any = {};
   errorMsg: string;
   successMsg: String;
-  type: String;
-  file:File;
   user_Id: String;
   system: String;
-  arrayBuffer:any;
-  cities2: City[];
-  public importList = [];
-  public importIndividualList = [];
-  public importFileList = [];
+  fromDate: String;
+  toDate: String;
+  private gridOptions: GridOptions;
+  private autoGroupColumnDef;
+  private rowGroupPanelShow;
+  private rowData: any[];
+  private defaultColDef;
   englishFlag:boolean;
   chinessFlag:boolean;
-  showFile:boolean;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -39,6 +34,16 @@ export class BrokerReturnsOutstandingComponent implements OnInit{
     private _compiler: Compiler
   ) {
     this._compiler.clearCache();  
+    this.autoGroupColumnDef = {
+      headerCheckboxSelection: true,
+      cellRenderer: "agGroupCellRenderer",
+      cellRendererParams: { checkbox: true }
+    };      
+    this.rowGroupPanelShow = "always";
+    this.defaultColDef = {
+      editable: true
+    };
+    this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
   }
 
   ngOnInit() {
@@ -47,211 +52,89 @@ export class BrokerReturnsOutstandingComponent implements OnInit{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
-      this.showFile = false;
-      this.cities2  = [
-        {"name":"Article Id","value":"articleId"},
-        {"name":"Reference Number","value":"referenceNumber"}
-      ];
+      
       this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
+      if (!(evt instanceof NavigationEnd)) {
             return;
         }
         window.scrollTo(0, 0)
-      })
-     
+      });
+
+      if(this.englishFlag){
+        this.gridOptions.columnDefs = [
+          {
+            headerName: "Article ID",
+            field: "articleId",
+            width: 220,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+          },
+          {
+            headerName: "Reference Number",
+            field: "referenceNumber",
+            width: 220
+          },
+          {
+            headerName: "Consignee Name",
+            field: "consigneeName",
+            width: 230
+          },
+          {
+            headerName: "Client Name",
+            field: "clientName",
+            width: 230
+          },
+          {
+            headerName: "Return Reason",
+            field: "returnReason",
+            width: 200
+          }
+        ];
+       }
+      if(this.chinessFlag){ }
   };
 
-    addFieldValue() {
-        this.fieldArray.push(this.newAttribute)
-        this.newAttribute = {};
-    }
 
-    deleteFieldValue(index) {
-        this.fieldArray.splice(index, 1);
-    }
+  FromDateChange(event){
+    var str = event.target.value;
+    var date = new Date(str),
+          mnth = ("0" + (date.getMonth()+1)).slice(-2),
+          day  = ("0" + date.getDate()).slice(-2);
+     this.fromDate = [ date.getFullYear(), mnth, day ].join("-");
+  };
 
-    onFileChange(event){
-      this.type = event.value ? event.value.value : '';
-    }
+  ToDateChange(event){
+    var str = event.target.value;
+    var date = new Date(str),
+          mnth = ("0" + (date.getMonth()+1)).slice(-2),
+          day  = ("0" + date.getDate()).slice(-2);
+     this.toDate = [ date.getFullYear(), mnth, day ].join("-");
+  };
 
-    deleteFieldFileValue(index) {
-      this.fieldCreateArray.splice(index, 1);
+  returnSearch(){
+    this.spinner.show();
+
+    this.consigmentUploadService.fetchUserId(this.user_Id, (resp) => {
+      var userIds = [];
+      this.spinner.hide();
+      userIds.push(resp);
+      userIds.push(this.user_Id);
+      this.spinner.show();
+      this.consigmentUploadService.fetchOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", userIds.toString(), (resp) => {
+        this.spinner.hide();
+        this.rowData = resp;
+        setTimeout(() => {
+          this.spinner.hide() 
+        }, 5000);
+      })
+    })
+
+   
   }
 
-    creatEnquiry(){
-      this.errorMsg = '';
-      this.importIndividualList = [];
-      let type = 'type';
-      let identifier = 'identifier';
-      let enquiry = 'enquiry';
-      let pod = 'pod';
-      let comments = 'comments';
-      let userId = 'userId';
-      var newBrokerEnquiryArray = [];
-      if(this.newAttribute.type){
-        newBrokerEnquiryArray.push(this.newAttribute);
-      }
-      if(this.fieldArray.length > 0){
-        for (var fieldVal in this.fieldArray) {
-          var enquiryObj = this.fieldArray[fieldVal];
-          newBrokerEnquiryArray.push(enquiryObj);
-        }
-      }
-
-      for (var fieldVal in newBrokerEnquiryArray) {
-        var fieldObj = newBrokerEnquiryArray[fieldVal];
-        var enquiryObj = (
-          enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
-          enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod =! undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
-          enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
-        );
-        this.importIndividualList.push(enquiryObj);
-      }
-      if(this.importIndividualList.length > 0){
-        this.spinner.show();
-        this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-            this.spinner.hide();
-            this.successMsg = resp.message;
-            $('#brokerEnquiry').modal('show');
-            this.fieldArray = [];
-            this.newAttribute = {};
-        });
-      }else{
-        this.errorMsg = "** Atleast add one enquiry to proceed";
-      }
-      
-    }
-
-    enquiryTabChanged(event){
-      console.log(event.index)
-      if(event.index == 0){
-        this.fieldArray = [];
-        this.newAttribute = {};
-        this.errorMsg = '';
-      }else if(event.index == 1){
-        this.fieldCreateArray = [];
-        this.errorMsg = '';
-      }
-    }
-
-    incomingfile(event) {
-      this.file = event.target.files[0]; 
-      this.fileExport();
-    };
-
-    clearEnquiry(){
-      console.log("Clear Data")
-      $("#enquiryFileControl").val('');
-      this.fieldCreateArray = [];
-      this.importList = [];
-      this.errorMsg = null;
-      this.successMsg = null;
-    };
-
-    fileExport(){
-      var worksheet;
-      this.errorMsg = null;
-      let fileReader = new FileReader();
-      this.importList= [];
-      fileReader.readAsArrayBuffer(this.file);
-        let type = 'type';
-        let identifier = 'identifier';
-        let enquiry = 'enquiry';
-        let pod = 'pod';
-        let comments = 'comments';
-        fileReader.onload = (e) => {
-            this.arrayBuffer = fileReader.result;
-            var data = new Uint8Array(this.arrayBuffer);
-            var arr = new Array();
-            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-            var bstr = arr.join("");
-            var workbook = XLSX.read(bstr, {type:"binary"});
-            var first_sheet_name = workbook.SheetNames[0];
-            var worksheet = workbook.Sheets[first_sheet_name];
-            var exportData = XLSX.utils.sheet_to_json(worksheet);
-            for (var importVal in exportData) {
-              var dataObj = exportData[importVal];
-              for(var keyVal in dataObj){
-                var newLine = "\r\n"
-              }
-
-              if(!dataObj['Parcel Type']){
-                this.errorMsg = "Parcel Type is mandatory";
-              }else if(!dataObj['Parcel Details']){
-                this.errorMsg = "Parcel Details is mandatory";
-              }else if(!dataObj['Delivery Enquiry']){
-                this.errorMsg = "Delivery Enquiry is mandatory";
-              }else if(!dataObj['Delivery POD']){
-                this.errorMsg = 'Delivery POD is mandatory';
-              }else if(!dataObj['Comments']){
-                this.errorMsg = 'Comments is mandatory';
-              }
-
-              if(this.errorMsg == null){
-                var importObj = (
-                  importObj={}, 
-                  importObj[type]= dataObj['Parcel Type'] != undefined ? dataObj['Parcel Type'] : '', importObj,
-                  importObj[identifier]= dataObj['Parcel Details'] != undefined ? dataObj['Parcel Details'] : '', importObj,
-                  importObj[enquiry]= dataObj['Delivery Enquiry'] == 'yes' ? true : false, importObj,
-                  importObj[pod]= dataObj['Delivery POD'] == 'yes' ? true : false, importObj,
-                  importObj[comments]= dataObj['Comments'] != undefined ? dataObj['Comments'] : '',  importObj
-              );
-              this.importList.push(importObj);
-              }
-           }
-        }
-        this.fieldCreateArray = this.importList;
-        this.showFile = true;
-    };
-
-    creatFileEnquiry(){
-      this.importFileList = [];
-      let type = 'type';
-      let identifier = 'identifier';
-      let enquiry = 'enquiry';
-      let pod = 'pod';
-      let userId = 'userId';
-      let comments = 'comments';
-      for (var fieldVal in this.fieldCreateArray) {
-        var fieldObj = this.fieldCreateArray[fieldVal];
-        var enquiryObj = (
-          enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type : '', enquiryObj,
-          enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry == true ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod == true ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
-          enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
-        );
-        this.importFileList.push(enquiryObj);
-      }
-      
-      if(this.importFileList.length > 0 ){
-          this.spinner.show();
-          this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
-            this.spinner.hide();
-            if(resp.error){
-              this.successMsg = resp.error.message;
-            }else{
-              this.fieldCreateArray = [];
-              this.successMsg = resp.message;
-            }
-            $('#brokerEnquiry').modal('show');
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 5000);
-          })
-      }else{
-        this.errorMsg = "** Atleast add one enquiry to proceed";
-      }
-    }
-
 }
-
 
 interface City {
   name: string;

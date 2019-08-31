@@ -173,7 +173,8 @@ export class OutstandingEnquiryComponent implements OnInit{
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {
-        this.spinner.hide() }, 5000);
+        this.spinner.hide() 
+      }, 5000);
     })
   }
  

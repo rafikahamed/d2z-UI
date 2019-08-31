@@ -4,8 +4,13 @@ declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as XLSX from 'xlsx';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { GridOptions } from "ag-grid";
+
+
+interface dropdownTemplate {
+  name: string;
+  value: string;
+}
 
 @Component({
   selector: 'hms-returns-outstanding',
@@ -13,14 +18,21 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
   styleUrls: ['./outstanding.component.css']
 })
 
-export class superUserReturnsOutstandingComponent{
-  private openEnquiryArray: Array<any> = [];
+export class superUserReturnsOutstandingComponent implements OnInit{
   errorMsg: string;
   successMsg: String;
   user_Id: String;
   system: String;
-  arrayBuffer:any;
-  public openEnquiryList = [];
+  fromDate: String;
+  toDate: String;
+  brokerName: String;
+  brokerDropdown: dropdownTemplate[];  
+  selectedBrokerName: dropdownTemplate;
+  private gridOptions: GridOptions;
+  private autoGroupColumnDef;
+  private rowGroupPanelShow;
+  private rowData: any[];
+  private defaultColDef;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -29,6 +41,16 @@ export class superUserReturnsOutstandingComponent{
     private _compiler: Compiler
   ) {
     this._compiler.clearCache();  
+    this.autoGroupColumnDef = {
+      headerCheckboxSelection: true,
+      cellRenderer: "agGroupCellRenderer",
+      cellRendererParams: { checkbox: true }
+    };      
+    this.rowGroupPanelShow = "always";
+    this.defaultColDef = {
+      editable: true
+    };
+    this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
   }
 
   ngOnInit() {
@@ -36,112 +58,80 @@ export class superUserReturnsOutstandingComponent{
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
-            return;
-        }
-        window.scrollTo(0, 0)
-      })
-      this.spinner.show();
-      this.trackingDataService.openEnquiryDetails((resp) => {
-        this.spinner.hide();
-        this.openEnquiryArray = resp; 
-        setTimeout(() => {
-          this.spinner.hide() }, 5000);
+              return;
+          }
+          window.scrollTo(0, 0)
       });
+      this.spinner.show();
+      this.consigmentUploadService.fetchReturnsBrokerDetails((resp) => {
+          this.spinner.hide();
+          this.brokerDropdown = resp;
+          this.brokerName = this.brokerDropdown[0].value;
+      });
+      this.gridOptions.columnDefs = [
+          {
+            headerName: "Article ID",
+            field: "articleId",
+            width: 220,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+          },
+          {
+            headerName: "Reference Number",
+            field: "referenceNumber",
+            width: 220
+          },
+          {
+            headerName: "Consignee Name",
+            field: "consigneeName",
+            width: 230
+          },
+          {
+            headerName: "Client Name",
+            field: "clientName",
+            width: 230
+          },
+          {
+            headerName: "Return Reason",
+            field: "returnReason",
+            width: 200
+          }
+        ];
   };
 
+  FromDateChange(event){
+    var str = event.target.value;
+    var date = new Date(str),
+          mnth = ("0" + (date.getMonth()+1)).slice(-2),
+          day  = ("0" + date.getDate()).slice(-2);
+     this.fromDate = [ date.getFullYear(), mnth, day ].join("-");
+  };
 
-  UpdateEnquiry(){
+  ToDateChange(event){
+    var str = event.target.value;
+    var date = new Date(str),
+          mnth = ("0" + (date.getMonth()+1)).slice(-2),
+          day  = ("0" + date.getDate()).slice(-2);
+     this.toDate = [ date.getFullYear(), mnth, day ].join("-");
+  };
 
-    if(this.openEnquiryArray.length > 0 ){
-      this.openEnquiryList = [];
-      let articleID = 'articleID';
-      let comments = 'comments';
-      let d2zComments = 'd2zComments';
-      let sendUpdate = 'sendUpdate';
-      let status = 'status';
+  onBrokerChange(event){
+    this.brokerName = event.value.value;
+  };
 
-        for (var enquiryVal in this.openEnquiryArray) {
-          var fieldObj = this.openEnquiryArray[enquiryVal];
-          var openEnquiryObj = (
-            openEnquiryObj={}, 
-            openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
-            openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
-            openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
-            openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
-            openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
-          );
-          this.openEnquiryList.push(openEnquiryObj);
-        }
-        this.spinner.show();
-        this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
-          this.spinner.hide();
-          $('#superEnquiry').modal('show');
-          if(resp.error){
-            this.successMsg = resp.error.message;
-          }else{
-            this.successMsg = resp.message;
-            this.trackingDataService.openEnquiryDetails((resp) => {
-              this.openEnquiryArray = resp; 
-            });
-          }
-          setTimeout(() => {
-            this.spinner.hide() }, 5000);
-        })
-      }else{
-        this.errorMsg =  "**Data is not Avilable to download";
-    } 
+  returnSuperSearch(){
+    this.spinner.show();
+    this.consigmentUploadService.fetchSuperuserOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.brokerName, (resp) => {
+      this.spinner.hide();
+      this.rowData = resp;
+      setTimeout(() => {
+        this.spinner.hide() 
+      }, 5000);
+    }) 
   }
 
-
-  downloadEnquiryDetails(){
-    var enquiryDownloadData = []
-      if(this.openEnquiryArray.length > 0 ){
-        let articleID = 'articleID';
-        let consigneeName = 'consigneeName';
-        let consigneeaddr1 = 'consigneeaddr1';
-        let consigneeSuburb = 'consigneeSuburb';
-        let consigneeState = 'consigneeState';
-        let productDescription = 'productDescription';
-        let consigneePostcode = 'consigneePostcode';
-        let trackingStatus = 'trackingStatus';
-        let trackingDeliveryDate ='trackingDeliveryDate';
-        let comments ='comments';
-        for(var enquiryData in this.openEnquiryArray){
-            var invoiceApprovedData = this.openEnquiryArray[enquiryData];
-            var invoiceApproveObj = (
-              invoiceApproveObj={}, 
-              invoiceApproveObj[articleID]= invoiceApprovedData.articleID != null ? invoiceApprovedData.articleID : '' , invoiceApproveObj,
-              invoiceApproveObj[consigneeName]= invoiceApprovedData.consigneeName != null ? invoiceApprovedData.consigneeName : '', invoiceApproveObj,
-              invoiceApproveObj[consigneeaddr1]= invoiceApprovedData.consigneeaddr1 != null ?  invoiceApprovedData.consigneeaddr1 : '', invoiceApproveObj,
-              invoiceApproveObj[consigneeSuburb]= invoiceApprovedData.consigneeSuburb != null ? invoiceApprovedData.consigneeSuburb : '', invoiceApproveObj,
-              invoiceApproveObj[consigneeState]= invoiceApprovedData.consigneeState != null ? invoiceApprovedData.consigneeState : '', invoiceApproveObj,
-              invoiceApproveObj[consigneePostcode]= invoiceApprovedData.consigneePostcode != null ? invoiceApprovedData.consigneePostcode : '', invoiceApproveObj,
-              invoiceApproveObj[productDescription]= invoiceApprovedData.productDescription != null ? invoiceApprovedData.productDescription : '', invoiceApproveObj,
-              invoiceApproveObj[trackingStatus]= invoiceApprovedData.trackingStatus != null ? invoiceApprovedData.trackingStatus : '', invoiceApproveObj,
-              invoiceApproveObj[trackingDeliveryDate]= invoiceApprovedData.trackingDeliveryDate != null ? invoiceApprovedData.trackingDeliveryDate : '', invoiceApproveObj,
-              invoiceApproveObj[comments]= invoiceApprovedData.comments != null ? invoiceApprovedData.comments : '', invoiceApproveObj
-            );
-            enquiryDownloadData.push(invoiceApproveObj);
-         };
-
-          var currentTime = new Date();
-          var fileName = '';
-              fileName = "Enquiry-Details"+"-"+currentTime.toLocaleDateString();
-          var options = { 
-              fieldSeparator: ',',
-              quoteStrings: '"',
-              decimalseparator: '.',
-              showLabels: true, 
-              useBom: true,
-              headers: [ 'Tracking Number', 'Consignee Name', 'Address', 'Suburb', 'State', 'Postcode', 'Description', 'Tracking Status','Expected Delivery Date','Broker/Client Comments']
-            };
-          new Angular2Csv(enquiryDownloadData, fileName, options); 
-      }else{
-          this.errorMsg =  "**Data is not Avilable to download";
-      } 
-    
-  }
-  
 }
 
 
