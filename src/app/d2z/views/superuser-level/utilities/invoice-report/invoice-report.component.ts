@@ -228,7 +228,6 @@ export class SuperUserInvoiceComponent implements OnInit{
         field: "itemNo",
         width: 100
       },
-      
 	  {
         headerName: "Girth",
         field: "girth",
