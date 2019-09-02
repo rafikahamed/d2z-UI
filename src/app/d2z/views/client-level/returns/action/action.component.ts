@@ -66,8 +66,6 @@ export class ReturnsActionComponent{
           referNumber.push(item.referenceNumber)
         }
     });
-    console.log(referNumber);
-    console.log(referNumber)
 
     if(referNumber.length > 0){
       $('#returnAction').modal('show');
