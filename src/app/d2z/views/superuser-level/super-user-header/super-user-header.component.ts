@@ -95,9 +95,9 @@ export class SuperUserHeaderComponent implements OnInit {
       this.client = true;
       this.clientAdd = true;
       this.mlid = true;
-      this.auweight = true;
+      this.auweight = false;
       this.clientUpdate = true;
-      this.tracking = true;
+      this.tracking = false;
       this.trackingUpload = true;
       this.trackingArrival = true;
       this.rates= true;
@@ -108,7 +108,7 @@ export class SuperUserHeaderComponent implements OnInit {
       this.invoicePending= true;
       this.invoiceReconcile= true;
       this.invoiceNotBilled= true;
-      this.invoiceNonD2z= true;
+      this.invoiceNonD2z= false;
       this.reports= true;
       this.reportShipment= true;
       this.reportLog= true;
