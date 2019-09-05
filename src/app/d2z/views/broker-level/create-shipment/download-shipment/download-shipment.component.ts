@@ -516,7 +516,6 @@ export class DownloadShipmentComponent implements OnInit{
                   importObj[CMETER]= '0.02', importObj,
                   importObj[SHIPPER]= adminObj.shipperName != null ? adminObj.shipperName : '', importObj,
                   importObj[SHIPPER_ADD]= adminObj.shipperAddress != null ? adminObj.shipperAddress : '', importObj,
-                 
                   importObj[SHIPPER_STATE]= adminObj.shipperState != null ? adminObj.shipperState : '', importObj,
                   importObj[SHIPPER_PC]= adminObj.shipperPostcode != null ? adminObj.shipperPostcode : '', importObj,
                   importObj[SHIPPER_COUNTRY_CODE]= 'MY', importObj,
