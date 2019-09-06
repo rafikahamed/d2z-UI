@@ -228,14 +228,19 @@ export class SuperUserInvoiceComponent implements OnInit{
         field: "itemNo",
         width: 100
       },
-      {
-        headerName: "Item SKU",
-        field: "itemSKU",
+	  {
+        headerName: "Girth",
+        field: "girth",
         width: 100
       },
       {
         headerName: "Item Count",
         field: "itemCount",
+        width: 100
+      },
+      {
+        headerName: "Item Currency",
+        field: "itemCurrency",
         width: 100
       },
       {
@@ -516,7 +521,7 @@ export class SuperUserInvoiceComponent implements OnInit{
       },
       {
         headerName: "Inventory Short Name",
-        field: "inventory_short_name",
+        field: "articleID",
         width: 200
       },
       {
@@ -841,6 +846,7 @@ export class SuperUserInvoiceComponent implements OnInit{
               "Length",
               "Width",
               "Height",
+              "Girth",
               "SKU",
               "Service Option",
               "Battery Packing",
@@ -868,6 +874,7 @@ export class SuperUserInvoiceComponent implements OnInit{
               "Item Weight",
               "Item Unit Value",
               "Item Count",
+              "Item Currency",
               "Item Product URL",
               "Insure",
               "Beneficiary",
@@ -899,6 +906,7 @@ export class SuperUserInvoiceComponent implements OnInit{
           let length = 'length';
           let width = 'width';
           let height = 'height';
+          let girth = 'girth';
           let SKU = 'SKU';
           let service_Option = 'service_Option';
           let battery_Packing = 'battery_Packing';
@@ -926,6 +934,7 @@ export class SuperUserInvoiceComponent implements OnInit{
           let item_Weight = 'item_Weight';
           let item_Unit_Value = 'item_Unit_Value';
           let item_Count = 'item_Count';
+          let item_Currency = 'item_Currency';
           let item_Product_URL = 'item_Product_URL';
           let insure = 'insure';
           let beneficiary = 'beneficiary';
@@ -960,6 +969,7 @@ export class SuperUserInvoiceComponent implements OnInit{
                   importObj[length]= adminObj.dimensions_Length != null ? adminObj.dimensions_Length : '', importObj,
                   importObj[width]= adminObj.dimensions_Width != null ? adminObj.dimensions_Width : '', importObj,
                   importObj[height]= adminObj.dimensions_Height != null ? adminObj.dimensions_Height : '', importObj,
+                  importObj[girth] = '', importObj,
                   importObj[SKU] = '', importObj,
                   importObj[service_Option]= adminObj.service_Option != null ? adminObj.service_Option : '', importObj,
                   importObj[battery_Packing]= '', importObj,
@@ -987,6 +997,7 @@ export class SuperUserInvoiceComponent implements OnInit{
                   importObj[item_Weight]= adminObj.weight != null ? adminObj.weight : '', importObj,
                   importObj[item_Unit_Value]= adminObj.value !=null ? adminObj.value :'', importObj,
                   importObj[item_Count]= 1, importObj,
+                  importObj[item_Currency]= 'AUD', importObj,
                   importObj[item_Product_URL]= adminObj.item_Product_URL != null ? adminObj.item_Product_URL : '', importObj,
                   importObj[insure]= adminObj.insure != null ? adminObj.insure : '', importObj,
                   importObj[beneficiary] = adminObj.beneficiary != null ? adminObj.beneficiary : '', importObj,
@@ -1104,7 +1115,7 @@ export class SuperUserInvoiceComponent implements OnInit{
                 shipmentMainObj[weight]= shipmentObj.weight != null ? shipmentObj.weight: '', shipmentMainObj,
                 shipmentMainObj[tracking_template]= shipmentObj.tracking_template != null ? shipmentObj.tracking_template: '', shipmentMainObj,
                 shipmentMainObj[tracking_number]= shipmentObj.barcodelabelNumber != null ? shipmentObj.barcodelabelNumber: '', shipmentMainObj,
-                shipmentMainObj[inventory_short_name]= shipmentObj.inventory_short_name != null ? shipmentObj.inventory_short_name: '', shipmentMainObj,
+                shipmentMainObj[inventory_short_name]= shipmentObj.articleID != null ? shipmentObj.articleID: '', shipmentMainObj,
                 shipmentMainObj[supplier]= shipmentObj.supplier != null ? shipmentObj.supplier: '', shipmentMainObj,
                 shipmentMainObj[bill_me]= shipmentObj.bill_me != null ? shipmentObj.bill_me: 1, shipmentMainObj,
                 shipmentMainObj[ServiceType]= shipmentObj.servicetype != null ? shipmentObj.servicetype: '', shipmentMainObj,

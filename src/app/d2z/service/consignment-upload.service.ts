@@ -8,7 +8,7 @@ const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 // const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-
+// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -266,7 +266,8 @@ updateJob( enquiryData, callback): any {
     }, (error) => {
       callback(error);
     });
-  }
+};
+
 outstandingJob( callback): any {
     this.http.get(baseUrl+'/superUser-level/incoming-job-list')
     .subscribe((resp) => {
@@ -278,11 +279,52 @@ outstandingJob( callback): any {
     }, (error) => {
       callback(error);
     });
-  }
-  fetchEnquiry( status, fromDate, toDate, userId, callback): any {
+};
+
+ fetchEnquiry( status, fromDate, toDate, userId, callback): any {
     this.http.get(baseUrl+'/enquiry', {
       params: { status: status, fromDate: fromDate, toDate: toDate, userId: userId  }
     }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  fetchOutstandingReturns(fromDate, toDate, userId, callback): any {
+    this.http.get(baseUrl+'/outStanding-returns', {
+      params: { fromDate: fromDate, toDate: toDate, userId: userId  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  fetchSuperuserOutstandingReturns(fromDate, toDate, brokerName, callback): any {
+    this.http.get(baseUrl+'/superUser-level/outStanding-returns', {
+      params: { fromDate: fromDate, toDate: toDate, brokerName: brokerName  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  fetchReturnsBrokerDetails(callback): any {
+    this.http.get(baseUrl+'/superUser-level/returns-broker').subscribe((resp) => {
       callback(resp);
       if (resp) {
       } else {

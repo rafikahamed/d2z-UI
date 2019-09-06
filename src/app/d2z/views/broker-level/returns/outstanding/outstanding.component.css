@@ -7,15 +7,18 @@ body{
     line-height:1.471
 }
 
-.fileupload_search{
+.delete_search{
     padding: 20px;
     margin-bottom: 20px;
-    height: 130px;
-    width:100%;
+    padding-bottom: 25px;
+    width:95%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.table-bordered .tbody .tr .td {
+    border : none;
+}
 
 .manifest_panel{
     width: 100%; 
@@ -27,7 +30,7 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
+    color:green; font-size: 14px;font-weight: 500;
 }
 
 .err_msg{
@@ -264,7 +267,6 @@ body .container.body .right_col{
     float: left;
     display: block;
     border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
 }
 .page-title .title_left h3{
     margin:9px 0

@@ -55,8 +55,7 @@
                                   <li *ngIf="outstandingShipment"><a routerLink="/superuser/labels/pdf">Closed Shipment</a></li>
                                 </ul>
                             </li>
-                          
-
+                           
                             <li *ngIf="enquiry"><a (click)="super_user_enquiry(arrow)"><i class="fa fa-picture-o"> </i> Enquiry <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTen? 'block' : 'none'}">
                                 <li *ngIf="openEnquiry"><a routerLink="/superuser/enquiry/open-enquiry">Master Enquiries </a></li>
@@ -73,7 +72,6 @@
                             </li>
                             
                             <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-usd"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
-
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFour? 'block' : 'none'}">
                                 <li *ngIf="ratesAdd"><a routerLink="/superuser/rates/add">Add</a></li>
                                 <li *ngIf="ratesUpdate"><a routerLink="/superuser/rates/update">Update</a></li>
