@@ -8,7 +8,7 @@
                     <div class="row tile_count">
                             <div class="page-title">
                                     <div class="title_left">
-                                      <h3 style="margin-left: 10px" *ngIf="englishFlag"> Incoming Jobs / OutStanding Shipment </h3>
+                                      <h3 style="margin-left: 10px" *ngIf="englishFlag"> Incoming Jobs / Closing Shipment </h3>
                                     
                                     </div>
                             </div>
@@ -121,7 +121,8 @@
                                                             <input 
                                                                 [(ngModel)]="field.ata" 
                                                                 class="form-control" 
-                                                               type ="date"
+                                                               type ="text"
+                                                               readonly="true"
                                                                 name="{{field.ata}}" 
                                                                >
                                                                 
@@ -132,7 +133,7 @@
                                                                 [(ngModel)]="field.clear" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 
+                                                                 readonly="true"
                                                                 name="{{field.clear}}" />
                                                         </td>
 
@@ -141,7 +142,7 @@
                                                                 [(ngModel)]="field.held" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 
+                                                                 readonly="true"
                                                                 name="{{field.held}}" />
                                                         </td>
 
@@ -151,7 +152,7 @@
                                             [(ngModel)]="field.outturn" 
                                             class="form-control" 
                                             type="checkbox" 
-                                            
+                                            readonly="true"
                                             name="{{field.outturn}}" />
                                                             
                                                         </td>
@@ -163,7 +164,7 @@
                                                                 [(ngModel)]="field.note" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 
+                                                                 readonly="true"
                                                                 name="{{field.note}}" />
                                                         </td>
 
@@ -175,30 +176,19 @@
                          
                             </div>
     
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
                                             (click)="creatEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
                                             <span class="glyphicon glyphicon-thumbs-up"></span>
-                                            Submit
+                                            Delete
                                     </button>
                 
                                   
                             </div>
-   <div class="col-md-6">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                            (click)="viewEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                                            View
-                                    </button>
-                
-                                  
-                            </div>
+  
                         </mat-tab>
                       <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
 

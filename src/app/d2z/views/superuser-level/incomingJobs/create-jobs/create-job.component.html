@@ -54,8 +54,8 @@
                                     <div style="margin-top: 10px;">
                                             <p class="err_msg">{{errorMsg}}</p>
                                     </div>
-                               <div style="width:100%; border:1px solid #ccc; overflow:auto">
-                        <table class="table" style="width:1200px;">
+                             </div>
+                        <table class="table" style="width:100%;">
                                  
                         
                      
@@ -83,6 +83,7 @@
                                                             [(ngModel)]="field.type" 
                                                             optionLabel="name" 
                                                             [showClear]="true"
+                                                           [autoWidth]="false"
                                                             [editable]="true"
                                                             [style]="{'width':'80px'}"
                                                             (onChange)="onBrokerTypeChange($event,i)">
@@ -286,9 +287,9 @@
     <td>
                                                             <input 
                                                                 [(ngModel)]="newAttribute.eta" 
-                                                                 style="width:200px;"
+                                                                 style="width:100px;"
                                                                 class="form-control" 
-                                                                type="date" 
+                                                                type="month" 
                                                                 id ="newAttributeeta"
                                                                 name="newAttributeeta" />
                                                         </td>
@@ -304,9 +305,8 @@
                                                     </tr>
                                                 </tbody>
                                 </table>
-                        </div>
-                            </div>
-    
+                      
+                          
                             <div class="col-md-12">
                                     <button type="button" 
                                             class="btn btn-info" 

@@ -8,12 +8,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'hms-outstanding-job',
-  templateUrl: './outstanding-job.component.html',
-  styleUrls: ['./outstanding-job.component.css']
+  selector: 'hms-closing-job',
+  templateUrl: './closing-job.component.html',
+  styleUrls: ['./closing-job.component.css']
 })
 
-export class SuperOutstandingJobComponent implements OnInit{
+export class SuperClosingJobComponent implements OnInit{
 
   private fieldArray = [];
    private fieldArrayout = [];
@@ -24,7 +24,7 @@ export class SuperOutstandingJobComponent implements OnInit{
   private selectedTab = 0;
   successMsg: String;
   brokerUserName: String;
-  displayedColumns = ["Broker", "Mlid", "Consignee"];
+ 
   consigneedata:String;
    brokerListMainData = [];
     MlidListMainData = [];
@@ -66,7 +66,7 @@ tabs =[];
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
-       this.consigmentUploadService.outstandingJob( (resp) => {
+       this.consigmentUploadService.closingJob( (resp) => {
          this.spinner.hide();
       this.fieldArray = resp;
      this.fieldArrayout = resp;
@@ -84,10 +84,16 @@ tabs =[];
      
       this.showFile = false;
      
-  
+   const creds = this.form.controls.credentials as FormArray;
 var th = this;
   
- 
+  for(var a in this.fieldArray)
+  {
+   creds.push(this.fb.group({
+      username: 'jkkl',
+      password: 'lopi',
+    }));
+    }
   
      
   
@@ -189,7 +195,7 @@ FieldValue(i)
      
 console.log(this.importIndividualList);
   this.spinner.show();
-        this.consigmentUploadService.updateJob(this.importIndividualList, (resp) => {
+        this.consigmentUploadService.deleteJob(this.importIndividualList, (resp) => {
             this.spinner.hide();
             this.successMsg = resp.message;
             $('#brokerEnquiry').modal('show');

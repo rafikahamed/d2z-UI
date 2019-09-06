@@ -52,7 +52,7 @@
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTwelve? 'block' : 'none'}">
                                 <li *ngIf="addShipment"><a routerLink="/superuser/incomingJobs/create">Add Shipment</a></li>
                                 <li *ngIf="incomingShipment"><a routerLink="/superuser/incomingJobs/outstanding">OutStanding Shipment</a></li>
-                                  <li *ngIf="outstandingShipment"><a routerLink="/superuser/labels/pdf">Closed Shipment</a></li>
+                                  <li *ngIf="outstandingShipment"><a routerLink="/superuser/incomingJobs/closed">Closed Shipment</a></li>
                                 </ul>
                             </li>
                            
