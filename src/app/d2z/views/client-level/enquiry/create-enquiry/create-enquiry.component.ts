@@ -81,7 +81,7 @@ export class CreateEnquiryComponent{
 
     creatEnquiry(){
       this.importIndividualList = [];
-      this.errorMsg = '';
+      this.errorMsg = null;
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
@@ -89,6 +89,7 @@ export class CreateEnquiryComponent{
       let comments = 'comments';
       let userId = 'userId';
       var newEnquiryArray = [];
+      console.log(this.newAttribute)
       if(this.newAttribute.type){
         newEnquiryArray.push(this.newAttribute);
       }
@@ -111,17 +112,23 @@ export class CreateEnquiryComponent{
         );
         this.importIndividualList.push(enquiryObj);
       }
-     
-      console.log(this.importIndividualList)
+    
       if(this.importIndividualList.length > 0){
-         this.spinner.show();
-         this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-              this.spinner.hide();
-              this.successMsg = resp.message;
-              $('#enquiry').modal('show');
-              this.fieldArray = [];
-              this.newAttribute = {};
-         });
+        for(var k = 0; k != this.importIndividualList.length; k++){
+          if( this.importIndividualList[k].identifier.length == 0 ){
+            this.errorMsg = "** Parcel Details cannot be Empty";
+          }
+        }
+        if(this.errorMsg == null){
+            this.spinner.show();
+            this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
+                this.spinner.hide();
+                this.successMsg = resp.message;
+                $('#enquiry').modal('show');
+                this.fieldArray = [];
+                this.newAttribute = {};
+            });
+        }
       }else{
         this.errorMsg = "** Atleast add one enquiry to proceed";
       }
