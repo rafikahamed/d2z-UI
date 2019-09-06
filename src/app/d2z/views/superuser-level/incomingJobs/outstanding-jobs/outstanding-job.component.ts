@@ -1,5 +1,6 @@
 import { Component, OnInit, Compiler} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { NgForm,FormGroup, FormControl,  FormArray, FormBuilder, Validators } from '@angular/forms';
 declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
@@ -14,10 +15,12 @@ import * as XLSX from 'xlsx';
 
 export class SuperOutstandingJobComponent implements OnInit{
   private fieldArray = [];
+   private fieldArrayout = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
+  private selectedTab = 0;
   successMsg: String;
   brokerUserName: String;
   displayedColumns = ["Broker", "Mlid", "Consignee"];
@@ -26,11 +29,11 @@ export class SuperOutstandingJobComponent implements OnInit{
     MlidListMainData = [];
    fromDate: String;
   type: String;
-
+tabs =[];
   user_Id: String;
   system: String;
   arrayBuffer:any;
-  
+    form: FormGroup;
  
   public importList = [];
   public importIndividualList = [];
@@ -43,20 +46,27 @@ export class SuperOutstandingJobComponent implements OnInit{
     public trackingDataService : TrackingDataService,
     private spinner: NgxSpinnerService,
     private router: Router,
+    private fb : FormBuilder,
     private _compiler: Compiler
   ) {
     this._compiler.clearCache();  
+     this.form = this.fb.group({
+      published: true,
+      credentials: this.fb.array([]),
+    });
+     
   }
 
   ngOnInit() {
-  this.spinner.show();
+    this.spinner.show();
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
        this.consigmentUploadService.outstandingJob( (resp) => {
+         this.spinner.hide();
       this.fieldArray = resp;
-      this.spinner.hide();
+     this.fieldArrayout = resp;
       var that = this;
       console.log(resp);
       resp.forEach(function(entry) {
@@ -67,10 +77,26 @@ export class SuperOutstandingJobComponent implements OnInit{
     
     })
   
+  
      
       this.showFile = false;
      
+   const creds = this.form.controls.credentials as FormArray;
+var th = this;
+  
+  for(var a in this.fieldArray)
+  {
+   creds.push(this.fb.group({
+      username: 'jkkl',
+      password: 'lopi',
+    }));
+    }
+  
+     
+  
+  
        
+   
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
@@ -79,6 +105,19 @@ export class SuperOutstandingJobComponent implements OnInit{
       })
      
   };
+
+ 
+ 
+
+FieldValue(i)
+{
+   var newBroker=  this.fieldArray[i];
+
+  
+    this.form.controls['brokerName'].setValue(newBroker.broker);
+   
+};
+
 
  
     FromDateChange(event){
@@ -167,7 +206,50 @@ console.log(this.importIndividualList);
     
     }
 
-   
+    viewEnquiry(){
+      
+this.tabs = [];
+  
+      
+      var newBrokerEnquiryArray =  this.fieldArray;
+      
+
+      for (var fieldVal in newBrokerEnquiryArray) {
+        var fieldObj = newBrokerEnquiryArray[fieldVal];
+        console.log(fieldObj);
+     if(fieldObj.checked === true)
+     {
+     this.tabs.push({
+                         'label':'Jobs'+fieldVal,
+                         'broker':fieldObj.broker,
+                         'mlid' : fieldObj.mlid,
+                         'consignee': fieldObj.consignee != undefined ? fieldObj.consignee: '', 
+          'mawb': fieldObj.mawb != undefined ? fieldObj.mawb : '', 
+           'dest': fieldObj.destination != undefined ? fieldObj.destination: '', 
+            'flight':fieldObj.flight != undefined ? fieldObj.flight : '', 
+             'eta': fieldObj.eta != undefined ? fieldObj.eta : '', 
+       'weight': fieldObj.weight != undefined ? fieldObj.weight : '', 
+          'piece': fieldObj.piece != undefined ? fieldObj.piece : '', 
+            'hawb': fieldObj.hawb != undefined ? fieldObj.hawb : '', 
+         
+          'clear': fieldObj.clear != undefined ? fieldObj.clear : '', 
+          'outturn':fieldObj.outturn != undefined ? fieldObj.outturn: '', 
+           'note': fieldObj.note != undefined ? fieldObj.note : '', 
+           'held': fieldObj.held != undefined ? fieldObj.held : '', 
+             
+               'ata': fieldObj.ata != undefined ? fieldObj.ata : ''
+                        });
+
+                        this.selectedTab = 1;
+
+       
+      }
+        
+      }
+      
+      
+    
+    }
     clearEnquiry(){
       console.log("Clear Data")
       $("#enquiryFileControl").val('');

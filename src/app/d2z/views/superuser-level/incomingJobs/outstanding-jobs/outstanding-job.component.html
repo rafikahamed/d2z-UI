@@ -29,20 +29,10 @@
                     </div>
 
                    
-                            
+                                <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedTab" #tabGroup (selectedTabChange)="tabChanged(index)">
+            <mat-tab label="OutStanding">
                             <!-- Modal -->
-                            <div class="modal fade" id="brokerEnquiry" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                            </div>
-                                            <div class="modal-footer">
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
+                         
                             <ngx-spinner
                         bdColor="rgba(51,51,51,0.8)"
                         size="medium"
@@ -56,70 +46,42 @@
                                             <p class="err_msg">{{errorMsg}}</p>
                                     </div>
 
-                                    <div style="width:100%; border:1px solid #ccc; overflow:auto">
-                        <table class="table" style="width:2200px;">
+                                  
+                        <table class="table" style="width:100%;">
                                                 <thead>
                                                     <tr >
                                                       
                                                           <th> </th>
 
-                                                           <th  >Broker</th>
-                                                        <th >Mlid</th>
-                                                     
-                                                        <th >Consignee</th>
-                                                        <th >Mawb</th>
-                                                        <th >Destination</th>
-                                                        <th >Flight</th>
-                                                        <th  >ETA</th>
-                                                        <th >Piece</th>
-                                                        <th >Weight</th>
-                                                        <th >Hawb</th>
-                                                        <th >ATA</th>
-                                                        <th >Clear</th>
-                                                        <th >Held</th>
-                                                        <th>OutTurn</th>
-                                                        <th>Note</th>
+                                                        <th   style="width:120px;" >Mawb</th>
+                                                        <th  style="width:30px;" >Destination</th>
+                                                        <th  style="width:65px;">Flight</th>
+                                                        <th  style="width:120px;">ETA</th>
+                                                        
+                                                        <th style="width:100px;">ATA</th>
+                                                        <th style="width:65px;">Clear</th>
+                                                        <th  style="width:65px;">Held</th>
+                                                        <th style="width:10px;">OutTurn</th>
+                                                        <th style="width:75px;">Note</th>
                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let field of fieldArray; let i = index">
                                                         <td>
-                                                        <input style="margin-left:15px; width:18px; height:18px" 
+                                                        <input 
+                                                        style = "width:18px; height:18px" 
                                             [(ngModel)]="field.checked" 
                                             class="form-control" 
                                             type="checkbox" 
                                             
                                             name="{{field.checked}}" />
                                         </td>
-                                                         <td>
-                                                              <input 
-                                                                [(ngModel)]="field.broker" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                readonly="true" 
-
-                                                                name="{{field.broker}}" />
-                                                        </td>
-                                                           <td >
-                                                              <input 
-                                                                [(ngModel)]="field.mlid" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                readonly="true" 
-
-                                                                name="{{field.mlid}}" />
-                                                        </td>
+                                                         
+                                                              
                                                      
                                                       
-                                                        <td>
-                                                           <input 
-                                                                [(ngModel)]="field.consignee" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                readonly="true" 
-                                                                name="{{field.consignee}}" />
-                                                        </td>
+                                                        
                                                         <td>
                                                             <input 
                                                                 [(ngModel)]="field.mawb" 
@@ -152,46 +114,16 @@
                                                                 readonly="true"
                                                                 name="{{field.eta}}" />
                                                         </td>
-                                                        <td>
-                                                            <input 
-                                                                [(ngModel)]="field.piece" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                readonly="true"
-                                                                name="{{field.piece}}" />
-                                                        </td>
-                                                        <td>
-                                                            <input 
-                                                                [(ngModel)]="field.weight" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                  readonly="true"
-                                                                name="{{field.weight}}" />
-                                                        </td>
-                                                        <td>
-                                                            <input 
-                                                                [(ngModel)]="field.hawb" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                  readonly="true"
-                                                                name="{{field.hawb}}" />
-                                                        </td>
+                                                       
 
 
                                                            <td >
                                                             <input 
                                                                 [(ngModel)]="field.ata" 
                                                                 class="form-control" 
-                                                               
+                                                               type ="date"
                                                                 name="{{field.ata}}" 
-                                                                matInput [matDatepicker]="picker" 
-                                                        placeholder="Choose a date" 
-                                                        (dateChange)="FromDateChange($event)">
-                                            <mat-datepicker-toggle
-                                                         matSuffix 
-                                                         [for]="picker">
-                                            </mat-datepicker-toggle>
-                                            <mat-datepicker #picker></mat-datepicker>
+                                                               >
                                                                 
                                                         </td>
                                                           
@@ -235,14 +167,15 @@
                                                                 name="{{field.note}}" />
                                                         </td>
 
-
+     
+                                                      
                                                       </tr>
                                                 </tbody>
                                 </table>
-                            </div>
+                         
                             </div>
     
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
@@ -252,15 +185,228 @@
                                             Submit
                                     </button>
                 
+                                  
+                            </div>
+   <div class="col-md-6">
                                     <button type="button" 
                                             class="btn btn-info" 
-                                            *ngIf="chinessFlag" 
-                                            (click)="creatEnquiry()"
+                                            *ngIf="englishFlag"
+                                            (click)="viewEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
                                             <span class="glyphicon glyphicon-thumbs-up"></span>
-                                            刷新
+                                            View
                                     </button>
+                
+                                  
                             </div>
+                        </mat-tab>
+                      <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
+
+  <form class="well form-horizontal">
+                                           <fieldset>
+                                              <div class="form-group">
+                                                 <label class="col-md-2 control-label">Broker:</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.broker" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.broker}}">
+                                                            </div>
+                                                
+
+                                             
+                                                 <label class="col-md-2 control-label">Mlid:</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                            <input  
+                                                                  [(ngModel)]="tab.mlid" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.mlid}}">
+                                                            </div>
+                                                
+                                              </div>
+
+                                                <div class="form-group">
+                                                 <label class="col-md-2 control-label">Consignee</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.broker" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.consignee}}">
+                                                            </div>
+                                                
+
+                                               
+                                                 <label class="col-md-2 control-label">Destination</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.dest" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.dest}}">
+                                                            </div>
+                                                 
+                                              </div>
+
+
+                                               <div class="form-group">
+                                                 <label class="col-md-2 control-label">Mawb</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.mawb" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.mawb}}">
+                                                            </div>
+                                                
+
+                                               
+                                                 <label class="col-md-2 control-label">Hawb</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.hawb" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.hawb}}">
+                                                            </div>
+                                                 </div>
+                                            
+                                              <div class="form-group">
+                                                 <label class="col-md-2 control-label">ETA</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.eta" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.eta}}">
+                                                            </div>
+                                                
+
+                                               
+                                                 <label class="col-md-2 control-label">ATA</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.ata" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.ata}}">
+                                                            </div>
+                                                 
+                                              </div>
+
+                                               <div class="form-group">
+                                                 <label class="col-md-2 control-label">Flight</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.flight" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.flight}}">
+                                                            </div>
+                                                
+
+                                               
+                                                 <label class="col-md-2 control-label">Weight</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.weight" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.weight}}">
+                                                            </div>
+                                                 </div>
+                                            
+                                               <div class="form-group">
+                                                 <label class="col-md-2 control-label">Piece</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.piece" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.piece}}">
+                                                            </div>
+                                                
+
+                                               
+                                                 <label class="col-md-2 control-label">Clear</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.clear" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.clear}}">
+                                                            </div>
+                                                 </div>
+                                            
+                                                <div class="form-group">
+                                                 <label class="col-md-2 control-label">Held</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.held" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.held}}">
+                                                            </div>
+                                                
+
+                                               
+                                                 <label class="col-md-2 control-label">Outturn</label>
+                                                 <div class="col-md-4 inputGroupContainer">
+                                                    
+                                                           
+                                                            <input  
+                                                                  [(ngModel)]="tab.outturn" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.outturn}}">
+                                                            </div>
+                                                 </div>
+                                              
+
+                                              <div class="form-group">
+                                                 <label class="col-md-2 control-label">Note</label>
+                                                 <div class="col-md-8 inputGroupContainer">
+                                                   
+                                                            <input  
+                                                                  [(ngModel)]="tab.note" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                                 name ="{{tab.note}}">
+                                                            </div>
+                                                
+
+                                               
+                                                
+                                                
+                                              </div>
+</fieldset>
+
+</form>
+
+                      
+                      </mat-tab>
+                    </mat-tab-group>
                        
                 </div>
             </div>

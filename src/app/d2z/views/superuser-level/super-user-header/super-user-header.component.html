@@ -55,7 +55,7 @@
                                   <li *ngIf="outstandingShipment"><a routerLink="/superuser/labels/pdf">Closed Shipment</a></li>
                                 </ul>
                             </li>
-                            <li *ngIf="rates"><a (click)="super_user_rates(arrow)"><i class="fa fa-money"></i> RATES <span class="fa fa-chevron-down" #arrow></span></a>
+                          
 
                             <li *ngIf="enquiry"><a (click)="super_user_enquiry(arrow)"><i class="fa fa-picture-o"> </i> Enquiry <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTen? 'block' : 'none'}">
