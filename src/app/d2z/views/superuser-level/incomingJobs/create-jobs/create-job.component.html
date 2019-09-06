@@ -230,12 +230,20 @@
                                                         </td>
                                                         <td>
 
-<md-select ng-model="newAttribute.dest">
-    <md-option ng-value="dest" ng-repeat="dest in destinations">{{ dest.name }}</md-option>
-  </md-select>
 
 
 
+
+
+                                                             <p-dropdown 
+                                                            [options]="destinations" 
+                                                            [(ngModel)]="newAttribute.dest" 
+                                                            optionLabel="name" 
+                                                            [showClear]="true"
+                                                            [editable]="true"
+                                                            [style]="{'width':'70px'}"
+>
+                                                            </p-dropdown>
                                                         </td>
                                                         <td>
                                                             <input 
