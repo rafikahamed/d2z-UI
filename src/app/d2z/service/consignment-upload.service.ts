@@ -8,7 +8,7 @@ const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 // const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-// const baseUrl = "http://18.220.140.225:8080/v1/d2z";
+//const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
@@ -267,6 +267,18 @@ updateJob( enquiryData, callback): any {
       callback(error);
     });
 };
+deleteJob( enquiryData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/delete-job',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
 
 outstandingJob( callback): any {
     this.http.get(baseUrl+'/superUser-level/incoming-job-list')
@@ -281,6 +293,18 @@ outstandingJob( callback): any {
     });
 };
 
+closingJob( callback): any {
+    this.http.get(baseUrl+'/superUser-level/closing-job-list')
+    .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
  fetchEnquiry( status, fromDate, toDate, userId, callback): any {
     this.http.get(baseUrl+'/enquiry', {
       params: { status: status, fromDate: fromDate, toDate: toDate, userId: userId  }

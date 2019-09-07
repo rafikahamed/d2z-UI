@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserIdleModule } from 'angular-user-idle';
 import { UiModule } from 'app/ui/ui.module';
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, 
+         MatSortModule, MatTableModule  } from "@angular/material";
 import { d2zComponent } from 'app/d2z/d2z.component';
 import { HomeComponent } from 'app/d2z/views/home/home.component';
 import { LoginComponent } from 'app/d2z/views/login/login.component';
@@ -72,6 +74,7 @@ import { MLIDComponent } from 'app/d2z/views/superuser-level/mlid/mlid.component
 import { AUweightComponent } from 'app/d2z/views/superuser-level/auweight/auweight.component';
 import { SuperIncomingJobComponent } from 'app/d2z/views/superuser-level/incomingJobs/create-jobs/create-job.component';
 import { SuperOutstandingJobComponent } from 'app/d2z/views/superuser-level/incomingJobs/outstanding-jobs/outstanding-job.component';
+import { SuperClosingJobComponent } from 'app/d2z/views/superuser-level/incomingJobs/closing-jobs/closing-job.component';
 import { completedEnquiryComponent } from 'app/d2z/views/client-level/enquiry/completed-enquiry/completed-enquiry.component';
 import { CreateEnquiryComponent } from 'app/d2z/views/client-level/enquiry/create-enquiry/create-enquiry.component';
 import { OutstandingEnquiryComponent } from 'app/d2z/views/client-level/enquiry/outstanding-enquiry/outstanding-enquiry.component';
@@ -99,6 +102,11 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
     DropdownModule,
     MultiSelectModule,
     AccordionModule,
+     MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
     UserIdleModule.forRoot({idle: 300, timeout: 30, ping: 1}),
     RouterModule.forRoot([
           { path: "",  redirectTo : document.location.hostname.includes("speedcouriers.com.au") == true ? "login" :"home", pathMatch: "full" },
@@ -162,6 +170,8 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
           {path:"superuser/incomingJobs/create",component: SuperIncomingJobComponent},
 
           {path:"superuser/incomingJobs/outstanding",component: SuperOutstandingJobComponent},
+
+          {path:"superuser/incomingJobs/closed",component: SuperClosingJobComponent},
           
           { path: "superuser/labels/print", component: SuperUserZebraScanPrint },
           
@@ -242,6 +252,7 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
 
     SuperIncomingJobComponent,
     SuperOutstandingJobComponent,
+     SuperClosingJobComponent,
     BrokerOutstandingEnquiryComponent,
     superUserOpenEnquiryComponent,
     superUserCompletedEnquiryComponent,
