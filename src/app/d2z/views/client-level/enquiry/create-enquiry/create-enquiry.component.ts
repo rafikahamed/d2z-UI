@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 export class CreateEnquiryComponent{
   private fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
-  private newAttribute: any = {};
+  private newAttributeClient: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
   successMsg: String;
@@ -57,13 +57,14 @@ export class CreateEnquiryComponent{
             return;
         }
         window.scrollTo(0, 0)
-      })
+      });
+      this.newAttributeClient = {};
      
   };
 
     addFieldValue() {
-        this.fieldArray.push(this.newAttribute)
-        this.newAttribute = {};
+        this.fieldArray.push(this.newAttributeClient)
+        this.newAttributeClient = {};
         this.errorMsg = '';
     }
 
@@ -89,9 +90,8 @@ export class CreateEnquiryComponent{
       let comments = 'comments';
       let userId = 'userId';
       var newEnquiryArray = [];
-      console.log(this.newAttribute)
-      if(this.newAttribute.type){
-        newEnquiryArray.push(this.newAttribute);
+      if(this.newAttributeClient.type){
+        newEnquiryArray.push(this.newAttributeClient);
       }
       if(this.fieldArray.length > 0){
         for (var fieldVal in this.fieldArray) {
@@ -106,7 +106,7 @@ export class CreateEnquiryComponent{
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
           enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
           enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod =! undefined ? "yes" : "no", enquiryObj,
+          enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
           enquiryObj[userId]= this.user_Id,
           enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
         );
@@ -123,10 +123,15 @@ export class CreateEnquiryComponent{
             this.spinner.show();
             this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
                 this.spinner.hide();
-                this.successMsg = resp.message;
+                if(resp.error){
+                  this.successMsg = resp.error.errorMessage;
+                }else{
+                  this.successMsg = resp.message;
+                  this.fieldArray = [];
+                  this.newAttributeClient = {};
+                }
                 $('#enquiry').modal('show');
-                this.fieldArray = [];
-                this.newAttribute = {};
+                
             });
         }
       }else{
@@ -138,7 +143,7 @@ export class CreateEnquiryComponent{
       console.log(event.index)
       if(event.index == 0){
         this.fieldArray = [];
-        this.newAttribute = {};
+        this.newAttributeClient = {};
         this.errorMsg = '';
       }else if(event.index == 1){
         this.fieldCreateArray = [];
@@ -242,7 +247,7 @@ export class CreateEnquiryComponent{
         this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
           this.spinner.hide();
           if(resp.error){
-            this.successMsg = resp.error.message;
+            this.successMsg = resp.error.errorMessage;
           }else{
             this.fieldCreateArray = [];
             this.successMsg = resp.message;

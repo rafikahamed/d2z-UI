@@ -58,7 +58,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         }
         window.scrollTo(0, 0)
       })
-     
+     this.newAttribute = {};
   };
 
     addFieldValue() {
@@ -105,7 +105,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
           enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
           enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod =! undefined ? "yes" : "no", enquiryObj,
+          enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
           enquiryObj[userId]= this.user_Id,
           enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
         );
@@ -115,10 +115,14 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         this.spinner.show();
         this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
             this.spinner.hide();
-            this.successMsg = resp.message;
+            if(resp.error){
+              this.successMsg = resp.error.errorMessage;
+            }else{
+              this.successMsg = resp.message;
+              this.fieldArray = [];
+              this.newAttribute = {};
+            }
             $('#brokerEnquiry').modal('show');
-            this.fieldArray = [];
-            this.newAttribute = {};
         });
       }else{
         this.errorMsg = "** Atleast add one enquiry to proceed";
@@ -127,15 +131,14 @@ export class BrokerCreateEnquiryComponent implements OnInit{
     }
 
     enquiryTabChanged(event){
-      console.log(event.index)
-      if(event.index == 0){
-        this.fieldArray = [];
-        this.newAttribute = {};
-        this.errorMsg = '';
-      }else if(event.index == 1){
-        this.fieldCreateArray = [];
-        this.errorMsg = '';
-      }
+          if(event.index == 0){
+            this.fieldArray = [];
+            this.newAttribute = {};
+            this.errorMsg = '';
+          }else if(event.index == 1){
+            this.fieldCreateArray = [];
+            this.errorMsg = '';
+          }
     }
 
     incomingfile(event) {
@@ -144,7 +147,6 @@ export class BrokerCreateEnquiryComponent implements OnInit{
     };
 
     clearEnquiry(){
-      console.log("Clear Data")
       $("#enquiryFileControl").val('');
       this.fieldCreateArray = [];
       this.importList = [];
@@ -235,7 +237,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
           this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
             this.spinner.hide();
             if(resp.error){
-              this.successMsg = resp.error.message;
+              this.successMsg = resp.error.errorMessage;
             }else{
               this.fieldCreateArray = [];
               this.successMsg = resp.message;
