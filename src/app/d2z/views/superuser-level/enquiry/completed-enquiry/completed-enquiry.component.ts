@@ -73,7 +73,7 @@ export class superUserCompletedEnquiryComponent implements OnInit{
           {
             headerName: "Reference Number",
             field: "referenceNumber",
-            width: 180
+            width: 200
           },
           {
             headerName: "Enquiry",
@@ -88,17 +88,17 @@ export class superUserCompletedEnquiryComponent implements OnInit{
           {
             headerName: "Client/Broker Comments",
             field: "comments",
-            width: 450
+            width: 300
           },
           {
             headerName: "D2Z Comments",
-            field: "comments",
-            width: 450
+            field: "d2zComments",
+            width: 300
           },
           {
             headerName: "Tracking Status",
             field: "trackingStatus",
-            width: 200
+            width: 150
           },
           {
             headerName: "Consignee Name",

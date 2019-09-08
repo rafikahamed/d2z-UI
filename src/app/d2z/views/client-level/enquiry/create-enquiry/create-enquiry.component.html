@@ -7,27 +7,27 @@
             <div class="right_col" role="main">
                 
                 <div class="row tile_count">
-                        <div class="page-title">
-                                <div class="title_left">
-                                  <h3 style="margin-left: 10px" *ngIf="englishFlag"> Enquiry / Create Enquiry </h3>
-                                  <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 清单 / 创建 </h3>
-                                </div>
-                        </div>
+                    <div class="page-title">
+                            <div class="title_left">
+                                <h3 style="margin-left: 10px" *ngIf="englishFlag"> Enquiry / Create Enquiry </h3>
+                                <h3 style="margin-left: 10px" *ngIf="chinessFlag"> 清单 / 创建 </h3>
+                            </div>
+                    </div>
                 </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="enquiry" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                    </div>
-                                    <div class="modal-footer">
-                                    </div>
-                                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="enquiry" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                            </div>
+                            <div class="modal-footer">
                             </div>
                         </div>
+                    </div>
+                </div>
 
                 <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="enquiryTabChanged($event)">
                     <mat-tab label="Enquiry / Individual">
@@ -122,7 +122,7 @@
                                                     <td>
                                                         <p-dropdown 
                                                         [options]="cities2" 
-                                                        [(ngModel)]="newAttribute.type" 
+                                                        [(ngModel)]="newAttributeClient.type" 
                                                         optionLabel="name" 
                                                         [showClear]="true"
                                                         [editable]="true"
@@ -133,29 +133,29 @@
                                                     <td>
                                                         <input class="form-control" 
                                                                 type="text" 
-                                                                id="newAttributeIdentifier" 
-                                                                [(ngModel)]="newAttribute.identifier" 
-                                                                name="newAttributeIdentifier" />
+                                                                id="newAttributeClientIdentifier" 
+                                                                [(ngModel)]="newAttributeClient.identifier" 
+                                                                name="newAttributeClientIdentifier" />
                                                     </td>
                                                     <td>
                                                         <input style="margin-left:50px; width:18px; height:18px" 
                                                                 type="checkbox" 
-                                                                id="newAttributeEnquiry" 
-                                                                [(ngModel)]="newAttribute.enquiry" 
-                                                                name="newAttributeEnquiry" />
+                                                                id="newAttributeClientEnquiry" 
+                                                                [(ngModel)]="newAttributeClient.enquiry" 
+                                                                name="newAttributeClientEnquiry" />
                                                     </td>
                                                     <td>
                                                         <input style="margin-left:38px; width:18px; height:18px" 
                                                                 type="checkbox" 
-                                                                id="newAttributePod" 
-                                                                [(ngModel)]="newAttribute.pod"
-                                                                name="newAttributePod" />
+                                                                id="newAttributeClientPod" 
+                                                                [(ngModel)]="newAttributeClient.pod"
+                                                                name="newAttributeClientPod" />
                                                     </td>
                                                     <td>
-                                                        <textarea id="newAttributeComments" 
+                                                        <textarea id="newAttributeClientComments" 
                                                                 class="form-control" cols="35" rows="2" 
-                                                                [(ngModel)]="newAttribute.comments"
-                                                                name="newAttributeComments">
+                                                                [(ngModel)]="newAttributeClient.comments"
+                                                                name="newAttributeClientComments">
                                                         </textarea>
                                                     </td>
                                                     <td>
@@ -324,54 +324,6 @@
                                                     Delete</button>
                                                 </td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td>
-                                                        <input class="form-control" 
-                                                        type="text" 
-                                                        id="newAttributeType" 
-                                                        [(ngModel)]="newAttribute.type" 
-                                                        name="newAttributeType" />
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" 
-                                                            type="text" 
-                                                            id="newAttributeIdentifier" 
-                                                            [(ngModel)]="newAttribute.identifier" 
-                                                            name="newAttributeIdentifier" />
-                                                </td>
-                                                <td>
-                                                    <input style="margin-left:50px; width:18px; height:18px" 
-                                                            type="checkbox" 
-                                                            id="newAttributeEnquiry"
-                                                            [checked]="newAttribute.enquiry"
-                                                            [(ngModel)]="newAttribute.enquiry" 
-                                                            name="newAttributeEnquiry" />
-                                                </td>
-                                                <td>
-                                                    <input style="margin-left:38px; width:18px; height:18px" 
-                                                            type="checkbox" 
-                                                            id="newAttributePod" 
-                                                            [checked]="newAttribute.pod"
-                                                            [(ngModel)]="newAttribute.pod"
-                                                            name="newAttributePod" />
-                                                </td>
-                                                <td>
-                                                    <textarea id="newAttributeComments" 
-                                                            class="form-control" cols="35" rows="2" 
-                                                            [(ngModel)]="newAttribute.comments"
-                                                            name="newAttributeComments">
-                                                    </textarea>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-default" 
-                                                    type="button" 
-                                                    style="background-color: #16A085; color: white;"
-                                                    (click)="addFieldValue()">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    Add
-                                                </button>
-                                                </td>
-                                            </tr> -->
                                         </tbody>
                                 </table>
 
