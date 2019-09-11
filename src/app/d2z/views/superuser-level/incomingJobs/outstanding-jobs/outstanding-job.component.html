@@ -29,7 +29,7 @@
                     </div>
 
                    
-                                <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" #tabGroup (selectedTabChange)="tabChanged(index)">
+                                <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" >
             <mat-tab label="OutStanding">
                             <!-- Modal -->
                          
@@ -40,7 +40,7 @@
                         loadingText="Loading..."
                         type="ball-clip-rotate-multiple">
                     </ngx-spinner>
-                            <div style="padding:20px">
+                            <div>
                                     
                                     <div style="margin-top: 10px;">
                                             <p class="err_msg">{{errorMsg}}</p>
@@ -51,26 +51,27 @@
                                                 <thead>
                                                     <tr >
                                                       
-                                                          <th> </th>
-
-                                                        <th   style="width:120px;" >Mawb</th>
-                                                        <th  style="width:30px;" >Destination</th>
-                                                        <th  style="width:65px;">Flight</th>
+                                                         
+                                                        <th  style="width:5px;"> </th>
+                                                        <th   style="width:140px;" >Mawb</th>
+                                                        <th  style="width:20px;" >Destination</th>
+                                                        <th  style="width:75px;">Flight</th>
                                                         <th  style="width:120px;">ETA</th>
                                                         
                                                         <th style="width:100px;">ATA</th>
                                                         <th style="width:65px;">Clear</th>
                                                         <th  style="width:65px;">Held</th>
-                                                        <th style="width:10px;">OutTurn</th>
+                                                        <th style="width:2px;">OutTurn</th>
                                                         <th style="width:75px;">Note</th>
                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let field of fieldArray; let i = index">
+                                                      
                                                         <td>
                                                         <input 
-                                                        style = "width:18px; height:18px" 
+                                                     style="width:18px; height:18px"    
                                             [(ngModel)]="field.checked" 
                                             class="form-control" 
                                             type="checkbox" 
@@ -181,7 +182,7 @@
                                             *ngIf="englishFlag"
                                             (click)="creatEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
-                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                           
                                             Update
                                     </button>
                 
@@ -193,16 +194,24 @@
                                             *ngIf="englishFlag"
                                             (click)="viewEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
-                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            
                                             View
                                     </button>
                 
                                   
                             </div>
                         </mat-tab>
-                      <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
+                      <mat-tab *ngFor="let tab of tabs; let index = index" label="Job">
 
-  <form class="well form-horizontal">
+                         <ngx-spinner
+                        bdColor="rgba(51,51,51,0.8)"
+                        size="medium"
+                        color="#fff"
+                        loadingText="Loading..."
+                        type="ball-clip-rotate-multiple">
+                    </ngx-spinner>
+
+  <form   #myForm="ngForm" class="well form-horizontal">
                                            <fieldset>
                                               <div class="form-group">
                                                  <label class="col-md-2 control-label">Broker:</label>
@@ -213,6 +222,8 @@
                                                                   [(ngModel)]="tab.broker" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                readonly="true" 
+                                                                [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.broker}}">
                                                             </div>
                                                 
@@ -225,6 +236,8 @@
                                                                   [(ngModel)]="tab.mlid" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                  readonly="true" 
+                                                                  [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.mlid}}">
                                                             </div>
                                                 
@@ -236,8 +249,10 @@
                                                    
                                                             <input  
                                                                   [(ngModel)]="tab.consignee" 
+                                                                   readonly="true"
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.consignee}}">
                                                             </div>
                                                 
@@ -251,6 +266,8 @@
                                                                   [(ngModel)]="tab.dest" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                 readonly="true"
                                                                  name ="{{tab.dest}}">
                                                             </div>
                                                  
@@ -265,6 +282,8 @@
                                                                   [(ngModel)]="tab.mawb" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                 readonly="true"
+                                                                 [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.mawb}}">
                                                             </div>
                                                 
@@ -278,6 +297,8 @@
                                                                   [(ngModel)]="tab.hawb" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                 readonly="true"
+                                                                 [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.hawb}}">
                                                             </div>
                                                  </div>
@@ -289,7 +310,9 @@
                                                             <input  
                                                                   [(ngModel)]="tab.eta" 
                                                                 class="form-control" 
-                                                                type="text" 
+                                                                type="text"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                 readonly="true" 
                                                                  name ="{{tab.eta}}">
                                                             </div>
                                                 
@@ -302,8 +325,9 @@
                                                             <input  
                                                                   [(ngModel)]="tab.ata" 
                                                                 class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.ata}}">
+                                                                type="date" 
+                                                              
+                                                                 name ="ata">
                                                             </div>
                                                  
                                               </div>
@@ -316,6 +340,8 @@
                                                                   [(ngModel)]="tab.flight" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                 readonly="true"
+                                                                 [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.flight}}">
                                                             </div>
                                                 
@@ -329,6 +355,8 @@
                                                                   [(ngModel)]="tab.weight" 
                                                                 class="form-control" 
                                                                 type="text" 
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                 readonly="true"
                                                                  name ="{{tab.weight}}">
                                                             </div>
                                                  </div>
@@ -340,7 +368,9 @@
                                                             <input  
                                                                   [(ngModel)]="tab.piece" 
                                                                 class="form-control" 
-                                                                type="text" 
+                                                                type="text"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                 readonly="true" 
                                                                  name ="{{tab.piece}}">
                                                             </div>
                                                 
@@ -354,7 +384,8 @@
                                                                   [(ngModel)]="tab.clear" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 name ="{{tab.clear}}">
+                                                               
+                                                                 name ="clear">
                                                             </div>
                                                  </div>
                                             
@@ -366,7 +397,8 @@
                                                                   [(ngModel)]="tab.held" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 name ="{{tab.held}}">
+                                                                
+                                                                 name ="held">
                                                             </div>
                                                 
 
@@ -378,8 +410,9 @@
                                                             <input  
                                                                   [(ngModel)]="tab.outturn" 
                                                                 class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.outturn}}">
+                                                                type="checkbox" 
+                                                                
+                                                                 name ="outturn">
                                                             </div>
                                                  </div>
                                               
@@ -392,7 +425,8 @@
                                                                   [(ngModel)]="tab.note" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 name ="{{tab.note}}">
+                                                                
+                                                                 name ="note">
                                                             </div>
                                                 
 
@@ -400,6 +434,21 @@
                                                 
                                                 
                                               </div>
+
+
+
+                                              <div class ="form-group">
+
+  <button type="button" 
+                                            class="btn btn-info" 
+                                           
+                                            (click)="check($event,index)"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                           
+                                            Update
+                                    </button>
+                                              </div>
+
 </fieldset>
 
 </form>
