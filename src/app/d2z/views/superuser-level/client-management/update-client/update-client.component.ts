@@ -101,7 +101,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       that.directCategories.push({
                          'checked' : false,
                          'name':entry.name,
-                         'value':entry.value,
+                         'value':entry.value
                        
                        });
         
@@ -165,7 +165,8 @@ this.servicecategories.push({
                          'value':Obj.value,
                        
                        });
-               };
+               }
+
                this.categories = this.servicecategories;
 
 

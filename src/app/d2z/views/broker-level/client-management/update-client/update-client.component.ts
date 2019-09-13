@@ -29,7 +29,7 @@ export class UpdateClientComponent implements OnInit{
       typeSubFiveFlag: boolean;
       typeSubSixFlag: boolean;
       typeSubSevenFlag: boolean;
-
+ flag:boolean;
       oneCheckFlag: boolean;
       twoCheckFlag: boolean;
       threeCheckFlag: boolean;
@@ -50,6 +50,8 @@ export class UpdateClientComponent implements OnInit{
       companyName: String;
       brokerAddClientForm: FormGroup;
       serviceTypeArray: any[];
+      categories=[];
+    servicecategories=[];
       serviceTypeDeletedArray: any[];
       companyDropdown: dropdownTemplate[]; 
       show: Boolean;
@@ -71,6 +73,7 @@ export class UpdateClientComponent implements OnInit{
         this.directCategories =[];
         this.originCategories = [];
         this.serviceTypeDeletedArray = [];
+        this.categories = [];
         this.errorMsg = null;
         this.brokerAddClientForm = new FormGroup({
             companyName: new FormControl(),
@@ -111,24 +114,17 @@ export class UpdateClientComponent implements OnInit{
             "name" : service_type, "value"  : service_type
           })
       }
+
+        this.categories.push({
+                         "checked" : false,
+                         "name":service_type,
+                         "value":service_type
+                       
+                       });
+        
+     
     };
-    this.typeOneFlag = this.consignmenrServices.userMessage.serviceType.includes('1PS') ? true : false;
-    this.typeTwoFlag = this.consignmenrServices.userMessage.serviceType.includes('2PS') ? true : false;
-    this.typeThreeFlag = this.consignmenrServices.userMessage.serviceType.includes('3PS') ? true : false;
-    this.typeFourFlag = this.consignmenrServices.userMessage.serviceType.includes('4PS') ? true : false;
-    this.typeFiveFlag = this.consignmenrServices.userMessage.serviceType.includes('5PS') ? true : false;
-    this.typeSixFlag = this.consignmenrServices.userMessage.serviceType.includes('1PM') ? true :  false;
-    this.typeEightFlag = this.consignmenrServices.userMessage.serviceType.includes('1PME')? true : false;
-    this.typeSevenFlag = this.consignmenrServices.userMessage.serviceType.includes('UnTracked') ? true : false;
-    this.typeSubOneFlag = this.consignmenrServices.userMessage.serviceType.includes('1PM3') ? true : false;
-    this.typeSubTwoFlag = this.consignmenrServices.userMessage.serviceType.includes('1PP') ? true :  false;
-    this.typeSubThreeFlag = this.consignmenrServices.userMessage.serviceType.includes('1PS2')? true : false;
-    this.typeSubFourFlag = this.consignmenrServices.userMessage.serviceType.includes('FWS') ? true : false;
-    this.typeSubFiveFlag = this.consignmenrServices.userMessage.serviceType.includes('STS') ? true : false;
-    this.typeSubSixFlag = this.consignmenrServices.userMessage.serviceType.includes('2PSP') ? true : false;
-    this.typeSubSevenFlag = this.consignmenrServices.userMessage.serviceType.includes('MCS') ? true : false;
-    console.log("in update");
-    console.log( this.typeSubSevenFlag);
+   
     this.getLoginDetails();
   };
 
@@ -145,6 +141,7 @@ export class UpdateClientComponent implements OnInit{
 
   companySearch(){
     this.spinner.show();
+    this.servicecategories = [];
     this.trackingDataService.fetchClientDetails(this.companyName, this.role_id, (resp) => {
       this.brokerAddClientForm.controls['companyName'].setValue(resp.companyName);
       this.brokerAddClientForm.controls['addressLine1'].setValue(resp.address);
@@ -157,22 +154,31 @@ export class UpdateClientComponent implements OnInit{
       this.brokerAddClientForm.controls['password'].setValue(resp.password);
       this.brokerAddClientForm.controls['PhoneNumber'].setValue(resp.contactPhoneNumber);
       this.brokerAddClientForm.controls['eBayToken'].setValue(resp.eBayToken);
-      this.oneCheckFlag = resp.serviceType.includes('1PS') ? true : false;
-      this.twoCheckFlag = resp.serviceType.includes('2PS') ? true : false;
-      this.threeCheckFlag = resp.serviceType.includes('3PS') ? true : false;
-      this.fourCheckFlag = resp.serviceType.includes('4PS') ? true : false;
-      this.fiveCheckFlag = resp.serviceType.includes('5PS') ? true : false;
-      this.sixCheckFlag = resp.serviceType.includes('1PM') ? true :  false;
-      this.sevenCheckFlag = resp.serviceType.includes('UnTracked') ? true : false;
-      this.eightCheckFlag = resp.serviceType.includes('1PME') ? true :  false;
-      this.subOneCheckFlag = resp.serviceType.includes('1PM3') ? true :  false;
-      this.subTwoCheckFlag = resp.serviceType.includes('1PP') ? true :  false;
-      this.subThreeCheckFlag = resp.serviceType.includes('1PS2') ? true :  false;
-      this.subFourCheckFlag = resp.serviceType.includes('FWS') ? true :  false;
-      this.subFiveCheckFlag = resp.serviceType.includes('STS') ? true :  false;
-       this.subSixCheckFlag = resp.serviceType.includes('2PSP') ? true :  false;
-        this.subSevenCheckFlag = resp.serviceType.includes('MCS') ? true :  false;
+      
       this.serviceTypeArray = resp.serviceType;
+
+       for (var item in this.categories)
+             {
+               var Obj = this.categories[item];
+
+              
+this.flag =  resp.serviceType.includes(Obj.name) ? true : false;
+ var ob = 'false';
+
+ if(this.flag)
+{
+ob = 'true';
+ 
+}
+this.servicecategories.push({
+
+                         'checked' : ob,
+                         'name':Obj.name,
+                         'value':Obj.value,
+                       
+                       });
+               };
+               this.categories = this.servicecategories;
       this.spinner.hide();
       setTimeout(() => {this.spinner.hide()}, 5000);
     })
@@ -229,21 +235,32 @@ export class UpdateClientComponent implements OnInit{
       })
   }
 
-  onServiceTypeChange(e) {
-    if(e.target.checked) {
-      if(this.serviceTypeArray.indexOf(e.target.checked) == -1){
-        this.serviceTypeArray.push(e.target.value)
-        let index = this.serviceTypeDeletedArray.indexOf(e.target.value);
+  onChange(serviceType:string, isChecked: boolean) {
+ console.log(serviceType+"::"+isChecked);
+        if(isChecked) {
+
+         if(this.serviceTypeArray.indexOf(serviceType) == -1){
+        this.serviceTypeArray.push(serviceType)
+        let index = this.serviceTypeDeletedArray.indexOf(serviceType);
         this.serviceTypeDeletedArray.splice(index,1);
       }else{
         
       }    
-    } else {
-      let index = this.serviceTypeArray.indexOf(e.target.value);
-      this.serviceTypeArray.splice(index,1);
-      this.serviceTypeDeletedArray.push(e.target.value);
     }
-  }
+          
+        
+        else {
+          let index = this.serviceTypeArray.indexOf(serviceType);
+          this.serviceTypeArray.splice(index,1);
+
+        
+      console.log(index);
+     
+console.log(this.serviceTypeArray);
+      this.serviceTypeDeletedArray.push(serviceType);
+        }
+    }
+
   
 }
 
