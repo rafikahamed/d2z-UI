@@ -215,115 +215,40 @@
                                                                                                         type="password"></div>
                                                                                 </div>
                                                         </div>
+ <div id="div_id_select" class="form-group required">
+                                                               
 
-                                                        <div id="div_id_select" class="form-group required">
-                                                                <label for="id_select" class="control-label col-md-4 requiredField"> 
-                                                                        Service Types
-                                                                      <span class="asteriskField"></span> 
-                                                                </label>
-
-                                                                <div class="col-md-8 inputGroupContainer" style="margin-top:8px">
-                                                                        <div>
-                                                                                <label> Direct Injection </label>
-                                                                        </div>
-                                                                        <div class="form-check" style="margin-right:10px; margin-top:8px; float:left">
-                                                                                <div>
-                                                                                        <div *ngIf="typeOneFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="1PS" (change)="onServiceTypeChange($event)" value="1PS" [checked]="oneCheckFlag">
-                                                                                                <label>1PS</label>
-                                                                                        </div>
-                                                                                        <div *ngIf="typeTwoFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="2PS" (change)="onServiceTypeChange($event)" value="2PS" [checked]="twoCheckFlag">
-                                                                                                <label>2PS</label>
-                                                                                        </div>
-
-                                                                                        <div *ngIf="typeThreeFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="3PS" (change)="onServiceTypeChange($event)" value="3PS" [checked]="threeCheckFlag">
-                                                                                                <label>3PS</label>
-                                                                                        </div>
-
-                                                                                        <div *ngIf="typeFourFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="4PS" (change)="onServiceTypeChange($event)" value="4PS" [checked]="fourCheckFlag">
-                                                                                                <label>4PS</label>
-                                                                                        </div>
-
-                                                                                        <div *ngIf="typeFiveFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="5PS" (change)="onServiceTypeChange($event)" value="5PS" [checked]="fiveCheckFlag">
-                                                                                                <label>5PS</label>
-                                                                                        </div>
-
-                                                                                        <div *ngIf="typeSixFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="1PM" (change)="onServiceTypeChange($event)" value="1PM" [checked]="sixCheckFlag">
-                                                                                                <label>1PM</label>
-                                                                                        </div>
-
-                                                                                        <div *ngIf="typeEightFlag" class= "checkbox-items">
-                                                                                                <input type="checkbox" id="1PME" (change)="onServiceTypeChange($event)" value="1PME" [checked]="eightCheckFlag">
-                                                                                                <label>1PME</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                                
-                                                                        </div>
-                                                                </div>
-
-                                                                <label for="id_select" class="control-label col-md-4 requiredField">
-                                                                        <span class="asteriskField"></span> 
-                                                                </label>
-                                                                <div class="col-md-8 inputGroupContainer" style="margin-top:8px">
-                                                        
-                                                                <div class="form-check" style="margin-right:10px; margin-top:8px; float:left">
-                                                                        <div>
-                                                                                <div *ngIf="typeSubOneFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="1PM3" (change)="onServiceTypeChange($event)" value="1PM3" [checked]="subOneCheckFlag">
-                                                                                        <label>1PM3</label>
-                                                                                </div>
-                                                                                <div *ngIf="typeSubTwoFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="1PP" (change)="onServiceTypeChange($event)" value="1PP" [checked]="subTwoCheckFlag">
-                                                                                        <label>1PP</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeSubThreeFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="1PS2" (change)="onServiceTypeChange($event)" value="1PS2" [checked]="subThreeCheckFlag">
-                                                                                        <label>1PS2</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeSubFourFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="FWS" (change)="onServiceTypeChange($event)" value="FWS" [checked]="subFourCheckFlag">
-                                                                                        <label>FWS</label>
-                                                                                </div>
-
-                                                                                <div *ngIf="typeSubFiveFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="STS" (change)="onServiceTypeChange($event)" value="STS" [checked]="subFiveCheckFlag">
-                                                                                        <label>STS</label>
-                                                                                </div>
-
-
-<div *ngIf="typeSubSixFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="2PSP" (change)="onServiceTypeChange($event)" value="2PSP" [checked]="subSixCheckFlag">
-                                                                                        <label>2PSP</label>
-                                                                                </div>
-
-<div  *ngIf="typeSubSevenFlag" class= "checkbox-items">
-                                                                                        <input type="checkbox" id="MCS" (change)="onServiceTypeChange($event)" value="MCS" [checked]="subSevenCheckFlag">
-                                                                                        <label>MCS</label>
-                                                                                </div>
-                                                                        </div>   
-                                                                </div>
-                                                                </div>
-                                                                        
-                                                                        <!-- <div class="col-md-2 inputGroupContainer" style="margin-top:8px; margin-left:-35px">
-                                                                                <div>
-                                                                                <label> Origin Injection</label>
-                                                                                </div>
-                                                                                <div *ngIf="typeSevenFlag" style="margin-top:8px">
-                                                                                        <input type="checkbox" id="UnTracked" (change)="onServiceTypeChange($event)" value="UnTracked" [checked]="sevenCheckFlag">
-                                                                                        <label>UnTracked</label>
-                                                                                </div>
-                                                                        </div> -->
-
+                                                              <label for="id_select"  
+                                                            class="control-label col-md-4 requiredField"> Service Types
+                                                            <span class="asteriskField"></span> 
+                                                    </label>
+                                                    <div class="col-md-8 inputGroupContainer" style="margin-top:8px">
+                                                        <div>
+                                                            <label> Direct Injection </label>
                                                         </div>
-        
-                                                        <div class="form-group"> 
+                                                        <div class="form-check" *ngFor="let serviceType of categories" 
+                                                                    style="margin-right:10px; margin-top:8px; float:left">
+                                                                    <input class="form-check-input" 
+                                                                        style="margin-right: 5px"
+                                                                          (change)="onChange(serviceType.name, $event.target.checked)"
+                                                                        [checked]="serviceType.checked === 'true'"
+                                                                        name="{{ serviceType.name }}" 
+                                                                       
+                                                                        type="checkbox" 
+                                                                        id="{{serviceType.name}}">
+                                                                <label class="form-check-label" for="{{serviceType.name}}">
+                                                                        {{serviceType.name}}
+                                                                </label>
+                                                        </div>
+                                                    </div>
+                                                    
+                                       
+                                                               
+                                                      </div>
+                                                        
+
+
+                                                                   <div class="form-group"> 
                                                                         <div class="aab controls col-md-4 "></div>
                                                                         <div class="controls col-md-8 ">
                                                                                 <input type="submit" 

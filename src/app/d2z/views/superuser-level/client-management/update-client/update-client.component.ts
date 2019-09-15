@@ -25,19 +25,7 @@ export class SuperUserUpdateClientComponent implements OnInit{
       childmenuThree:boolean;
       childmenuFour:boolean;
       childmenuFive:boolean;
-      oneFlag: boolean;
-      twoFlag: boolean;
-      threeFlag: boolean;
-      fourFlag: boolean;
-      fiveFlag: boolean;
-      sixFlag: boolean;
-      sevenFlag: boolean;
-      eightFlag: boolean;
-      subOneFlag: boolean;
-      subTwoFlag: boolean;
-      subThreeFlag: boolean;
-      subFourFlag: boolean;
-      subFiveFlag: boolean;
+   flag:boolean;
       disableUpdate: boolean;
       errorMsg: string;
       userName: String;
@@ -47,12 +35,13 @@ export class SuperUserUpdateClientComponent implements OnInit{
       companyName: String;
       brokerAddClientForm: FormGroup;
       serviceTypeArray: any[];
-      directCategories: any[];
+      directCategories = [];
       serviceTypeDeletedArray: any[];
       companyDropdown: dropdownTemplate[];  
       selectedCompany: dropdownTemplate;
       show: Boolean;
-      categories: any[];
+      categories=[];
+      servicecategories=[];
       constructor(
          public trackingDataService : TrackingDataService,
          public consignmenrServices: ConsigmentUploadService, 
@@ -89,8 +78,11 @@ export class SuperUserUpdateClientComponent implements OnInit{
     this.spinner.show();
     this.getLoginDetails();
     this.trackingDataService.brokerCompanyList( (resp) => {
-      this.spinner.hide();
+     
       this.companyDropdown = resp;
+     
+      
+
       if(this.companyDropdown.length > 0)
         this.selectedCompany = this.companyDropdown[0];
         this.companyName =  this.companyDropdown[0] ? this.companyDropdown[0].value : '';
@@ -98,8 +90,31 @@ export class SuperUserUpdateClientComponent implements OnInit{
           this.errorMsg = "Invalid Credentials!";
       }  
     });
-    this.categories = [];
-    this.directCategories = [];
+
+     this.consignmenrServices.mlidList( (resp) => {
+        this.spinner.hide();
+       var that= this;
+
+          resp.forEach(function(entry) {
+     
+   
+      that.directCategories.push({
+                         'checked' : false,
+                         'name':entry.name,
+                         'value':entry.value
+                       
+                       });
+        
+      });
+
+
+       
+      });
+
+   console.log(this.directCategories);
+    this.categories = this.directCategories;
+
+    
   };
 
   getLoginDetails(){
@@ -121,23 +136,42 @@ this.myForm.resetForm();
   };
 
   companySearch(){
+  this.servicecategories = [];
+
+   
     this.spinner.show();
     this.trackingDataService.fetchBrokerDetails(this.companyName, (resp) => {
-      this.categories = resp.serviceType;
+    
       this.serviceTypeArray = resp.serviceType;
-      this.oneFlag = resp.serviceType.includes('1PS') ? true : false;
-      this.twoFlag = resp.serviceType.includes('2PS') ? true : false;
-      this.threeFlag = resp.serviceType.includes('3PS') ? true : false;
-      this.fourFlag = resp.serviceType.includes('4PS') ? true : false;
-      this.fiveFlag = resp.serviceType.includes('5PS') ? true : false;
-      this.sixFlag = resp.serviceType.includes('UnTracked') ? true : false;
-      this.sevenFlag = resp.serviceType.includes('1PM') ? true :  false;
-      this.eightFlag = resp.serviceType.includes('1PME') ? true :  false;
-      this.subOneFlag = resp.serviceType.includes('1PM3') ? true :  false;
-      this.subTwoFlag = resp.serviceType.includes('1PP') ? true :  false;
-      this.subThreeFlag = resp.serviceType.includes('1PS2') ? true :  false;
-      this.subFourFlag = resp.serviceType.includes('FWS') ? true :  false;
-      this.subFiveFlag = resp.serviceType.includes('STS') ? true :  false;
+      console.log(this.serviceTypeArray);
+
+      for (var item in this.categories)
+             {
+               var Obj = this.categories[item];
+
+              
+this.flag =  resp.serviceType.includes(Obj.name) ? true : false;
+ var ob = 'false';
+
+ if(this.flag)
+{
+ob = 'true';
+ 
+}
+this.servicecategories.push({
+
+                         'checked' : ob,
+                         'name':Obj.name,
+                         'value':Obj.value,
+                       
+                       });
+               }
+
+               this.categories = this.servicecategories;
+
+
+    
+     
       this.disableUpdate = false;
       this.brokerAddClientForm.controls['companyName'].setValue(resp.companyName);
       this.brokerAddClientForm.controls['addressLine1'].setValue(resp.address);
@@ -158,6 +192,7 @@ this.myForm.resetForm();
 
   updateClient(){
     console.log(this.consignmenrServices.userMessage)
+    console.log(this.serviceTypeDeletedArray);
       let companyName = 'companyName';
       let contactName = 'contactName';
       let address = 'address';
@@ -205,21 +240,35 @@ this.myForm.resetForm();
       })
   }
 
-  onChange(e) {
-    if(e.target.checked) {
-      if(this.serviceTypeArray.indexOf(e.target.checked) == -1){
-        this.serviceTypeArray.push(e.target.value)
-        let index = this.serviceTypeDeletedArray.indexOf(e.target.value);
+
+
+ onChange(serviceType:string, isChecked: boolean) {
+ console.log(serviceType+"::"+isChecked);
+        if(isChecked) {
+
+         if(this.serviceTypeArray.indexOf(serviceType) == -1){
+        this.serviceTypeArray.push(serviceType)
+        let index = this.serviceTypeDeletedArray.indexOf(serviceType);
         this.serviceTypeDeletedArray.splice(index,1);
       }else{
         
       }    
-    } else {
-      let index = this.serviceTypeArray.indexOf(e.target.value);
-      this.serviceTypeArray.splice(index,1);
-      this.serviceTypeDeletedArray.push(e.target.value);
     }
-  }
+          
+        
+        else {
+          let index = this.serviceTypeArray.indexOf(serviceType);
+          this.serviceTypeArray.splice(index,1);
+
+        
+      console.log(index);
+     
+console.log(this.serviceTypeArray);
+      this.serviceTypeDeletedArray.push(serviceType);
+        }
+    }
+
+ 
   
 }
 

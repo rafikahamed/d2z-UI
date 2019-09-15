@@ -228,12 +228,31 @@ body{
     position:fixed
 }
 body .container.body .right_col{
-    background:#F7F7F7
+    background:#F7F7F7;
+    width:1200px
 }
+
 .nav-md .container.body .right_col{
     padding:10px 20px 0;
     margin-left:230px
 }
+.nav-md .container .body .right_col .table1{
+  padding:5px;
+   border-spacing: 80px;
+}
+
+.table1 {
+    display: table;
+    width: 80%;
+    height: 100%;
+}
+
+.table1-cell {
+    display: table-cell;
+    vertical-align: middle;
+    height:100%;
+}
+
 .nav_title{
     width:230px;
     float:left;

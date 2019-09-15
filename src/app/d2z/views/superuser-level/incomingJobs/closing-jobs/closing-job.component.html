@@ -30,7 +30,7 @@
 
                    
                                 <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" #tabGroup (selectedTabChange)="tabChanged(index)">
-            <mat-tab label="OutStanding">
+            <mat-tab label="Closing">
                             <!-- Modal -->
                          
                             <ngx-spinner
@@ -40,7 +40,7 @@
                         loadingText="Loading..."
                         type="ball-clip-rotate-multiple">
                     </ngx-spinner>
-                            <div style="padding:20px">
+                            <div>
                                     
                                     <div style="margin-top: 10px;">
                                             <p class="err_msg">{{errorMsg}}</p>
@@ -51,17 +51,17 @@
                                                 <thead>
                                                     <tr >
                                                       
-                                                          <th> </th>
-
-                                                        <th   style="width:120px;" >Mawb</th>
-                                                        <th  style="width:30px;" >Destination</th>
-                                                        <th  style="width:65px;">Flight</th>
+                                                         
+                                                        <th  style="width:5px;"> </th>
+                                                        <th   style="width:140px;" >Mawb</th>
+                                                        <th  style="width:20px;" >Destination</th>
+                                                        <th  style="width:75px;">Flight</th>
                                                         <th  style="width:120px;">ETA</th>
                                                         
                                                         <th style="width:100px;">ATA</th>
                                                         <th style="width:65px;">Clear</th>
                                                         <th  style="width:65px;">Held</th>
-                                                        <th style="width:10px;">OutTurn</th>
+                                                        <th style="width:2px;">OutTurn</th>
                                                         <th style="width:75px;">Note</th>
                                                        
                                                     </tr>
@@ -70,7 +70,7 @@
                                                     <tr *ngFor="let field of fieldArray; let i = index">
                                                         <td>
                                                         <input 
-                                                        style = "width:18px; height:18px" 
+                                                        style="width:18px; height:18px"  
                                             [(ngModel)]="field.checked" 
                                             class="form-control" 
                                             type="checkbox" 

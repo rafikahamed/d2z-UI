@@ -14,6 +14,7 @@ import * as XLSX from 'xlsx';
 })
 
 export class SuperOutstandingJobComponent implements OnInit{
+@ViewChild('myForm') myForm: NgForm;
 
   private fieldArray = [];
    private fieldArrayout = [];
@@ -35,6 +36,7 @@ tabs =[];
   system: String;
   arrayBuffer:any;
     form: FormGroup;
+     brokerAddClientForm: FormGroup;
  
   public importList = [];
   public importIndividualList = [];
@@ -72,11 +74,7 @@ tabs =[];
      this.fieldArrayout = resp;
       var that = this;
       console.log(resp);
-      resp.forEach(function(entry) {
-    
      
-        console.log(entry.mlid);
-      })
     
     })
   
@@ -85,7 +83,7 @@ tabs =[];
       this.showFile = false;
      
   
-var th = this;
+
   
  
   
@@ -106,14 +104,6 @@ var th = this;
  
  
 
-FieldValue(i)
-{
-   var newBroker=  this.fieldArray[i];
-
-  
-    this.form.controls['brokerName'].setValue(newBroker.broker);
-   
-};
 
 
  
@@ -193,8 +183,8 @@ console.log(this.importIndividualList);
             this.spinner.hide();
             this.successMsg = resp.message;
             $('#brokerEnquiry').modal('show');
-            this.fieldArray = [];
-            this.newAttribute = {};
+            
+           
         });
       }else{
         this.errorMsg = "** Atleast add one Job to proceed";
@@ -202,7 +192,86 @@ console.log(this.importIndividualList);
       
     
     }
+check(event,index)
+{
+  console.log(index);
+  console.log(this.myForm.controls['note'].value);
+    var newBrokerEnquiryArray =  this.tabs;
+ 
 
+  var fieldObj =this.tabs[index];
+        
+
+
+ this.errorMsg = '';
+      this.importIndividualList = [];
+      let clear = 'clear';
+      let outturn = 'outturn';
+      let note ='note'
+      let ata = 'ata';
+      let held = 'held';
+      let jobid = 'jobid';
+      let broker = 'broker';
+      let mlid = 'mlid';
+      let consignee = 'consignee';
+       let hawb = 'hawb';
+      let dest = 'destination';
+      let weight = 'weight';
+      let mawb = 'mawb';
+      let flight = 'flight';
+      let eta = 'eta';
+      let piece = 'piece';
+      
+        var enquiryObj = (
+          enquiryObj={}, 
+           enquiryObj[broker]= fieldObj.broker != undefined ? fieldObj.broker : '', enquiryObj,
+          enquiryObj[mlid]= fieldObj.mlid != undefined ? fieldObj.mlid : '', enquiryObj,
+          enquiryObj[consignee]= fieldObj.consignee != undefined ? fieldObj.consignee: '', enquiryObj,
+          enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
+           enquiryObj[dest]= fieldObj.destination != undefined ? fieldObj.destination: '', enquiryObj,
+              enquiryObj[flight]= fieldObj.flight != undefined ? fieldObj.flight : '', enquiryObj,
+                 enquiryObj[eta]= fieldObj.eta != undefined ? fieldObj.eta : '', enquiryObj,
+          enquiryObj[weight]= fieldObj.weight != undefined ? fieldObj.weight : '', enquiryObj,
+           enquiryObj[piece]= fieldObj.piece != undefined ? fieldObj.piece : '', enquiryObj,
+            enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
+          enquiryObj[jobid]=fieldObj.jobid != undefined ? fieldObj.jobid : '', enquiryObj,
+          enquiryObj[clear]= this.myForm.controls['clear'].value!= undefined ? this.myForm.controls['clear'].value : '', enquiryObj,
+          enquiryObj[outturn]= this.myForm.controls['outturn'].value != undefined ? this.myForm.controls['outturn'].value: '', enquiryObj,
+           enquiryObj[note]= this.myForm.controls['note'].value != undefined ? this.myForm.controls['note'].value : '', enquiryObj,
+           enquiryObj[held]=this.myForm.controls['held'].value != undefined ? this.myForm.controls['held'].value : '', enquiryObj,
+             
+                 enquiryObj[ata]= this.myForm.controls['ata'].value != undefined ? this.myForm.controls['ata'].value : '', enquiryObj
+         
+        );
+        this.importIndividualList.push(enquiryObj);
+      
+    
+
+ this.spinner.show();
+        this.consigmentUploadService.updateJob(this.importIndividualList, (resp) => {
+           
+            this.successMsg = resp.message;
+            $('#brokerEnquiry').modal('show');
+            this.consigmentUploadService.outstandingJob( (resp) => {
+         this.spinner.hide();
+      this.fieldArray = resp;
+   this.tabs = [];
+
+      console.log(resp);
+     
+    
+    })
+  
+            
+           
+        });
+
+
+
+
+
+
+}
     viewEnquiry(){
       
 this.tabs = [];
@@ -213,9 +282,10 @@ this.tabs = [];
 
       for (var fieldVal in newBrokerEnquiryArray) {
         var fieldObj = newBrokerEnquiryArray[fieldVal];
-        console.log(fieldObj);
+        console.log(fieldObj.note);
      if(fieldObj.checked === true)
      {
+
      this.tabs.push({
                          'label':'Jobs'+fieldVal,
                          'broker':fieldObj.broker,
@@ -231,10 +301,12 @@ this.tabs = [];
          
           'clear': fieldObj.clear != undefined ? fieldObj.clear : '', 
           'outturn':fieldObj.outturn != undefined ? fieldObj.outturn: '', 
-           'note': fieldObj.note != undefined ? fieldObj.note : '', 
+           'note':  fieldObj.note != undefined ? fieldObj.note:'',
            'held': fieldObj.held != undefined ? fieldObj.held : '', 
              
-               'ata': fieldObj.ata != undefined ? fieldObj.ata : ''
+               'ata': fieldObj.ata != undefined ? fieldObj.ata : '',
+
+               'jobid': fieldObj.jobid != undefined ? fieldObj.jobid : ''
                         });
 
                         
@@ -243,15 +315,11 @@ this.tabs = [];
         
       }
 
-       window.setTimeout(()=>{
-       console.log("in window");
-       this.selectedIndex = 1;
-       this.change.markForCheck();
-    });
-      
-      
-    
-    }
+      this.selectedIndex = 1;
+      }
+
+
+
     clearEnquiry(){
       console.log("Clear Data")
       $("#enquiryFileControl").val('');

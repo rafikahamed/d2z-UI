@@ -55,7 +55,7 @@
                                             <p class="err_msg">{{errorMsg}}</p>
                                     </div>
                              </div>
-                        <table class="table" style="width:100%;">
+                        <table class="table1" >
                                  
                         
                      
@@ -82,7 +82,7 @@
                                                             [options]="brokerDropdown" 
                                                             [(ngModel)]="field.type" 
                                                             optionLabel="name" 
-                                                            [showClear]="true"
+                                                           
                                                            [autoWidth]="false"
                                                             [editable]="true"
                                                             [style]="{'width':'80px'}"
@@ -106,7 +106,7 @@
                                                             [options] = "field.consigneeDropdown"
                                                             [(ngModel)]="field.consignee" 
                                                             optionLabel="name" 
-                                                            [showClear]="true"
+                                                           
                                                             [editable]="true"
                                                             [style]="{'width':'80px'}"
                                                            >
@@ -169,13 +169,13 @@
                                                                 [(ngModel)]="field.eta" 
                                                                 class="form-control" 
                                                                 type="date" 
-                                                                style="width:200px;"
+                                                                style="width:150px;"
                                                                 name="{{field.eta}}" />
                                                         </td>
                                                         <td>
                                                             <button class="btn btn-default"  
                                                             type="button" 
-                                                            style="background-color: #16A085; color: white;"
+                                                            style="background-color: #16A085; color: white;width:40px;"
                                                             (click)="deleteFieldValue(i)">
                                                             <span class="glyphicon glyphicon-trash"></span>
                                                             Delete</button>
@@ -187,7 +187,7 @@
                                                             [options]="brokerDropdown" 
                                                             [(ngModel)]="newAttribute.type" 
                                                             optionLabel="name" 
-                                                            [showClear]="true"
+                                                          
                                                             [editable]="true"
                                                             [style]="{'width':'80px'}"
                                                             (onChange)="onBrokerTypeChangeNew($event)"
@@ -214,13 +214,13 @@
                                                             [options]="consigneeDropdown2" 
                                                             [(ngModel)]="newAttribute.consignee" 
                                                             optionLabel="name" 
-                                                            [showClear]="true"
+                                                          
                                                             [editable]="true"
                                                             [style]="{'width':'80px'}"
                                                             >
                                                             </p-dropdown>
                                                         </td>
-                                                        <td>
+                                                        <td padding = "2px">
                                                             <input 
                                                                 [(ngModel)]="newAttribute.mawb" 
                                                                 class="form-control" 
@@ -240,7 +240,7 @@
                                                             [options]="destinations" 
                                                             [(ngModel)]="newAttribute.dest" 
                                                             optionLabel="name" 
-                                                            [showClear]="true"
+                                                            
                                                             [editable]="true"
                                                             [style]="{'width':'70px'}"
 >
@@ -287,16 +287,16 @@
     <td>
                                                             <input 
                                                                 [(ngModel)]="newAttribute.eta" 
-                                                                 style="width:100px;"
+                                                                 style="width:150px;"
                                                                 class="form-control" 
-                                                                type="month" 
+                                                                type="date" 
                                                                 id ="newAttributeeta"
                                                                 name="newAttributeeta" />
                                                         </td>
                                                                <td>
                                                             <button class="btn btn-default" 
                                                             type="button" 
-                                                            style="background-color: #16A085; color: white;width:20px;"
+                                                            style="background-color: #16A085; color: white;width:40px;"
                                                             (click)="addFieldValue()">
                                                             <span class="glyphicon glyphicon-plus"></span>
                                                            

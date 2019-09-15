@@ -199,8 +199,7 @@ console.log(this.importIndividualList);
             this.spinner.hide();
             this.successMsg = resp.message;
             $('#brokerEnquiry').modal('show');
-            this.fieldArray = [];
-            this.newAttribute = {};
+           
         });
       }else{
         this.errorMsg = "** Atleast add one Job to proceed";
