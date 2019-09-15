@@ -64,13 +64,15 @@ export class superUserReturnsScanComponent{
             return;
         }
         window.scrollTo(0, 0)
-      })
+      });
+      this.newAttribute.type = this.scanType[0];
      
   };
 
     addFieldValue() {
-        this.fieldArray.push(this.newAttribute)
+        this.fieldArray.push(this.newAttribute);
         this.newAttribute = {};
+        this.newAttribute.type = this.scanType[0];
         this.errorMsg = '';
     }
 
@@ -157,19 +159,19 @@ export class superUserReturnsScanComponent{
       }
 
       if(this.importReturnsList.length > 0){
-        this.spinner.show();
-        this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
-             this.spinner.hide();
-             if(resp.error){
-                this.successMsg = resp.error.message;
-                $('#returnsScan').modal('show');
-             }else{
-                this.successMsg = resp.message;
-                $('#returnsScan').modal('show');
-                this.fieldArray = [];
-                this.newAttribute = {};
-             }
-        });
+        // this.spinner.show();
+        // this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
+        //      this.spinner.hide();
+        //      if(resp.error){
+        //         this.successMsg = resp.error.message;
+        //         $('#returnsScan').modal('show');
+        //      }else{
+        //         this.successMsg = resp.message;
+        //         $('#returnsScan').modal('show');
+        //         this.fieldArray = [];
+        //         this.newAttribute = {};
+        //      }
+        // });
       }else{
         this.errorMsg = "** Atleast add one Returns to proceed";
       }

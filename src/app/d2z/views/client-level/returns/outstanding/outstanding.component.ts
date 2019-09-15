@@ -5,6 +5,7 @@ import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
   selector: 'hms-returns-outstanding',
@@ -65,7 +66,7 @@ export class ReturnsOutStandingComponent{
           {
             headerName: "Article ID",
             field: "articleId",
-            width: 220,
+            width: 200,
             checkboxSelection: true,
             headerCheckboxSelection: function(params) {
               return params.columnApi.getRowGroupColumns().length === 0;
@@ -74,17 +75,17 @@ export class ReturnsOutStandingComponent{
           {
             headerName: "Reference Number",
             field: "referenceNumber",
-            width: 220
+            width: 200
           },
           {
             headerName: "Consignee Name",
             field: "consigneeName",
-            width: 230
+            width: 200
           },
           {
             headerName: "Client Name",
             field: "clientName",
-            width: 230
+            width: 200
           },
           {
             headerName: "Return Reason",
@@ -115,6 +116,7 @@ export class ReturnsOutStandingComponent{
 
   returnSearch(){
     this.spinner.show();
+    this.errorMsg = null;
     this.consigmentUploadService.fetchOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.user_Id, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
@@ -122,6 +124,43 @@ export class ReturnsOutStandingComponent{
         this.spinner.hide() 
       }, 5000);
     })
+  };
+
+  outstandingReturns(){
+    var returnArrayDetails = []
+    if(this.rowData && this.rowData.length > 0 ){
+      let articleId = 'articleId';
+      let referenceNumber = 'referenceNumber';
+      let consigneeName = 'consigneeName';
+      let clientName = 'clientName';
+      let returnReason = 'returnReason';
+      for(var returnsData in this.rowData){
+          var returnArrayData = this.rowData[returnsData];
+          var returnObj = (
+            returnObj={}, 
+              returnObj[articleId]= returnArrayData.articleId != null ? returnArrayData.articleId : '' , returnObj,
+              returnObj[referenceNumber]= returnArrayData.referenceNumber != null ? returnArrayData.referenceNumber : '', returnObj,
+              returnObj[consigneeName]= returnArrayData.consigneeName != null ?  returnArrayData.consigneeName : '', returnObj,
+              returnObj[clientName]= returnArrayData.clientName != null ? returnArrayData.clientName : '', returnObj,
+              returnObj[returnReason]= returnArrayData.returnReason != null ? returnArrayData.returnReason : '', returnObj         
+            );
+            returnArrayDetails.push(returnObj);
+       };
+        var currentTime = new Date();
+        var fileName = '';
+            fileName = "Return-Details"+"-"+currentTime.toLocaleDateString();
+        var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Article Id', 'Reference Number', 'Consignee Name', 'Client Name', 'Return Reason']
+          };
+        new Angular2Csv(returnArrayDetails, fileName, options); 
+    }else{
+        this.errorMsg =  "**Data is not Avilable to download";
+    } 
   }
 
   

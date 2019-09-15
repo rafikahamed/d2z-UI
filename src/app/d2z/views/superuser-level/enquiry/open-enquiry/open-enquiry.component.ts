@@ -4,7 +4,6 @@ declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as XLSX from 'xlsx';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
@@ -140,8 +139,7 @@ export class superUserOpenEnquiryComponent{
           new Angular2Csv(enquiryDownloadData, fileName, options); 
       }else{
           this.errorMsg =  "**Data is not Avilable to download";
-      } 
-    
+      }   
   }
   
 }
