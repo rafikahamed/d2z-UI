@@ -30,6 +30,7 @@ export class SuperUserInvoiceComponent implements OnInit{
 @ViewChild('toinput', {
   read: MatInput
 }) toinput: MatInput;
+@ViewChild('myInput') myInputVariable: ElementRef;
   childmenu: boolean;
   childmenuTwo:boolean;
   childmenuThree:boolean;
@@ -38,31 +39,53 @@ export class SuperUserInvoiceComponent implements OnInit{
   childmenuSix:boolean;
   public importList = [];
   errorMsg: string;
+  errorMsg1: string;
   show: Boolean;
-  consignmentFlag; Boolean;
+  consignmentFlag: Boolean;
   deletedFlag: Boolean;
   shipmentFlag: Boolean;
   nonshipmentFlag: Boolean;
+  consignmentFlag1: Boolean;
+  shipmentFlag1: Boolean;
   mydate: Date;
   successMsg: String;
+   successMsg1: String;
   fromDate: String;
   toDate: String;
   userName: String;
   role_id: String;
   private gridOptionsConsignment: GridOptions;
+   private gridOptionsConsignment1: GridOptions;
   private gridOptionsDeleted: GridOptions;
   private gridOptionsShipment: GridOptions;
+   private gridOptionsShipment1: GridOptions;
   private gridOptionsNonShipment:GridOptions;
+
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowDataConsignment: any[];
   private rowDataDeleted: any[];
   private rowDataShipment: any[];
+  private rowDataConsignment1: any[];
+   private rowDataShipment1: any[];
   private defaultColDef;
-  exportTypeDropdown: dropdownTemplate[];  
+  exportTypeDropdown: dropdownTemplate[]; 
+   exportTypeDropdown1: dropdownTemplate[]; 
+    TypeDropdown: dropdownTemplate[];  
   selectedExportType: dropdownTemplate;
+   selectedExportType1: dropdownTemplate;
+     selectedType: dropdownTemplate;
   shipmentAllocateForm: FormGroup;
   exportFileType: String;
+  exportFileType1: String;
+    articleData = [];
+     barcodeData=[];
+      refData=[];
+      outputData  =[];
+  file:File;
+  public importList1 = [];
+   arrayBuffer:any;
+   Type1: String;
   system: String;
   constructor(
     public trackingDataService : TrackingDataService,
@@ -71,6 +94,7 @@ export class SuperUserInvoiceComponent implements OnInit{
   ) {
     this.show = false;
     this.consignmentFlag = true;
+    this.consignmentFlag1 = true;
     this.deletedFlag= false;
     this.shipmentAllocateForm = new FormGroup({
       shipmentNumber: new FormControl()
@@ -229,6 +253,319 @@ export class SuperUserInvoiceComponent implements OnInit{
         width: 100
       },
 	  {
+        headerName: "Girth",
+        field: "girth",
+        width: 100
+      },
+      {
+        headerName: "Item Count",
+        field: "itemCount",
+        width: 100
+      },
+      {
+        headerName: "Item Currency",
+        field: "itemCurrency",
+        width: 100
+      },
+      {
+        headerName: "Item Origin",
+        field: "itemOrigin",
+        width: 100
+      },
+      {
+        headerName: "Total Weight Unit",
+        field: "totalWeightUnit",
+        width: 100
+      },
+      {
+        headerName: "Dimension Unit",
+        field: "dimension Unit",
+        width: 200
+      },
+      {
+        headerName: "Native Description",
+        field: "nativeDescription",
+        width: 200
+      },
+      {
+        headerName: "Address line 2",
+        field: "addressLine2",
+        width: 200
+      },
+      {
+        headerName: "Address line 3",
+        field: "addressLine3",
+        width: 200
+      },
+      {
+        headerName: "Dimension Unit",
+        field: "dimension Unit",
+        width: 200
+      },
+      {
+        headerName: "Native Description",
+        field: "nativeDescription",
+        width: 200
+      },
+      {
+        headerName: "Address line 2",
+        field: "addressLine2",
+        width: 200
+      },
+      {
+        headerName: "Address line 3",
+        field: "addressLine3",
+        width: 200
+      },
+      {
+        headerName: "Email",
+        field: "email",
+        width: 200
+      },
+      {
+        headerName: "SKU",
+        field: "sku",
+        width: 200
+      },
+      {
+        headerName: "Service Option",
+        field: "serviceOption",
+        width: 200
+      },
+      {
+        headerName: "Battery Packing",
+        field: "batteryPacking",
+        width: 200
+      },
+      {
+        headerName: "Battery Type",
+        field: "batteryType",
+        width: 200
+      },
+      {
+        headerName: "Shipper Facility/Origin",
+        field: "shipperFacility",
+        width: 200
+      },
+      {
+        headerName: "Locker Service",
+        field: "lockerService",
+        width: 200
+      },
+      {
+        headerName: "Incoterm",
+        field: "Incoterm",
+        width: 200
+      },
+      {
+        headerName: "Recipient Tax ID",
+        field: "recipientTaxID",
+        width: 200
+      },
+      {
+        headerName: "Return Option",
+        field: "returnOption",
+        width: 200
+      },
+      {
+        headerName: "Shipping Instructions",
+        field: "shippingInstructions",
+        width: 200
+      },
+      {
+        headerName: "Item Native Desc",
+        field: "itemNativeDesc",
+        width: 200
+      },
+      {
+        headerName: "Item HSCode",
+        field: "itemHSCode",
+        width: 200
+      },
+      {
+        headerName: "Item Product URL",
+        field: "itemProductURL",
+        width: 200
+      },
+      {
+        headerName: "Insure",
+        field: "insure",
+        width: 200
+      },
+      {
+        headerName: "Beneficiary",
+        field: "beneficiary",
+        width: 200
+      },
+      {
+        headerName: "Insurance Amount",
+        field: "insuranceAmount",
+        width: 200
+      },
+      {
+        headerName: "Insurance Currency",
+        field: "insuranceCurrency",
+        width: 200
+      },
+      {
+        headerName: "Shipper Address Line2",
+        field: "shipperAddressLine2",
+        width: 200
+      },
+      {
+        headerName: "Shipper Address Line3",
+        field: "shipperAddressLine3",
+        width: 200
+      },
+      {
+        headerName: "Shipper Phone",
+        field: "shipperPhone",
+        width: 200
+      }
+    ];
+//This grid for consignment File:
+ this.gridOptionsConsignment1 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsConsignment1.columnDefs = [
+      {
+        headerName: "Ref No.",
+        field: "reference_number",
+        width: 200,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Article ID",
+        field: "barcodelabelNumber",
+        width: 200
+      },
+      {
+        headerName: "Address line 1",
+        field: "consignee_addr1",
+        width: 200
+      },
+      {
+        headerName: "Recipient Name",
+        field: "consignee_name",
+        width: 200
+      },
+      {
+        headerName: "Phone",
+        field: "consignee_Phone",
+        width: 150
+      },
+      {
+        headerName: "Postcode",
+        field: "consignee_Postcode",
+        width: 150
+      },
+      {
+        headerName: "State",
+        field: "consignee_State",
+        width: 200
+      },
+      {
+        headerName: "City/Suburb",
+        field: "consignee_Suburb",
+        width: 200
+      },
+      {
+        headerName: "Recipient Company",
+        field: "consigneeCompany",
+        width: 200
+      },
+      {
+        headerName: "Invoice Currency",
+        field: "currency",
+        width: 200
+      },
+      {
+        headerName: "Height",
+        field: "dimensions_Height",
+        width: 150
+      },
+      {
+        headerName: "Length",
+        field: "dimensions_Length",
+        width: 150
+      },
+      {
+        headerName: "Width",
+        field: "dimensions_Width",
+        width: 150
+      },
+      {
+        headerName: "Goods Description",
+        field: "product_Description",
+        width: 400
+      },
+      {
+        headerName: "Item Description",
+        field: "product_Description",
+        width: 400
+      },
+      {
+        headerName: "Shipper Address Line1",
+        field: "shipper_Addr1",
+        width: 250
+      },
+      {
+        headerName: "Shipper Address City",
+        field: "shipper_City",
+        width: 200
+      },
+      {
+        headerName: "Shipper Address Country",
+        field: "shipper_Country",
+        width: 300
+      },
+      {
+        headerName: "Shipper Name",
+        field: "shipper_Name",
+        width: 250
+      },
+      {
+        headerName: "Shipper Address Postcode",
+        field: "shipper_Postcode",
+        width: 200
+      },
+      {
+        headerName: "Shipper Address State",
+        field: "shipper_State",
+        width: 300
+      },
+      {
+        headerName: "Invoice Value",
+        field: "value",
+        width: 200
+      },
+      {
+        headerName: "Item Unit Value",
+        field: "value",
+        width: 200
+      },
+      {
+        headerName: "Total weight",
+        field: "weight",
+        width: 200
+      },
+      {
+        headerName: "Item Weight",
+        field: "weight",
+        width: 200
+      },
+      {
+        headerName: "Country",
+        field: "country",
+        width: 100
+      },
+      {
+        headerName: "Item No",
+        field: "itemNo",
+        width: 100
+      },
+    {
         headerName: "Girth",
         field: "girth",
         width: 100
@@ -580,6 +917,161 @@ export class SuperUserInvoiceComponent implements OnInit{
         width: 200
       }
     ];
+//This grid for Shipment File
+
+ this.gridOptionsShipment1 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsShipment1.columnDefs = [
+     {
+        headerName: "Broker Name",
+        field: "broker_name",
+        width: 200,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Invoice Number",
+        field: "reference_number",
+        width: 200,
+        
+      },
+      {
+        headerName: "Value",
+        field: "value",
+        width: 100
+      },
+      {
+        headerName: "Shipped Quantity",
+        field: "shippedQuantity",
+        width: 100
+      },
+      {
+        headerName: "Del Name",
+        field: "consignee_name",
+        width: 150
+      },
+      {
+        headerName: "Del Addr1",
+        field: "consignee_addr1",
+        width: 150
+      },
+      {
+        headerName: "Del Addr2 (suburb)",
+        field: "consignee_Suburb",
+        width: 150
+      },
+      {
+        headerName: "Del Addr3 (state)",
+        field: "consignee_State",
+        width: 150
+      },
+      {
+        headerName: "deladdr4 (country)",
+        field: "consignee_country",
+        width: 100
+      },
+      {
+        headerName: "Postcode",
+        field: "consignee_Postcode",
+        width: 100
+      },
+      {
+        headerName: "Email",
+        field: "email",
+        width: 200
+      },
+      {
+        headerName: "Telephone",
+        field: "consignee_Phone",
+        width: 200
+      },
+      {
+        headerName: "Product Description",
+        field: "product_Description",
+        width: 300
+      },
+      {
+        headerName: "Origin",
+        field: "shipper_Country",
+        width: 150
+      },
+      {
+        headerName: "Weight",
+        field: "weight",
+        width: 100
+      },
+      {
+        headerName: "Tracking Template",
+        field: "tracking_template",
+        width: 300
+      },
+      {
+        headerName: "Tracking Number",
+        field: "barcodelabelNumber",
+        width: 300
+      },
+      {
+        headerName: "Inventory Short Name",
+        field: "articleID",
+        width: 200
+      },
+      {
+        headerName: "Supplier",
+        field: "supplier",
+        width: 100
+      },
+      {
+        headerName: "Bill me",
+        field: "bill_me",
+        width: 300
+      },
+      {
+        headerName: "ServiceType",
+        field: "servicetype",
+        width: 250
+      },
+      {
+        headerName: "BagName",
+        field: "bagName",
+        width: 200
+      },
+      {
+        headerName: "Length",
+        field: "dimensions_Length",
+        width: 200
+      },
+      {
+        headerName: "Width",
+        field: "dimensions_Width",
+        width: 200
+      },
+      {
+        headerName: "Height",
+        field: "dimensions_Height",
+        width: 200
+      },
+      {
+        headerName: "Currency",
+        field: "currency",
+        width: 200
+      },
+      {
+        headerName: "Cost_Freight",
+        field: "Cost_Freight",
+        width: 200
+      },
+      {
+        headerName: "Cost_Insurance",
+        field: "Cost_Insurance",
+        width: 100
+      },
+      {
+        headerName: "ABN_ARN Number",
+        field: "ABN_ARN Number",
+        width: 200
+      }
+    ];
 
 
      // This grid is for NonShipment Items
@@ -755,7 +1247,26 @@ export class SuperUserInvoiceComponent implements OnInit{
         }
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
+
+       this.TypeDropdown = [
+        { "name": "Article ID", "value": "articleid" },
+        { "name": "Barcode Label", "value": "barcodelabel" },
+        { "name": "Reference Number", "value": "referencenumber" 
+        }
+      ];
+      this.selectedType = this.TypeDropdown[0];
+
+
+        this.exportTypeDropdown1 = [
+          { "name": "Export Consignment", "value": "export-consignment" },
+        { "name": "Export Shipment", "value": "export-shipment" 
+        }
+       
+      ];
+      this.selectedExportType1 = this.exportTypeDropdown1[0];
       this.exportFileType = this.exportTypeDropdown[0].value;
+       this.exportFileType1 = this.exportTypeDropdown1[0].value;
+       this.Type1 = this.TypeDropdown[0].value;
       this.getLoginDetails();
   };
 
@@ -808,8 +1319,174 @@ export class SuperUserInvoiceComponent implements OnInit{
     }
   };
 
-  downloaExportedData(){
-    var consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
+   onTypeChange(event){
+ 
+       this.Type1 = event.value.value;
+      this.myInputVariable.nativeElement.value = null;
+    this.file = null;
+     this.articleData = [];
+    this.refData = [];
+    this.barcodeData = [];
+   
+  };
+onExportTypeChange1(event){
+ 
+    this.exportFileType1 = event.value.value;
+  
+    if(event.value.value === 'export-consignment'){
+        this.consignmentFlag1 = true;
+      
+        this.shipmentFlag1 = false;
+       
+    }else if(event.value.value === 'export-shipment'){
+        this.consignmentFlag1 = false;
+      
+        this.shipmentFlag1 = true;
+       
+    }
+  
+ 
+  };
+
+  incomingfile(event) {
+    this.articleData = [];
+    this.refData = [];
+    this.barcodeData = [];
+    this.file = event.target.files[0]; 
+    if(this.Type1 === 'articleid')
+    {
+    this.uploadArticleID();
+
+    }
+    else if(this.Type1 === 'barcodelabel')
+    {
+this.uploadBarcodeLabel();
+    }
+    else if (this.Type1 === 'referencenumber')
+    {
+    this.uploadReferencenumber();
+    }
+  };
+
+   uploadArticleID(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList1= [];
+      fileReader.readAsArrayBuffer(this.file);
+      let ArticleID   ='ArticleID';     
+     this.articleData = [];
+      
+
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+          
+            if(this.errorMsg == null){
+            var importObj = dataObj['Article ID'] != undefined ? dataObj['Article ID'] : '';
+              
+              this.importList1.push(importObj)
+            
+             
+              }
+          }
+           this.articleData = this.importList1;
+        }
+  }
+ uploadBarcodeLabel(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList1= [];
+      fileReader.readAsArrayBuffer(this.file);
+      let BarcodeLabel   ='BarcodeLabel';  
+      this.barcodeData = [];   
+
+      
+
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+            if(this.errorMsg == null){
+              var importObj = dataObj['Barcode Label'] != undefined ? dataObj['Barcode Label'] : '';
+              
+              
+              this.importList1.push(importObj)
+              console.log(this.importList1);
+             
+              }
+          }
+           this.barcodeData = this.importList1;
+        }
+  }
+ uploadReferencenumber(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList1= [];
+      this.refData = [];
+      fileReader.readAsArrayBuffer(this.file);
+      let Referencenumber   ='Referencenumber';     
+
+      
+
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+            if(this.errorMsg == null){
+              var importObj = dataObj['Reference Number'] != undefined ? dataObj['Reference Number'] : '';
+              
+          
+              this.importList1.push(importObj)
+              console.log(this.importList1);
+             
+              }
+          }
+           this.refData = this.importList1;
+
+        }
+  }
+
+
+  downloaExportedData(Type){
+  console.log(Type);
+   var consignmentSelectedRows;
+  if(Type==="fil")
+  {
+consignmentSelectedRows = this.gridOptionsConsignment1.api.getSelectedRows();
+  }
+  else
+  {
+consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
+  }
+   console.log(consignmentSelectedRows.length);
     if(consignmentSelectedRows.length > 0 ){
         var currentTime = new Date();
         var consignmentList = [];
@@ -1008,7 +1685,13 @@ export class SuperUserInvoiceComponent implements OnInit{
           }
         new Angular2Csv(consignmentList, fileName, options);        
       }else{
+       if(Type==="fil")
+  {
+  this.errorMsg1 = "**Please select the below records to download the Export Consignment details";
+  }
+  else{
         this.errorMsg = "**Please select the below records to download the Export Consignment details";
+        }
       } 
   };
 
@@ -1046,8 +1729,19 @@ export class SuperUserInvoiceComponent implements OnInit{
       } 
   };
 
-  downloadShipmentData(){
-    var shipmentSelectedRows = this.gridOptionsShipment.api.getSelectedRows();
+  downloadShipmentData(Type){
+
+   console.log(Type);
+   var shipmentSelectedRows;
+  if(Type==="fil")
+  {
+shipmentSelectedRows =  this.gridOptionsShipment1.api.getSelectedRows();
+  }
+  else
+  {
+shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
+  }
+    
     if(shipmentSelectedRows.length > 0 ){
         var currentTime = new Date();
         var shipmentList = [];
@@ -1132,7 +1826,15 @@ export class SuperUserInvoiceComponent implements OnInit{
           }
         new Angular2Csv(shipmentList, fileName, options);        
       }else{
-        this.errorMsg = "**Please select the below records to download the Shipment Consignment details";
+      if(Type==="fil")
+  {
+    this.errorMsg1 = "**Please select the below records to download the Shipment Consignment details";
+  }
+  else
+  {
+    this.errorMsg = "**Please select the below records to download the Shipment Consignment details";
+  }
+      
       } 
   };
 downloadNonShipmentData(){
@@ -1246,6 +1948,20 @@ console.log("imhere");
     this.errorMsg = null;
    
   };
+ clearDetails1(){
+   this.myInputVariable.nativeElement.value = '';
+     this.articleData = [];
+    this.refData = [];
+    this.barcodeData = [];
+    this.outputData = [];
+ this.successMsg1 = null;
+    this.errorMsg1 = null;
+if(this.exportFileType1 === 'export-consignment'){
+          this.rowDataConsignment1 = [];
+        }else if(this.exportFileType1 === 'export-shipment'){
+          this.rowDataShipment1 = [];
+        }
+    }
 
     exportSearch(){
     this.errorMsg = null;
@@ -1308,6 +2024,61 @@ console.log("imhere");
         }, 5000);
        });
      }
+  };
+ exportSearch1(){
+    this.errorMsg1 = null;
+    this.successMsg1 = '';
+    this.outputData = [];
+    
+     if(this.Type1 === 'articleid' && this.articleData.length > 0)
+    {
+  this.outputData = this.articleData;
+
+    }
+    else if(this.Type1 === 'barcodelabel' && this.barcodeData.length > 0)
+    {
+this.outputData = this.barcodeData;
+    }
+    else if (this.Type1 === 'referencenumber' && this.refData.length > 0)
+    {
+    this.outputData = this.refData;
+    }
+
+    if(this.outputData.length == 0)
+    {
+    this.errorMsg1 = "Please Upload the Correct File";
+    }
+    if(this.errorMsg1 == null && this.exportFileType1 === 'export-consignment'){
+        this.spinner.show();
+        this.trackingDataService.exportConsignmentfile(this.Type1, this.outputData, (resp) => {
+          this.spinner.hide();
+          if(resp.status == 400 ){
+            this.successMsg1 = resp.error.errorMessage;
+          }
+          if(resp.status == undefined ){
+            this.rowDataConsignment1 = resp;
+          }
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 5000);
+        });
+    }else if(this.errorMsg == null && this.exportFileType1 === 'export-shipment'){
+      this.spinner.show();
+      this.trackingDataService.exportShipmentfile(this.Type1, this.outputData, (resp) => {
+        this.spinner.hide();
+       
+        if(resp.status == 400 ){
+          this.successMsg1 = resp.error.errorMessage;
+        }
+        if(resp.status == undefined ){
+          this.rowDataShipment1 = resp;
+        }
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+       });
+     }
+    
   };
 
   onConsignmentChange() {
