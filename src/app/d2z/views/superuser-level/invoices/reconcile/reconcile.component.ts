@@ -83,7 +83,7 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Article No",
         field: "articleNo",
-        width: 400,
+        width: 270,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
@@ -92,21 +92,21 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Normal Rate/Parcel",
         field: "normalRateParcel",
-        width: 400
+        width: 230
       },
       {
         headerName: "Article Actual Weight",
         field: "articleActualWeight",
-        width: 400
+        width: 230
       }
     ];
     
     this.gridOptionsSuplier2 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsSuplier2.columnDefs = [
       {
-        headerName: "Invoice Number",
-        field: "refrenceNumber",
-        width: 400,
+        headerName: "Article No",
+        field: "articleNo",
+        width: 270,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
@@ -115,12 +115,12 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Charged Weight",
         field: "chargedWeight",
-        width: 400
+        width: 230
       },
       {
         headerName: "Cost (AUD)",
         field: "cost",
-        width: 300
+        width: 230
       }
     ];
 
@@ -129,7 +129,7 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Article No",
         field: "articleNo",
-        width: 400,
+        width: 300,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
@@ -138,12 +138,12 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Normal Rate/Parcel",
         field: "normalRateParcel",
-        width: 400
+        width: 300
       },
       {
         headerName: "Article Actual Weight",
         field: "articleActualWeight",
-        width: 400
+        width: 300
       }
     ];
 
@@ -152,7 +152,7 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Invoice Number",
         field: "refrenceNumber",
-        width: 400,
+        width: 300,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
@@ -161,7 +161,7 @@ export class SuperUserReconcileComponent implements OnInit {
       {
         headerName: "Charged Weight",
         field: "chargedWeight",
-        width: 400
+        width: 300
       },
       {
         headerName: "Cost (AUD)",
@@ -213,7 +213,7 @@ export class SuperUserReconcileComponent implements OnInit {
     this.downloadReconcile = false;
     this.supplierTypeDropdown = [
       { "name": "UBI Template", "value": "UBITemplate" },
-      { "name": "Freipost template", "value": "freipostTemplate" }
+      { "name": "PFL Template", "value": "pflTemplate" }
     ];
     this.supplierType = this.supplierTypeDropdown[0].value;
     this.nonD2zSupplierTypeDropdown = [
@@ -270,7 +270,7 @@ export class SuperUserReconcileComponent implements OnInit {
               }
           }
         }
-    }else if(this.supplierType == 'freipostTemplate'){
+    }else if(this.supplierType == 'pflTemplate'){
       this.supplierTwoList= [];
       this.rowDataSupplier2  = [];
       fileReader.readAsArrayBuffer(this.file);
@@ -295,10 +295,10 @@ export class SuperUserReconcileComponent implements OnInit {
               if(this.errorMsg == null){
                 var reconcileTwoObj = (
                   reconcileTwoObj={}, 
-                  reconcileTwoObj[refrenceNumber]= reconcile['Invoice Number'] != undefined ? reconcile['Invoice Number'] : '', reconcileTwoObj,
-                  reconcileTwoObj[chargedWeight]= reconcile['Charged Weight'] != undefined ? reconcile['Charged Weight'] : '', reconcileTwoObj,
-                  reconcileTwoObj[cost]= reconcile['Cost (AUD)'] != undefined ? reconcile['Cost (AUD)'] : '', reconcileTwoObj,
-                  reconcileTwoObj[supplierType]= 'freipost', reconcileTwoObj
+                  reconcileTwoObj[refrenceNumber]= reconcile['Reference Number'] != undefined ? reconcile['Reference Number'] : '', reconcileTwoObj,
+                  reconcileTwoObj[chargedWeight]= reconcile['Weight'] != undefined ? reconcile['Weight'] : '', reconcileTwoObj,
+                  reconcileTwoObj[cost]= reconcile['Amount'] != undefined ? reconcile['Amount'] : '', reconcileTwoObj,
+                  reconcileTwoObj[supplierType]= 'PFL', reconcileTwoObj
                 );
               this.supplierTwoList.push(reconcileTwoObj)
               this.rowDataSupplier2 = this.supplierTwoList;
@@ -315,7 +315,7 @@ export class SuperUserReconcileComponent implements OnInit {
     if(this.supplierType == 'UBITemplate'){
       this.suplier2Flag = false;
       this.suplier1Flag = true;
-    }else if(this.supplierType == 'freipostTemplate'){
+    }else if(this.supplierType == 'pflTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = true;
     }
