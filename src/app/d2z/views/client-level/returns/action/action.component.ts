@@ -20,6 +20,7 @@ export class ReturnsActionComponent{
   referNumbers: any[];
   user_Id: String;
   system: String;
+  file: String;
   arrayBuffer:any;
   actionType: City[];
   public openEnquiryList = [];
@@ -212,7 +213,6 @@ export class ReturnsActionComponent{
   onActionTypeChange(){};
 
   UpdateAction(){
-
     var referNumber = [];
     this.actionReturnsArray.forEach(function(item){
         if(item.actionType && item.actionType.value == 'resend' && item.selection){
@@ -225,6 +225,15 @@ export class ReturnsActionComponent{
       $('#returnAction').modal('show');
       this.referNumbers = referNumber;
     }
+  };
+
+  actionFile(event){
+    this.file = event.target.files[0]; 
+      if(this.file){
+        
+      }
+      console.log(this.file )
+      console.log("Incoming File------------------------->")
   }
 
 }
