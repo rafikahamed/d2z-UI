@@ -13,7 +13,8 @@
                                 </div>
                         </div>
                   </div>
-                  
+                   <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" >
+       <mat-tab label="Download Reports">
                   <div class="delete_search">
                       <div>
                         <p style="float:left; margin-top:5px"> Select Shipment to fetch records : </p>
@@ -140,8 +141,159 @@
                       </div>
                   </div>
         
-            </div>
+           
+</mat-tab>
+ <mat-tab label="Upload File-Download Reports">
 
+    <div class="delete_search">
+      <div class="container">
+                        <div class="row">
+                      <div class="col-md-2">
+
+                         <p style="float:left; margin-top:5px;margin-left:20px"> Input Type : </p>
+                               
+                        
+
+                        <div style="float:left">
+                             <p-dropdown [options]="TypeDropdown" 
+                                                    [(ngModel)]="selectedType" 
+                                                    optionLabel="name" 
+                                                    [style]="{'width':'100%'}"
+                                                    (onChange)="onTypeChange($event)">
+                                      </p-dropdown>
+                        </div>
+
+                      </div>
+
+                       <div class="col-md-4">
+                         
+                            <p style="float:left; margin-left:30px ;margin-top:5px"> Select the File to upload details: </p>
+                            <input  #myInput  type="file" 
+                            
+                                   style="display: inline-block;" 
+                                   (change)="incomingfile($event)" 
+                                   placeholder="Upload file" 
+                                   accept=".xlsx">
+                          </div> 
+
+                      <div class="col-md-2">
+                          <p style="float:left; margin-top:5px"> Select Template : </p>
+  
+                          <div style="margin-left:10px; float:left">
+                              <p-dropdown [options]="templateArray1" [(ngModel)]="selectedTemplate1" optionLabel="name" 
+                                          (onChange)="onTemplateChange1($event)">
+                              </p-dropdown>
+                          </div>
+                        </div>
+  <div class="col-md-2" style="margin-left:30px; float:left">
+                          <button type="button" 
+                                  class="btn btn-info" 
+                                  (click)="downLoadSearch1()"
+                                  style="background-color: #16A085; margin-left:30px">
+                                  <span class="glyphicon glyphicon-search"></span>
+                                  Search</button>
+  
+  </div>
+                        </div>
+                  </div>
+</div>
+
+                  <div class="delete_panel">
+                      <ngx-spinner
+                          bdColor="rgba(51,51,51,0.8)"
+                          size="medium"
+                          color="#fff"
+                          loadingText="Loading..."
+                          type="ball-clip-rotate-multiple">
+                      </ngx-spinner>
+                        
+                        <div>
+                                <p class="success_msg">{{successMsg1}}</p>
+                        </div>
+      
+                        <div>
+                                <p class="err_msg">{{errorMsg1}}</p>
+                        </div>
+                     
+                      <button *ngIf="template11" 
+                              type="button" 
+                              class="btn btn-info" 
+                              (click)="downloadShipmentDetails('fil')"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                              Download Shipment-1 Details
+                      </button>
+
+                      <button *ngIf="template21" 
+                              type="button" 
+                              class="btn btn-info" 
+                              (click)="downloadShipmentDetails('fil')"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                              Download Shipment-2 Details
+                      </button>
+    
+                      <div style="padding:20px">
+                
+                        <p> Please select the below records to download the Shipment Details</p>
+                        
+                          <div *ngIf="template11">
+                              <ag-grid-angular 
+                                        #agGrid style="width: 100%; height: 450px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowData1"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="gridOptions1" 
+                                        [pagination]="true"
+                                        (selectionChanged)="onSelectionChange($event)">
+                              </ag-grid-angular>
+                          </div>
+
+                          <div *ngIf="template21">
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 450px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowData1"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsTemplate11" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onSelectionTemplateChange($event)">
+                            </ag-grid-angular>
+                        </div>
+
+                      </div>
+                  </div>
+        
+           
+
+  </mat-tab>
+</mat-tab-group>
+
+</div>
             <footer id="footer" class="wow fadeIn">
                 <div class="copyright">
                   <div class="container">

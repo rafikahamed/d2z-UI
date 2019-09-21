@@ -328,6 +328,35 @@ exportConsignmentfile( type, List,callback): any {
     });
   };
 
+
+fetchShipmentDetailsType( shipmentNumber, userId,Type, callback): any {
+    this.http.get(baseUrl+'/consignments/shipmenttype', {
+      params: { Data: shipmentNumber, userId: userId,Type:Type }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  fetchShipmentDetailsTempalte2Type( shipmentNumber, userId,Type, callback): any {
+    this.http.get(baseUrl+'/broker-level/consignments/shipmenttype', {
+      params: { Data: shipmentNumber, userId: userId,Type:Type  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
   fetchDirectInjectionDetails( companyName, callback): any {
     this.http.get(baseUrl+'/broker-level/direct-injection', {
       params: { companyName: companyName  }

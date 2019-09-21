@@ -6,6 +6,8 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import * as XLSX from 'xlsx';
+
 declare var $: any;
 
 interface dropdownTemplate {
@@ -19,25 +21,47 @@ interface dropdownTemplate {
   styleUrls: ['./download-shipment.component.css']
 })
 export class DownloadShipmentComponent implements OnInit{
+@ViewChild('myInput') myInputVariable: ElementRef;
   shipmentNumber: string;
   templateType: String;
+  templateType1: String;
   errorMsg: string;
   successMsg: String;
+  errorMsg1: string;
+  successMsg1: String;
   template1: Boolean;
   template2: Boolean;
+  template11: Boolean;
+  template21: Boolean;
   userName: String;
   role_id: String;
   userId: String;
   system: String;
   private gridOptions: GridOptions;
   private gridOptionsTemplate1: GridOptions;
+   private gridOptions1: GridOptions;
+  private gridOptionsTemplate11: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowData: any[];
+  private rowData1: any[];
   private defaultColDef;
   ShipmentArray: dropdownTemplate[];  
   templateArray: dropdownTemplate[];
+  templateArray1: dropdownTemplate[];
   selectedTemplate: dropdownTemplate;
+  selectedTemplate1: dropdownTemplate;
+  selectedType: dropdownTemplate;
+  TypeDropdown: dropdownTemplate[];  
+  articleData = [];
+  barcodeData=[];
+  refData=[];
+  outputData  =[];
+  public importList1 = [];
+  arrayBuffer:any;
+  file:File;
+  Type1: String;
+
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -56,6 +80,8 @@ export class DownloadShipmentComponent implements OnInit{
       editable: true
     };
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
+
+
     this.gridOptions.columnDefs = [
 
       {
@@ -214,8 +240,170 @@ export class DownloadShipmentComponent implements OnInit{
       }*/
     ];
 
+ this.gridOptions1 = <GridOptions>{ rowSelection: "multiple" };
+    
+
+    this.gridOptions1.columnDefs =   this.gridOptions.columnDefs ;
     this.gridOptionsTemplate1 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsTemplate1.columnDefs = [
+      {
+        headerName: "Reference number",
+        field: "reference_number",
+        width: 180,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "CONNOTE NO",
+        field: "barcodelabelNumber",
+        width: 150
+      },
+      {
+        headerName: "Weight",
+        field: "weight",
+        width: 150
+      },
+      {
+        headerName: "Consignee Name",
+        field: "consignee_name",
+        width: 200
+      },
+      {
+        headerName: "Consignee Phone",
+        field: "consignee_Phone",
+        width: 100
+      },
+      {
+        headerName: "Consignee Address",
+        field: "consignee_addr1",
+        width: 100
+      },
+      {
+        headerName: "Consignee Suburb",
+        field: "consignee_Suburb",
+        width: 150
+      },
+      {
+        headerName: "Consignee State",
+        field: "consignee_State",
+        width: 160
+      },
+      {
+        headerName: "Consignee Postcode",
+        field: "consignee_Postcode",
+        width: 100
+      },
+      {
+        headerName: "Consignee  Company",
+        field: "consigneeCompany",
+        width: 100
+      },
+      {
+        headerName: "destination",
+        field: "destination",
+        width: 150
+      },
+      {
+        headerName: "quantity",
+        field: "shippedQuantity",
+        width: 100
+      },
+      {
+        headerName: "commodity",
+        field: "product_Description",
+        width: 100
+      },
+      {
+        headerName: "value",
+        field: "value",
+        width: 100
+      },
+      {
+        headerName: "cmeter",
+        field: "cmeter",
+        width: 100
+      },
+      {
+        headerName: "shipperName",
+        field: "shipper_Name",
+        width: 100
+      },
+      {
+        headerName: "shipperAddress",
+        field: "shipper_Addr1",
+        width: 140
+      },
+      {
+        headerName: "shipperCity",
+        field: "shipper_City",
+        width: 140
+      },
+      {
+        headerName: "shipperState",
+        field: "shipper_State",
+        width: 140
+      },
+      {
+        headerName: "shipperPostcode",
+        field: "shipper_Postcode",
+        width: 140
+      },
+      {
+        headerName: "shipperCountry",
+        field: "shipper_Country",
+        width: 140
+      },
+      {
+        headerName: "shipperContact",
+        field: "airwayBill",
+        width: 140
+      },
+      {
+        headerName: "insurance",
+        field: "insurance",
+        width: 140
+      },
+      {
+        headerName: "clear",
+        field: "clear",
+        width: 140
+      },
+      {
+        headerName: "invoiceRef",
+        field: "invoiceRef",
+        width: 250
+      },
+      {
+        headerName: "importerAbn",
+        field: "importerAbn",
+        width: 250
+      },
+      {
+        headerName: "vendorId",
+        field: "vendorId",
+        width: 250
+      },
+      {
+        headerName: "consignorTin",
+        field: "consignorTin",
+        width: 250
+      },
+      {
+        headerName: "fbapo",
+        field: "fbapo",
+        width: 250
+      },
+      {
+        headerName: "fbashipmentID",
+        field: "fbashipmentID",
+        width: 25
+      }
+    ];
+
+      this.gridOptionsTemplate11 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsTemplate11.columnDefs = [
       {
         headerName: "Reference number",
         field: "reference_number",
@@ -377,6 +565,7 @@ export class DownloadShipmentComponent implements OnInit{
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
       this.template1 = true;
+      this.template11 = true;
       this.getLoginDetails();
       this.userId = this.consigmentUploadService.userMessage.user_id;
       this.templateArray = [
@@ -384,7 +573,22 @@ export class DownloadShipmentComponent implements OnInit{
         { "name": "Export Template 2", "value": "export-template-2" }
       ];
       this.selectedTemplate = this.templateArray[0];
+       this.templateArray1 = [
+        { "name": "Export Template 1", "value": "export-template-1" },
+        { "name": "Export Template 2", "value": "export-template-2" }
+      ];
+      this.selectedTemplate1 = this.templateArray1[0];
       this.templateType = this.templateArray[0].value;
+      this.templateType1 = this.templateArray1[0].value;
+
+       this.TypeDropdown = [
+        { "name": "Article ID", "value": "articleid" },
+        { "name": "Barcode Label", "value": "barcodelabel" },
+        { "name": "Reference Number", "value": "referencenumber" 
+        }
+      ];
+      this.selectedType = this.TypeDropdown[0];
+       this.Type1 = this.TypeDropdown[0].value;
       this.trackingDataService.shipmentList(this.userId, (resp) => {
         this.spinner.hide();
         this.ShipmentArray = resp;
@@ -406,6 +610,144 @@ export class DownloadShipmentComponent implements OnInit{
     this.shipmentNumber = event.value ? event.value.value:'';
   };
 
+   onTypeChange(event){
+ 
+       this.Type1 = event.value.value;
+      this.myInputVariable.nativeElement.value = null;
+    this.file = null;
+     this.articleData = [];
+    this.refData = [];
+    this.barcodeData = [];
+    this.rowData1 = [];
+   
+  };
+
+   incomingfile(event) {
+    this.articleData = [];
+    this.refData = [];
+    this.barcodeData = [];
+    this.file = event.target.files[0]; 
+    if(this.Type1 === 'articleid')
+    {
+    this.uploadArticleID();
+
+    }
+    else if(this.Type1 === 'barcodelabel')
+    {
+this.uploadBarcodeLabel();
+    }
+    else if (this.Type1 === 'referencenumber')
+    {
+    this.uploadReferencenumber();
+    }
+  };
+
+   uploadArticleID(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList1= [];
+      fileReader.readAsArrayBuffer(this.file);
+      let ArticleID   ='ArticleID';     
+     this.articleData = [];
+      
+
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+          console.log(dataObj);
+            if(this.errorMsg == null){
+            var importObj = dataObj['Article ID'] != undefined ? dataObj['Article ID'] : '';
+              
+              this.importList1.push(importObj)
+            
+             
+              }
+          }
+           this.articleData = this.importList1;
+        }
+  }
+ uploadBarcodeLabel(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList1= [];
+      fileReader.readAsArrayBuffer(this.file);
+      let BarcodeLabel   ='BarcodeLabel';  
+      this.barcodeData = [];   
+
+      
+
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+            if(this.errorMsg == null){
+              var importObj = dataObj['Barcode Label'] != undefined ? dataObj['Barcode Label'] : '';
+              
+              
+              this.importList1.push(importObj)
+              console.log(this.importList1);
+             
+              }
+          }
+           this.barcodeData = this.importList1;
+        }
+  }
+ uploadReferencenumber(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList1= [];
+      this.refData = [];
+      fileReader.readAsArrayBuffer(this.file);
+      let Referencenumber   ='Referencenumber';     
+
+      
+
+      fileReader.onload = (e) => {
+           this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+            if(this.errorMsg == null){
+              var importObj = dataObj['Reference Number'] != undefined ? dataObj['Reference Number'] : '';
+              
+          
+              this.importList1.push(importObj)
+              console.log(this.importList1);
+             
+              }
+          }
+           this.refData = this.importList1;
+
+        }
+  }
+
   onTemplateChange(event){
     this.templateType = event.value.value;
     if(event.value.value == 'export-template-2'){
@@ -418,7 +760,18 @@ export class DownloadShipmentComponent implements OnInit{
       this.rowData = null;
     } 
   }
-
+onTemplateChange1(event){
+    this.templateType1 = event.value.value;
+    if(event.value.value == 'export-template-2'){
+      this.template11 = false;
+      this.template21 = true;
+      this.rowData1 = null;
+    }else if(event.value.value == 'export-template-1'){
+      this.template11 = true;
+      this.template21 = false;
+      this.rowData1 = null;
+    } 
+  }
   downLoadSearch(){
     this.rowData=null;
     if(this.templateType == 'export-template-1'){
@@ -442,10 +795,66 @@ export class DownloadShipmentComponent implements OnInit{
     }
   }
 
-  downloadShipmentDetails(){
+
+ downLoadSearch1(){
+    this.rowData1=null;
+    this.errorMsg1 = null;
+    this.successMsg1 = '';
+    this.outputData = [];
+    
+     if(this.Type1 === 'articleid' && this.articleData.length > 0)
+    {
+  this.outputData = this.articleData;
+
+    }
+    else if(this.Type1 === 'barcodelabel' && this.barcodeData.length > 0)
+    {
+this.outputData = this.barcodeData;
+    }
+    else if (this.Type1 === 'referencenumber' && this.refData.length > 0)
+    {
+    this.outputData = this.refData;
+    }
+
+    if(this.outputData.length == 0)
+    {
+    this.errorMsg1 = "Please Upload the Correct File";
+    }
+    if(this.errorMsg1 == null && this.templateType1 == 'export-template-1'){
+      this.spinner.show();
+      this.trackingDataService.fetchShipmentDetailsType(this.outputData, this.userId,this.Type1, (resp) => {
+        this.spinner.hide();
+        this.rowData1 = resp;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+      });
+    }
+    else if(this.errorMsg1 == null && this.templateType1 == 'export-template-2'){
+      this.spinner.show();
+      this.trackingDataService.fetchShipmentDetailsTempalte2Type(this.outputData ,this.userId,this.Type1,(resp) => {
+        this.spinner.hide();
+        this.rowData1 = resp;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+      });
+    }
+  };
+
+  downloadShipmentDetails(Type){
     this.errorMsg = null;
-    if(this.template1){
-      var selectedRowsTemplate1 = this.gridOptions.api.getSelectedRows();
+    if(this.template1 || this.template2){
+ var selectedRowsTemplate1;
+     if(Type==="fil")
+  {
+selectedRowsTemplate1  = this.gridOptions1.api.getSelectedRows();
+  }
+  else
+  {
+  selectedRowsTemplate1  = this.gridOptions.api.getSelectedRows();
+  }
+      
       if(selectedRowsTemplate1.length > 0){
         var currentTime = new Date();
         var shipmentList = [];
@@ -533,8 +942,17 @@ export class DownloadShipmentComponent implements OnInit{
       };
     
     //Template 2 File Download
-    if(this.template2){
-        var selectedRowsTemplate2 = this.gridOptionsTemplate1.api.getSelectedRows();
+    if(this.template2 || this.template21){
+     var selectedRowsTemplate2 ;
+     if(Type==="fil")
+  {
+selectedRowsTemplate2    = this.gridOptionsTemplate11.api.getSelectedRows();
+  }
+  else
+  {
+  selectedRowsTemplate2    = this.gridOptionsTemplate1.api.getSelectedRows();
+  }
+      
         if(selectedRowsTemplate2.length > 0){
           var currentTime = new Date();
           var shipmentTemplateList = [];
