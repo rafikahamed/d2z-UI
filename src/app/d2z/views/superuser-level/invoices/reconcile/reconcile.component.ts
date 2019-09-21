@@ -104,8 +104,8 @@ export class SuperUserReconcileComponent implements OnInit {
     this.gridOptionsSuplier2 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsSuplier2.columnDefs = [
       {
-        headerName: "Article No",
-        field: "articleNo",
+        headerName: "Reference Number",
+        field: "refrenceNumber",
         width: 270,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
@@ -470,7 +470,7 @@ export class SuperUserReconcileComponent implements OnInit {
             var reconcile = supplier1Data[supplierOne];
             reconcileNumbers.push(reconcile.articleNo);
         }
-    }else if(this.supplierType == 'freipostTemplate'){
+    }else if(this.supplierType == 'pflTemplate'){
      var supplier2Data = this.gridOptionsSuplier2.api.getSelectedRows();
         for (var supplierTwo in supplier2Data) {
             var reconcile = supplier2Data[supplierTwo];
