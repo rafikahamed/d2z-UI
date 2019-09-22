@@ -71,7 +71,7 @@
                       <button *ngIf="template1" 
                               type="button" 
                               class="btn btn-info" 
-                              (click)="downloadShipmentDetails()"
+                              (click)="downloadShipmentDetails('nfil')"
                               style="background-color: #16A085; float:right; margin-right:20px">
                               <span class="glyphicon glyphicon-cloud-download"></span>
                               Download Shipment-1 Details
@@ -80,12 +80,21 @@
                       <button *ngIf="template2" 
                               type="button" 
                               class="btn btn-info" 
-                              (click)="downloadShipmentDetails()"
+                              (click)="downloadShipmentDetails('nfil')"
                               style="background-color: #16A085; float:right; margin-right:20px">
                               <span class="glyphicon glyphicon-cloud-download"></span>
                               Download Shipment-2 Details
                       </button>
     
+
+                      <button *ngIf="template3" 
+                              type="button" 
+                              class="btn btn-info" 
+                              (click)="downloadShipmentDetails('nfil')"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                              Download Shipment-3 Details
+                      </button>
                       <div style="padding:20px">
                 
                         <p> Please select the below records to download the Shipment Details</p>
@@ -135,6 +144,29 @@
                                       [gridOptions]="gridOptionsTemplate1" 
                                       [pagination]="true"
                                       (selectionChanged)="onSelectionTemplateChange($event)">
+                            </ag-grid-angular>
+                        </div>
+ <div *ngIf="template3">
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 450px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowData"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsTemplate2" 
+                                      [pagination]="true"
+                                     >
                             </ag-grid-angular>
                         </div>
 
@@ -233,6 +265,14 @@
                               Download Shipment-2 Details
                       </button>
     
+    <button *ngIf="template31" 
+                              type="button" 
+                              class="btn btn-info" 
+                              (click)="downloadShipmentDetails('fil')"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                              Download Shipment-3 Details
+                      </button>
                       <div style="padding:20px">
                 
                         <p> Please select the below records to download the Shipment Details</p>
@@ -282,6 +322,29 @@
                                       [gridOptions]="gridOptionsTemplate11" 
                                       [pagination]="true"
                                       (selectionChanged)="onSelectionTemplateChange($event)">
+                            </ag-grid-angular>
+                        </div>
+   <div *ngIf="template31">
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 450px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowData1"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsTemplate21" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onSelectionTemplate1Change($event)">
                             </ag-grid-angular>
                         </div>
 

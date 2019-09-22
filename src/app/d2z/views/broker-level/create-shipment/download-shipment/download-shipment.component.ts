@@ -31,16 +31,21 @@ export class DownloadShipmentComponent implements OnInit{
   successMsg1: String;
   template1: Boolean;
   template2: Boolean;
+  template3:Boolean;
   template11: Boolean;
   template21: Boolean;
+  template31:Boolean;
+
   userName: String;
   role_id: String;
   userId: String;
   system: String;
   private gridOptions: GridOptions;
   private gridOptionsTemplate1: GridOptions;
+   private gridOptionsTemplate2: GridOptions;
    private gridOptions1: GridOptions;
   private gridOptionsTemplate11: GridOptions;
+   private gridOptionsTemplate21: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowData: any[];
@@ -81,6 +86,8 @@ export class DownloadShipmentComponent implements OnInit{
     };
     this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
 
+ this.gridOptionsTemplate2 = <GridOptions>{ rowSelection: "multiple" };
+ this.gridOptionsTemplate21 = <GridOptions>{ rowSelection: "multiple" };
 
     this.gridOptions.columnDefs = [
 
@@ -239,6 +246,7 @@ export class DownloadShipmentComponent implements OnInit{
         width: 250
       }*/
     ];
+
 
  this.gridOptions1 = <GridOptions>{ rowSelection: "multiple" };
     
@@ -403,164 +411,147 @@ export class DownloadShipmentComponent implements OnInit{
     ];
 
       this.gridOptionsTemplate11 = <GridOptions>{ rowSelection: "multiple" };
-    this.gridOptionsTemplate11.columnDefs = [
+      this.gridOptionsTemplate11.columnDefs =   this.gridOptionsTemplate1.columnDefs ;
+
+      this.gridOptionsTemplate2.columnDefs = [
+
       {
-        headerName: "Reference number",
-        field: "reference_number",
+        headerName: "Hawb",
+        field: "referenceNumber",
         width: 180,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
           return params.columnApi.getRowGroupColumns().length === 0;
         }
       },
-      {
-        headerName: "CONNOTE NO",
-        field: "barcodelabelNumber",
+        {
+        headerName: "Customer Name",
+        field: "consigneeName",
+        width: 200
+      },
+
+       {
+        headerName: "Customer Address",
+        field: "consigneeAddress",
+        width: 100
+      },
+
+       {
+        headerName: "City",
+        field: "consigneeSuburb",
+        width: 100
+      },
+
+       {
+        headerName: "State",
+        field: "consigneeState",
+        width: 160
+      },
+
+
+       {
+        headerName: "Postcode",
+        field: "consigneePostcode",
+        width: 100
+      },
+
+ {
+        headerName: "Country",
+        field: "destination",
         width: 150
+      },
+       {
+        headerName: "Description",
+        field: "commodity",
+        width: 100
+      },
+{
+        headerName: "Count",
+        field: "count",
+        width: 100
+      },
+
+      {
+        headerName: "Landing",
+        field: "landing",
+        width: 100
+      },
+      {
+        headerName: "Description",
+        field: "commodity",
+        width: 100
       },
       {
         headerName: "Weight",
         field: "weight",
         width: 150
       },
-      {
-        headerName: "Consignee Name",
-        field: "consignee_name",
-        width: 200
-      },
-      {
-        headerName: "Consignee Phone",
-        field: "consignee_Phone",
-        width: 100
-      },
-      {
-        headerName: "Consignee Address",
-        field: "consignee_addr1",
-        width: 100
-      },
-      {
-        headerName: "Consignee Suburb",
-        field: "consignee_Suburb",
+
+{
+        headerName: "Shipper Code",
+        field: "shippercode",
         width: 150
       },
-      {
-        headerName: "Consignee State",
-        field: "consignee_State",
-        width: 160
-      },
-      {
-        headerName: "Consignee Postcode",
-        field: "consignee_Postcode",
-        width: 100
-      },
-      {
-        headerName: "Consignee  Company",
-        field: "consigneeCompany",
-        width: 100
-      },
-      {
-        headerName: "destination",
-        field: "destination",
-        width: 150
-      },
-      {
-        headerName: "quantity",
-        field: "shippedQuantity",
-        width: 100
-      },
-      {
-        headerName: "commodity",
-        field: "product_Description",
-        width: 100
-      },
-      {
-        headerName: "value",
-        field: "value",
-        width: 100
-      },
-      {
-        headerName: "cmeter",
-        field: "cmeter",
-        width: 100
-      },
-      {
+  {
         headerName: "shipperName",
-        field: "shipper_Name",
+        field: "shipperName",
         width: 100
       },
       {
         headerName: "shipperAddress",
-        field: "shipper_Addr1",
+        field: "shipperAddress",
         width: 140
       },
-      {
+     {
         headerName: "shipperCity",
-        field: "shipper_City",
+        field: "shipperCity",
         width: 140
       },
       {
         headerName: "shipperState",
-        field: "shipper_State",
+        field: "shipperState",
         width: 140
       },
       {
         headerName: "shipperPostcode",
-        field: "shipper_Postcode",
+        field: "shipperPostcode",
         width: 140
       },
       {
         headerName: "shipperCountry",
-        field: "shipper_Country",
+        field: "shipperCountry",
         width: 140
       },
-      {
-        headerName: "shipperContact",
-        field: "airwayBill",
-        width: 140
-      },
-      {
-        headerName: "insurance",
-        field: "insurance",
-        width: 140
-      },
-      {
-        headerName: "clear",
-        field: "clear",
-        width: 140
-      },
-      {
-        headerName: "invoiceRef",
-        field: "invoiceRef",
-        width: 250
-      },
-      {
-        headerName: "importerAbn",
-        field: "importerAbn",
-        width: 250
-      },
-      {
-        headerName: "vendorId",
-        field: "vendorId",
-        width: 250
-      },
-      {
-        headerName: "consignorTin",
-        field: "consignorTin",
-        width: 250
-      },
-      {
-        headerName: "fbapo",
-        field: "fbapo",
-        width: 250
-      },
-      {
-        headerName: "fbashipmentID",
-        field: "fbashipmentID",
-        width: 25
-      }
-    ];
-  }
 
+ {
+        headerName: "orginPort",
+        field: "orgin",
+        width: 140
+      },
+{
+        headerName: "destPort",
+        field: "dest",
+        width: 140
+      },
+{
+        headerName: "Totalvalue",
+        field: "value",
+        width: 100
+      },
+     {
+        headerName: "Goods Currency",
+        field: "goods",
+        width: 100
+      },
+      {
+        headerName: "SAC",
+        field: "sac",
+        width: 100
+      },
+    ];
+       this.gridOptionsTemplate21.columnDefs =   this.gridOptionsTemplate2.columnDefs ;
+   
+}
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.spinner.show();
@@ -570,12 +561,14 @@ export class DownloadShipmentComponent implements OnInit{
       this.userId = this.consigmentUploadService.userMessage.user_id;
       this.templateArray = [
         { "name": "Export Template 1", "value": "export-template-1" },
-        { "name": "Export Template 2", "value": "export-template-2" }
+        { "name": "Export Template 2", "value": "export-template-2" },
+         { "name": "Export Template 3", "value": "export-template-3" }
       ];
       this.selectedTemplate = this.templateArray[0];
        this.templateArray1 = [
         { "name": "Export Template 1", "value": "export-template-1" },
-        { "name": "Export Template 2", "value": "export-template-2" }
+        { "name": "Export Template 2", "value": "export-template-2" },
+         { "name": "Export Template 3", "value": "export-template-3" }
       ];
       this.selectedTemplate1 = this.templateArray1[0];
       this.templateType = this.templateArray[0].value;
@@ -753,10 +746,18 @@ this.uploadBarcodeLabel();
     if(event.value.value == 'export-template-2'){
       this.template1 = false;
       this.template2 = true;
+      this.template3 = false;
       this.rowData = null;
     }else if(event.value.value == 'export-template-1'){
       this.template1 = true;
       this.template2 = false;
+      this.template3 = false;
+      this.rowData = null;
+    } 
+    else if(event.value.value == 'export-template-3'){
+      this.template1 = false;
+      this.template2 = false;
+      this.template3 = true;
       this.rowData = null;
     } 
   }
@@ -765,10 +766,18 @@ onTemplateChange1(event){
     if(event.value.value == 'export-template-2'){
       this.template11 = false;
       this.template21 = true;
+       this.template31= false;
       this.rowData1 = null;
     }else if(event.value.value == 'export-template-1'){
       this.template11 = true;
       this.template21 = false;
+       this.template31= false;
+      this.rowData1 = null;
+    } 
+    else if(event.value.value == 'export-template-3'){
+      this.template11 = false;
+      this.template21 = false;
+      this.template31= true;
       this.rowData1 = null;
     } 
   }
@@ -786,6 +795,16 @@ onTemplateChange1(event){
     }else if(this.templateType == 'export-template-2'){
       this.spinner.show();
       this.trackingDataService.fetchShipmentDetailsTempalte2(this.shipmentNumber, this.userId,(resp) => {
+        this.spinner.hide();
+        this.rowData = resp;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+      });
+    }
+    else if(this.templateType == 'export-template-3'){
+      this.spinner.show();
+      this.trackingDataService.fetchShipmentDetailsTempalte3(this.shipmentNumber, this.userId,(resp) => {
         this.spinner.hide();
         this.rowData = resp;
         setTimeout(() => {
@@ -840,11 +859,24 @@ this.outputData = this.barcodeData;
         }, 5000);
       });
     }
+
+    else if(this.errorMsg1 == null && this.templateType1 == 'export-template-3'){
+      this.spinner.show();
+
+      this.trackingDataService.fetchShipmentDetailsTemplate3Type(this.outputData ,this.userId,this.Type1,(resp) => {
+        this.spinner.hide();
+        this.rowData1 = resp;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 5000);
+      });
+    }
   };
 
   downloadShipmentDetails(Type){
     this.errorMsg = null;
-    if(this.template1 || this.template2){
+
+    if((this.template1 && Type==="nfil") || (this.template11 && Type==="fil")){
  var selectedRowsTemplate1;
      if(Type==="fil")
   {
@@ -942,7 +974,7 @@ selectedRowsTemplate1  = this.gridOptions1.api.getSelectedRows();
       };
     
     //Template 2 File Download
-    if(this.template2 || this.template21){
+    if((this.template2 && Type==="nfil") || (this.template21 && Type==="fil")){
      var selectedRowsTemplate2 ;
      if(Type==="fil")
   {
@@ -1109,7 +1141,106 @@ selectedRowsTemplate2    = this.gridOptionsTemplate11.api.getSelectedRows();
         }else{
           this.errorMsg = "**Please select the below records to download the Shipment details";
         };
+};
+//Template 3 file download
+ if((this.template3 && Type==="nfil")|| (this.template31 && Type==="fil")){
+ var selectedRowsTemplate1;
+ console.log("in template 3");
+     if(Type==="fil")
+  {
+selectedRowsTemplate1  = this.gridOptionsTemplate21.api.getSelectedRows();
+  }
+  else
+  {
+  selectedRowsTemplate1  = this.gridOptionsTemplate2.api.getSelectedRows();
+  }
+      
+      if(selectedRowsTemplate1.length > 0){
+        var currentTime = new Date();
+        var shipmentList = [];
+        var fileName = '';
+            fileName = "Shipment_Details_Template3"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ "HAWB" , "CUSTOMER CODE", "CUSTOMER NAME", "CUSTOMER ADDRESS", "CITY","STATE","POSTCODE","COUNTRY","DESCRIPTION","COUNT","LANDING",
+            "WEIGHT","SHIPPER CODE","SHIPPER NAME","SHIPPER ADDRESS","SHIPPER STATE","SHIPPER POSTCODE",
+            "SHIPPER COUNTRY ","ORGIN PORT","DEST PORT","TOTAL VALUE", "GOODS CURRENCY","SAC" ]
+          };
+          let HAWB = 'HAWB';
+        let CUSTOMER_CODE = 'CODE';
+          let CUSTOMER_NAME = 'CUSTOMER_NAME';
+          let CUSTOMER_ADDRESS = 'CUSTOMER_ADDRESS';
+          let CITY = 'CITY';
+          let STATE = 'STATE';
+          let POSTCODE = 'POSTCODE';
+          let COUNTRY = 'COUNTRY';
+          let DESCRIPTION = 'DESCRPTION';
+          let COUNT = 'COUNT';
+          let LANDING = 'LANDING';
+          let WEIGHT = 'WEIGHT';
+          let SHIPPER_CODE = 'S_CODE';
+          let SHIPPER = 'SHIPPER';
+          let SHIPPER_ADD = 'SHIPPER_ADD';
+         
+          let SHIPPER_STATE = 'SHIPPER_STATE';
+          let SHIPPER_PC = 'SHIPPER_PC';
+          let SHIPPER_COUNTRY = 'SHIPPER_COUNTRY';
+          let ORGIN = 'ORGIN';
+          let DEST = 'DEST';
+          let TOTAL_VALUE = 'TOTAL_VALUE';
+          let GOODS_CURRENCY = 'GOODS_CURRENCY';
+          let SAC = 'SAC';
+      
+          for (var importVal in selectedRowsTemplate1) {
+
+              var adminObj = selectedRowsTemplate1[importVal];
+              console.log(adminObj.destination);
+              var importObj = (
+                  importObj={}, 
+                  importObj[HAWB] = adminObj.referenceNumber!=null ? adminObj.referenceNumber : '' ,importObj,
+                   importObj[CUSTOMER_CODE] = '' ,importObj,
+                   importObj[CUSTOMER_NAME]= adminObj.consigneeName != null ? adminObj.consigneeName : '', importObj,
+                 importObj[CUSTOMER_ADDRESS]= adminObj.consigneeAddress != null ? adminObj.consigneeAddress : '', importObj,
+                 importObj[CITY]= adminObj.consigneeSuburb != null ? adminObj.consigneeSuburb : '', importObj,
+                  importObj[STATE]= adminObj.consigneeState != null ? adminObj.consigneeState : '', importObj,
+                  importObj[POSTCODE]= adminObj.consigneePostcode != null ? adminObj.consigneePostcode : '',  importObj,  
+                  importObj[COUNTRY]= adminObj.destination != null ? adminObj.destination : '', importObj,
+                  importObj[DESCRIPTION]= adminObj.commodity != null ? adminObj.commodity : '', importObj,
+                  importObj[COUNT]= adminObj.count != null ? adminObj.count : '', importObj,
+                  importObj[LANDING]= adminObj.landing != null ? adminObj.landing : '', importObj,
+                  importObj[WEIGHT]= adminObj.weight != null ? adminObj.weight : '', importObj,
+                    importObj[SHIPPER_CODE] = '' ,importObj,
+                    importObj[SHIPPER]= adminObj.shipperName != null ? adminObj.shipperName : '', importObj,
+                  importObj[SHIPPER_ADD]= adminObj.shipperAddress != null ? adminObj.shipperAddress : '', importObj,
+                  importObj[SHIPPER_STATE]= adminObj.shipperState != null ? adminObj.shipperState : '', importObj,
+                  importObj[SHIPPER_PC]= adminObj.shipperPostcode != null ? adminObj.shipperPostcode : '', importObj,
+                 importObj[SHIPPER_COUNTRY]= adminObj.shipperCountry != null ? adminObj.shipperCountry : '', importObj,
+                  importObj[ORGIN]= adminObj.orgin != null ? adminObj.orgin : '', importObj,
+                  importObj[DEST]= adminObj.dest != null ? adminObj.dest : '', importObj,
+                 
+                  
+                
+                 
+                  importObj[TOTAL_VALUE]= adminObj.value != null ? adminObj.value : '', importObj,
+                  importObj[GOODS_CURRENCY]= adminObj.goods != null ? adminObj.goods : '', importObj,
+                
+                 
+                  importObj[SAC]= adminObj.sac != null ? adminObj.sac : '', importObj
+
+                );
+                console.log(importObj);
+              shipmentList.push(importObj)
+          }
+        new Angular2Csv(shipmentList, fileName, options); 
+        }else{
+             this.errorMsg = "**Please select the below records to download the Shipment details";
+        };
       };
+
   }
 
   onSelectionChange() {
