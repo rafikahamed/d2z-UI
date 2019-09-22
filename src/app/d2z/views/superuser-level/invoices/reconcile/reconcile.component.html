@@ -52,7 +52,7 @@
               <div class="delete_search">
                   <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <p> Supplier Type : </p>
                             <div>
                                   <p-dropdown [options]="supplierTypeDropdown" 
@@ -66,7 +66,7 @@
 
                         <div class="col-md-4">
                             <p> Select the File to upload tracking details: </p>
-                            <div style="margin-left: -20px; margin-top: 20px;">
+                            <div style="margin-left: -20px; margin-top: 15px;">
                                 <input type="file" 
                                       id = 'reconcileCntrl'
                                       style="display: inline-block; margin-left:25px" 
@@ -146,7 +146,7 @@
                     </div>
 
                     <div *ngIf="suplier2Flag" style="padding:20px; margin-top:30px">
-                        <p> Please select the below records to upload the Freipost Data: </p>
+                        <p> Please select the below records to upload the PFL Data: </p>
                         <div class="col-md-10">
                               <ag-grid-angular 
                                         #agGrid style="width:100%; height:450px;" 
