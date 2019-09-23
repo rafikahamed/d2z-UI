@@ -314,6 +314,19 @@ exportConsignmentfile( type, List,callback): any {
     });
   };
 
+fetchShipmentDetailsTempalte3( shipmentNumber, userId, callback): any {
+    this.http.get(baseUrl+'/consignments/shipmenttemplate', {
+      params: { shipmentNumber: shipmentNumber, userId: userId }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
   fetchShipmentDetailsTempalte2( shipmentNumber, userId, callback): any {
     this.http.get(baseUrl+'/broker-level/consignments/shipment', {
       params: { shipmentNumber: shipmentNumber, userId: userId  }
@@ -343,6 +356,19 @@ fetchShipmentDetailsType( shipmentNumber, userId,Type, callback): any {
     });
   };
 
+fetchShipmentDetailsTemplate3Type( shipmentNumber, userId,Type, callback): any {
+    this.http.get(baseUrl+'/consignments/shipmenttypetemplate', {
+      params: { Data: shipmentNumber, userId: userId,Type:Type }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
   fetchShipmentDetailsTempalte2Type( shipmentNumber, userId,Type, callback): any {
     this.http.get(baseUrl+'/broker-level/consignments/shipmenttype', {
       params: { Data: shipmentNumber, userId: userId,Type:Type  }
