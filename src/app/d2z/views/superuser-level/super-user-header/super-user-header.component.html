@@ -51,7 +51,7 @@
                              <li *ngIf="incomingJob"><a (click)="super_user_incomingJob(arrow)"><i class="fa fa-print"></i> Incoming Jobs<span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperTwelve? 'block' : 'none'}">
                                 <li *ngIf="addShipment"><a routerLink="/superuser/incomingJobs/create">Add Shipment</a></li>
-                                <li *ngIf="incomingShipment"><a routerLink="/superuser/incomingJobs/outstanding">OutStanding Shipment</a></li>
+                                <li *ngIf="incomingShipment"><a routerLink="/superuser/incomingJobs/outstanding">Outstanding Shipment</a></li>
                                   <li *ngIf="outstandingShipment"><a routerLink="/superuser/incomingJobs/closed">Closed Shipment</a></li>
                                 </ul>
                             </li>

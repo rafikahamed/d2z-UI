@@ -122,9 +122,12 @@ export class SuperIncomingJobComponent implements OnInit{
   };
    onBrokerTypeChangeNew(event){
 
- 
+ console.log("in broker");
    this.mlidDropdown1 = [];
-   
+console.log(this.consigneeDropdown2);
+   this.consigneeDropdown2 = [];
+   console.log(this.consigneeDropdown2);
+   this.newAttribute.consignee = [];
     this.brokerUserName = event.value ? event.value.value: '';
     var that = this;
     this.brokerListMainData.forEach(function(entry) {

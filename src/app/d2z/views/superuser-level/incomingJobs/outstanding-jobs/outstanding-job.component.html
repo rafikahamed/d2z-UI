@@ -8,7 +8,7 @@
                     <div class="row tile_count">
                             <div class="page-title">
                                     <div class="title_left">
-                                      <h3 style="margin-left: 10px" *ngIf="englishFlag"> Incoming Jobs / OutStanding Shipment </h3>
+                                      <h3 style="margin-left: 10px" *ngIf="englishFlag"> Incoming Jobs / Outstanding Shipment </h3>
                                     
                                     </div>
                             </div>
@@ -30,7 +30,7 @@
 
                    
                                 <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" >
-            <mat-tab label="OutStanding">
+            <mat-tab label="Outstanding">
                             <!-- Modal -->
                          
                             <ngx-spinner
@@ -47,22 +47,22 @@
                                     </div>
 
                                   
-                        <table class="table" style="width:100%;">
+                        <table class="table" style="width:1200px;">
                                                 <thead>
                                                     <tr >
                                                       
                                                          
                                                         <th  style="width:5px;"> </th>
-                                                        <th   style="width:140px;" >Mawb</th>
-                                                        <th  style="width:20px;" >Destination</th>
-                                                        <th  style="width:75px;">Flight</th>
-                                                        <th  style="width:120px;">ETA</th>
+                                                        <th   style="width:118px;text-align:center;">MAWB</th>
+                                                        <th  style="width:20px;text-align:center;" >POD</th>
+                                                        <th  style="width:85px;text-align:center;">FLIGHT</th>
+                                                        <th  style="width:105px;text-align:center;">ETA</th>
                                                         
-                                                        <th style="width:100px;">ATA</th>
-                                                        <th style="width:65px;">Clear</th>
-                                                        <th  style="width:65px;">Held</th>
-                                                        <th style="width:2px;">OutTurn</th>
-                                                        <th style="width:75px;">Note</th>
+                                                        <th style="width:80px;text-align:center;">ATA</th>
+                                                        <th style="width:65px;text-align:center;">CLEAR</th>
+                                                        <th  style="width:65px;text-align:center;">HELD</th>
+                                                        <th style="width:2px;text-align:center;">OUTTURN</th>
+                                                        <th style="width:275px;text-align:center;">NOTE</th>
                                                        
                                                     </tr>
                                                 </thead>
@@ -214,7 +214,8 @@
   <form   #myForm="ngForm" class="well form-horizontal">
                                            <fieldset>
                                               <div class="form-group">
-                                                 <label class="col-md-2 control-label">Broker:</label>
+                                                 <label class="col-md-2 control-label"
+                                                 style="float:left">BROKER</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                            
@@ -229,7 +230,7 @@
                                                 
 
                                              
-                                                 <label class="col-md-2 control-label">Mlid:</label>
+                                                 <label class="col-md-2 control-label">MLID</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                             <input  
@@ -244,7 +245,7 @@
                                               </div>
 
                                                 <div class="form-group">
-                                                 <label class="col-md-2 control-label">Consignee</label>
+                                                 <label class="col-md-2 control-label">CONSIGNEE</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                    
                                                             <input  
@@ -258,7 +259,7 @@
                                                 
 
                                                
-                                                 <label class="col-md-2 control-label">Destination</label>
+                                                 <label class="col-md-2 control-label">DESTINATION</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                            
@@ -275,7 +276,7 @@
 
 
                                                <div class="form-group">
-                                                 <label class="col-md-2 control-label">Mawb</label>
+                                                 <label class="col-md-2 control-label">MAWB</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                    
                                                             <input  
@@ -289,7 +290,7 @@
                                                 
 
                                                
-                                                 <label class="col-md-2 control-label">Hawb</label>
+                                                 <label class="col-md-2 control-label">HAWB</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                            
@@ -333,7 +334,7 @@
                                               </div>
 
                                                <div class="form-group">
-                                                 <label class="col-md-2 control-label">Flight</label>
+                                                 <label class="col-md-2 control-label">FLIGHT</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                    
                                                             <input  
@@ -347,7 +348,7 @@
                                                 
 
                                                
-                                                 <label class="col-md-2 control-label">Weight</label>
+                                                 <label class="col-md-2 control-label">WEIGHT</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                            
@@ -362,7 +363,7 @@
                                                  </div>
                                             
                                                <div class="form-group">
-                                                 <label class="col-md-2 control-label">Piece</label>
+                                                 <label class="col-md-2 control-label">PIECE</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                    
                                                             <input  
@@ -376,7 +377,7 @@
                                                 
 
                                                
-                                                 <label class="col-md-2 control-label">Clear</label>
+                                                 <label class="col-md-2 control-label">CLEAR</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                            
@@ -390,7 +391,7 @@
                                                  </div>
                                             
                                                 <div class="form-group">
-                                                 <label class="col-md-2 control-label">Held</label>
+                                                 <label class="col-md-2 control-label">HELD</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                    
                                                             <input  
@@ -403,7 +404,7 @@
                                                 
 
                                                
-                                                 <label class="col-md-2 control-label">Outturn</label>
+                                                 <label class="col-md-2 control-label">OUTTURN</label>
                                                  <div class="col-md-4 inputGroupContainer">
                                                     
                                                            
@@ -418,7 +419,7 @@
                                               
 
                                               <div class="form-group">
-                                                 <label class="col-md-2 control-label">Note</label>
+                                                 <label class="col-md-2 control-label">NOTE</label>
                                                  <div class="col-md-8 inputGroupContainer">
                                                    
                                                             <input  
