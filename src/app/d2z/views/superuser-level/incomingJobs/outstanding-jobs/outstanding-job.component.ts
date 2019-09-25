@@ -192,16 +192,19 @@ console.log(this.importIndividualList);
       
     
     }
-check(event,index)
+check(event,index,not)
 {
+console.log(event);
+console.log(not);
   console.log(index);
   console.log(this.myForm.controls['note'].value);
     var newBrokerEnquiryArray =  this.tabs;
  
 
   var fieldObj =this.tabs[index];
-        
-
+        console.log(fieldObj);
+console.log("note:"+fieldObj.note);
+console.log("jkk:"+fieldObj.ata);
 
  this.errorMsg = '';
       this.importIndividualList = [];
@@ -228,21 +231,30 @@ check(event,index)
           enquiryObj[mlid]= fieldObj.mlid != undefined ? fieldObj.mlid : '', enquiryObj,
           enquiryObj[consignee]= fieldObj.consignee != undefined ? fieldObj.consignee: '', enquiryObj,
           enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
-           enquiryObj[dest]= fieldObj.destination != undefined ? fieldObj.destination: '', enquiryObj,
+           enquiryObj[dest]= fieldObj.dest!= undefined ? fieldObj.dest: '', enquiryObj,
               enquiryObj[flight]= fieldObj.flight != undefined ? fieldObj.flight : '', enquiryObj,
                  enquiryObj[eta]= fieldObj.eta != undefined ? fieldObj.eta : '', enquiryObj,
           enquiryObj[weight]= fieldObj.weight != undefined ? fieldObj.weight : '', enquiryObj,
            enquiryObj[piece]= fieldObj.piece != undefined ? fieldObj.piece : '', enquiryObj,
             enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
           enquiryObj[jobid]=fieldObj.jobid != undefined ? fieldObj.jobid : '', enquiryObj,
-          enquiryObj[clear]= this.myForm.controls['clear'].value!= undefined ? this.myForm.controls['clear'].value : '', enquiryObj,
+         /** enquiryObj[clear]= this.myForm.controls['clear'].value!= undefined ? this.myForm.controls['clear'].value : '', enquiryObj,
           enquiryObj[outturn]= this.myForm.controls['outturn'].value != undefined ? this.myForm.controls['outturn'].value: '', enquiryObj,
            enquiryObj[note]= this.myForm.controls['note'].value != undefined ? this.myForm.controls['note'].value : '', enquiryObj,
            enquiryObj[held]=this.myForm.controls['held'].value != undefined ? this.myForm.controls['held'].value : '', enquiryObj,
              
-                 enquiryObj[ata]= this.myForm.controls['ata'].value != undefined ? this.myForm.controls['ata'].value : '', enquiryObj
+                 enquiryObj[ata]= this.myForm.controls['ata'].value != undefined ? this.myForm.controls['ata'].value : '', enquiryObj**/
+
+            enquiryObj[clear]= fieldObj.clear!= undefined ? fieldObj.clear : '', enquiryObj,
+          enquiryObj[outturn]= fieldObj.outturn != undefined ? fieldObj.outturn: '', enquiryObj,
+           enquiryObj[note]= fieldObj.note!= undefined ? fieldObj.note : '', enquiryObj,
+           enquiryObj[held]=fieldObj.held != undefined ? fieldObj.held: '', enquiryObj,
+             
+                 enquiryObj[ata]=fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj     
          
         );
+
+        console.log(enquiryObj);
         this.importIndividualList.push(enquiryObj);
       
     
