@@ -176,7 +176,7 @@
                          
                             </div>
     
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
@@ -188,7 +188,19 @@
                 
                                   
                             </div>
-   <div class="col-md-6">
+                             <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="submitEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                           
+                                            Submit
+                                    </button>
+                
+                                  
+                            </div>
+   <div class="col-md-4">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"

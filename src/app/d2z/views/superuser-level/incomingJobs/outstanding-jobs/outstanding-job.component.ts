@@ -192,6 +192,80 @@ console.log(this.importIndividualList);
       
     
     }
+     submitEnquiry(){
+
+  
+      this.errorMsg = '';
+      this.importIndividualList = [];
+      let clear = 'clear';
+      let outturn = 'outturn';
+      let note ='note'
+      let ata = 'ata';
+      let held = 'held';
+      let jobid = 'jobid';
+      let broker = 'broker';
+      let mlid = 'mlid';
+      let consignee = 'consignee';
+       let hawb = 'hawb';
+      let dest = 'destination';
+      let weight = 'weight';
+      let mawb = 'mawb';
+      let flight = 'flight';
+      let eta = 'eta';
+      let piece = 'piece';
+      
+    
+      let userId = 'userId';
+      var newBrokerEnquiryArray =  this.fieldArray;
+      
+
+      for (var fieldVal in newBrokerEnquiryArray) {
+        var fieldObj = newBrokerEnquiryArray[fieldVal];
+        console.log(fieldObj);
+     if(fieldObj.checked === true)
+     {
+
+        var enquiryObj = (
+          enquiryObj={}, 
+           enquiryObj[broker]= fieldObj.broker != undefined ? fieldObj.broker : '', enquiryObj,
+          enquiryObj[mlid]= fieldObj.mlid != undefined ? fieldObj.mlid : '', enquiryObj,
+          enquiryObj[consignee]= fieldObj.consignee != undefined ? fieldObj.consignee: '', enquiryObj,
+          enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
+           enquiryObj[dest]= fieldObj.destination != undefined ? fieldObj.destination: '', enquiryObj,
+              enquiryObj[flight]= fieldObj.flight != undefined ? fieldObj.flight : '', enquiryObj,
+                 enquiryObj[eta]= fieldObj.eta != undefined ? fieldObj.eta : '', enquiryObj,
+          enquiryObj[weight]= fieldObj.weight != undefined ? fieldObj.weight : '', enquiryObj,
+           enquiryObj[piece]= fieldObj.piece != undefined ? fieldObj.piece : '', enquiryObj,
+            enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
+          enquiryObj[jobid]=fieldObj.jobid != undefined ? fieldObj.jobid : '', enquiryObj,
+          enquiryObj[clear]= fieldObj.clear != undefined ? fieldObj.clear : '', enquiryObj,
+          enquiryObj[outturn]= fieldObj.outturn != undefined ? fieldObj.outturn: '', enquiryObj,
+           enquiryObj[note]= fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
+           enquiryObj[held]= fieldObj.held != undefined ? fieldObj.held : '', enquiryObj,
+             
+                 enquiryObj[ata]= fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj
+         
+        );
+        this.importIndividualList.push(enquiryObj);
+      }
+      }
+      if(this.importIndividualList.length > 0 ){
+     
+console.log(this.importIndividualList);
+  this.spinner.show();
+        this.consigmentUploadService.submitJob(this.importIndividualList, (resp) => {
+            this.spinner.hide();
+            this.successMsg = resp.message;
+            $('#brokerEnquiry').modal('show');
+            
+           
+        });
+      }else{
+        this.errorMsg = "** Atleast add one Job to proceed";
+      }
+      
+    
+    }
 check(event,index,not)
 {
 console.log(event);

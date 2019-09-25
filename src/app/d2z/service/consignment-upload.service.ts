@@ -293,6 +293,19 @@ outstandingJob( callback): any {
     });
 };
 
+submitJob( enquiryData,callback): any {
+     this.http.post(baseUrl+'/superUser-level/submit-job',enquiryData)
+    .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
+
 closingJob( callback): any {
     this.http.get(baseUrl+'/superUser-level/closing-job-list')
     .subscribe((resp) => {
