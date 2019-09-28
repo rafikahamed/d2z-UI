@@ -67,7 +67,7 @@ export class SuperIncomingJobComponent implements OnInit{
       this.brokerListMainData = resp;
       this.spinner.hide();
       var that = this;
-      console.log(resp);
+      
       resp.forEach(function(entry) {
      
      
@@ -99,14 +99,13 @@ export class SuperIncomingJobComponent implements OnInit{
 
  onBrokerTypeChange(event,i){
  
-   console.log("in Broker");
-
+   
    
     var enquiryObj = this.fieldArray[i];
      enquiryObj.mlid = [];
       enquiryObj.mlidDropdown =[];
       enquiryObj.consignee = [];
-        console.log(enquiryObj.consigneeDropdown);
+       
          enquiryObj.consigneeDropdown=[];
     this.brokerUserName = event.value ? event.value.value: '';
     var that = this;
@@ -122,11 +121,11 @@ export class SuperIncomingJobComponent implements OnInit{
   };
    onBrokerTypeChangeNew(event){
 
- console.log("in broker");
+ 
    this.mlidDropdown1 = [];
-console.log(this.consigneeDropdown2);
+
    this.consigneeDropdown2 = [];
-   console.log(this.consigneeDropdown2);
+  this.newAttribute.mlid = [];
    this.newAttribute.consignee = [];
     this.brokerUserName = event.value ? event.value.value: '';
     var that = this;
@@ -144,7 +143,7 @@ console.log(this.consigneeDropdown2);
   onMlidChangeNew(event){
   this.errorMsg = '';
   this.consigneeDropdownmlid = [];
-
+this.newAttribute.consignee = [];
   if(event.value.length > 0)
   {
 
@@ -175,24 +174,25 @@ console.log(this.consigneeDropdown2);
          
 });
    this.consigneeDropdown2 = this.consigneeDropdownmlid;
-  console.log("in Ne"+(enObj.name));
+
   }
   }
 
-console.log(this.consigneeDropdownmlid)
+
    
    
   };
   
   onMlidChange(event,i){
   this.errorMsg = '';
-  console.log(i);
+  
    var enquiryObj = this.fieldArray[i];
+    enquiryObj.consignee = [];
 var consigneeDrodownmlid = [];
 
   if(event.value.length > 0)
   {
-  console.log("if loop");
+  
 
   for (var item in event.value)
   {
@@ -227,7 +227,7 @@ var that = this;
      
             enquiryObj.consigneeDropdown = consigneeDrodownmlid;
    
-  console.log("in Ner"+(enObj.name));
+  
   }
   }
 
@@ -281,8 +281,8 @@ this.errorMsg === "** This combination doesnt have same consignee";
     
       let userId = 'userId';
       var newBrokerEnquiryArray = [];
-       console.log("hello"+Object["values"](this.newAttribute));
-      console.log("heer"+this.newAttribute.type);
+       
+     
       if(this.newAttribute.type){
         newBrokerEnquiryArray.push(this.newAttribute);
       }

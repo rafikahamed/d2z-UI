@@ -47,7 +47,7 @@
                                     </div>
 
                                   
-                        <table class="table" style="width:1200px;">
+                        <table class="table" style="width:1250px;">
                                                 <thead>
                                                     <tr >
                                                       
@@ -55,7 +55,7 @@
                                                         <th   style="width:105px;text-align:center;">MAWB</th>
                                                         <th  style="width:20px;text-align:center;" >POD</th>
                                                         <th  style="width:85px;text-align:center;">FLIGHT</th>
-                                                        <th  style="width:105px;text-align:center;">ETA</th>
+                                                        <th  style="width:80px;text-align:center;">ETA</th>
                                                         
                                                         <th style="width:80px;text-align:center;">ATA</th>
                                                         <th style="width:65px;text-align:center;">CLEAR</th>
@@ -182,7 +182,7 @@
                                             *ngIf="englishFlag"
                                             (click)="creatEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
-                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            <span class="glyphicon glyphicon-trash"></span>
                                             Delete
                                     </button>
                 
@@ -190,212 +190,7 @@
                             </div>
   
                         </mat-tab>
-                      <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
-
-  <form class="well form-horizontal">
-                                           <fieldset>
-                                              <div class="form-group">
-                                                 <label class="col-md-2 control-label">Broker:</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.broker" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.broker}}">
-                                                            </div>
-                                                
-
-                                             
-                                                 <label class="col-md-2 control-label">Mlid:</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                            <input  
-                                                                  [(ngModel)]="tab.mlid" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.mlid}}">
-                                                            </div>
-                                                
-                                              </div>
-
-                                                <div class="form-group">
-                                                 <label class="col-md-2 control-label">Consignee</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.consignee" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.consignee}}">
-                                                            </div>
-                                                
-
-                                               
-                                                 <label class="col-md-2 control-label">Destination</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.dest" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.dest}}">
-                                                            </div>
-                                                 
-                                              </div>
-
-
-                                               <div class="form-group">
-                                                 <label class="col-md-2 control-label">Mawb</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.mawb" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.mawb}}">
-                                                            </div>
-                                                
-
-                                               
-                                                 <label class="col-md-2 control-label">Hawb</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.hawb" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.hawb}}">
-                                                            </div>
-                                                 </div>
-                                            
-                                              <div class="form-group">
-                                                 <label class="col-md-2 control-label">ETA</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.eta" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.eta}}">
-                                                            </div>
-                                                
-
-                                               
-                                                 <label class="col-md-2 control-label">ATA</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.ata" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.ata}}">
-                                                            </div>
-                                                 
-                                              </div>
-
-                                               <div class="form-group">
-                                                 <label class="col-md-2 control-label">Flight</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.flight" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.flight}}">
-                                                            </div>
-                                                
-
-                                               
-                                                 <label class="col-md-2 control-label">Weight</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.weight" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.weight}}">
-                                                            </div>
-                                                 </div>
-                                            
-                                               <div class="form-group">
-                                                 <label class="col-md-2 control-label">Piece</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.piece" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.piece}}">
-                                                            </div>
-                                                
-
-                                               
-                                                 <label class="col-md-2 control-label">Clear</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.clear" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.clear}}">
-                                                            </div>
-                                                 </div>
-                                            
-                                                <div class="form-group">
-                                                 <label class="col-md-2 control-label">Held</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.held" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.held}}">
-                                                            </div>
-                                                
-
-                                               
-                                                 <label class="col-md-2 control-label">Outturn</label>
-                                                 <div class="col-md-4 inputGroupContainer">
-                                                    
-                                                           
-                                                            <input  
-                                                                  [(ngModel)]="tab.outturn" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.outturn}}">
-                                                            </div>
-                                                 </div>
-                                              
-
-                                              <div class="form-group">
-                                                 <label class="col-md-2 control-label">Note</label>
-                                                 <div class="col-md-8 inputGroupContainer">
-                                                   
-                                                            <input  
-                                                                  [(ngModel)]="tab.note" 
-                                                                class="form-control" 
-                                                                type="text" 
-                                                                 name ="{{tab.note}}">
-                                                            </div>
-                                                
-
-                                               
-                                                
-                                                
-                                              </div>
-</fieldset>
-
-</form>
-
-                      
-                      </mat-tab>
+                     
                     </mat-tab-group>
                        
                 </div>

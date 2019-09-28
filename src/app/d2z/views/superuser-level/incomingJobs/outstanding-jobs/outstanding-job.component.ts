@@ -266,12 +266,13 @@ console.log(this.importIndividualList);
       
     
     }
-check(event,index,not)
+check(event,index)
 {
 console.log(event);
-console.log(not);
+
   console.log(index);
-  console.log(this.myForm.controls['note'].value);
+
+ 
     var newBrokerEnquiryArray =  this.tabs;
  
 
@@ -279,7 +280,7 @@ console.log(not);
         console.log(fieldObj);
 console.log("note:"+fieldObj.note);
 console.log("jkk:"+fieldObj.ata);
-
+console.log("outturn:"+fieldObj.outturn);
  this.errorMsg = '';
       this.importIndividualList = [];
       let clear = 'clear';

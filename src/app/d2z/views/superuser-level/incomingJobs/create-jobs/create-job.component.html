@@ -201,8 +201,8 @@
                                                             [options]="mlidDropdown1" 
                                                             [(ngModel)]="newAttribute.mlid" 
                                                             optionLabel="name" 
-                                                           
-                                                          
+                                                           [showHeader] = "false"
+                                                          [maxSelectedLabels] = "0"
                                                             [style]="{'width':'95px'}"
                                                              (onChange)="onMlidChangeNew($event)"
                                                            >
