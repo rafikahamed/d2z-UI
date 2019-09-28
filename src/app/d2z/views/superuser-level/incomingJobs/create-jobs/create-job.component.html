@@ -94,7 +94,7 @@
                                                             [options]="field.mlidDropdown" 
                                                            [(ngModel)]="field.mlid" 
                                                             optionLabel="name" 
-                                                           
+                                                             [showHeader] = "false"
                                                          (onChange)="onMlidChange($event,i)"
                                                            [style]="{'width':'95px'}"
                                                           >
