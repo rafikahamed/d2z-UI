@@ -1167,7 +1167,7 @@ selectedRowsTemplate1  = this.gridOptionsTemplate21.api.getSelectedRows();
             showLabels: true, 
             useBom: true,
             headers: [ "HAWB" , "CUSTOMER CODE", "CUSTOMER NAME", "CUSTOMER ADDRESS", "CITY","STATE","POSTCODE","COUNTRY","DESCRIPTION","COUNT","LANDING",
-            "WEIGHT","SHIPPER CODE","SHIPPER NAME","SHIPPER ADDRESS","SHIPPER STATE","SHIPPER POSTCODE",
+            "WEIGHT","SHIPPER CODE","SHIPPER NAME","SHIPPER ADDRESS","SHIPPER CITY","SHIPPER STATE","SHIPPER POSTCODE",
             "SHIPPER COUNTRY ","ORGIN PORT","DEST PORT","TOTAL VALUE", "GOODS CURRENCY","SAC" ]
           };
           let HAWB = 'HAWB';
@@ -1185,8 +1185,9 @@ selectedRowsTemplate1  = this.gridOptionsTemplate21.api.getSelectedRows();
           let SHIPPER_CODE = 'S_CODE';
           let SHIPPER = 'SHIPPER';
           let SHIPPER_ADD = 'SHIPPER_ADD';
-         
+          let SHIPPER_CITY = 'SHIPPER_CITY';
           let SHIPPER_STATE = 'SHIPPER_STATE';
+         
           let SHIPPER_PC = 'SHIPPER_PC';
           let SHIPPER_COUNTRY = 'SHIPPER_COUNTRY';
           let ORGIN = 'ORGIN';
@@ -1217,6 +1218,7 @@ selectedRowsTemplate1  = this.gridOptionsTemplate21.api.getSelectedRows();
                     importObj[SHIPPER]= adminObj.shipperName != null ? adminObj.shipperName : '', importObj,
                   importObj[SHIPPER_ADD]= adminObj.shipperAddress != null ? adminObj.shipperAddress : '', importObj,
                   importObj[SHIPPER_STATE]= adminObj.shipperState != null ? adminObj.shipperState : '', importObj,
+                  importObj[SHIPPER_CITY]= adminObj.shipperCity != null ? adminObj.shipperCity : '', importObj,
                   importObj[SHIPPER_PC]= adminObj.shipperPostcode != null ? adminObj.shipperPostcode : '', importObj,
                  importObj[SHIPPER_COUNTRY]= adminObj.shipperCountry != null ? adminObj.shipperCountry : '', importObj,
                   importObj[ORGIN]= adminObj.orgin != null ? adminObj.orgin : '', importObj,
