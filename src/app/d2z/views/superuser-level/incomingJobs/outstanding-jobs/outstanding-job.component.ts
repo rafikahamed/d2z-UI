@@ -221,9 +221,18 @@ console.log(this.importIndividualList);
 
       for (var fieldVal in newBrokerEnquiryArray) {
         var fieldObj = newBrokerEnquiryArray[fieldVal];
-        console.log(fieldObj);
+        
      if(fieldObj.checked === true)
      {
+     console.log(fieldObj.outturn);
+     console.log(fieldObj.outturn === true);
+     console.log(fieldObj.outturn === 'Y');
+     console.log((fieldObj.outturn != undefined && (fieldObj.outturn === 'Y' || fieldObj.outturn === true) ));
+     if(!(fieldObj.outturn != undefined && (fieldObj.outturn === 'Y' || fieldObj.outturn === true )))
+     
+     {
+     this.errorMsg = "Please select outturn before submitting Job";
+     }
 
         var enquiryObj = (
           enquiryObj={}, 
@@ -249,7 +258,8 @@ console.log(this.importIndividualList);
         this.importIndividualList.push(enquiryObj);
       }
       }
-      if(this.importIndividualList.length > 0 ){
+
+      if(this.importIndividualList.length > 0 && this.errorMsg === ''){
      
 console.log(this.importIndividualList);
   this.spinner.show();
@@ -261,7 +271,10 @@ console.log(this.importIndividualList);
            
         });
       }else{
+      if(this.errorMsg === '')
+      {
         this.errorMsg = "** Atleast add one Job to proceed";
+      }
       }
       
     
