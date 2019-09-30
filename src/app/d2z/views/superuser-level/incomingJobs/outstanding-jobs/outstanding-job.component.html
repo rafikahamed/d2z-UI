@@ -29,7 +29,8 @@
                     </div>
 
                    
-                                <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" >
+                                <mat-tab-group animationDuration="1000ms" 
+                                 [(selectedIndex)]="selectedIndex" >
             <mat-tab label="Outstanding">
                             <!-- Modal -->
                          
@@ -47,18 +48,18 @@
                                     </div>
 
                                   
-                        <table class="table" style="width:1200px;">
+                        <table class="table" style="width:1300px;">
                                                 <thead>
                                                     <tr >
                                                       
                                                          
                                                         <th  style="width:5px;"> </th>
                                                         <th   style="width:118px;text-align:center;">MAWB</th>
-                                                        <th  style="width:20px;text-align:center;" >POD</th>
+                                                        <th  style="width:30px;text-align:center;" >POD</th>
                                                         <th  style="width:85px;text-align:center;">FLIGHT</th>
                                                         <th  style="width:105px;text-align:center;">ETA</th>
                                                         
-                                                        <th style="width:80px;text-align:center;">ATA</th>
+                                                        <th style="width:60px;text-align:center;">ATA</th>
                                                         <th style="width:65px;text-align:center;">CLEAR</th>
                                                         <th  style="width:65px;text-align:center;">HELD</th>
                                                         <th style="width:2px;text-align:center;">OUTTURN</th>
@@ -175,12 +176,11 @@
                                 </table>
                          
                             </div>
-    
-                            <div class="col-md-4">
+     <div class="col-md-4">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
-                                            (click)="creatEnquiry()"
+                                           (click)="creatEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
                                            
                                             Update
@@ -188,11 +188,12 @@
                 
                                   
                             </div>
+                          
                              <div class="col-md-4">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
-                                            (click)="submitEnquiry()"
+                                           (click)="submitEnquiry()"
                                             style="background-color: #16A085; float:right; margin:10px;">
                                            
                                             Submit
@@ -213,7 +214,7 @@
                                   
                             </div>
                         </mat-tab>
-                      <mat-tab *ngFor="let tab of tabs; let index = index" label="Job">
+                      <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
 
                          <ngx-spinner
                         bdColor="rgba(51,51,51,0.8)"
@@ -295,7 +296,7 @@
                                                                   [(ngModel)]="tab.mawb" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 readonly="true"
+                                                                 
                                                                  [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.mawb}}">
                                                             </div>
@@ -310,7 +311,7 @@
                                                                   [(ngModel)]="tab.hawb" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 readonly="true"
+                                                                
                                                                  [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.hawb}}">
                                                             </div>
@@ -323,9 +324,9 @@
                                                             <input  
                                                                   [(ngModel)]="tab.eta" 
                                                                 class="form-control" 
-                                                                type="text"
+                                                                type="date"
                                                                 [ngModelOptions]="{standalone: true}"
-                                                                 readonly="true" 
+                                                               
                                                                  name ="{{tab.eta}}">
                                                             </div>
                                                 
@@ -353,7 +354,7 @@
                                                                   [(ngModel)]="tab.flight" 
                                                                 class="form-control" 
                                                                 type="text" 
-                                                                 readonly="true"
+                                                                
                                                                  [ngModelOptions]="{standalone: true}"
                                                                  name ="{{tab.flight}}">
                                                             </div>
@@ -369,7 +370,7 @@
                                                                 class="form-control" 
                                                                 type="text" 
                                                                 [ngModelOptions]="{standalone: true}"
-                                                                 readonly="true"
+                                                                
                                                                  name ="{{tab.weight}}">
                                                             </div>
                                                  </div>
@@ -383,7 +384,7 @@
                                                                 class="form-control" 
                                                                 type="text"
                                                                 [ngModelOptions]="{standalone: true}"
-                                                                 readonly="true" 
+                                                              
                                                                  name ="{{tab.piece}}">
                                                             </div>
                                                 
@@ -455,7 +456,7 @@
   <button type="button" 
                                             class="btn btn-info" 
                                            
-                                            (click)="check($event,index,tab.note.value)"
+                                            (click)="check($event,index)"
                                             style="background-color: #16A085; float:right; margin:10px;">
                                            
                                             Update
