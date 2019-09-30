@@ -105,7 +105,7 @@ export class SuperUserReconcileComponent implements OnInit {
     this.gridOptionsSuplier2.columnDefs = [
       {
         headerName: "Reference Number",
-        field: "refrenceNumber",
+        field: "articleNo",
         width: 270,
         checkboxSelection: true,
         headerCheckboxSelection: function(params) {
@@ -274,7 +274,7 @@ export class SuperUserReconcileComponent implements OnInit {
       this.supplierTwoList= [];
       this.rowDataSupplier2  = [];
       fileReader.readAsArrayBuffer(this.file);
-      let refrenceNumber = 'refrenceNumber';
+      let articleNo = 'articleNo';
       let chargedWeight = 'chargedWeight';
       let cost = 'cost';
       let supplierType = 'supplierType';
@@ -295,7 +295,7 @@ export class SuperUserReconcileComponent implements OnInit {
               if(this.errorMsg == null){
                 var reconcileTwoObj = (
                   reconcileTwoObj={}, 
-                  reconcileTwoObj[refrenceNumber]= reconcile['Reference Number'] != undefined ? reconcile['Reference Number'] : '', reconcileTwoObj,
+                  reconcileTwoObj[articleNo]= reconcile['Tracking Number'] != undefined ? reconcile['Tracking Number'] : '', reconcileTwoObj,
                   reconcileTwoObj[chargedWeight]= reconcile['Weight'] != undefined ? reconcile['Weight'] : '', reconcileTwoObj,
                   reconcileTwoObj[cost]= reconcile['Amount'] != undefined ? reconcile['Amount'] : '', reconcileTwoObj,
                   reconcileTwoObj[supplierType]= 'PFL', reconcileTwoObj
@@ -474,7 +474,7 @@ export class SuperUserReconcileComponent implements OnInit {
      var supplier2Data = this.gridOptionsSuplier2.api.getSelectedRows();
         for (var supplierTwo in supplier2Data) {
             var reconcile = supplier2Data[supplierTwo];
-            reconcileNumbers.push(reconcile.refrenceNumber);
+            reconcileNumbers.push(reconcile.articleNo);
         }
     }
     this.spinner.show();
