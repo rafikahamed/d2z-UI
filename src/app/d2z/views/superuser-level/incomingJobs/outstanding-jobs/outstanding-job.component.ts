@@ -73,8 +73,7 @@ tabs =[];
       this.fieldArray = resp;
      this.fieldArrayout = resp;
       var that = this;
-      console.log(resp);
-     
+      
     
     })
   
@@ -147,7 +146,7 @@ tabs =[];
 
       for (var fieldVal in newBrokerEnquiryArray) {
         var fieldObj = newBrokerEnquiryArray[fieldVal];
-        console.log(fieldObj);
+       
      if(fieldObj.checked === true)
      {
 
@@ -177,7 +176,7 @@ tabs =[];
       }
       if(this.importIndividualList.length > 0 ){
      
-console.log(this.importIndividualList);
+
   this.spinner.show();
         this.consigmentUploadService.updateJob(this.importIndividualList, (resp) => {
             this.spinner.hide();
@@ -224,10 +223,8 @@ console.log(this.importIndividualList);
         
      if(fieldObj.checked === true)
      {
-     console.log(fieldObj.outturn);
-     console.log(fieldObj.outturn === true);
-     console.log(fieldObj.outturn === 'Y');
-     console.log((fieldObj.outturn != undefined && (fieldObj.outturn === 'Y' || fieldObj.outturn === true) ));
+    
+   
      if(!(fieldObj.outturn != undefined && (fieldObj.outturn === 'Y' || fieldObj.outturn === true )))
      
      {
@@ -261,7 +258,7 @@ console.log(this.importIndividualList);
 
       if(this.importIndividualList.length > 0 && this.errorMsg === ''){
      
-console.log(this.importIndividualList);
+
   this.spinner.show();
         this.consigmentUploadService.submitJob(this.importIndividualList, (resp) => {
             this.spinner.hide();
@@ -281,19 +278,13 @@ console.log(this.importIndividualList);
     }
 check(event,index)
 {
-console.log(event);
-
-  console.log(index);
 
  
     var newBrokerEnquiryArray =  this.tabs;
  
 
   var fieldObj =this.tabs[index];
-        console.log(fieldObj);
-console.log("note:"+fieldObj.note);
-console.log("jkk:"+fieldObj.ata);
-console.log("outturn:"+fieldObj.outturn);
+     
  this.errorMsg = '';
       this.importIndividualList = [];
       let clear = 'clear';
@@ -357,7 +348,7 @@ console.log("outturn:"+fieldObj.outturn);
       this.fieldArray = resp;
    this.tabs = [];
 
-      console.log(resp);
+      
      
     
     })

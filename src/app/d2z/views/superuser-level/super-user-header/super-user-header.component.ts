@@ -146,6 +146,11 @@ export class SuperUserHeaderComponent implements OnInit {
       this.scanReturns = true;
       this.outstandingReturns = true;
       this.actionReturns = true;
+       this.incomingJob = true;
+      this.addShipment = true;
+      this.incomingShipment = true;
+      this.outstandingShipment = true;
+
     }
   }
 

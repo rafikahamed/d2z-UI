@@ -71,11 +71,11 @@ tabs =[];
       this.fieldArray = resp;
      this.fieldArrayout = resp;
       var that = this;
-      console.log(resp);
+     
       resp.forEach(function(entry) {
     
      
-        console.log(entry.mlid);
+        
       })
     
     })
@@ -84,16 +84,7 @@ tabs =[];
      
       this.showFile = false;
      
-   const creds = this.form.controls.credentials as FormArray;
-var th = this;
-  
-  for(var a in this.fieldArray)
-  {
-   creds.push(this.fb.group({
-      username: 'jkkl',
-      password: 'lopi',
-    }));
-    }
+   
   
      
   
@@ -163,7 +154,7 @@ FieldValue(i)
 
       for (var fieldVal in newBrokerEnquiryArray) {
         var fieldObj = newBrokerEnquiryArray[fieldVal];
-        console.log(fieldObj);
+      
      if(fieldObj.checked === true)
      {
 
@@ -193,7 +184,7 @@ FieldValue(i)
       }
       if(this.importIndividualList.length > 0 ){
      
-console.log(this.importIndividualList);
+
   this.spinner.show();
         this.consigmentUploadService.deleteJob(this.importIndividualList, (resp) => {
             this.spinner.hide();
@@ -208,56 +199,7 @@ console.log(this.importIndividualList);
     
     }
 
-    viewEnquiry(){
-      
-this.tabs = [];
-  
-      
-      var newBrokerEnquiryArray =  this.fieldArray;
-      
-
-      for (var fieldVal in newBrokerEnquiryArray) {
-        var fieldObj = newBrokerEnquiryArray[fieldVal];
-        console.log(fieldObj);
-     if(fieldObj.checked === true)
-     {
-     this.tabs.push({
-                         'label':'Jobs'+fieldVal,
-                         'broker':fieldObj.broker,
-                         'mlid' : fieldObj.mlid,
-                         'consignee': fieldObj.consignee != undefined ? fieldObj.consignee: '', 
-          'mawb': fieldObj.mawb != undefined ? fieldObj.mawb : '', 
-           'dest': fieldObj.destination != undefined ? fieldObj.destination: '', 
-            'flight':fieldObj.flight != undefined ? fieldObj.flight : '', 
-             'eta': fieldObj.eta != undefined ? fieldObj.eta : '', 
-       'weight': fieldObj.weight != undefined ? fieldObj.weight : '', 
-          'piece': fieldObj.piece != undefined ? fieldObj.piece : '', 
-            'hawb': fieldObj.hawb != undefined ? fieldObj.hawb : '', 
-         
-          'clear': fieldObj.clear != undefined ? fieldObj.clear : '', 
-          'outturn':fieldObj.outturn != undefined ? fieldObj.outturn: '', 
-           'note': fieldObj.note != undefined ? fieldObj.note : '', 
-           'held': fieldObj.held != undefined ? fieldObj.held : '', 
-             
-               'ata': fieldObj.ata != undefined ? fieldObj.ata : ''
-                        });
-
-                        
-       
-      }
-        
-      }
-
-       window.setTimeout(()=>{
-       console.log("in window");
-       this.selectedIndex = 1;
-       this.change.markForCheck();
-    });
-      
-      
-    
-    }
-    clearEnquiry(){
+       clearEnquiry(){
       console.log("Clear Data")
       $("#enquiryFileControl").val('');
       this.fieldCreateArray = [];
