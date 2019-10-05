@@ -2,6 +2,7 @@ import { Component, ViewChild,ChangeDetectorRef,OnInit, Compiler} from '@angular
 import { Router, NavigationEnd } from '@angular/router';
 import { NgForm,FormGroup, FormControl,  FormArray, FormBuilder, Validators } from '@angular/forms';
 declare var $: any;
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -72,11 +73,7 @@ tabs =[];
      this.fieldArrayout = resp;
       var that = this;
      
-      resp.forEach(function(entry) {
     
-     
-        
-      })
     
     })
   
@@ -121,9 +118,147 @@ FieldValue(i)
           day  = ("0" + date.getDate()).slice(-2);
      this.fromDate = [ date.getFullYear(), mnth, day ].join("-");
   };
+download()
+{
 
-    
-   
+ this.errorMsg = '';
+ var newBrokerEnquiryArray =  this.fieldArray;
+
+  var currentTime = new Date();
+        var jobList = [];
+        var fileName = '';
+            fileName = "JOB-Details"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ "Broker" ,"Mlid", "Consignee","Mawb","Dest","Flight","ETA","ATA","Weight","Piece","Hawb","Clear","Outturn","Note","Held" ]
+          };
+      let broker = 'broker';
+      let mlid = 'mlid';
+      let consignee = 'consignee';
+      let mawb = 'mawb';
+      let dest = 'dest';
+      let flight = 'flight';
+      let eta = 'eta';
+      let ata = 'ata';
+      let weight = 'weight';
+      let piece = 'piece';
+      let hawb = 'hawb';
+      let clear = 'clear';
+      let outturn = 'outturn';
+      let note = 'note';
+      let held = 'held';
+
+
+      for (var fieldVal in newBrokerEnquiryArray) {
+        var fieldObj = newBrokerEnquiryArray[fieldVal];
+       
+     if(fieldObj.checked === true)
+     {
+ console.log(fieldObj.checked);
+ 
+
+      var jobMainObj = (
+                jobMainObj={},
+                jobMainObj[broker]=fieldObj.broker,jobMainObj,
+
+                jobMainObj[mlid]=fieldObj.mlid,jobMainObj,
+                jobMainObj[consignee] = fieldObj.consignee != undefined ? fieldObj.consignee: '',jobMainObj,
+                jobMainObj[mawb]=fieldObj.mawb != undefined ? fieldObj.mawb : '', jobMainObj,
+                jobMainObj[dest]=fieldObj.destination != undefined ? fieldObj.destination: '',jobMainObj, 
+                jobMainObj[flight]=fieldObj.flight != undefined ? fieldObj.flight : '',jobMainObj, 
+                jobMainObj[eta]=fieldObj.eta != undefined ? fieldObj.eta : '', jobMainObj,
+                jobMainObj[ata]=fieldObj.ata != undefined ? fieldObj.ata : '',jobMainObj,
+                jobMainObj[weight]=fieldObj.weight != undefined ? fieldObj.weight : '', jobMainObj,
+                jobMainObj[piece]=fieldObj.piece != undefined ? fieldObj.piece : '', jobMainObj,
+                jobMainObj[hawb]=fieldObj.hawb != undefined ? fieldObj.hawb : '', jobMainObj,
+                jobMainObj[clear]=fieldObj.clear != undefined ? fieldObj.clear : '', jobMainObj,
+                jobMainObj[outturn] = fieldObj.outturn != undefined ? fieldObj.outturn: '', jobMainObj,
+                jobMainObj[note]=fieldObj.note != undefined ? fieldObj.note:'',jobMainObj,
+                jobMainObj[held] = fieldObj.held != undefined ? fieldObj.held : '',jobMainObj
+                );
+
+console.log(jobMainObj);
+jobList.push(jobMainObj);
+
+     
+                        
+       
+      }
+        
+      }
+
+console.log(jobList);
+console.log(jobList.length);
+
+
+       if( jobList.length > 0 ){
+     
+
+  new Angular2Csv(jobList, fileName, options);  
+           
+        }
+      else{
+        this.errorMsg = "** Atleast select one Job to download";
+      }
+      
+
+       
+        };
+
+
+  
+   viewEnquiry(){
+      
+this.tabs = [];
+  
+      
+      var newBrokerEnquiryArray =  this.fieldArray;
+      
+
+      for (var fieldVal in newBrokerEnquiryArray) {
+        var fieldObj = newBrokerEnquiryArray[fieldVal];
+        console.log(fieldObj.note);
+     if(fieldObj.checked === true)
+     {
+
+     this.tabs.push({
+                         'label':'Jobs'+fieldVal,
+                         'broker':fieldObj.broker,
+                         'mlid' : fieldObj.mlid,
+                         'consignee': fieldObj.consignee != undefined ? fieldObj.consignee: '', 
+          'mawb': fieldObj.mawb != undefined ? fieldObj.mawb : '', 
+           'dest': fieldObj.destination != undefined ? fieldObj.destination: '', 
+            'flight':fieldObj.flight != undefined ? fieldObj.flight : '', 
+             'eta': fieldObj.eta != undefined ? fieldObj.eta : '', 
+       'weight': fieldObj.weight != undefined ? fieldObj.weight : '', 
+          'piece': fieldObj.piece != undefined ? fieldObj.piece : '', 
+            'hawb': fieldObj.hawb != undefined ? fieldObj.hawb : '', 
+         
+          'clear': fieldObj.clear != undefined ? fieldObj.clear : '', 
+          'outturn':fieldObj.outturn != undefined ? fieldObj.outturn: '', 
+           'note':  fieldObj.note != undefined ? fieldObj.note:'',
+           'held': fieldObj.held != undefined ? fieldObj.held : '', 
+             
+               'ata': fieldObj.ata != undefined ? fieldObj.ata : '',
+
+               'jobid': fieldObj.jobid != undefined ? fieldObj.jobid : ''
+                        });
+
+                        
+       
+      }
+        
+      }
+
+      this.selectedIndex = 1;
+      }
+
+
+
 
     creatEnquiry(){
 
