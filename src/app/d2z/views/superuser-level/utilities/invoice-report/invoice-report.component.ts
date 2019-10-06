@@ -621,6 +621,11 @@ export class SuperUserInvoiceComponent implements OnInit{
         headerName: "Date",
         field: "dat",
         width: 200
+      },
+      {
+        headerName: "Manifest",
+        field: "manifest",
+        width: 200
       }
     ];
 //This grid for Shipment File
@@ -1322,7 +1327,7 @@ shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
             headers: [ "Broker Name","Invoice Number", "value", "Shipped Quantity", "Del Name", "Del Addr1",  "Del Addr2 (suburb)", "Del Addr3 (state)",
               "Del Addr4 (country)", "PostCode",  "Email",  "Telephone",  "Product Description",  "Origin", "Weight",
               "Tracking Template",  "Tracking Number",  "Inventory short name", "Supplier", "Bill Me",  "ServiceType",  "BagName",
-              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ,"Date"]
+              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ,"Date","Manifest"]
           };
           let broker_name ='broker_name';
           let invoice_number = 'invoice_number';
@@ -1354,6 +1359,7 @@ shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
           let Cost_Insurance = 'Cost_Insurance';
           let ABN_ARN = 'ABN_ARN';
           let dat = 'dat';
+          let manifest = 'manifest';
 
           for (var importVal in shipmentSelectedRows) {
               var shipmentObj = shipmentSelectedRows[importVal];
@@ -1388,7 +1394,8 @@ shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
                 shipmentMainObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', shipmentMainObj,
                 shipmentMainObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', shipmentMainObj,
                 shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj,
-                 shipmentMainObj[dat]= shipmentObj.dat != null ? shipmentObj.dat: '', shipmentMainObj
+                 shipmentMainObj[dat]= shipmentObj.dat != null ? shipmentObj.dat: '', shipmentMainObj,
+                  shipmentMainObj[manifest]= shipmentObj.manifest != null ? shipmentObj.manifest: '', shipmentMainObj
               );
               shipmentList.push(shipmentMainObj)
           }
