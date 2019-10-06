@@ -421,323 +421,17 @@ export class SuperUserInvoiceComponent implements OnInit{
         headerName: "Shipper Phone",
         field: "shipperPhone",
         width: 200
+      },
+       {
+        headerName: "Date",
+        field: "timestamp",
+        width: 200
       }
     ];
 //This grid for consignment File:
  this.gridOptionsConsignment1 = <GridOptions>{ rowSelection: "multiple" };
-    this.gridOptionsConsignment1.columnDefs = [
-      {
-        headerName: "Ref No.",
-        field: "reference_number",
-        width: 200,
-        checkboxSelection: true,
-        headerCheckboxSelection: function(params) {
-          return params.columnApi.getRowGroupColumns().length === 0;
-        }
-      },
-      {
-        headerName: "Article ID",
-        field: "barcodelabelNumber",
-        width: 200
-      },
-      {
-        headerName: "Address line 1",
-        field: "consignee_addr1",
-        width: 200
-      },
-      {
-        headerName: "Recipient Name",
-        field: "consignee_name",
-        width: 200
-      },
-      {
-        headerName: "Phone",
-        field: "consignee_Phone",
-        width: 150
-      },
-      {
-        headerName: "Postcode",
-        field: "consignee_Postcode",
-        width: 150
-      },
-      {
-        headerName: "State",
-        field: "consignee_State",
-        width: 200
-      },
-      {
-        headerName: "City/Suburb",
-        field: "consignee_Suburb",
-        width: 200
-      },
-      {
-        headerName: "Recipient Company",
-        field: "consigneeCompany",
-        width: 200
-      },
-      {
-        headerName: "Invoice Currency",
-        field: "currency",
-        width: 200
-      },
-      {
-        headerName: "Height",
-        field: "dimensions_Height",
-        width: 150
-      },
-      {
-        headerName: "Length",
-        field: "dimensions_Length",
-        width: 150
-      },
-      {
-        headerName: "Width",
-        field: "dimensions_Width",
-        width: 150
-      },
-      {
-        headerName: "Goods Description",
-        field: "product_Description",
-        width: 400
-      },
-      {
-        headerName: "Item Description",
-        field: "product_Description",
-        width: 400
-      },
-      {
-        headerName: "Shipper Address Line1",
-        field: "shipper_Addr1",
-        width: 250
-      },
-      {
-        headerName: "Shipper Address City",
-        field: "shipper_City",
-        width: 200
-      },
-      {
-        headerName: "Shipper Address Country",
-        field: "shipper_Country",
-        width: 300
-      },
-      {
-        headerName: "Shipper Name",
-        field: "shipper_Name",
-        width: 250
-      },
-      {
-        headerName: "Shipper Address Postcode",
-        field: "shipper_Postcode",
-        width: 200
-      },
-      {
-        headerName: "Shipper Address State",
-        field: "shipper_State",
-        width: 300
-      },
-      {
-        headerName: "Invoice Value",
-        field: "value",
-        width: 200
-      },
-      {
-        headerName: "Item Unit Value",
-        field: "value",
-        width: 200
-      },
-      {
-        headerName: "Total weight",
-        field: "weight",
-        width: 200
-      },
-      {
-        headerName: "Item Weight",
-        field: "weight",
-        width: 200
-      },
-      {
-        headerName: "Country",
-        field: "country",
-        width: 100
-      },
-      {
-        headerName: "Item No",
-        field: "itemNo",
-        width: 100
-      },
-    {
-        headerName: "Girth",
-        field: "girth",
-        width: 100
-      },
-      {
-        headerName: "Item Count",
-        field: "itemCount",
-        width: 100
-      },
-      {
-        headerName: "Item Currency",
-        field: "itemCurrency",
-        width: 100
-      },
-      {
-        headerName: "Item Origin",
-        field: "itemOrigin",
-        width: 100
-      },
-      {
-        headerName: "Total Weight Unit",
-        field: "totalWeightUnit",
-        width: 100
-      },
-      {
-        headerName: "Dimension Unit",
-        field: "dimension Unit",
-        width: 200
-      },
-      {
-        headerName: "Native Description",
-        field: "nativeDescription",
-        width: 200
-      },
-      {
-        headerName: "Address line 2",
-        field: "addressLine2",
-        width: 200
-      },
-      {
-        headerName: "Address line 3",
-        field: "addressLine3",
-        width: 200
-      },
-      {
-        headerName: "Dimension Unit",
-        field: "dimension Unit",
-        width: 200
-      },
-      {
-        headerName: "Native Description",
-        field: "nativeDescription",
-        width: 200
-      },
-      {
-        headerName: "Address line 2",
-        field: "addressLine2",
-        width: 200
-      },
-      {
-        headerName: "Address line 3",
-        field: "addressLine3",
-        width: 200
-      },
-      {
-        headerName: "Email",
-        field: "email",
-        width: 200
-      },
-      {
-        headerName: "SKU",
-        field: "sku",
-        width: 200
-      },
-      {
-        headerName: "Service Option",
-        field: "serviceOption",
-        width: 200
-      },
-      {
-        headerName: "Battery Packing",
-        field: "batteryPacking",
-        width: 200
-      },
-      {
-        headerName: "Battery Type",
-        field: "batteryType",
-        width: 200
-      },
-      {
-        headerName: "Shipper Facility/Origin",
-        field: "shipperFacility",
-        width: 200
-      },
-      {
-        headerName: "Locker Service",
-        field: "lockerService",
-        width: 200
-      },
-      {
-        headerName: "Incoterm",
-        field: "Incoterm",
-        width: 200
-      },
-      {
-        headerName: "Recipient Tax ID",
-        field: "recipientTaxID",
-        width: 200
-      },
-      {
-        headerName: "Return Option",
-        field: "returnOption",
-        width: 200
-      },
-      {
-        headerName: "Shipping Instructions",
-        field: "shippingInstructions",
-        width: 200
-      },
-      {
-        headerName: "Item Native Desc",
-        field: "itemNativeDesc",
-        width: 200
-      },
-      {
-        headerName: "Item HSCode",
-        field: "itemHSCode",
-        width: 200
-      },
-      {
-        headerName: "Item Product URL",
-        field: "itemProductURL",
-        width: 200
-      },
-      {
-        headerName: "Insure",
-        field: "insure",
-        width: 200
-      },
-      {
-        headerName: "Beneficiary",
-        field: "beneficiary",
-        width: 200
-      },
-      {
-        headerName: "Insurance Amount",
-        field: "insuranceAmount",
-        width: 200
-      },
-      {
-        headerName: "Insurance Currency",
-        field: "insuranceCurrency",
-        width: 200
-      },
-      {
-        headerName: "Shipper Address Line2",
-        field: "shipperAddressLine2",
-        width: 200
-      },
-      {
-        headerName: "Shipper Address Line3",
-        field: "shipperAddressLine3",
-        width: 200
-      },
-      {
-        headerName: "Shipper Phone",
-        field: "shipperPhone",
-        width: 200
-      }
-    ];
-
-    // This grid is for deleted Items
+ this .gridOptionsConsignment1.columnDefs= this.gridOptionsConsignment.columnDefs;
+   // This grid is for deleted Items
     this.gridOptionsDeleted = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsDeleted.columnDefs = [
 
@@ -750,6 +444,7 @@ export class SuperUserInvoiceComponent implements OnInit{
           return params.columnApi.getRowGroupColumns().length === 0;
         }
       },
+      
       {
         headerName: "Ref No.",
         field: "reference_number",
@@ -760,7 +455,13 @@ export class SuperUserInvoiceComponent implements OnInit{
         headerName: "Article ID",
         field: "barcodelabelNumber",
         width: 500
-      }
+      },
+       {
+        headerName: "Date",
+        field: "dat",
+        width: 200
+      },
+     
     ];
 
     // This grid is for Shipment Items
@@ -915,166 +616,18 @@ export class SuperUserInvoiceComponent implements OnInit{
         headerName: "ABN_ARN Number",
         field: "ABN_ARN Number",
         width: 200
+      },
+      {
+        headerName: "Date",
+        field: "dat",
+        width: 200
       }
     ];
 //This grid for Shipment File
 
  this.gridOptionsShipment1 = <GridOptions>{ rowSelection: "multiple" };
-    this.gridOptionsShipment1.columnDefs = [
-     {
-        headerName: "Broker Name",
-        field: "broker_name",
-        width: 200,
-        checkboxSelection: true,
-        headerCheckboxSelection: function(params) {
-          return params.columnApi.getRowGroupColumns().length === 0;
-        }
-      },
-      {
-        headerName: "Invoice Number",
-        field: "reference_number",
-        width: 200,
-        
-      },
-      {
-        headerName: "Value",
-        field: "value",
-        width: 100
-      },
-      {
-        headerName: "Shipped Quantity",
-        field: "shippedQuantity",
-        width: 100
-      },
-      {
-        headerName: "Del Name",
-        field: "consignee_name",
-        width: 150
-      },
-      {
-        headerName: "Del Addr1",
-        field: "consignee_addr1",
-        width: 150
-      },
-      {
-        headerName: "Del Addr2 (suburb)",
-        field: "consignee_Suburb",
-        width: 150
-      },
-      {
-        headerName: "Del Addr3 (state)",
-        field: "consignee_State",
-        width: 150
-      },
-      {
-        headerName: "deladdr4 (country)",
-        field: "consignee_country",
-        width: 100
-      },
-      {
-        headerName: "Postcode",
-        field: "consignee_Postcode",
-        width: 100
-      },
-      {
-        headerName: "Email",
-        field: "email",
-        width: 200
-      },
-      {
-        headerName: "Telephone",
-        field: "consignee_Phone",
-        width: 200
-      },
-      {
-        headerName: "Product Description",
-        field: "product_Description",
-        width: 300
-      },
-      {
-        headerName: "Origin",
-        field: "shipper_Country",
-        width: 150
-      },
-      {
-        headerName: "Weight",
-        field: "weight",
-        width: 100
-      },
-      {
-        headerName: "Tracking Template",
-        field: "tracking_template",
-        width: 300
-      },
-      {
-        headerName: "Tracking Number",
-        field: "barcodelabelNumber",
-        width: 300
-      },
-      {
-        headerName: "Inventory Short Name",
-        field: "articleID",
-        width: 200
-      },
-      {
-        headerName: "Supplier",
-        field: "supplier",
-        width: 100
-      },
-      {
-        headerName: "Bill me",
-        field: "bill_me",
-        width: 300
-      },
-      {
-        headerName: "ServiceType",
-        field: "servicetype",
-        width: 250
-      },
-      {
-        headerName: "BagName",
-        field: "bagName",
-        width: 200
-      },
-      {
-        headerName: "Length",
-        field: "dimensions_Length",
-        width: 200
-      },
-      {
-        headerName: "Width",
-        field: "dimensions_Width",
-        width: 200
-      },
-      {
-        headerName: "Height",
-        field: "dimensions_Height",
-        width: 200
-      },
-      {
-        headerName: "Currency",
-        field: "currency",
-        width: 200
-      },
-      {
-        headerName: "Cost_Freight",
-        field: "Cost_Freight",
-        width: 200
-      },
-      {
-        headerName: "Cost_Insurance",
-        field: "Cost_Insurance",
-        width: 100
-      },
-      {
-        headerName: "ABN_ARN Number",
-        field: "ABN_ARN Number",
-        width: 200
-      }
-    ];
-
-
-     // This grid is for NonShipment Items
+ this.gridOptionsShipment1.columnDefs = this.gridOptionsShipment.columnDefs;
+      // This grid is for NonShipment Items
     this.gridOptionsNonShipment = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsNonShipment.columnDefs = [
      {
@@ -1226,7 +779,13 @@ export class SuperUserInvoiceComponent implements OnInit{
         headerName: "ABN_ARN Number",
         field: "ABN_ARN Number",
         width: 200
-      }];
+      },
+      {
+        headerName: "Date",
+        field: "dat",
+        width: 200
+      }
+      ];
   
   }
 
@@ -1484,6 +1043,7 @@ consignmentSelectedRows = this.gridOptionsConsignment1.api.getSelectedRows();
   }
   else
   {
+  console.log("in else");
 consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
   }
    console.log(consignmentSelectedRows.length);
@@ -1556,7 +1116,8 @@ consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
               "Insure",
               "Beneficiary",
               "Insurance Amount",
-              "Insurance Currency"
+              "Insurance Currency",
+              "Date"
             ]
           };
           let reference_No = 'reference_No';
@@ -1617,6 +1178,8 @@ consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
           let beneficiary = 'beneficiary';
           let insurance_Amount = 'insurance_Amount';
           let insurance_Currency = 'insurance_Currency';
+          let dat ='dat';
+
 
           for (var importVal in consignmentSelectedRows) {
               var adminObj = consignmentSelectedRows[importVal];
@@ -1679,7 +1242,8 @@ consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
                   importObj[insure]= adminObj.insure != null ? adminObj.insure : '', importObj,
                   importObj[beneficiary] = adminObj.beneficiary != null ? adminObj.beneficiary : '', importObj,
                   importObj[insurance_Amount]= adminObj.insurance_Amount != null ? adminObj.insurance_Amount : '', importObj,
-                  importObj[insurance_Currency]= adminObj.insurance_Currency != null ? adminObj.insurance_Currency : '', importObj
+                  importObj[insurance_Currency]= adminObj.insurance_Currency != null ? adminObj.insurance_Currency : '', importObj,
+                   importObj[dat]= adminObj.timestamp != null ? adminObj.timestamp : '', importObj
               );
               consignmentList.push(importObj)
           }
@@ -1708,20 +1272,22 @@ consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ "Broker Name" ,"Ref No.", "Article ID" ]
+            headers: [ "Broker Name" ,"Ref No.", "Article ID","Date" ]
           };
           let reference_No = 'reference_No';
           let brokername ='brokername'
           let article_Id = 'article_Id';
+          let dat = 'dat';
           for (var delketeVal in deletedSelectedRows) {
               var deleteObj = deletedSelectedRows[delketeVal];
               var deleteMainObj = (
                 deleteMainObj={},
                   deleteMainObj[brokername]= deleteObj.brokername != null ? deleteObj.brokername: '', deleteMainObj,
                 deleteMainObj[reference_No]= deleteObj.reference_number != null ? deleteObj.reference_number: '', deleteMainObj,
-                deleteMainObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteMainObj
+                deleteMainObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteMainObj,
+                  deleteMainObj[dat]= deleteObj.dat != null ? deleteObj.dat : '', deleteMainObj
               );
-              deletedList.push(deleteMainObj)
+              deletedList.push(deleteMainObj);
           }
         new Angular2Csv(deletedList, fileName, options);        
       }else{
@@ -1756,7 +1322,7 @@ shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
             headers: [ "Broker Name","Invoice Number", "value", "Shipped Quantity", "Del Name", "Del Addr1",  "Del Addr2 (suburb)", "Del Addr3 (state)",
               "Del Addr4 (country)", "PostCode",  "Email",  "Telephone",  "Product Description",  "Origin", "Weight",
               "Tracking Template",  "Tracking Number",  "Inventory short name", "Supplier", "Bill Me",  "ServiceType",  "BagName",
-              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ]
+              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ,"Date"]
           };
           let broker_name ='broker_name';
           let invoice_number = 'invoice_number';
@@ -1787,6 +1353,7 @@ shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
           let Cost_Freight = 'Cost_Freight';
           let Cost_Insurance = 'Cost_Insurance';
           let ABN_ARN = 'ABN_ARN';
+          let dat = 'dat';
 
           for (var importVal in shipmentSelectedRows) {
               var shipmentObj = shipmentSelectedRows[importVal];
@@ -1820,7 +1387,8 @@ shipmentSelectedRows =  this.gridOptionsShipment.api.getSelectedRows();
                 shipmentMainObj[Currency]= shipmentObj.currency != null ? shipmentObj.currency: '', shipmentMainObj,
                 shipmentMainObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', shipmentMainObj,
                 shipmentMainObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', shipmentMainObj,
-                shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj
+                shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj,
+                 shipmentMainObj[dat]= shipmentObj.dat != null ? shipmentObj.dat: '', shipmentMainObj
               );
               shipmentList.push(shipmentMainObj)
           }
@@ -1854,7 +1422,7 @@ console.log("imhere");
             headers: [ "Broker Name","Invoice Number", "value", "Shipped Quantity", "Del Name", "Del Addr1",  "Del Addr2 (suburb)", "Del Addr3 (state)",
               "Del Addr4 (country)", "PostCode",  "Email",  "Telephone",  "Product Description",  "Origin", "Weight",
               "Tracking Template",  "Tracking Number",  "Inventory short name", "Supplier", "Bill Me",  "ServiceType",  "BagName",
-              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ]
+              "Length", "Width",  "Height", "Currency", "Cost Freight", "Cost Insurance", "ABN ARN Number" ,"Date"]
           };
           let broker_name ='broker_name';
           let invoice_number = 'invoice_number';
@@ -1885,6 +1453,7 @@ console.log("imhere");
           let Cost_Freight = 'Cost_Freight';
           let Cost_Insurance = 'Cost_Insurance';
           let ABN_ARN = 'ABN_ARN';
+          let dat = 'Dat';
 
           for (var importVal in nonshipmentSelectedRows) {
               var shipmentObj = nonshipmentSelectedRows[importVal];
@@ -1918,7 +1487,8 @@ console.log("imhere");
                 shipmentMainObj[Currency]= shipmentObj.currency != null ? shipmentObj.currency: '', shipmentMainObj,
                 shipmentMainObj[Cost_Freight]= shipmentObj.Cost_Freight != null ? shipmentObj.Cost_Freight: '', shipmentMainObj,
                 shipmentMainObj[Cost_Insurance]= shipmentObj.Cost_Insurance != null ? shipmentObj.Cost_Insurance: '', shipmentMainObj,
-                shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj
+                shipmentMainObj[ABN_ARN]= shipmentObj.ABN_ARN != null ? shipmentObj.ABN_ARN: '', shipmentMainObj,
+                 shipmentMainObj[dat]= "'"+shipmentObj.dat != null ? shipmentObj.dat: ''+"'", shipmentMainObj
               );
               NonshipmentList.push(shipmentMainObj)
           }
