@@ -21,6 +21,10 @@ body{
     border : none;
 }
 
+.fileupload_panel{
+    margin-top: 80px;
+}
+
 .manifest_panel{
     width: 100%; 
     border: 2px solid #ccc; 

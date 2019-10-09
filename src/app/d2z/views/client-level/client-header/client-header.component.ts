@@ -33,7 +33,6 @@ export class ClientHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.pageSwitch = document.location.hostname.includes("speedcouriers.com.au") == true ? "/login" :"/home";
-    console.log(this.pageSwitch);
     this.userName =  this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName : '';
     var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
     this.englishFlag = lanObject.englishFlag;

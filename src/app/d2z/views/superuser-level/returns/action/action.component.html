@@ -5,37 +5,104 @@
             <super-user-header></super-user-header>
 
             <div class="right_col" role="main">
-                
                 <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
-                                  <h3 style="margin-left: 10px"> Returns / Action </h3>
+                                <h3 style="margin-left: 10px"> Returns / Action </h3>
                                 </div>
                         </div>
                 </div>
 
-                <div>
-                    <h3> Customer Service Profile </h3> 
-
-                    <div style="float:right">
-                        <button type="button" 
-                        class="btn btn-info" 
-                        (click)="downloadEnquiryDetails()"
-                        style="background-color: #16A085; margin-top: -50px">
-                        <span class="glyphicon glyphicon-cloud-download"></span>
-                            Download  Enquiry
-                        </button>
+                <!-- Modal is to show the success msg -->
+                <div class="modal fade" id="action" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="modal fade" id="superEnquiry" role="dialog">
+                </div>
+
+                <div>
+                    <div class="modal fade" id="returnAction" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                               
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                    <h4 class="modal-title" style="font-size: 14px; color: darkgoldenrod;">You have select Resend as action, Upload the file to resend the details - {{this.resendReferNumber}}</h4>
+                                    
+                                    <div style="margin-top:20px">
+                                        <a href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
+                                                style="color: darkgreen; font-size:17px; float: left;" download>
+                                                  **Please click here to download the template for File Upload
+                                        </a>
+                                    </div>
                                 </div>
+
                                 <div class="modal-footer">
+                                    <div>
+                                        <p style="float:left" > Select File : </p>
+                                            <input type="file" 
+                                                   style="margin-left:10px; float:left" 
+                                                   (change)="actionFile($event)" 
+                                                   id="congFileControl"
+                                                   placeholder="Upload file" 
+                                                   accept=".xlsx">
+                                    </div>
+
+                                    <div *ngIf="showGrid">
+                                        <button type="button" 
+                                                class="btn btn-info" 
+                                                (click)="clearUpload()"
+                                                style="background-color: #16A085; float:left; margin-left: 30px">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                                Refresh
+                                        </button>
+                                    </div>
+
+                                    <div *ngIf="showGrid">
+                                        <button type="button" 
+                                                class="btn btn-info" 
+                                                (click)="fileUpload()"
+                                                style="background-color: #16A085; float:right">
+                                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                                                    Upload Records
+                                        </button>
+                                    </div>
+
+                                    <div style="float:left; margin-top:10px">
+                                            <p class="err_msg">{{errorModal}}</p>
+                                    </div>
+
+                                    <div *ngIf="showGrid" class="fileupload_panel">
+                                            <ag-grid-angular 
+                                                    #agGrid style="width: 100%; height:100px" 
+                                                    class="ag-theme-balham" 
+                                                    [autoGroupColumnDef]="autoGroupColumnDef"
+                                                    [rowData]="rowData"
+                                                    [enableSorting]="true"
+                                                    [enableFilter]="true"
+                                                    [suppressRowClickSelection]="true"
+                                                    [groupSelectsChildren]="true"
+                                                    [rowSelection]="rowSelection"
+                                                    [enableColResize]="true"
+                                                    [rowGroupPanelShow]="rowGroupPanelShow"
+                                                    [pivotPanelShow]="pivotPanelShow"
+                                                    [enableRangeSelection]="true"
+                                                    [pagination]="false"
+                                                    [defaultColDef]="defaultColDef"
+                                                    [gridOptions]="gridOptionsAction" 
+                                                    (selectionChanged)="onSelectionChange($event)">
+                                            </ag-grid-angular>
+                                  </div>
+
                                 </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -52,119 +119,68 @@
                             <p class="err_msg">{{errorMsg}}</p>
                     </div>
 
-                    <div style="width:100%; border:1px solid #ccc; overflow:auto">
-                        <table class="table" style="width:2200px;">
+                    <div style="border:1px solid #ccc">
+                        <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Broker Name</th>
-                                    <th>Ticket Number</th>
-                                    <th>Enquiry Open Date</th>
-                                    <th>Tracking Number</th>
+                                    <th></th>
+                                    <th>Article ID</th>
+                                    <th>Reference Number</th>
                                     <th>Consignee Name</th>
-                                    <th>Tracking Status</th>
-                                    <th>Delivery Date</th>
-                                    <th>Broker/Client Comments</th>
-                                    <th>D2Z Comments</th>
-                                    <th>Send Update</th>
-                                    <th>Close Enquiry</th>
-                                    <th>Upload attachment</th>
+                                    <th>Client Name</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let field of openEnquiryArray; let i = index">
+                                <tr *ngFor="let field of actionReturnsArray; let i = index">
                                     <td>
-                                        <input 
-                                            [(ngModel)]="field.userName" 
+                                        <input style="width:18px; height:18px" 
+                                            [(ngModel)]="field.selection" 
                                             class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.userName}}" />
+                                            type="checkbox" 
+                                            [checked]="field.selection"
+                                            name="{{field.selection}}" />
                                     </td>
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.ticketNumber" 
+                                            [(ngModel)]="field.articleId" 
                                             class="form-control" 
                                             type="text" 
-                                            disabled=true
-                                            name="{{field.ticketNumber}}" />
+                                            name="{{field.articleId}}" />
                                     </td>
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.trackingEventDateOccured" 
+                                            [(ngModel)]="field.referenceNumber" 
                                             class="form-control" 
                                             type="text" 
-                                            disabled=true
-                                            name="{{field.trackingEventDateOccured}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.articleID" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.articleID}}" />
+                                            name="{{field.referenceNumber}}" />
                                     </td>
                                     <td>
                                         <input 
                                             [(ngModel)]="field.consigneeName" 
                                             class="form-control" 
                                             type="text" 
-                                            disabled=true
                                             name="{{field.consigneeName}}" />
                                     </td>
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.status" 
+                                            [(ngModel)]="field.clientName" 
                                             class="form-control" 
                                             type="text" 
-                                            disabled=true
-                                            name="{{field.status}}" />
+                                            name="{{field.clientName}}" />
                                     </td>
                                     <td>
-                                        <input 
-                                            [(ngModel)]="field.trackingDeliveryDate" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.trackingDeliveryDate}}" />
-                                    </td>
-                                    <td>
-                                        <textarea [(ngModel)]="field.comments" 
-                                                class="form-control" cols="35" rows="3" 
-                                                name="{{field.comments}}">
-                                        </textarea>
-                                    </td>
-                                    <td>
-                                        <textarea [(ngModel)]="field.d2zComments" 
-                                                class="form-control" cols="35" rows="3" 
-                                                name="{{field.d2zComments}}">
-                                        </textarea>
-                                    </td>
-                                    <td>
-                                        <input style="margin-left:15px; width:18px; height:18px" 
-                                            [(ngModel)]="field.sendUpdate" 
-                                            class="form-control" 
-                                            type="checkbox" 
-                                            [checked]="field.sendUpdate"
-                                            name="{{field.sendUpdate}}" />
-                                    </td>
-                                    <td>
-                                        <input style="margin-left:15px; width:18px; height:18px" 
-                                            [(ngModel)]="field.closeEnquiry" 
-                                            class="form-control" 
-                                            type="checkbox" 
-                                            [checked]="field.closeEnquiry"
-                                            name="{{field.closeEnquiry}}" />
-                                    </td>
-                                    <td>
-                                        <input type="file" 
-                                                [(ngModel)]="field.attachment" 
-                                                class="form-control" 
-                                                name="{{field.attachment}}"
-                                                name="pic" accept="pdf/*">
+                                        <p-dropdown 
+                                        [options]="actionType" 
+                                        [(ngModel)]="field.actionType" 
+                                        optionLabel="name" 
+                                        [showClear]="true"
+                                        [editable]="true"
+                                        [style]="{'width':'100%'}"
+                                        (onChange)="onActionTypeChange($event)">
+                                        </p-dropdown>
                                     </td>
                                 </tr>
-                            
                             </tbody>
                         </table>
                     </div>
@@ -173,12 +189,13 @@
                 <div class="col-md-12">
                         <button type="button" 
                                 class="btn btn-info" 
-                                (click)="UpdateEnquiry()"
+                                (click)="UpdateAction()"
                                 style="background-color: #16A085; float:right; margin-top:10px;">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
-                                Submit
+                                Save
                         </button>
                 </div>
+                
 
               
 
