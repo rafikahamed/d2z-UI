@@ -28,85 +28,7 @@
                 </div>
 
                 <div>
-                    <div class="modal fade" id="returnAction" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                               
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title" style="font-size: 14px; color: darkgoldenrod;">You have select Resend as action, Upload the file to resend the details - {{this.resendReferNumber}}</h4>
-                                    
-                                    <div style="margin-top:20px">
-                                        <a href="/assets/forms/D2Z Upload File Template.xlsx" class="fa fa-file-excel-o" 
-                                                style="color: darkgreen; font-size:17px; float: left;" download>
-                                                  **Please click here to download the template for File Upload
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <div>
-                                        <p style="float:left" > Select File : </p>
-                                            <input type="file" 
-                                                   style="margin-left:10px; float:left" 
-                                                   (change)="actionFile($event)" 
-                                                   id="congFileControl"
-                                                   placeholder="Upload file" 
-                                                   accept=".xlsx">
-                                    </div>
-
-                                    <div *ngIf="showGrid">
-                                        <button type="button" 
-                                                class="btn btn-info" 
-                                                (click)="clearUpload()"
-                                                style="background-color: #16A085; float:left; margin-left: 30px">
-                                                <span class="glyphicon glyphicon-refresh"></span>
-                                                Refresh
-                                        </button>
-                                    </div>
-
-                                    <div *ngIf="showGrid">
-                                        <button type="button" 
-                                                class="btn btn-info" 
-                                                (click)="fileUpload()"
-                                                style="background-color: #16A085; float:right">
-                                                <span class="glyphicon glyphicon-cloud-upload"></span>
-                                                    Upload Records
-                                        </button>
-                                    </div>
-
-                                    <div style="float:left; margin-top:10px">
-                                            <p class="err_msg">{{errorModal}}</p>
-                                    </div>
-
-                                    <div *ngIf="showGrid" class="fileupload_panel">
-                                            <ag-grid-angular 
-                                                    #agGrid style="width: 100%; height:100px" 
-                                                    class="ag-theme-balham" 
-                                                    [autoGroupColumnDef]="autoGroupColumnDef"
-                                                    [rowData]="rowData"
-                                                    [enableSorting]="true"
-                                                    [enableFilter]="true"
-                                                    [suppressRowClickSelection]="true"
-                                                    [groupSelectsChildren]="true"
-                                                    [rowSelection]="rowSelection"
-                                                    [enableColResize]="true"
-                                                    [rowGroupPanelShow]="rowGroupPanelShow"
-                                                    [pivotPanelShow]="pivotPanelShow"
-                                                    [enableRangeSelection]="true"
-                                                    [pagination]="false"
-                                                    [defaultColDef]="defaultColDef"
-                                                    [gridOptions]="gridOptionsAction" 
-                                                    (selectionChanged)="onSelectionChange($event)">
-                                            </ag-grid-angular>
-                                  </div>
-
-                                </div>
-                               
-                            </div>
-                        </div>
-                    </div>
-
+                   
                     <ngx-spinner
                         bdColor="rgba(51,51,51,0.8)"
                         size="medium"
@@ -115,6 +37,10 @@
                         type="ball-clip-rotate-multiple">
                     </ngx-spinner>
                     
+                    <div style="margin-top: 10px;">
+                            <p class="err_msg">{{successMsg}}</p>
+                    </div>
+
                     <div style="margin-top: 10px;">
                             <p class="err_msg">{{errorMsg}}</p>
                     </div>
@@ -129,18 +55,19 @@
                                     <th>Consignee Name</th>
                                     <th>Client Name</th>
                                     <th>Action</th>
+                                    <th>Print Label</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let field of actionReturnsArray; let i = index">
-                                    <td>
-                                        <input style="width:18px; height:18px" 
-                                            [(ngModel)]="field.selection" 
-                                            class="form-control" 
-                                            type="checkbox" 
-                                            [checked]="field.selection"
-                                            name="{{field.selection}}" />
-                                    </td>
+                                        <td>
+                                                <input style="width:18px; height:18px" 
+                                                    [(ngModel)]="field.selection" 
+                                                    class="form-control" 
+                                                    type="checkbox" 
+                                                    [checked]="field.selection"
+                                                    name="{{field.selection}}" />
+                                            </td>
                                     <td>
                                         <input 
                                             [(ngModel)]="field.articleId" 
@@ -170,15 +97,16 @@
                                             name="{{field.clientName}}" />
                                     </td>
                                     <td>
-                                        <p-dropdown 
-                                        [options]="actionType" 
-                                        [(ngModel)]="field.actionType" 
-                                        optionLabel="name" 
-                                        [showClear]="true"
-                                        [editable]="true"
-                                        [style]="{'width':'100%'}"
-                                        (onChange)="onActionTypeChange($event)">
-                                        </p-dropdown>
+                                        <input 
+                                            [(ngModel)]="field.action" 
+                                            class="form-control" 
+                                            type="text" 
+                                            name="{{field.action}}" />
+                                    </td>
+
+                                    <td *ngIf="field.action =='resend'"> <span class="fa fa-file-pdf-o fa-2x" 
+                                                style="margin-left:20px; color: #b92323; cursor: pointer;"
+                                                (click)="generatePdf(field.resendRefNumber)"></span> 
                                     </td>
                                 </tr>
                             </tbody>
@@ -192,13 +120,10 @@
                                 (click)="UpdateAction()"
                                 style="background-color: #16A085; float:right; margin-top:10px;">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
-                                Save
+                                Complete Action
                         </button>
                 </div>
                 
-
-              
-
             </div>
         </div>
     </div>

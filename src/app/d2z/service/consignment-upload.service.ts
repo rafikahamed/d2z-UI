@@ -783,15 +783,15 @@ downloadMlidData( service, callback): any {
 
 
   fetchActionReturns(callback): any {
-    // this.http.get(baseUrl+'/tracking-list').subscribe((resp:userMessage) => {
-    //   callback(resp);
-    //   if (resp) {
-    //   } else {
-    //     console.error("Not Found!")
-    //   }
-    // }, (error) => {
-    //   callback(error);
-    // });
+    this.http.get(baseUrl+'/superUser-level/action-returns').subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
   } 
 
 }
