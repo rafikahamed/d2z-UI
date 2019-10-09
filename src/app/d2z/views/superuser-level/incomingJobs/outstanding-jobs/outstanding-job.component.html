@@ -31,6 +31,7 @@
                    
                                 <mat-tab-group animationDuration="1000ms" 
                                  [(selectedIndex)]="selectedIndex" >
+
             <mat-tab label="Outstanding">
                             <!-- Modal -->
                          
@@ -48,6 +49,44 @@
                                     </div>
 
                                   
+                            
+     <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                           (click)="creatEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                           
+                                            Update
+                                    </button>
+                
+                                  
+                            </div>
+                          
+                             <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                           (click)="submitEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                           
+                                            Submit
+                                    </button>
+                
+                                  
+                            </div>
+   <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="viewEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            
+                                            View
+                                    </button>
+                
+                                  
+                            </div>
                         <table class="table" style="width:1300px;">
                                                 <thead>
                                                     <tr >
@@ -174,45 +213,7 @@
                                                       </tr>
                                                 </tbody>
                                 </table>
-                         
-                            </div>
-     <div class="col-md-4">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                           (click)="creatEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                           
-                                            Update
-                                    </button>
-                
-                                  
-                            </div>
-                          
-                             <div class="col-md-4">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                           (click)="submitEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                           
-                                            Submit
-                                    </button>
-                
-                                  
-                            </div>
-   <div class="col-md-4">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                            (click)="viewEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                            
-                                            View
-                                    </button>
-                
-                                  
-                            </div>
+                         </div>
                         </mat-tab>
                       <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
 

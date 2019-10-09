@@ -29,7 +29,7 @@
                     </div>
 
                    
-                                <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" #tabGroup (selectedTabChange)="tabChanged(index)">
+                                <mat-tab-group animationDuration="1000ms"  [(selectedIndex)]="selectedIndex" #tabGroup (selectedTabChange)="tabChanged(index)">
             <mat-tab label="Closed">
                             <!-- Modal -->
                          
@@ -46,6 +46,43 @@
                                             <p class="err_msg">{{errorMsg}}</p>
                                     </div>
 
+
+<div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="creatEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            Delete
+                                    </button>
+                
+                                  
+                            </div>
+                            <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="viewEnquiry()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            
+                                            View
+                                    </button>
+                
+                                  
+                            </div>
+                            <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="download()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            
+                                            Download
+                                    </button>
+                
+                                  
+                            </div>
                                   
                         <table class="table" style="width:1250px;">
                                                 <thead>
@@ -176,42 +213,7 @@
                          
                             </div>
     
-                            <div class="col-md-4">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                            (click)="creatEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                            Delete
-                                    </button>
-                
-                                  
-                            </div>
-                            <div class="col-md-4">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                            (click)="viewEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                            
-                                            View
-                                    </button>
-                
-                                  
-                            </div>
-                            <div class="col-md-4">
-                                    <button type="button" 
-                                            class="btn btn-info" 
-                                            *ngIf="englishFlag"
-                                            (click)="download()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
-                                            
-                                            Download
-                                    </button>
-                
-                                  
-                            </div>
+                            
   
                         </mat-tab>
                       <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
