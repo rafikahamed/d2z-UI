@@ -781,7 +781,6 @@ downloadMlidData( service, callback): any {
     });
   };
 
-
   fetchActionReturns(callback): any {
     this.http.get(baseUrl+'/superUser-level/action-returns').subscribe((resp:userMessage) => {
       callback(resp);
@@ -792,7 +791,20 @@ downloadMlidData( service, callback): any {
     }, (error) => {
       callback(error);
     });
-  } 
+  };
+
+  updateSuperUserAction(returnsAction, callback): any {
+    this.http.put(baseUrl+'/superUser-level/action',returnsAction
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
 
 }
 

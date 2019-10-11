@@ -4,7 +4,6 @@ declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as XLSX from 'xlsx';
 import { GridOptions } from "ag-grid";
 
 @Component({
@@ -29,12 +28,10 @@ export class superUserReturnsActionComponent implements OnInit{
   fileExists: String;
   file:File;
   arrayBuffer:any;
-  actionType: City[];
   public openEnquiryList = [];
   public importList = [];
-  public resendData = [];
+  public superuserAction = [];
   public actionData = [];
-  public nonResendData = [];
   private gridOptionsAction: GridOptions;
     private autoGroupColumnDef;
     private rowGroupPanelShow;
@@ -110,7 +107,7 @@ export class superUserReturnsActionComponent implements OnInit{
     };
     var dateString = year+month+day+"-"+hour+minutes+seconds;
     if(resendRefNumber){
-        this.spinner.show();
+       this.spinner.show();
         this.trackingDataService.generateTrackLabel(resendRefNumber.trim(), (resp) => {
           this.spinner.hide();
             if(resp.status === 500){
@@ -132,94 +129,47 @@ export class superUserReturnsActionComponent implements OnInit{
 
   UpdateAction(){
     this.exportCall= false;
-    this.resendReferNumber = [];
-    this.resendData = [];
-    this.nonResendData = [];
     this.actionData = [];
-    var that = this;
+    this.superuserAction = [];
+    var that=this;
     this.actionReturnsArray.forEach(function(item){
-        if(item.actionType && item.actionType.value == 'resend' && item.selection){
-          that.resendReferNumber.push(item.referenceNumber);
-          that.exportCall= true;
-          that.resendData.push(item);
-        }else if(item.selection){
-          that.nonResendData.push(item);
-        }
+      if(item.selection){
+        that.actionData.push(item);
+      }
     });
 
-    if(that.exportCall){
-      if(that.resendReferNumber.length === 1){
-        that.errorMsg = null;
-        
-      }else if(that.resendReferNumber.length > 1){
-        that.errorMsg = '**Only one item is allowed to resend';
+    if(that.actionData.length > 0){
+      let articleId = 'articleId';
+      let brokerName = 'brokerName';
+      let referenceNumber = 'referenceNumber';
+      let action = 'action';
+      for (var actionVal in that.actionData) {
+        var fieldObj = that.actionData[actionVal];
+        var actionObj = (
+            actionObj={}, 
+            actionObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', actionObj,
+            actionObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName: '', actionObj,
+            actionObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber:'', actionObj
+        );
+        that.superuserAction.push(actionObj);
       }
+      this.spinner.show();
+      this.consigmentUploadService.updateSuperUserAction(this.superuserAction, (resp) => {
+        this.spinner.hide();
+        if(resp.error){
+        }else{
+          this.returnsAction = [];
+          this.successMsg= resp.message;
+          $('#action').modal('show');
+          this.fetchReturnActionData();
+        }
+      });
     }else{
-      console.log(that.nonResendData);
-      that.returnsAction = [];
-      if(that.nonResendData.length == 0){
-        that.errorMsg = '**Atleast one item its required to perform Action';
-      }else{ 
-        that.nonResendData.forEach(function(item){
-          if(item.actionType && item.actionType.value){
-              that.nonExportCall = true;
-            }else{
-              that.errorMsg = '**Action Type cannot be Empty';
-              that.nonExportCall = false;
-            }
-       });
-     }
-  
-     // Making an Action returns API Call
-     if(that.nonExportCall){
-        that.errorMsg = null;
-        let articleId = 'articleId';
-        let brokerName = 'brokerName';
-        let referenceNumber = 'referenceNumber';
-        let action = 'action';
-        let resendRefNumber = 'resendRefNumber';
-
-        for (var actionVal in that.nonResendData) {
-          var fieldObj = that.nonResendData[actionVal];
-          var actionObj = (
-              actionObj={}, 
-              actionObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', actionObj,
-              actionObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName: '', actionObj,
-              actionObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber:'', actionObj,
-              actionObj[action]= fieldObj.actionType != undefined ? fieldObj.actionType.value: '',actionObj,
-              actionObj[resendRefNumber]= fieldObj.actionType.value == 'resend' ? fieldObj.resendRefNumber : null,  actionObj
-          );
-          that.returnsAction.push(actionObj);
-        }
-        console.log("Non Returns Array--->")
-        console.log(that.returnsAction)
-        if(that.returnsAction.length > 0){
-          this.spinner.show();
-            // this.consigmentUploadService.updateAction(this.returnsAction, (resp) => {
-            //   this.spinner.hide();
-            //   if(resp.error){
-            //   }else{
-            //     this.returnsAction = [];
-            //     this.successMsg= resp.message;
-            //     $('#action').modal('show');
-            //     this.fetchReturnActionData();
-            //   }
-            // });
-        }
-     }
+      that.errorMsg = '**Atleast one item its required to perform Action';
     }
-   
   };
 
-
 }
-
-
-interface City {
-  name: string;
-  value: string;
-}
-
 
 
 

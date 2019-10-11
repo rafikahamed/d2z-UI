@@ -262,7 +262,7 @@ export class ReturnsActionComponent implements OnInit{
           console.log("Non Returns Array--->")
           console.log(that.returnsAction)
           if(that.returnsAction.length > 0){
-            this.spinner.show();
+              this.spinner.show();
               this.consigmentUploadService.updateAction(this.returnsAction, (resp) => {
                 this.spinner.hide();
                 if(resp.error){
