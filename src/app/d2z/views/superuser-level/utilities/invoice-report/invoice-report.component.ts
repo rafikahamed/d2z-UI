@@ -1289,7 +1289,7 @@ consignmentSelectedRows = this.gridOptionsConsignment.api.getSelectedRows();
                 deleteMainObj={},
                   deleteMainObj[brokername]= deleteObj.brokername != null ? deleteObj.brokername: '', deleteMainObj,
                 deleteMainObj[reference_No]= deleteObj.reference_number != null ? deleteObj.reference_number: '', deleteMainObj,
-                deleteMainObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber.substring(18, 41) : '', deleteMainObj,
+                deleteMainObj[article_Id]= deleteObj.barcodelabelNumber != null ? deleteObj.barcodelabelNumber : '', deleteMainObj,
                   deleteMainObj[dat]= deleteObj.dat != null ? deleteObj.dat : '', deleteMainObj
               );
               deletedList.push(deleteMainObj);
