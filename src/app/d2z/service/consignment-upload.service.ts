@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-//const baseUrl = "https://"+hostname+"/v1/"+apiName;
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 //const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
@@ -98,7 +98,6 @@ adduserService( UserObject, callback ): any {
             }, (error) => {
                 callback(error);
             });
-
   };
 
   authenticate( loginObject, callback): any {
@@ -768,6 +767,32 @@ downloadMlidData( service, callback): any {
       callback(error);
     });
   };
+
+  updateAction(returnsAction, callback): any {
+    this.http.put(baseUrl+'/action-returns',returnsAction
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
+
+  fetchActionReturns(callback): any {
+    this.http.get(baseUrl+'/superUser-level/action-returns').subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  } 
 
 }
 

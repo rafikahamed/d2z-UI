@@ -6,7 +6,6 @@ import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GridOptions } from "ag-grid";
 
-
 interface dropdownTemplate {
   name: string;
   value: string;
@@ -123,7 +122,16 @@ export class superUserReturnsOutstandingComponent implements OnInit{
 
   returnSuperSearch(){
     this.spinner.show();
-    this.consigmentUploadService.fetchSuperuserOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.brokerName, (resp) => {
+    var fromDate = null;
+    var toDate = null;
+    if(this.fromDate){
+      fromDate = this.fromDate;
+    }
+    if(this.toDate){
+      toDate = this.toDate;
+    }
+    console.log(this.brokerName)
+    this.consigmentUploadService.fetchSuperuserOutstandingReturns( fromDate, toDate, this.brokerName, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {

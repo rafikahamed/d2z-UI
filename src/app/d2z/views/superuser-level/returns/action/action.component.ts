@@ -5,7 +5,7 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { GridOptions } from "ag-grid";
 
 @Component({
   selector: 'hms-returns-action',
@@ -13,14 +13,33 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
   styleUrls: ['./action.component.css']
 })
 
-export class superUserReturnsActionComponent{
-  private openEnquiryArray: Array<any> = [];
+export class superUserReturnsActionComponent implements OnInit{
+ 
+  private actionReturnsArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
+  errorModal: String;
+  showGrid: boolean;
+  public resendReferNumber: any[];
+  public returnsAction: any[];
   user_Id: String;
+  exportCall: boolean;
+  nonExportCall: boolean;
   system: String;
+  fileExists: String;
+  file:File;
   arrayBuffer:any;
+  actionType: City[];
   public openEnquiryList = [];
+  public importList = [];
+  public resendData = [];
+  public actionData = [];
+  public nonResendData = [];
+  private gridOptionsAction: GridOptions;
+    private autoGroupColumnDef;
+    private rowGroupPanelShow;
+    private rowData: any[];
+    private defaultColDef;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -29,7 +48,29 @@ export class superUserReturnsActionComponent{
     private _compiler: Compiler
   ) {
     this._compiler.clearCache();  
+    this.showGrid = false;
+    this.exportCall = false;
+    this.nonExportCall = false;
+    this.gridOptionsAction = <GridOptions>{rowSelection: "multiple"};
+    this.autoGroupColumnDef = {
+      headerCheckboxSelection: true,
+      cellRenderer: "agGroupCellRenderer",
+      cellRendererParams: { checkbox: true }
+    };      
+    this.rowGroupPanelShow = "always";
+    this.defaultColDef = {
+      editable: true
+    };
   }
+
+  fetchReturnActionData(){
+      this.spinner.show();
+        this.consigmentUploadService.fetchActionReturns((resp) => {
+          this.spinner.hide();
+          this.actionReturnsArray = resp;
+        })
+  
+  };
 
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
@@ -39,110 +80,148 @@ export class superUserReturnsActionComponent{
             return;
         }
         window.scrollTo(0, 0)
-      })
-      this.spinner.show();
-      this.trackingDataService.openEnquiryDetails((resp) => {
-        this.spinner.hide();
-        this.openEnquiryArray = resp; 
-        setTimeout(() => {
-          this.spinner.hide() }, 5000);
       });
+      this.spinner.show();
+      this.fetchReturnActionData();
+  };
+
+  generatePdf(resendRefNumber){
+    console.log("resend RefNumber -->"+resendRefNumber);
+    var today = new Date();
+    var day = today.getDate() + "";
+    var month = (today.getMonth() + 1) + "";
+    var year = today.getFullYear() + "";
+    var hour = today.getHours() + "";
+    var minutes = today.getMinutes() + "";
+    var seconds = today.getSeconds() + "";
+
+    day = checkZero(day);
+    month = checkZero(month);
+    year = checkZero(year);
+    hour = checkZero(hour);
+    minutes = checkZero(minutes);
+    seconds = checkZero(seconds);
+
+    function checkZero(data){
+      if(data.length == 1){
+        data = "0" + data;
+      }
+      return data;
+    };
+    var dateString = year+month+day+"-"+hour+minutes+seconds;
+    if(resendRefNumber){
+        this.spinner.show();
+        this.trackingDataService.generateTrackLabel(resendRefNumber.trim(), (resp) => {
+          this.spinner.hide();
+            if(resp.status === 500){
+              this.errorMsg = ' Invalid "Reference Number" or "BarCode label number" ';
+            }else{
+              var pdfFile = new Blob([resp], {type: 'application/pdf'});
+              var pdfUrl = URL.createObjectURL(pdfFile);
+            var fileName = resendRefNumber+"-label"+dateString+".pdf";
+              var a = document.createElement("a");
+                  document.body.appendChild(a);
+                  a.href = pdfUrl;
+                  a.download = fileName;
+                  a.click();
+                  this.successMsg =  "Document Downloaded Successfully";
+            }
+          })
+    }
+  }
+
+  UpdateAction(){
+    this.exportCall= false;
+    this.resendReferNumber = [];
+    this.resendData = [];
+    this.nonResendData = [];
+    this.actionData = [];
+    var that = this;
+    this.actionReturnsArray.forEach(function(item){
+        if(item.actionType && item.actionType.value == 'resend' && item.selection){
+          that.resendReferNumber.push(item.referenceNumber);
+          that.exportCall= true;
+          that.resendData.push(item);
+        }else if(item.selection){
+          that.nonResendData.push(item);
+        }
+    });
+
+    if(that.exportCall){
+      if(that.resendReferNumber.length === 1){
+        that.errorMsg = null;
+        
+      }else if(that.resendReferNumber.length > 1){
+        that.errorMsg = '**Only one item is allowed to resend';
+      }
+    }else{
+      console.log(that.nonResendData);
+      that.returnsAction = [];
+      if(that.nonResendData.length == 0){
+        that.errorMsg = '**Atleast one item its required to perform Action';
+      }else{ 
+        that.nonResendData.forEach(function(item){
+          if(item.actionType && item.actionType.value){
+              that.nonExportCall = true;
+            }else{
+              that.errorMsg = '**Action Type cannot be Empty';
+              that.nonExportCall = false;
+            }
+       });
+     }
+  
+     // Making an Action returns API Call
+     if(that.nonExportCall){
+        that.errorMsg = null;
+        let articleId = 'articleId';
+        let brokerName = 'brokerName';
+        let referenceNumber = 'referenceNumber';
+        let action = 'action';
+        let resendRefNumber = 'resendRefNumber';
+
+        for (var actionVal in that.nonResendData) {
+          var fieldObj = that.nonResendData[actionVal];
+          var actionObj = (
+              actionObj={}, 
+              actionObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', actionObj,
+              actionObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName: '', actionObj,
+              actionObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber:'', actionObj,
+              actionObj[action]= fieldObj.actionType != undefined ? fieldObj.actionType.value: '',actionObj,
+              actionObj[resendRefNumber]= fieldObj.actionType.value == 'resend' ? fieldObj.resendRefNumber : null,  actionObj
+          );
+          that.returnsAction.push(actionObj);
+        }
+        console.log("Non Returns Array--->")
+        console.log(that.returnsAction)
+        if(that.returnsAction.length > 0){
+          this.spinner.show();
+            // this.consigmentUploadService.updateAction(this.returnsAction, (resp) => {
+            //   this.spinner.hide();
+            //   if(resp.error){
+            //   }else{
+            //     this.returnsAction = [];
+            //     this.successMsg= resp.message;
+            //     $('#action').modal('show');
+            //     this.fetchReturnActionData();
+            //   }
+            // });
+        }
+     }
+    }
+   
   };
 
 
-  UpdateEnquiry(){
-
-    if(this.openEnquiryArray.length > 0 ){
-      this.openEnquiryList = [];
-      let articleID = 'articleID';
-      let comments = 'comments';
-      let d2zComments = 'd2zComments';
-      let sendUpdate = 'sendUpdate';
-      let status = 'status';
-
-        for (var enquiryVal in this.openEnquiryArray) {
-          var fieldObj = this.openEnquiryArray[enquiryVal];
-          var openEnquiryObj = (
-            openEnquiryObj={}, 
-            openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
-            openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
-            openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
-            openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
-            openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
-          );
-          this.openEnquiryList.push(openEnquiryObj);
-        }
-        this.spinner.show();
-        this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
-          this.spinner.hide();
-          $('#superEnquiry').modal('show');
-          if(resp.error){
-            this.successMsg = resp.error.message;
-          }else{
-            this.successMsg = resp.message;
-            this.trackingDataService.openEnquiryDetails((resp) => {
-              this.openEnquiryArray = resp; 
-            });
-          }
-          setTimeout(() => {
-            this.spinner.hide() }, 5000);
-        })
-      }else{
-        this.errorMsg =  "**Data is not Avilable to download";
-    } 
-  }
-
-
-  downloadEnquiryDetails(){
-    var enquiryDownloadData = []
-      if(this.openEnquiryArray.length > 0 ){
-        let articleID = 'articleID';
-        let consigneeName = 'consigneeName';
-        let consigneeaddr1 = 'consigneeaddr1';
-        let consigneeSuburb = 'consigneeSuburb';
-        let consigneeState = 'consigneeState';
-        let productDescription = 'productDescription';
-        let consigneePostcode = 'consigneePostcode';
-        let trackingStatus = 'trackingStatus';
-        let trackingDeliveryDate ='trackingDeliveryDate';
-        let comments ='comments';
-        for(var enquiryData in this.openEnquiryArray){
-            var invoiceApprovedData = this.openEnquiryArray[enquiryData];
-            var invoiceApproveObj = (
-              invoiceApproveObj={}, 
-              invoiceApproveObj[articleID]= invoiceApprovedData.articleID != null ? invoiceApprovedData.articleID : '' , invoiceApproveObj,
-              invoiceApproveObj[consigneeName]= invoiceApprovedData.consigneeName != null ? invoiceApprovedData.consigneeName : '', invoiceApproveObj,
-              invoiceApproveObj[consigneeaddr1]= invoiceApprovedData.consigneeaddr1 != null ?  invoiceApprovedData.consigneeaddr1 : '', invoiceApproveObj,
-              invoiceApproveObj[consigneeSuburb]= invoiceApprovedData.consigneeSuburb != null ? invoiceApprovedData.consigneeSuburb : '', invoiceApproveObj,
-              invoiceApproveObj[consigneeState]= invoiceApprovedData.consigneeState != null ? invoiceApprovedData.consigneeState : '', invoiceApproveObj,
-              invoiceApproveObj[consigneePostcode]= invoiceApprovedData.consigneePostcode != null ? invoiceApprovedData.consigneePostcode : '', invoiceApproveObj,
-              invoiceApproveObj[productDescription]= invoiceApprovedData.productDescription != null ? invoiceApprovedData.productDescription : '', invoiceApproveObj,
-              invoiceApproveObj[trackingStatus]= invoiceApprovedData.trackingStatus != null ? invoiceApprovedData.trackingStatus : '', invoiceApproveObj,
-              invoiceApproveObj[trackingDeliveryDate]= invoiceApprovedData.trackingDeliveryDate != null ? invoiceApprovedData.trackingDeliveryDate : '', invoiceApproveObj,
-              invoiceApproveObj[comments]= invoiceApprovedData.comments != null ? invoiceApprovedData.comments : '', invoiceApproveObj
-            );
-            enquiryDownloadData.push(invoiceApproveObj);
-         };
-
-          var currentTime = new Date();
-          var fileName = '';
-              fileName = "Enquiry-Details"+"-"+currentTime.toLocaleDateString();
-          var options = { 
-              fieldSeparator: ',',
-              quoteStrings: '"',
-              decimalseparator: '.',
-              showLabels: true, 
-              useBom: true,
-              headers: [ 'Tracking Number', 'Consignee Name', 'Address', 'Suburb', 'State', 'Postcode', 'Description', 'Tracking Status','Expected Delivery Date','Broker/Client Comments']
-            };
-          new Angular2Csv(enquiryDownloadData, fileName, options); 
-      }else{
-          this.errorMsg =  "**Data is not Avilable to download";
-      } 
-    
-  }
-  
 }
+
+
+interface City {
+  name: string;
+  value: string;
+}
+
+
+
 
 
 
