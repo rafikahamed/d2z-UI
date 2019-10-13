@@ -447,10 +447,49 @@ export class ZebraFileUpload implements OnInit{
             var first_sheet_name = workbook.SheetNames[0];
             var worksheet = workbook.Sheets[first_sheet_name];
             var exportData = XLSX.utils.sheet_to_json(worksheet);
+            var referencenumber;
+            var cname;
+            var cadd;
+            var cstate;
+            var csub;
+            var cpostcode;
+            var pd;
+            var valu;
+            var servi;
+            var we;
             for (var importVal in exportData) {
               var dataObj = exportData[importVal];
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
+
+if(keyVal === 'Reference number' || keyVal ==='Referencenumber' || keyVal ==='referencenumber' || keyVal === 'reference number' ){
+               referencenumber = keyVal; 
+              }
+              else if(keyVal ==='Consignee Name'|| keyVal ==='ConsigneeName' || keyVal ==='consigneename'|| keyVal ==='consignee name'){
+                cname = keyVal;
+              }
+              else if(keyVal === 'Consignee Address 1'|| keyVal ==='ConsigneeAddress1' || keyVal === 'consignee address 1'|| keyVal === 'consigneeaddress1'){
+               cadd = keyVal;
+              }
+              else if(keyVal === 'Consignee Suburb'|| keyVal ==='consignee suburb'|| keyVal ==='ConsigneeSuburb' || keyVal ==='consigneesuburb'){
+               csub = keyVal;
+              }else if(keyVal ==='Consignee State' || keyVal ==='ConsigneeState'|| keyVal ==='consigneestate'|| keyVal ==='consignee state' ){
+                cstate = keyVal;
+              }else if(keyVal === 'Consignee Postcode' || keyVal === 'ConsigneePostcode'|| keyVal === 'consigneepostcode'|| keyVal === 'consignee postcode'){
+               cpostcode =keyVal;
+              }else if(keyVal === 'Product Description'|| keyVal === 'product description'|| keyVal === 'ProductDescription'|| keyVal === 'productdescription'){
+               pd = keyVal;
+              }else if(keyVal === 'Value'|| keyVal === 'value'){
+               valu = keyVal;
+              }
+else if(keyVal === 'Weight'|| keyVal === 'weight'){
+console.log("in weight");
+                we = keyVal;
+              }
+              else if(keyVal === 'Service type'|| keyVal === 'service type'|| keyVal === 'servicetype'|| keyVal === 'Servicetype'){
+               servi = keyVal;
+              }
+
                 //if(!this.FileHeading.includes(keyVal)){
                   // this.errorMsg = "***Invalid file format, Please check the field in given files"+ 
                   // newLine + "Allowed fields are [ Reference number, Consignee Company, Consignee Name, Consignee Address 1, Consignee Suburb, Consignee State, Consignee Postcode"+
@@ -466,50 +505,51 @@ export class ZebraFileUpload implements OnInit{
                 // }
               }
 
-              if(!dataObj['Reference number']){
+              if(!dataObj['Reference number'] && !dataObj['Referencenumber'] && !dataObj['referencenumber'] && !dataObj['reference number'] ){
                 this.errorMsg = "Reference Number is mandatory";
-              }else if(!dataObj['Consignee Name']){
+              }else if(!dataObj['Consignee Name'] && !dataObj['ConsigneeName'] && !dataObj['consigneename'] && !dataObj['consignee name']){
                 this.errorMsg = "Consignee Name is mandatory";
-              }else if(!dataObj['Consignee Address 1']){
+              }else if(!dataObj['Consignee Address 1'] && !dataObj['ConsigneeAddress1'] && !dataObj['consignee address 1'] && !dataObj['consigneeaddress1']){
                 this.errorMsg = "Consignee Address 1 is mandatory";
-              }else if(!dataObj['Consignee Suburb']){
+              }else if(!dataObj['Consignee Suburb'] && !dataObj['consignee suburb'] && !dataObj['ConsigneeSuburb'] &&!dataObj['consigneesuburb']){
                 this.errorMsg = 'Consignee Suburb is mandatory';
-              }else if(!dataObj['Consignee State']){
+              }else if(!dataObj['Consignee State'] && !dataObj['ConsigneeState'] && !dataObj['consigneestate'] && !dataObj['consignee state']  ){
                 this.errorMsg = 'Consignee State is mandatory';
-              }else if(!dataObj['Consignee Postcode']){
+              }else if(!dataObj['Consignee Postcode'] && !dataObj['ConsigneePostcode'] && !dataObj['consigneepostcode'] && !dataObj['consignee postcode']){
                 this.errorMsg = 'Consignee Postcode is mandatory';
-              }else if(!dataObj['Product Description']){
+              }else if(!dataObj['Product Description'] && !dataObj['product description'] && !dataObj['ProductDescription']
+              && !dataObj['productdescription']){
                 this.errorMsg = 'Product Description is mandatory';
-              }else if(!dataObj['Value']){
+              }else if(!dataObj['Value'] && !dataObj['value']){
                 this.errorMsg = 'Value is mandatory';
-              }else if(!dataObj['Weight']){
+              }else if(!dataObj['Weight'] && !dataObj['weight']){
                 this.errorMsg = 'Weight is mandatory';
-              }else if(!dataObj['Service type']){
+              }else if(!dataObj['Service type'] && !dataObj['service type'] && !dataObj['servicetype'] && !!dataObj['Servicetype']){
                 this.errorMsg = 'Service type is mandatory';
               }
 
               if(this.errorMsg == null){
                 var importObj = (
                   importObj={}, 
-                  importObj[referenceNumber]= dataObj['Reference number'] != undefined ? dataObj['Reference number'] : '', importObj,
+                  importObj[referenceNumber]= dataObj[referencenumber] != undefined ? dataObj[referencenumber] : '', importObj,
                   importObj[consigneeCompany]= dataObj['Consignee Company'] != undefined ? dataObj['Consignee Company'] : '', importObj,
-                  importObj[consigneeName]= dataObj['Consignee Name'] != undefined ? dataObj['Consignee Name'] : '', importObj,
-                  importObj[consigneeAddr1]= dataObj['Consignee Address 1'] != undefined ? dataObj['Consignee Address 1'] : '', importObj,
+                  importObj[consigneeName]= dataObj[cname] != undefined ? dataObj[cname] : '', importObj,
+                  importObj[consigneeAddr1]= dataObj[cadd] != undefined ? dataObj[cadd] : '', importObj,
                   importObj[consigneeAddr2]= dataObj['Consignee Address 2'] != undefined ? dataObj['Consignee Address 2'] : '',  importObj,
                   importObj[consigneeEmail]= dataObj['Consignee Email'] != undefined ? dataObj['Consignee Email'] : '',  importObj,
-                  importObj[consigneeSuburb]= dataObj['Consignee Suburb'] != undefined ? dataObj['Consignee Suburb'] : '', importObj,
-                  importObj[consigneeState]= dataObj['Consignee State'] != undefined ? dataObj['Consignee State'] : '',  importObj,
-                  importObj[consigneePostcode]= dataObj['Consignee Postcode'] != undefined ? dataObj['Consignee Postcode'] : '', importObj,
+                  importObj[consigneeSuburb]= dataObj[csub] != undefined ? dataObj[csub] : '', importObj,
+                  importObj[consigneeState]= dataObj[cstate] != undefined ? dataObj[cstate] : '',  importObj,
+                  importObj[consigneePostcode]= dataObj[cpostcode] != undefined ? dataObj[cpostcode] : '', importObj,
                   importObj[consigneePhone]= dataObj['Consignee Phone'] != undefined ? dataObj['Consignee Phone'] : '', importObj,
-                  importObj[productDescription]= dataObj['Product Description'] != undefined ? dataObj['Product Description'] : '',  importObj,
-                  importObj[value]= dataObj['Value'] != undefined ? parseInt(dataObj['Value']) : '', importObj,
+                  importObj[productDescription]= dataObj[pd] != undefined ? dataObj[pd] : '',  importObj,
+                  importObj[value]= dataObj[valu] != undefined ? parseInt(dataObj[valu]) : '', importObj,
                   importObj[currency]= dataObj['Currency'] != undefined ? dataObj['Currency'] : 'AUD', importObj,
                   importObj[shippedQuantity]= dataObj['Shipped Quantity'] != undefined ? parseInt(dataObj['Shipped Quantity']) : 1, importObj,
-                  importObj[weight]= dataObj['Weight'] != undefined ? dataObj['Weight'] : '',  importObj,
+                  importObj[weight]= dataObj[we] != undefined ? dataObj[we] : '',  importObj,
                   importObj[dimensionsLength]= dataObj['Dim_X'] != undefined ? parseInt(dataObj['Dim_X']) : '',  importObj,
                   importObj[dimensionsWidth]= dataObj['Dim_Y'] != undefined ? parseInt(dataObj['Dim_Y']) : '', importObj,
                   importObj[dimensionsHeight]= dataObj['Dim_Z'] != undefined ? parseInt(dataObj['Dim_Z']) : '', importObj,
-                  importObj[serviceType]= dataObj['Service type'] != undefined ? dataObj['Service type'] : '',  importObj,
+                  importObj[serviceType]= dataObj[servi] != undefined ? dataObj[servi] : '',  importObj,
                   importObj[shipperName]= dataObj['Shipper Name'] != undefined ? dataObj['Shipper Name'] : '', importObj,
                   importObj[shipperAddr1]= dataObj['Shipper Address'] != undefined ? dataObj['Shipper Address'] : '',  importObj,
                   importObj[shipperCity]= dataObj['Shipper City'] != undefined ? dataObj['Shipper City'] : '', importObj,
@@ -531,6 +571,7 @@ export class ZebraFileUpload implements OnInit{
                 this.errorMsg = 'Consginee Address 2 should not contain more than 50 character';
                 break;
               }
+              console.log(importObj);
               this.importList.push(importObj);
               this.serviceType = this.importList[0].serviceType;
               this.rowData = this.importList;

@@ -35,8 +35,10 @@ export class SuperUserLogReportComponent implements OnInit{
   show: Boolean;
   etowerFlag: Boolean;
   auPostFlag: Boolean;
-  fdmFlag: Boolean;
-  freipostFlag: Boolean;
+  //fdmFlag: Boolean;
+  //freipostFlag: Boolean;
+  pflFlag:Boolean;
+  nexFlag:Boolean;
   mydate: Date;
   successMsg: String;
   fromDate: String;
@@ -45,15 +47,17 @@ export class SuperUserLogReportComponent implements OnInit{
   role_id: String;
   system: String;
   private gridOptionsEtower: GridOptions;
+  private gridOptionsPfl: GridOptions;
+  private gridOptionsNex: GridOptions;
   private gridOptionsAupost: GridOptions;
-  private gridOptionsFdm: GridOptions;
-  private gridOptionsFreipost:GridOptions;
+  //private gridOptionsFdm: GridOptions;
+  //private gridOptionsFreipost:GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private rowDataEtower: any[];
   private rowDataAUPost: any[];
-  private rowDataFdm: any[];
-  private rowDataFreipost: any[];
+  private rowDataNEX: any[];
+  private rowDataPFL: any[];
   private defaultColDef;
   clientDropdown: dropdownTemplate[];  
   selectedClientType: dropdownTemplate;
@@ -81,6 +85,9 @@ export class SuperUserLogReportComponent implements OnInit{
 
     // This grid is for Consignment Items
     this.gridOptionsEtower = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsPfl =  <GridOptions>{ rowSelection: "multiple" };
+     this.gridOptionsNex =  <GridOptions>{ rowSelection: "multiple" };
+
     this.gridOptionsEtower.columnDefs = [
       {
         headerName: "Tracking No",
@@ -128,6 +135,8 @@ export class SuperUserLogReportComponent implements OnInit{
       }
     ];
 
+  this.gridOptionsPfl.columnDefs  =   this.gridOptionsEtower.columnDefs ;
+    this.gridOptionsNex.columnDefs =   this.gridOptionsEtower.columnDefs ;
     // This grid is for deleted Items
     this.gridOptionsAupost = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsAupost.columnDefs = [
@@ -183,7 +192,7 @@ export class SuperUserLogReportComponent implements OnInit{
     ];
 
     // This grid is for Shipment Items
-    this.gridOptionsFdm = <GridOptions>{ rowSelection: "multiple" };
+   /* this.gridOptionsFdm = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsFdm.columnDefs = [
      {
         headerName: "Reference Number",
@@ -230,10 +239,10 @@ export class SuperUserLogReportComponent implements OnInit{
         field: "response",
         width: 100
       }
-    ];
+    ];*/
 
      // This grid is for NonShipment Items
-    this.gridOptionsFreipost = <GridOptions>{ rowSelection: "multiple" };
+  /*  this.gridOptionsFreipost = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsFreipost.columnDefs = [
      {
         headerName: "Reference Number",
@@ -270,7 +279,9 @@ export class SuperUserLogReportComponent implements OnInit{
         field: "response",
         width: 200
       }
-     ]
+     ]*/
+
+
   
   }
 
@@ -279,8 +290,8 @@ export class SuperUserLogReportComponent implements OnInit{
       this.clientDropdown = [
         { "name": "eTower", "value": "etower" },
         { "name": "AU Post", "value": "auPost" },
-        { "name": "FDM", "value": "fdm"},
-        { "name": "Freipost", "value": "freiPost" 
+        { "name": "PFL", "value": "pfl"},
+        { "name": "NEX", "value": "nex" 
         }
       ];
       this.selectedClientType = this.clientDropdown[0];
@@ -288,8 +299,8 @@ export class SuperUserLogReportComponent implements OnInit{
       this.getLoginDetails();
       this.etowerFlag = true;
       this.auPostFlag = false;
-      this.fdmFlag = false;
-      this.freipostFlag = false;
+      this.nexFlag = false;
+      this.pflFlag = false;
   };
 
   getLoginDetails(){
@@ -320,23 +331,23 @@ export class SuperUserLogReportComponent implements OnInit{
     if(event.value.value === 'etower'){
         this.etowerFlag = true;
         this.auPostFlag = false;
-        this.fdmFlag = false;
-        this.freipostFlag = false;
+        this.pflFlag = false;
+        this.nexFlag = false;
     }else if(event.value.value === 'auPost'){
         this.etowerFlag = false;
         this.auPostFlag = true;
-        this.fdmFlag = false;
-        this.freipostFlag = false;
-    }else if(event.value.value === 'fdm'){
+        this.pflFlag = false;
+        this.nexFlag = false;
+    }else if(event.value.value === 'pfl'){
         this.etowerFlag = false;
         this.auPostFlag = false;
-        this.fdmFlag = true;
-        this.freipostFlag = false;
-    }else if(event.value.value === 'freiPost'){
+        this.pflFlag = true;
+        this.nexFlag = false;
+    }else if(event.value.value === 'nex'){
         this.etowerFlag = false;
         this.auPostFlag = false;
-        this.fdmFlag = false;
-        this.freipostFlag = true;
+        this.pflFlag = false;
+        this.nexFlag = true;
     }
   };
 
@@ -394,10 +405,10 @@ export class SuperUserLogReportComponent implements OnInit{
           this.rowDataEtower = [];
         }else if(this.clientType === 'auPost'){
           this.rowDataAUPost = [];
-        }else if(this.clientType === 'fdm'){
-          this.rowDataFdm = [];
-        }else if(this.clientType === 'freiPost'){
-          this.rowDataFreipost = [];
+        }else if(this.clientType === 'pfl'){
+          this.rowDataPFL = [];
+        }else if(this.clientType === 'nex'){
+          this.rowDataNEX = [];
         }
        
   this.frominput.value = '';
@@ -406,6 +417,98 @@ export class SuperUserLogReportComponent implements OnInit{
     this.errorMsg = null;
    
   };
+  downloadnexData(){
+    var etowerSelectedRows = this.gridOptionsNex.api.getSelectedRows();
+    if(etowerSelectedRows.length > 0 ){
+        var currentTime = new Date();
+        var etowerResponseList = [];
+        var fileName = '';
+            fileName = "NEX"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ "API Name" ,"Reference Number", "Order Id", "Tracking No", "Error Code", "Error Message", "Timestamp", "Status" ]
+          };
+
+          let apiname = 'apiname';
+          let referenceNumber ='referenceNumber'
+          let orderId = 'orderId';
+          let trackingNo = 'trackingNo';
+          let errorCode ='errorCode'
+          let errorMessage = 'errorMessage';
+          let timestamp = 'timestamp';
+          let status ='status';
+
+          for (var etowerVal in etowerSelectedRows) {
+              var etwoerObj = etowerSelectedRows[etowerVal];
+              var etowerMainObj = (
+                etowerMainObj={},
+                etowerMainObj[apiname]= etwoerObj.apiname != null ? etwoerObj.apiname: '', etowerMainObj,
+                etowerMainObj[referenceNumber]= etwoerObj.referenceNumber != null ? etwoerObj.referenceNumber: '', etowerMainObj,
+                etowerMainObj[orderId]= etwoerObj.orderId != null ? etwoerObj.orderId: '', etowerMainObj,
+                etowerMainObj[trackingNo]= etwoerObj.trackingNo != null ? etwoerObj.trackingNo: '', etowerMainObj,
+                etowerMainObj[errorCode]= etwoerObj.errorCode != null ? etwoerObj.errorCode: '', etowerMainObj,
+                etowerMainObj[errorMessage]= etwoerObj.errorMessage != null ? etwoerObj.errorMessage: '', etowerMainObj,
+                etowerMainObj[timestamp]= etwoerObj.timestamp != null ? etwoerObj.timestamp: '', etowerMainObj,
+                etowerMainObj[status]= etwoerObj.status != null ? etwoerObj.status: '', etowerMainObj
+              );
+              etowerResponseList.push(etowerMainObj)
+          }
+        new Angular2Csv(etowerResponseList, fileName, options);        
+      }else{
+        this.errorMsg = "**Please select the below records to download the eTower Response details";
+      } 
+  };
+
+downloadpflData(){
+    var etowerSelectedRows = this.gridOptionsPfl.api.getSelectedRows();
+    if(etowerSelectedRows.length > 0 ){
+        var currentTime = new Date();
+        var etowerResponseList = [];
+        var fileName = '';
+            fileName = "PFL"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ "API Name" ,"Reference Number", "Order Id", "Tracking No", "Error Code", "Error Message", "Timestamp", "Status" ]
+          };
+
+          let apiname = 'apiname';
+          let referenceNumber ='referenceNumber'
+          let orderId = 'orderId';
+          let trackingNo = 'trackingNo';
+          let errorCode ='errorCode'
+          let errorMessage = 'errorMessage';
+          let timestamp = 'timestamp';
+          let status ='status';
+
+          for (var etowerVal in etowerSelectedRows) {
+              var etwoerObj = etowerSelectedRows[etowerVal];
+              var etowerMainObj = (
+                etowerMainObj={},
+                etowerMainObj[apiname]= etwoerObj.apiname != null ? etwoerObj.apiname: '', etowerMainObj,
+                etowerMainObj[referenceNumber]= etwoerObj.referenceNumber != null ? etwoerObj.referenceNumber: '', etowerMainObj,
+                etowerMainObj[orderId]= etwoerObj.orderId != null ? etwoerObj.orderId: '', etowerMainObj,
+                etowerMainObj[trackingNo]= etwoerObj.trackingNo != null ? etwoerObj.trackingNo: '', etowerMainObj,
+                etowerMainObj[errorCode]= etwoerObj.errorCode != null ? etwoerObj.errorCode: '', etowerMainObj,
+                etowerMainObj[errorMessage]= etwoerObj.errorMessage != null ? etwoerObj.errorMessage: '', etowerMainObj,
+                etowerMainObj[timestamp]= etwoerObj.timestamp != null ? etwoerObj.timestamp: '', etowerMainObj,
+                etowerMainObj[status]= etwoerObj.status != null ? etwoerObj.status: '', etowerMainObj
+              );
+              etowerResponseList.push(etowerMainObj)
+          }
+        new Angular2Csv(etowerResponseList, fileName, options);        
+      }else{
+        this.errorMsg = "**Please select the below records to download the eTower Response details";
+      } 
+  };
+
 
   downloadAuPostData(){
     var auPostSelectedRows = this.gridOptionsAupost.api.getSelectedRows();
@@ -455,7 +558,7 @@ export class SuperUserLogReportComponent implements OnInit{
       } 
   }
 
-  downloadFdmData(){
+ /* downloadFdmData(){
     var fdmSelectedRows = this.gridOptionsFdm.api.getSelectedRows();
     if(fdmSelectedRows.length > 0 ){
         var currentTime = new Date();
@@ -541,7 +644,10 @@ export class SuperUserLogReportComponent implements OnInit{
       }else{
         this.errorMsg = "**Please select the below records to download the FeriPost Response details";
       } 
-  }
+  }*/
+
+
+
 
   logSearch(){
     this.errorMsg = null;
@@ -561,10 +667,10 @@ export class SuperUserLogReportComponent implements OnInit{
           this.rowDataEtower = resp;
         }else if(this.clientType === 'auPost'){
           this.rowDataAUPost = resp;
-        }else if(this.clientType === 'fdm'){
-          this.rowDataFdm = resp;
-        }else if(this.clientType === 'freiPost'){
-          this.rowDataFreipost = resp;
+        }else if(this.clientType === 'pfl'){
+          this.rowDataPFL = resp;
+        }else if(this.clientType === 'nex'){
+          this.rowDataNEX = resp;
         }
       }); 
     }
@@ -580,13 +686,13 @@ export class SuperUserLogReportComponent implements OnInit{
     this.errorMsg = null;
   }
 
-  onFdmChange(){
-    var fdmSelectedRows = this.gridOptionsFdm.api.getSelectedRows();
+  onPflChange(){
+    var fdmSelectedRows = this.gridOptionsPfl.api.getSelectedRows();
     this.errorMsg = null;
   }
 
-  onFreipostChange(){
-    var freipostSelectedRows = this.gridOptionsFreipost.api.getSelectedRows();
+  onNexChange(){
+    var freipostSelectedRows = this.gridOptionsNex.api.getSelectedRows();
     this.errorMsg = null;
   }
  
