@@ -44,15 +44,9 @@ export class ZebraFileUpload implements OnInit{
     chinessFlag:boolean;
     carrierType: String;
     serviceType: String;
-    // FileHeading = ['Reference number', 'Consignee Company', 'Consignee Name', 'Consignee Address 1', 'Consignee Suburb', 'Consignee State', 'Consignee Postcode',
-    //                'Consignee Phone', 'Product Description', 'Value', 'Currency', 'Shipped Quantity', 'Weight', 'Dim_X', 'Dim_Y',
-    //                'Dim_Z', 'Service type', 'Shipper Name', 'Shipper Address', 'Shipper City', 'Shipper State', 'Shipper Postcode',
-    //                'Shipper Country', 'SKU', 'Label Sender Name', 'Delivery Instructions'];
-
     FileHeading = ['Reference number', 'Consignee Name', 'Consignee Address 1', 'Consignee Suburb', 
     'Consignee State', 'Consignee Postcode',
     'Product Description', 'Value', 'Weight', 'Service type'];
-    
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
       private spinner: NgxSpinnerService,
@@ -87,7 +81,8 @@ export class ZebraFileUpload implements OnInit{
         { "name": "eParcel", "value": "eParcel" },
         { "name": "Express", "value": "Express" },
         { "name": "Fastway", "value": "fastway" },
-        { "name": "Multi Carrier", "value": "multiCarrier" }
+        { "name": "Multi Carrier", "value": "multiCarrier" },
+        { "name": "AuPost", "value":"aupost"}
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.router.events.subscribe((evt) => {
@@ -552,6 +547,7 @@ export class ZebraFileUpload implements OnInit{
       var fastwayArray = ["FWS","FWM"];
       var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS"];
       var nonEparcel = ["MCM","MCM1","MCM2","MCM3","MCS","FWS","FWM","1PME"];
+      var aupostArray = ["1PME","1PM"]
       
       for(var k = 0; k != selectedRows.length; ++k){
         if(selectedRows[k].carrier == 'eParcel'){
@@ -573,6 +569,12 @@ export class ZebraFileUpload implements OnInit{
         }else if(selectedRows[k].carrier == 'multiCarrier'){
           console.log(multiCarrierArray.includes(selectedRows[k].serviceType));
           if(!multiCarrierArray.includes(selectedRows[k].serviceType)){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
+        }else if(selectedRows[k].carrier == 'aupost'){
+          console.log(aupostArray.includes(selectedRows[k].serviceType));
+          if(!aupostArray.includes(selectedRows[k].serviceType)){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }

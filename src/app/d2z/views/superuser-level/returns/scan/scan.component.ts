@@ -66,6 +66,15 @@ export class superUserReturnsScanComponent{
         window.scrollTo(0, 0)
       });
       this.newAttribute.type = this.scanType[0];
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
+      this.fieldArray.push(this.newAttribute);
   };
 
     addFieldValue() {
@@ -125,7 +134,9 @@ export class superUserReturnsScanComponent{
           newReturnsArray.push(enquiryObj);
         }
       }
-      // console.log(newReturnsArray);
+      console.log("returns array ----->")
+      console.log(newReturnsArray);
+      
       let scanType = 'scanType';
       let articleId = 'articleId';
       let barcodelabelNumber = 'barcodelabelNumber';
