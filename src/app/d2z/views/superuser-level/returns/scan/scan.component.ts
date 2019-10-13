@@ -121,10 +121,9 @@ export class superUserReturnsScanComponent{
     }
 
     returnEnquiry(){
-      // console.log(this.fieldArray);
-      // console.log(this.newAttribute);
       this.importReturnsList = [];
       var newReturnsArray = [];
+      var scanValidData = [];
       if(this.newAttribute.type){
         newReturnsArray.push(this.newAttribute);
       }
@@ -134,56 +133,60 @@ export class superUserReturnsScanComponent{
           newReturnsArray.push(enquiryObj);
         }
       }
-      console.log("returns array ----->")
-      console.log(newReturnsArray);
-      
-      let scanType = 'scanType';
-      let articleId = 'articleId';
-      let barcodelabelNumber = 'barcodelabelNumber';
-      let referenceNumber = 'referenceNumber';
-      let returnReason = 'returnReason';
-      let brokerName = 'brokerName';
-      let clientName = 'clientName';
-      let consigneeName = 'consigneeName';
-      let userId = 'userId';
-      let clientBrokerId = 'clientBrokerId';
-      let carrier = 'carrier';
 
-      for (var fieldVal in newReturnsArray) {
-        var fieldObj = newReturnsArray[fieldVal];
-        var enquiryObj = (
-          enquiryObj={}, 
-          enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
-          enquiryObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', enquiryObj,
-          enquiryObj[barcodelabelNumber]= fieldObj.barcodelabelNumber != undefined ? fieldObj.barcodelabelNumber : '', enquiryObj,
-          enquiryObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : '', enquiryObj,
-          enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
-          enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
-          enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
-          enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
-          enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
-          enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
-          enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj
-        );
-        this.importReturnsList.push(enquiryObj);
+      for(var scanArray in newReturnsArray ){
+        var scanObj = newReturnsArray[scanArray];
+          console.log(scanObj)
+          if(scanObj.scan){
+            scanValidData.push(scanObj);
+          }
       }
-
-      console.log(this.importReturnsList)
-      if(this.importReturnsList.length > 0){
-        this.spinner.show();
-        this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
-             this.spinner.hide();
-             if(resp.error){
-                this.successMsg = resp.error.message;
-                $('#returnsScan').modal('show');
-             }else{
-                this.successMsg = resp.message;
-                $('#returnsScan').modal('show');
-                this.fieldArray = [];
-                this.newAttribute = {};
-                this.newAttribute.type = this.scanType[0];
-             }
-        });
+      console.log(scanValidData);
+      if(scanValidData.length > 0){
+          let scanType = 'scanType';
+          let articleId = 'articleId';
+          let barcodelabelNumber = 'barcodelabelNumber';
+          let referenceNumber = 'referenceNumber';
+          let returnReason = 'returnReason';
+          let brokerName = 'brokerName';
+          let clientName = 'clientName';
+          let consigneeName = 'consigneeName';
+          let userId = 'userId';
+          let clientBrokerId = 'clientBrokerId';
+          let carrier = 'carrier';
+    
+          for (var fieldVal in newReturnsArray) {
+            var fieldObj = newReturnsArray[fieldVal];
+            var enquiryObj = (
+              enquiryObj={}, 
+              enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+              enquiryObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', enquiryObj,
+              enquiryObj[barcodelabelNumber]= fieldObj.barcodelabelNumber != undefined ? fieldObj.barcodelabelNumber : '', enquiryObj,
+              enquiryObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : '', enquiryObj,
+              enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
+              enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
+              enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
+              enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
+              enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
+              enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
+              enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj
+            );
+            this.importReturnsList.push(enquiryObj);
+          }
+          this.spinner.show();
+          this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
+              this.spinner.hide();
+              if(resp.error){
+                  this.successMsg = resp.error.message;
+                  $('#returnsScan').modal('show');
+              }else{
+                  this.successMsg = resp.message;
+                  $('#returnsScan').modal('show');
+                  this.fieldArray = [];
+                  this.newAttribute = {};
+                  this.newAttribute.type = this.scanType[0];
+              }
+          });
       }else{
         this.errorMsg = "** Atleast add one Returns to proceed";
       }
