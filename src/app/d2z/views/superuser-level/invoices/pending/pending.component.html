@@ -194,8 +194,94 @@
               
               </div>
             </mat-tab>
+ <mat-tab label="Invoices / Upload Weight"> 
+              <div class="delete_panel">
+                  <ngx-spinner
+                    bdColor="rgba(51,51,51,0.8)"
+                    size="medium"
+                    color="#fff"
+                    loadingText="Loading..."
+                    type="ball-clip-rotate-multiple">
+                  </ngx-spinner>
+                  
+                   <!-- Modal -->
+                  <div class="modal fade" id="invoice" role="dialog">
+                    <div class="modal-dialog">
+                      <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}} {{errorMsg}}</h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-            <mat-tab label="Invoices Non-D2Z / Pending"> 
+                  <div>
+                      <p class="success_msg">{{successMsg}}</p>
+                  </div>
+
+                  <div>
+                      <p class="err_msg">{{errorMsg}}</p>
+                  </div>
+
+                  <div style="padding:10px; margin-top:10px">
+                      <p> Please selecr records to update Weight </p>
+                      <div style="float: left">
+                            <p style="float: left"> Select the File to upload weight details : </p>
+                            <input type="file" 
+                                   style="display: inline-block; margin-left:25px" 
+                                   (change)="incomingfile($event)" 
+                                   placeholder="Upload file" 
+                                   accept=".xlsx">
+                          </div> 
+
+                       <div class="row" style="margin-top: 25px">
+                      <div class="col-md-9">
+                         <ag-grid-angular 
+                                    #agGrid style="width:90%; height:550px" 
+                                    class="ag-theme-balham" 
+                                    [autoGroupColumnDef]="autoGroupColumnDef"
+                                    [rowData]="rowDataWeight"
+                                    [enableSorting]="true"
+                                    [enableFilter]="true"
+                                    [suppressRowClickSelection]="true"
+                                    [groupSelectsChildren]="true"
+                                    [debug]="true"
+                                    [rowSelection]="rowSelection"
+                                    [enableColResize]="true"
+                                    [rowGroupPanelShow]="rowGroupPanelShow"
+                                    [pivotPanelShow]="pivotPanelShow"
+                                    [enableRangeSelection]="true"
+                                    [pagination]="true"
+                                    [defaultColDef]="defaultColDef"
+                                    [gridOptions]="gridOptionsWeight" 
+                                    [pagination]="true"
+                                    (selectionChanged)="onApprovedChange($event)">
+                          </ag-grid-angular>
+                          
+</div>
+  <div class="col-md-3">
+                            <button type="button" 
+                              class="btn btn-info" 
+                              (click)="uploadWeight()"
+                              style="background-color: #16A085;">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                               Upload
+                      </button>
+                      </div>
+                  </div>
+
+                     
+                      
+                  </div>
+              
+              </div>
+            </mat-tab>
+
+
+           <!-- <mat-tab label="Invoices Non-D2Z / Pending"> 
               <div class="delete_panel">
                   <ngx-spinner
                     bdColor="rgba(51,51,51,0.8)"
@@ -371,7 +457,10 @@
                   </div>
               
               </div>
-            </mat-tab>
+            </mat-tab>-->
+
+
+
           </mat-tab-group>
           
 
