@@ -227,7 +227,7 @@
                   </div>
 
                   <div style="padding:10px; margin-top:10px">
-                      <p> Please selecr records to update Weight </p>
+                     
                       <div style="float: left">
                             <p style="float: left"> Select the File to upload weight details : </p>
                             <input type="file" 
@@ -235,9 +235,13 @@
                                    (change)="incomingfile($event)" 
                                    placeholder="Upload file" 
                                    accept=".xlsx">
-                          </div> 
+                          
+</div>
 
-                       <div class="row" style="margin-top: 25px">
+                       <div style="float: left">
+                         <p style="margin-top: 60px;"> Please select records to update Weight :</p>
+                         </div> 
+                          <div class="row" style="margin-top: 25px">
                       <div class="col-md-9">
                          <ag-grid-angular 
                                     #agGrid style="width:90%; height:550px" 
