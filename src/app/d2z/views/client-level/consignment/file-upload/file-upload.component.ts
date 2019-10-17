@@ -559,13 +559,13 @@ console.log("in weight");
                   importObj[userName]= this.consigmentUploadService.userMessage.userName, importObj,
                   importObj[carrier]= this.carrierType ? this.carrierType : '',  importObj
               );
-              if(importObj.consigneeAddr1.length > 50){
-                this.errorMsg = 'Consginee Address 1 should not contain more than 50 character';
-                break;
-              }else if(importObj.consigneeAddr2.length > 50){
-                this.errorMsg = 'Consginee Address 2 should not contain more than 50 character';
-                break;
-              }
+              //if(importObj.consigneeAddr1.length > 50){
+                //this.errorMsg = 'Consginee Address 1 should not contain more than 50 character';
+                //break;
+              //}else if(importObj.consigneeAddr2.length > 50){
+                //this.errorMsg = 'Consginee Address 2 should not contain more than 50 character';
+                //break;
+              //}
               console.log(importObj);
               this.importList.push(importObj);
               this.serviceType = this.importList[0].serviceType;
