@@ -331,6 +331,7 @@ closingJob( callback): any {
     });
   };
 
+
   fetchOutstandingReturns(fromDate, toDate, userId, callback): any {
     this.http.get(baseUrl+'/outStanding-returns', {
       params: { fromDate: fromDate, toDate: toDate, userId: userId  }
@@ -791,6 +792,24 @@ downloadMlidData( service, callback): any {
       }
     }, (error) => {
         callback(error);
+    });
+  };
+
+
+shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
+
+
+ this.http.get(baseUrl+'/superUser-level/allocate-shipment', {
+      params: { articleid: referenceNumbers, shipment: shipmentNumber  }})
+   .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
     });
   };
 

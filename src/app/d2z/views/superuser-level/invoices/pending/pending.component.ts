@@ -25,8 +25,13 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   errorMsg: string;
   successMsg: String;
   file:File;
+  file1:File;
+   FileArticle = ['ArticleID'];
+ public articleList = [];
+
   public importList = [];
    arrayBuffer:any;
+     arrayBuffer1:any;
   invoiceApproveFlag: Boolean;
   invoiceBilledFlag: Boolean;
   nonD2zInvoiceApproveFlag: Boolean;
@@ -44,6 +49,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   private rowDataNonD2zPending: any[];
   private rowDataNonD2zApproved: any[];
   private rowDataWeight: any[];
+  private rowDataArticle: any[];
   private invoiceDownloadList: any[];
   system: String;
   serviceListMainData = [];
@@ -51,10 +57,16 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   serviceTypeDropdown: dropdownTemplate[];  
   selectedserviceType: dropdownTemplate;
   serviceType: String;
+   shipmentAllocateForm: FormGroup;
+    private articlegridOptions:GridOptions;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     private spinner: NgxSpinnerService
   ){
+
+   this.shipmentAllocateForm = new FormGroup({
+      shipmentNumber: new FormControl()
+    });
     this.autoGroupColumnDef = {
       headerCheckboxSelection: true,
       cellRenderer: "agGroupCellRenderer",
@@ -136,6 +148,19 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         headerName: "Weight",
         field: "weight",
         width: 250
+      }
+    ];
+
+     this.articlegridOptions = <GridOptions>{ rowSelection: "multiple" };
+    this.articlegridOptions.columnDefs = [
+      {
+        headerName: "Article ID",
+        field: "articleid",
+        width: 500,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
       }
     ];
     //This grid is for Approved Invoice NON-D2Z
@@ -601,6 +626,117 @@ incomingfile(event) {
     this.uploadArticleID();
   }
 
+   incomingfile1(event) {
+   
+    this.rowDataArticle =[];
+    this.file1= event.target.files[0]; 
+    this.shipmentExport();
+  };
+
+shipmentExport(){
+    var worksheet;
+      this.errorMsg = null;
+      let fileReader = new FileReader();
+      this.importList= [];
+      this.articleList=[];
+      fileReader.readAsArrayBuffer(this.file1);
+     
+      let articleid = 'articleid';
+      fileReader.onload = (e) => {
+          this.arrayBuffer1 = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer1);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            var exportData = XLSX.utils.sheet_to_json(worksheet);
+            for (var importVal in exportData) {
+              var dataObj = exportData[importVal];
+              for(var keyVal in dataObj){
+                var newLine = "\r\n"
+                console.log(dataObj['ArticleID']);
+
+               
+                
+                {
+                if(!this.FileArticle.includes(keyVal)){
+                  this.errorMsg = "***Invalid file format, Please check the field in given files ArticleID, allowed fields are ['ArticleID']"
+                }
+                }
+
+              }
+              if(this.errorMsg == null){
+             
+                
+                {
+                 var importObj = (
+                  importObj={}, 
+                  importObj[articleid]= dataObj['ArticleID'] != undefined ? dataObj['ArticleID'] : '', importObj
+                );
+ this.articleList.push(importObj);
+
+               this.rowDataArticle= this.articleList;
+               console.log(this.rowDataArticle);
+                }
+             
+
+             
+              }
+          }
+        }
+  };
+
+  allocateShipment(){
+    this.errorMsg = null;
+    this.successMsg = '';
+
+
+{
+   var selectedRows = this.articlegridOptions.api.getSelectedRows();
+   var select = "Article";
+   var refrenceNumList = [];
+    for (var labelValue in selectedRows) {
+          var labelObj = selectedRows[labelValue];
+         
+          refrenceNumList.push(labelObj.articleid)
+    }
+}
+   
+    
+     
+
+    if(this.shipmentAllocateForm.value.shipmentNumber == null || this.shipmentAllocateForm.value.shipmentNumber == ''){
+      this.errorMsg = "**Please Enter the shipment number for the selected items";
+    }
+    if(selectedRows.length == 0){
+      this.errorMsg = "**Please select the below records to allocate the shipment";
+    }
+    if(selectedRows.length > 0 && this.errorMsg == null ){
+        this.spinner.show();
+        console.log(refrenceNumList);
+
+       
+        {
+         this.consigmentUploadService.shipmentAllocationArticleID(refrenceNumList.toString(), this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
+          this.spinner.hide();
+          if(resp.error){
+            this.successMsg = resp.error.errorDetails;
+            $('#allocateShipmentModal').modal('show');
+          }else{
+            this.successMsg = resp.responseMessage;
+            $('#allocateShipmentModal').modal('show');
+          }
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 5000);
+        });
+        }
+    }
+  };
+
+  
   uploadArticleID(){
     var worksheet;
       this.errorMsg = null;
