@@ -260,7 +260,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
           var rateObj = (
             rateObj={}, 
             rateObj[maxWeight]= data.upto500g != undefined ? 0.5 : '', rateObj,
-            rateObj[minWeight]= data.upto500g != undefined ? 0 : '', rateObj,
+            rateObj[minWeight]= data.upto500g != undefined ? 0.0 : '', rateObj,
             rateObj[rate]= data.upto500g != undefined ? parseFloat(data.upto500g.substr(1)): '', rateObj
           )
           that.updateRatesList.push(rateObj);
