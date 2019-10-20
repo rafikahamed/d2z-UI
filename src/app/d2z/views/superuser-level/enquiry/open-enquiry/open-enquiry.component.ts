@@ -117,7 +117,7 @@ export class superUserOpenEnquiryComponent{
               invoiceApproveObj[consigneeState]= invoiceApprovedData.consigneeState != null ? invoiceApprovedData.consigneeState : '', invoiceApproveObj,
               invoiceApproveObj[consigneePostcode]= invoiceApprovedData.consigneePostcode != null ? invoiceApprovedData.consigneePostcode : '', invoiceApproveObj,
               invoiceApproveObj[productDescription]= invoiceApprovedData.productDescription != null ? invoiceApprovedData.productDescription : '', invoiceApproveObj,
-              invoiceApproveObj[trackingStatus]= invoiceApprovedData.trackingStatus != null ? invoiceApprovedData.trackingStatus : '', invoiceApproveObj,
+              invoiceApproveObj[trackingStatus]= invoiceApprovedData.trackingEvent != null ? invoiceApprovedData.trackingEvent : '', invoiceApproveObj,
               invoiceApproveObj[enquiryCreatedDate]= invoiceApprovedData.trackingEventDateOccured != null ? invoiceApprovedData.trackingEventDateOccured : '', invoiceApproveObj,
               invoiceApproveObj[trackingDeliveryDate]= invoiceApprovedData.trackingDeliveryDate != null ? invoiceApprovedData.trackingDeliveryDate : '', invoiceApproveObj,
               invoiceApproveObj[comments]= invoiceApprovedData.comments != null ? invoiceApprovedData.comments : '', invoiceApproveObj
@@ -134,7 +134,7 @@ export class superUserOpenEnquiryComponent{
               decimalseparator: '.',
               showLabels: true, 
               useBom: true,
-              headers: [ 'Tracking Number', 'Consignee Name', 'Address', 'Suburb', 'State', 'Postcode', 'Description', 'Tracking Status', 'Enquiry created date','Expected Delivery Date','Broker/Client Comments']
+              headers: [ 'Tracking Number', 'Consignee Name', 'Address', 'Suburb', 'State', 'Postcode', 'Description', 'Tracking Event', 'Tracking Event date','Expected Delivery Date','Broker/Client Comments']
             };
           new Angular2Csv(enquiryDownloadData, fileName, options); 
       }else{

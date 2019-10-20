@@ -124,7 +124,7 @@ export class CreateEnquiryComponent{
             this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
                 this.spinner.hide();
                 if(resp.error){
-                  this.successMsg = resp.error.errorMessage;
+                  this.successMsg = resp.error.message;
                 }else{
                   this.successMsg = resp.message;
                   this.fieldArray = [];

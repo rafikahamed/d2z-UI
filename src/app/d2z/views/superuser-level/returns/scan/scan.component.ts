@@ -66,15 +66,15 @@ export class superUserReturnsScanComponent{
         window.scrollTo(0, 0)
       });
       this.newAttribute.type = this.scanType[0];
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
+      // this.fieldArray.push(this.newAttribute);
   };
 
     addFieldValue() {
