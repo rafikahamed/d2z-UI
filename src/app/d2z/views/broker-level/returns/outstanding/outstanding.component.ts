@@ -27,6 +27,7 @@ export class BrokerReturnsOutstandingComponent implements OnInit{
   private defaultColDef;
   englishFlag:boolean;
   chinessFlag:boolean;
+  returnBrokerFlag:boolean;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -53,7 +54,7 @@ export class BrokerReturnsOutstandingComponent implements OnInit{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
-      
+      this.returnBrokerFlag = false;
       this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
             return;
@@ -126,6 +127,9 @@ export class BrokerReturnsOutstandingComponent implements OnInit{
       this.consigmentUploadService.fetchOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", userIds.toString(), (resp) => {
         this.spinner.hide();
         this.rowData = resp;
+        if(this.rowData.length > 0){
+          this.returnBrokerFlag = true;
+        }
         setTimeout(() => {
           this.spinner.hide() 
         }, 5000);

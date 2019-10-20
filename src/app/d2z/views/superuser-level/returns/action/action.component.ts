@@ -83,6 +83,8 @@ export class superUserReturnsActionComponent implements OnInit{
   };
 
   generatePdf(resendRefNumber){
+    this.errorMsg = null;
+    this.successMsg = null;
     console.log("resend RefNumber -->"+resendRefNumber);
     var today = new Date();
     var day = today.getDate() + "";
@@ -128,6 +130,8 @@ export class superUserReturnsActionComponent implements OnInit{
   }
 
   UpdateAction(){
+    this.errorMsg = null;
+    this.successMsg = null;
     this.exportCall= false;
     this.actionData = [];
     this.superuserAction = [];

@@ -66,15 +66,19 @@ export class superUserReturnsScanComponent{
         window.scrollTo(0, 0)
       });
       this.newAttribute.type = this.scanType[0];
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
-      this.fieldArray.push(this.newAttribute);
+      // var i;
+      // for (i = 0; i < 10; i++) {
+      //  let counter = 'counter';
+      //  let type    = 'type';
+      //  var newAttribute = (
+      //   newAttribute={}, 
+      //   newAttribute[counter] = i, newAttribute,
+      //   newAttribute[type] = this.scanType[0], newAttribute       
+      //   );
+      //   console.log(newAttribute)
+      //   this.fieldArray.push(newAttribute);
+      // }
+      //console.log(this.fieldArray)
   };
 
     addFieldValue() {
