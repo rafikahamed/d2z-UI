@@ -287,7 +287,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
           var rateObj = (
             rateObj={}, 
             rateObj[maxWeight]= data._2kgTo3kg != undefined ? 3 : '', rateObj,
-            rateObj[minWeight]= data._2kgTo3kg != undefined ? 2.00999999999999 : '', rateObj,
+            rateObj[minWeight]= data._2kgTo3kg != undefined ? 2.01 : '', rateObj,
             rateObj[rate]= data._2kgTo3kg != undefined ? parseFloat(data._2kgTo3kg.substr(1)) : '', rateObj
           )
           that.updateRatesList.push(rateObj);
@@ -296,7 +296,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
           var rateObj = (
             rateObj={}, 
             rateObj[maxWeight]= data._3kgTo4kg != undefined ? 4 : '', rateObj,
-            rateObj[minWeight]= data._3kgTo4kg != undefined ? 3.00999999999999 : '', rateObj,
+            rateObj[minWeight]= data._3kgTo4kg != undefined ? 3.01 : '', rateObj,
             rateObj[rate]= data._3kgTo4kg != undefined ? parseFloat(data._3kgTo4kg.substr(1)) : '', rateObj
           )
           that.updateRatesList.push(rateObj);
@@ -305,7 +305,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
           var rateObj = (
             rateObj={}, 
             rateObj[maxWeight]= data._4kgTo5kg != undefined ? 5 : '', rateObj,
-            rateObj[minWeight]= data._4kgTo5kg != undefined ? 4.00999999999999 : '', rateObj,
+            rateObj[minWeight]= data._4kgTo5kg != undefined ? 4.01 : '', rateObj,
             rateObj[rate]= data._4kgTo5kg != undefined ? parseFloat(data._4kgTo5kg.substr(1)) : '', rateObj
           )
           that.updateRatesList.push(rateObj);
@@ -314,7 +314,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
           var rateObj = (
             rateObj={}, 
             rateObj[maxWeight]= data._5kgTo7kg != undefined ? 7 : '', rateObj,
-            rateObj[minWeight]= data._5kgTo7kg != undefined ? 5.00999999999999 : '', rateObj,
+            rateObj[minWeight]= data._5kgTo7kg != undefined ? 5.01 : '', rateObj,
             rateObj[rate]= data._5kgTo7kg != undefined ? parseFloat(data._5kgTo7kg.substr(1)) : '', rateObj
           )
           that.updateRatesList.push(rateObj);
@@ -323,7 +323,7 @@ export class SuperUserRatesUpdateComponent implements OnInit {
           var rateObj = (
             rateObj={}, 
             rateObj[maxWeight]= data._7kgTo10kg != undefined ? 10 : '', rateObj,
-            rateObj[minWeight]= data._7kgTo10kg != undefined ? 7.00999999999999 : '', rateObj,
+            rateObj[minWeight]= data._7kgTo10kg != undefined ? 7.01 : '', rateObj,
             rateObj[rate]= data._7kgTo10kg != undefined ? parseFloat(data._7kgTo10kg.substr(1)) : '', rateObj
           )
           that.updateRatesList.push(rateObj);
