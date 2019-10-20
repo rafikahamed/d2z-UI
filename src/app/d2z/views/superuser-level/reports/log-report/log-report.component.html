@@ -113,18 +113,18 @@
                                 Download AU Post Data
                   </button>
 
-                  <button *ngIf="fdmFlag" type="button" class="btn btn-info" 
-                                (click)="downloadFdmData()"
+                  <button *ngIf="pflFlag" type="button" class="btn btn-info" 
+                                (click)="downloadpflData()"
                                 style="background-color: #16A085; float:right; margin-right:20px">
                                 <span class="glyphicon glyphicon-cloud-download"></span>
-                                Download FDM Data
+                                Download PFL Data
                   </button>
 
-                  <button *ngIf="freipostFlag" type="button" class="btn btn-info" 
-                                (click)="downloadFreipostData()"
+                  <button *ngIf="nexFlag" type="button" class="btn btn-info" 
+                                (click)="downloadnexData()"
                                 style="background-color: #16A085; float:right; margin-right:20px">
                                 <span class="glyphicon glyphicon-cloud-download"></span>
-                                Download Freipost Data
+                                Download NEX Data
                   </button>
 
                   <div *ngIf="etowerFlag" style="padding:20px; margin-top:30px">
@@ -181,14 +181,14 @@
                         </div>
                   </div>
 
-                  <div *ngIf="fdmFlag" style="padding:20px; margin-top:30px">
-                      <p> Please select the below records to download the FDM Details </p>
+                  <div *ngIf="pflFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to download the PFL Details </p>
                         <div>
                             <ag-grid-angular 
                                       #agGrid style="width: 100%; height: 380px;" 
                                       class="ag-theme-balham" 
                                       [autoGroupColumnDef]="autoGroupColumnDef"
-                                      [rowData]="rowDataFdm"
+                                      [rowData]="rowDataPFL"
                                       [enableSorting]="true"
                                       [enableFilter]="true"
                                       [suppressRowClickSelection]="true"
@@ -201,21 +201,21 @@
                                       [enableRangeSelection]="true"
                                       [pagination]="true"
                                       [defaultColDef]="defaultColDef"
-                                      [gridOptions]="gridOptionsFdm" 
+                                      [gridOptions]="gridOptionsPfl" 
                                       [pagination]="true"
-                                      (selectionChanged)="onFdmChange($event)">
+                                      (selectionChanged)="onPflChange($event)">
                             </ag-grid-angular>
                         </div>
                   </div>
 
-              <div *ngIf="freipostFlag" style="padding:20px; margin-top:30px">
-                      <p> Please select the below records to download the Non Freipost Details </p>
+              <div *ngIf="nexFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to download the NEX Details </p>
                         <div>
                             <ag-grid-angular 
                                       #agGrid style="width: 100%; height: 380px;" 
                                       class="ag-theme-balham" 
                                       [autoGroupColumnDef]="autoGroupColumnDef"
-                                      [rowData]="rowDataFreipost"
+                                      [rowData]="rowDataNEX"
                                       [enableSorting]="true"
                                       [enableFilter]="true"
                                       [suppressRowClickSelection]="true"
@@ -228,9 +228,9 @@
                                       [enableRangeSelection]="true"
                                       [pagination]="true"
                                       [defaultColDef]="defaultColDef"
-                                      [gridOptions]="gridOptionsFreipost" 
+                                      [gridOptions]="gridOptionsNex" 
                                       [pagination]="true"
-                                      (selectionChanged)="onFreipostChange($event)">
+                                      (selectionChanged)="onNexChange($event)">
                             </ag-grid-angular>
                         </div>
                   </div>

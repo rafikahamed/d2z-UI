@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
-// const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+//const baseUrl = "https://"+hostname+"/v1/"+apiName;
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 //const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
@@ -331,6 +331,7 @@ closingJob( callback): any {
     });
   };
 
+
   fetchOutstandingReturns(fromDate, toDate, userId, callback): any {
     this.http.get(baseUrl+'/outStanding-returns', {
       params: { fromDate: fromDate, toDate: toDate, userId: userId  }
@@ -483,6 +484,19 @@ closingJob( callback): any {
    addMlid(addMlidData, callback): any {
     console.log(addMlidData);
     this.http.post(baseUrl+'/superUser-level/addMLID',addMlidData
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
+uploadweight(Weight,callback):any{
+   this.http.post(baseUrl+'/superUser-level/weight',Weight
     ).subscribe((resp) => {
       callback(resp);
       if (resp) {
@@ -778,6 +792,24 @@ downloadMlidData( service, callback): any {
       }
     }, (error) => {
         callback(error);
+    });
+  };
+
+
+shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
+
+
+ this.http.get(baseUrl+'/superUser-level/allocate-shipment', {
+      params: { articleid: referenceNumbers, shipment: shipmentNumber  }})
+   .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
     });
   };
 

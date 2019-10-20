@@ -58,10 +58,10 @@
                                 <tr>
                                     <th>Broker Name</th>
                                     <th>Ticket Number</th>
-                                    <th>Enquiry Open Date</th>
+                                    <th>Tracking Event Date</th>
                                     <th>Tracking Number</th>
                                     <th>Consignee Name</th>
-                                    <th>Tracking Status</th>
+                                    <th>Tracking Event</th>
                                     <th>Expected Delivery</th>
                                     <th>Broker/Client Comments</th>
                                     <th>D2Z Comments</th>
@@ -114,11 +114,11 @@
                                     </td>
                                     <td>
                                         <input 
-                                            [(ngModel)]="field.status" 
+                                            [(ngModel)]="field.trackingEvent" 
                                             class="form-control" 
                                             type="text" 
                                             disabled=true
-                                            name="{{field.status}}" />
+                                            name="{{field.trackingEvent}}" />
                                     </td>
                                     <td>
                                         <input 
