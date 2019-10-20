@@ -38,7 +38,7 @@
                     </ngx-spinner>
                     
                     <div style="margin-top: 10px;">
-                            <p class="err_msg">{{successMsg}}</p>
+                            <p class="success_msg">{{successMsg}}</p>
                     </div>
 
                     <div style="margin-top: 10px;">
@@ -68,7 +68,7 @@
                                                     [checked]="field.selection"
                                                     name="{{field.selection}}" />
                                             </td>
-                                    <td>
+                                    <td style="width:280px">
                                         <input 
                                             [(ngModel)]="field.articleId" 
                                             class="form-control" 

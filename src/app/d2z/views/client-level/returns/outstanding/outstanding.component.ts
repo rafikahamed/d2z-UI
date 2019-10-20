@@ -27,6 +27,7 @@ export class ReturnsOutStandingComponent{
   private defaultColDef;
   englishFlag:boolean;
   chinessFlag:boolean;
+  returnClientFlag:boolean;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
@@ -53,7 +54,7 @@ export class ReturnsOutStandingComponent{
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
-      
+      this.returnClientFlag = false;
       this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
             return;
@@ -120,6 +121,9 @@ export class ReturnsOutStandingComponent{
     this.consigmentUploadService.fetchOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.user_Id, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
+      if(this.rowData.length > 0){
+          this.returnClientFlag = true;
+      }
       setTimeout(() => {
         this.spinner.hide() 
       }, 5000);

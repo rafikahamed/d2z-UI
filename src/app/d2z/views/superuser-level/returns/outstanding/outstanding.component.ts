@@ -5,6 +5,7 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GridOptions } from "ag-grid";
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 interface dropdownTemplate {
   name: string;
@@ -25,6 +26,7 @@ export class superUserReturnsOutstandingComponent implements OnInit{
   fromDate: String;
   toDate: String;
   brokerName: String;
+  returnSuperFlag:boolean;
   brokerDropdown: dropdownTemplate[];  
   selectedBrokerName: dropdownTemplate;
   private gridOptions: GridOptions;
@@ -61,6 +63,7 @@ export class superUserReturnsOutstandingComponent implements OnInit{
           }
           window.scrollTo(0, 0)
       });
+      this.returnSuperFlag = false;
       this.spinner.show();
       this.consigmentUploadService.fetchReturnsBrokerDetails((resp) => {
           this.spinner.hide();
@@ -134,11 +137,51 @@ export class superUserReturnsOutstandingComponent implements OnInit{
     this.consigmentUploadService.fetchSuperuserOutstandingReturns( fromDate, toDate, this.brokerName, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
+      if(this.rowData.length > 0){
+        this.returnSuperFlag = true;
+      }
       setTimeout(() => {
         this.spinner.hide() 
       }, 5000);
     }) 
-  }
+  };
+
+  outstandingSuperReturns(){
+    var returnArrayDetails = []
+    if(this.rowData && this.rowData.length > 0 ){
+      let articleId       = 'articleId';
+      let referenceNumber = 'referenceNumber';
+      let consigneeName   = 'consigneeName';
+      let clientName      = 'clientName';
+      let returnReason    = 'returnReason';
+      for(var returnsData in this.rowData){
+          var returnArrayData = this.rowData[returnsData];
+          var returnObj = (
+            returnObj={}, 
+              returnObj[articleId]       = returnArrayData.articleId != null ? returnArrayData.articleId : '' , returnObj,
+              returnObj[referenceNumber] = returnArrayData.referenceNumber != null ? returnArrayData.referenceNumber : '', returnObj,
+              returnObj[consigneeName]   = returnArrayData.consigneeName != null ?  returnArrayData.consigneeName : '', returnObj,
+              returnObj[clientName]      = returnArrayData.clientName != null ? returnArrayData.clientName : '', returnObj,
+              returnObj[returnReason]    = returnArrayData.returnReason != null ? returnArrayData.returnReason : '', returnObj         
+            );
+            returnArrayDetails.push(returnObj);
+       };
+        var currentTime = new Date();
+        var fileName = '';
+            fileName = "Return-Details"+"-"+currentTime.toLocaleDateString();
+        var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Article Id', 'Reference Number', 'Consignee Name', 'Client Name', 'Return Reason']
+          };
+        new Angular2Csv(returnArrayDetails, fileName, options); 
+    }else{
+        this.errorMsg =  "**Data is not Avilable to download";
+    } 
+  };
 
 }
 
