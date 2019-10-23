@@ -134,7 +134,8 @@
                                                             id="newAttributeScan" 
                                                             [(ngModel)]="newAttribute.scan" 
                                                             name="newAttributeScan" 
-                                                            (blur)="onBlurMethod($event)"/>
+                                                            (input)="onBlurMethod($event)"
+                                                    />
                                                 </td>
                                                 <td>
                                                     <p-dropdown 

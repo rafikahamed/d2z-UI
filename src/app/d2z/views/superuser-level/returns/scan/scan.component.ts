@@ -104,24 +104,38 @@ export class superUserReturnsScanComponent{
       this.fieldCreateArray.splice(index, 1);
     }
 
+   
+
+    
     onBlurMethod(event){
-     var scanType = this.type;
-     var scanValue = event.target.value;
-     this.spinner.show();
-     this.consigmentUploadService.fetchReturnsClientDetails(scanValue, (resp) => {
-        this.spinner.hide();
-        this.successMsg = resp.message;
-        this.newAttribute.brokerName = resp.brokerName;
-        this.newAttribute.clientName = resp.clientName;
-        this.newAttribute.consigneeName = resp.consigneeName;
-        this.newAttribute.userId = resp.userId;
-        this.newAttribute.clientBrokerId = resp.clientBrokerId;
-        this.newAttribute.roleId = resp.roleId;
-        this.newAttribute.carrier = resp.carrier;
-        this.newAttribute.referenceNumber = resp.referenceNumber;
-        this.newAttribute.barcodelabelNumber = resp.barcodelabelNumber;
-        this.newAttribute.articleId = resp.articleId;
-      });
+      var elem = document.getElementById("newAttributeScan");
+      var that = this;
+      elem.onkeyup = function(e){
+          if(e.keyCode == 13){
+            console.log("Entered ---->")
+            var scanValue = event.target.value;
+            that.spinner.show();
+            that.consigmentUploadService.fetchReturnsClientDetails(scanValue, (resp) => {
+              that.spinner.hide();
+              that.successMsg = resp.message;
+               that.newAttribute.brokerName = resp.brokerName;
+               that.newAttribute.clientName = resp.clientName;
+               that.newAttribute.consigneeName = resp.consigneeName;
+               that.newAttribute.userId = resp.userId;
+               that.newAttribute.clientBrokerId = resp.clientBrokerId;
+               that.newAttribute.roleId = resp.roleId;
+               that.newAttribute.carrier = resp.carrier;
+               that.newAttribute.referenceNumber = resp.referenceNumber;
+               that.newAttribute.barcodelabelNumber = resp.barcodelabelNumber;
+               that.newAttribute.articleId = resp.articleId;
+               that.fieldArray.push(that.newAttribute);
+               that.newAttribute = {};
+               that.newAttribute.type = that.scanType[0];
+               that.errorMsg = '';
+             });
+          
+          }
+        }
     }
 
     returnEnquiry(){
