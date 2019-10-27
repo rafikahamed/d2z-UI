@@ -118,7 +118,15 @@ export class ReturnsOutStandingComponent{
   returnSearch(){
     this.spinner.show();
     this.errorMsg = null;
-    this.consigmentUploadService.fetchOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.user_Id, (resp) => {
+    var fromDate = null;
+    var toDate = null;
+    if(this.fromDate){
+      fromDate = this.fromDate+" "+"00:00:00:000"
+    }
+    if(this.toDate){
+      toDate = this.toDate+" "+"23:59:59:999"
+    }
+    this.consigmentUploadService.fetchOutstandingReturns( fromDate, toDate, this.user_Id, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       if(this.rowData.length > 0){

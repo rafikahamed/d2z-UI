@@ -118,13 +118,21 @@ export class BrokerReturnsOutstandingComponent implements OnInit{
   returnSearch(){
     this.errorMsg = null;
     this.spinner.show();
+    var fromDate = null;
+    var toDate = null;
+    if(this.fromDate){
+      fromDate = this.fromDate+" "+"00:00:00:000"
+    }
+    if(this.toDate){
+      toDate = this.toDate+" "+"23:59:59:999"
+    }
     this.consigmentUploadService.fetchUserId(this.user_Id, (resp) => {
       var userIds = [];
       this.spinner.hide();
       userIds.push(resp);
       userIds.push(this.user_Id);
       this.spinner.show();
-      this.consigmentUploadService.fetchOutstandingReturns( this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", userIds.toString(), (resp) => {
+      this.consigmentUploadService.fetchOutstandingReturns( fromDate, toDate, userIds.toString(), (resp) => {
         this.spinner.hide();
         this.rowData = resp;
         if(this.rowData.length > 0){

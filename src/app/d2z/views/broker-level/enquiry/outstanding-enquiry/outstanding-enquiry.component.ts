@@ -166,13 +166,21 @@ export class BrokerOutstandingEnquiryComponent implements OnInit{
   enquiryBrokerSearch(){
     this.spinner.show();
     var userIds = [];
+    var fromDate = null;
+    var toDate = null;
+    if(this.fromDate){
+      fromDate = this.fromDate+" "+"00:00:00:000"
+    }
+    if(this.toDate){
+      toDate = this.toDate+" "+"23:59:59:999"
+    }
     this.consigmentUploadService.fetchUserId(this.user_Id, (resp) => {
       this.spinner.hide();
       userIds.push(resp);
       userIds.push(this.user_Id);
       console.log(userIds.toString())
       this.spinner.show();
-        this.consigmentUploadService.fetchEnquiry(this.status, this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", userIds.toString(), (resp) => {
+        this.consigmentUploadService.fetchEnquiry(this.status, fromDate, toDate, userIds.toString(), (resp) => {
             this.spinner.hide();
             this.rowData = resp;
           })
