@@ -89,6 +89,7 @@ export class CreateEnquiryComponent{
       let pod = 'pod';
       let comments = 'comments';
       let userId = 'userId';
+      let enquiryDetails = 'enquiryDetails'
       var newEnquiryArray = [];
       if(this.newAttributeClient.type){
         newEnquiryArray.push(this.newAttributeClient);
@@ -107,22 +108,28 @@ export class CreateEnquiryComponent{
           enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
           enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
           enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
           enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
         );
         this.importIndividualList.push(enquiryObj);
       }
-    
       if(this.importIndividualList.length > 0){
         for(var k = 0; k != this.importIndividualList.length; k++){
           if( this.importIndividualList[k].identifier.length == 0 ){
             this.errorMsg = "** Parcel Details cannot be Empty";
           }
         }
+
+        var enquiryFinalObj = (
+          enquiryFinalObj={}, 
+          enquiryFinalObj[enquiryDetails]= this.importIndividualList, enquiryFinalObj,
+          enquiryFinalObj[userId]= this.user_Id, enquiryFinalObj
+        );
+        
         if(this.errorMsg == null){
             this.spinner.show();
-            this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
+            this.consigmentUploadService.createEnquiry(enquiryFinalObj, (resp) => {
                 this.spinner.hide();
+                console.log(resp)
                 if(resp.error){
                   this.successMsg = resp.error.message;
                 }else{
@@ -140,7 +147,6 @@ export class CreateEnquiryComponent{
     }
 
     enquiryTabChanged(event){
-      console.log(event.index)
       if(event.index == 0){
         this.fieldArray = [];
         this.newAttributeClient = {};
