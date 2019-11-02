@@ -79,7 +79,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
   }
 
     creatEnquiry(){
-      this.errorMsg = '';
+      this.errorMsg = null;
       this.importIndividualList = [];
       let type = 'type';
       let identifier = 'identifier';
@@ -87,6 +87,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
       let pod = 'pod';
       let comments = 'comments';
       let userId = 'userId';
+      let enquiryDetails = 'enquiryDetails'
       var newBrokerEnquiryArray = [];
       if(this.newAttribute.type){
         newBrokerEnquiryArray.push(this.newAttribute);
@@ -99,31 +100,45 @@ export class BrokerCreateEnquiryComponent implements OnInit{
       }
 
       for (var fieldVal in newBrokerEnquiryArray) {
-        var fieldObj = newBrokerEnquiryArray[fieldVal];
-        var enquiryObj = (
-          enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
-          enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
-          enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
-        );
-        this.importIndividualList.push(enquiryObj);
+          var fieldObj = newBrokerEnquiryArray[fieldVal];
+          var enquiryObj = (
+            enquiryObj={}, 
+            enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+            enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
+            enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
+            enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
+            enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
+          );
+          this.importIndividualList.push(enquiryObj);
       }
+
       if(this.importIndividualList.length > 0){
-        this.spinner.show();
-        this.consigmentUploadService.createEnquiry(this.importIndividualList, (resp) => {
-            this.spinner.hide();
-            if(resp.error){
-              this.successMsg = resp.error.errorMessage;
-            }else{
-              this.successMsg = resp.message;
-              this.fieldArray = [];
-              this.newAttribute = {};
-            }
-            $('#brokerEnquiry').modal('show');
-        });
+          for(var k = 0; k != this.importIndividualList.length; k++){
+              if( this.importIndividualList[k].identifier.length == 0 ){
+                this.errorMsg = "** Parcel Details cannot be Empty";
+              }
+          }
+
+          var enquiryFinalObj = (
+            enquiryFinalObj={}, 
+            enquiryFinalObj[enquiryDetails]= this.importIndividualList, enquiryFinalObj,
+            enquiryFinalObj[userId]= this.user_Id, enquiryFinalObj
+          );
+      
+      if(this.errorMsg == null){
+          this.spinner.show();
+          this.consigmentUploadService.createEnquiry(enquiryFinalObj, (resp) => {
+              this.spinner.hide();
+              if(resp.error){
+                this.successMsg = resp.error.errorMessage;
+              }else{
+                this.successMsg = resp.message;
+                this.fieldArray = [];
+                this.newAttribute = {};
+              }
+              $('#brokerEnquiry').modal('show');
+          })
+        }
       }else{
         this.errorMsg = "** Atleast add one enquiry to proceed";
       }

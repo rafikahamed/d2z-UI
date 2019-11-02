@@ -66,19 +66,6 @@ export class superUserReturnsScanComponent{
         window.scrollTo(0, 0)
       });
       this.newAttribute.type = this.scanType[0];
-      // var i;
-      // for (i = 0; i < 10; i++) {
-      //  let counter = 'counter';
-      //  let type    = 'type';
-      //  var newAttribute = (
-      //   newAttribute={}, 
-      //   newAttribute[counter] = i, newAttribute,
-      //   newAttribute[type] = this.scanType[0], newAttribute       
-      //   );
-      //   console.log(newAttribute)
-      //   this.fieldArray.push(newAttribute);
-      // }
-      //console.log(this.fieldArray)
   };
 
     addFieldValue() {
@@ -104,9 +91,6 @@ export class superUserReturnsScanComponent{
       this.fieldCreateArray.splice(index, 1);
     }
 
-   
-
-    
     onBlurMethod(event){
       var elem = document.getElementById("newAttributeScan");
       var that = this;
