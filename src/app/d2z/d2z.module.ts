@@ -91,7 +91,9 @@ import { BrokerReturnsActionComponent } from 'app/d2z/views/broker-level/returns
 import { superUserReturnsActionComponent } from 'app/d2z/views/superuser-level/returns/action/action.component';
 import { superUserReturnsOutstandingComponent } from 'app/d2z/views/superuser-level/returns/outstanding/outstanding.component';
 import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/returns/scan/scan.component';
-
+import {SuperHeldParcelComponent} from 'app/d2z/views/superuser-level/incomingJobs/held-parcel/held-parcel.component';
+import {SuperUpdateParcelComponent} from 'app/d2z/views/superuser-level/incomingJobs/update-parcel/update-parcel.component';
+import {SuperReleaseParcelComponent} from 'app/d2z/views/superuser-level/incomingJobs/release-parcel/release-parcel.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -172,6 +174,11 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
           {path:"superuser/incomingJobs/outstanding",component: SuperOutstandingJobComponent},
 
           {path:"superuser/incomingJobs/closed",component: SuperClosingJobComponent},
+
+          {path:"superuser/incomingJobs/held",component: SuperHeldParcelComponent},
+
+          { path :"superuser/incomingJobs/updateparcel" ,component:SuperUpdateParcelComponent},
+          { path :"superuser/incomingJobs/release",component:SuperReleaseParcelComponent},
           
           { path: "superuser/labels/print", component: SuperUserZebraScanPrint },
           
@@ -262,7 +269,10 @@ import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/ret
     BrokerReturnsActionComponent,
     superUserReturnsActionComponent,
     superUserReturnsOutstandingComponent,
-    superUserReturnsScanComponent
+    superUserReturnsScanComponent,
+    SuperHeldParcelComponent,
+    SuperUpdateParcelComponent,
+    SuperReleaseParcelComponent
 
   ],
   entryComponents: [],
