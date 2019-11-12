@@ -254,6 +254,20 @@ adduserService( UserObject, callback ): any {
     });
   }
 
+
+heldParcel( enquiryData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/held-parcel',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+
 updateJob( enquiryData, callback): any {
     this.http.post(baseUrl+'/superUser-level/update-job',enquiryData)
     .subscribe((resp:userMessage) => {
@@ -266,6 +280,20 @@ updateJob( enquiryData, callback): any {
       callback(error);
     });
 };
+
+updateParcel( enquiryData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/update-parcel',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
+
 deleteJob( enquiryData, callback): any {
     this.http.post(baseUrl+'/superUser-level/delete-job',enquiryData)
     .subscribe((resp:userMessage) => {
@@ -281,6 +309,33 @@ deleteJob( enquiryData, callback): any {
 
 outstandingJob( callback): any {
     this.http.get(baseUrl+'/superUser-level/incoming-job-list')
+    .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
+
+
+releaseparcellist( callback): any {
+    this.http.get(baseUrl+'/superUser-level/incoming-parcel-releaselist')
+    .subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
+
+parcellist( callback): any {
+    this.http.get(baseUrl+'/superUser-level/incoming-parcel-list')
     .subscribe((resp) => {
       callback(resp);
       if (resp) {

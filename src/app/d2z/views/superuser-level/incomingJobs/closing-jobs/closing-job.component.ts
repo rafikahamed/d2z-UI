@@ -98,7 +98,17 @@ tabs =[];
   };
 
  
- 
+ check(element)
+ {
+
+ for (var fieldVal in this.fieldArray) {
+        var fieldObj = this.fieldArray[fieldVal];
+        fieldObj.checked = element.target.checked;
+
+ }
+
+
+}
 
 FieldValue(i)
 {

@@ -240,7 +240,7 @@ export class ZebraPdfPrintLabels implements OnInit{
       if(this.chinessFlag){
         this.gridOptions.columnDefs = [
           {
-            headerName: "参考编号",
+            headerName: "å�‚è€ƒç¼–å�·",
             field: "reference_number",
             width: 180,
             checkboxSelection: true,
@@ -249,132 +249,132 @@ export class ZebraPdfPrintLabels implements OnInit{
             }
           },
           {
-            headerName: "收货人公司",
+            headerName: "æ”¶è´§äººå…¬å�¸",
             field: "consigneeCompany",
             width: 180
           },
           {
-            headerName: "名称",
+            headerName: "å��ç§°",
             field: "consignee_name",
             width: 150
           },
           {
-            headerName: "地址1",
+            headerName: "åœ°å�€1",
             field: "consignee_addr1",
             width: 200
           },
           {
-            headerName: "市郊",
+            headerName: "å¸‚éƒŠ",
             field: "consignee_Suburb",
             width: 100
           },
           {
-            headerName: "州",
+            headerName: "å·ž",
             field: "consignee_State",
             width: 100
           },
           {
-            headerName: "邮编",
+            headerName: "é‚®ç¼–",
             field: "consignee_Postcode",
             width: 100
           },
           {
-            headerName: "电话",
+            headerName: "ç”µè¯�",
             field: "consignee_Phone",
             width: 100
           },
           {
-            headerName: "产品描述",
+            headerName: "äº§å“�æ��è¿°",
             field: "product_Description",
             width: 160
           },
           {
-            headerName: "货物价值",
+            headerName: "è´§ç‰©ä»·å€¼",
             field: "value",
             width: 100
           },
           {
-            headerName: "装运数量",
+            headerName: "è£…è¿�æ•°é‡�",
             field: "shippedQuantity",
             width: 150
           },
           {
-            headerName: "重量",
+            headerName: "é‡�é‡�",
             field: "weight",
             width: 100
           },
           {
-            headerName: "尺寸X",
+            headerName: "å°ºå¯¸X",
             field: "dimensions_Length",
             width: 100
           },
           {
-            headerName: "尺寸Y",
+            headerName: "å°ºå¯¸Y",
             field: "dimensions_Width",
             width: 100
           },
           {
-            headerName: "尺寸Z",
+            headerName: "å°ºå¯¸Z",
             field: "dimensions_Height",
             width: 100
           },
           {
-            headerName: "服务类型",
+            headerName: "æœ�åŠ¡ç±»åž‹",
             field: "servicetype",
             width: 140
           },
           {
-            headerName: "派送类型",
+            headerName: "æ´¾é€�ç±»åž‹",
             field: "deliverytype",
             width: 100
           },
           {
-            headerName: "托运人姓名",
+            headerName: "æ‰˜è¿�äººå§“å��",
             field: "shipper_Name",
             width: 140
           },
           {
-            headerName: "托运人Addr1",
+            headerName: "æ‰˜è¿�äººAddr1",
             field: "shipper_Addr1",
             width: 140
           },
           {
-            headerName: "托运人Addr2",
+            headerName: "æ‰˜è¿�äººAddr2",
             field: "shipper_Addr2",
             width: 140
           },
           {
-            headerName: "托运人城市",
+            headerName: "æ‰˜è¿�äººåŸŽå¸‚",
             field: "shipper_City",
             width: 140
           },
           {
-            headerName: "托运人国家",
+            headerName: "æ‰˜è¿�äººå›½å®¶",
             field: "shipper_State",
             width: 140
           },
           {
-            headerName: "托运人邮政编码",
+            headerName: "æ‰˜è¿�äººé‚®æ”¿ç¼–ç �",
             field: "shipper_Postcode",
             width: 140
           },
           {
-            headerName: "托运人国家",
+            headerName: "æ‰˜è¿�äººå›½å®¶",
             field: "shipper_Country",
             width: 140
           },
           {
-            headerName: "支架",
+            headerName: "æ”¯æž¶",
             field: "carrier",
             width: 100
           },
           {
-            headerName: "条形码标签号",
+            headerName: "æ�¡å½¢ç �æ ‡ç­¾å�·",
             field: "barcodelabelNumber",
             width: 350
           },
           {
-            headerName: "数据矩阵",
+            headerName: "æ•°æ�®çŸ©é˜µ",
             field: "datamatrix",
             width: 550
           },
@@ -384,23 +384,23 @@ export class ZebraPdfPrintLabels implements OnInit{
             width: 100
           },
           {
-            headerName: "标签发件人名称",
+            headerName: "æ ‡ç­¾å�‘ä»¶äººå��ç§°",
             field: "labelSenderName",
             width: 180
           },
           {
-            headerName: "交货说明",
+            headerName: "äº¤è´§è¯´æ˜Ž",
             field: "deliveryInstructions",
             width: 180
           },
           {
-            headerName: "返回地址1",
+            headerName: "è¿”å›žåœ°å�€1",
             field: "returnAddress1",
             width: 180
           },
           {
             headerName: "Return Address2",
-            field: "返回地址2",
+            field: "è¿”å›žåœ°å�€2",
             width: 150
           }
         ]
@@ -485,6 +485,7 @@ export class ZebraPdfPrintLabels implements OnInit{
         let returnAddress2 = 'returnAddress2';
         let userID = 'userID';
         let userName = 'userName';
+        let serviceType = 'serviceType';
 
         for (var labelValue in selectedRows) {
           var labelObj = selectedRows[labelValue];
@@ -517,7 +518,8 @@ export class ZebraPdfPrintLabels implements OnInit{
               printObj[returnAddress1]= labelObj.returnAddress1 ? labelObj.returnAddress1 : '', printObj,
               printObj[returnAddress2]= labelObj.returnAddress2 ? labelObj.returnAddress2 : '', printObj,
               printObj[userID]= parseInt(this.user_Id), printObj,
-              printObj[userName]= this.userName, printObj
+              printObj[userName]= this.userName, printObj,
+              printObj[serviceType] = labelObj.servicetype, printObj
           );
           printLabelList.push(printObj);
         }
@@ -546,7 +548,7 @@ export class ZebraPdfPrintLabels implements OnInit{
         if(this.englishFlag){
           this.errorMsg = "**Please select the below records before Generating the PDF";
         }else if(this.chinessFlag){
-          this.errorMsg = "**请在生成PDF之前选择以下记录";
+          this.errorMsg = "**è¯·åœ¨ç”Ÿæˆ�PDFä¹‹å‰�é€‰æ‹©ä»¥ä¸‹è®°å½•";
         }
 
       }

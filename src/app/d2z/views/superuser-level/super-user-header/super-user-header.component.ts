@@ -34,6 +34,9 @@ export class SuperUserHeaderComponent implements OnInit {
   addShipment :boolean;
   outstandingShipment:boolean;
   incomingShipment:boolean;
+  releaseparcel:boolean;
+  heldparcel:boolean;
+  updateparcel:boolean;
 
   auweight:boolean;
   clientAdd: boolean;
@@ -121,6 +124,9 @@ export class SuperUserHeaderComponent implements OnInit {
       this.addShipment = true;
       this.incomingShipment = true;
       this.outstandingShipment = true;
+      this.releaseparcel=true;
+      this.heldparcel=true;
+      this.updateparcel=true;
 
       this.enquiry= true;
       this.openEnquiry= true;
@@ -150,6 +156,10 @@ export class SuperUserHeaderComponent implements OnInit {
       this.addShipment = true;
       this.incomingShipment = true;
       this.outstandingShipment = true;
+      this.releaseparcel=true;
+      this.heldparcel=true;
+      this.updateparcel=true;
+
 
     }
   }
