@@ -33,7 +33,7 @@
                         <i class="fa fa-edit"></i> CONSIGNMENT <span class="fa fa-chevron-down" #arrow></span>
                     </a>
                     <a *ngIf="chinessFlag" (click)="toggle_zebra(arrow)">
-                        <i class="fa fa-edit"></i> 货单 <span class="fa fa-chevron-down" #arrow></span>
+                        <i class="fa fa-edit"></i> 运单 <span class="fa fa-chevron-down" #arrow></span>
                     </a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenuTwo ? 'block' : 'none'}">
                         <li *ngIf="englishFlag"><a routerLink="/consignment/fileUpload">File Upload</a></li>
@@ -64,9 +64,9 @@
                         </a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenuFour ? 'block' : 'none'}">
                     <li *ngIf="englishFlag"><a routerLink="/utilities/trackingNumber">Download tracking numbers</a></li>
-                    <li *ngIf="chinessFlag"><a routerLink="/utilities/trackingNumber">下载跟踪号码</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/utilities/trackingNumber">下载运单号</a></li>
                     <li *ngIf="englishFlag"><a routerLink="/utilities/trackParcel">Track Parcels</a></li>
-                    <li *ngIf="chinessFlag"><a routerLink="/utilities/trackParcel">跟踪包裹</a></li>
+                    <li *ngIf="chinessFlag"><a routerLink="/utilities/trackParcel">运单追踪</a></li>
                     <li *ngIf="englishFlag"><a routerLink="/utilities/scanPrintLabels">Scan & Print Labels - Zebra</a></li>
                     <li *ngIf="chinessFlag"><a routerLink="/utilities/scanPrintLabels">扫描和打印标签 -  Zebra</a></li>
                     <li *ngIf="englishFlag"><a routerLink="/utilities/scanPdf">Scan & Print Labels - PDF</a></li>
@@ -92,16 +92,16 @@
                         <i class="fa fa-desktop"></i>  Enquiry <span class="fa fa-chevron-down" #arrow></span>
                     </a>
                     <a *ngIf="chinessFlag" (click)="toggle_enquiry(arrow)">
-                            <i class="fa fa-desktop"></i> 创建清单 <span class="fa fa-chevron-down" #arrow>
+                            <i class="fa fa-desktop"></i> 查询 <span class="fa fa-chevron-down" #arrow>
                             </span>
                     </a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSix ? 'block' : 'none'}">
                         <li *ngIf="englishFlag"><a routerLink="/enquiry/create-enquiry">Create Enquiry</a></li>
-                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/create-enquiry">创建清单</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/create-enquiry">创建查询</a></li>
                         <li *ngIf="englishFlag"><a routerLink="/enquiry/outstanding-enquiry">OutStanding Enquiries</a></li>
-                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/outstanding-enquiry">创建清单</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/outstanding-enquiry">未完成的查询</a></li>
                         <li *ngIf="englishFlag"><a routerLink="/enquiry/completed-enquiry">Completed Enquiries</a></li>
-                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/completed-enquiry">创建清单</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/enquiry/completed-enquiry">已完成的查询</a></li>
                     </ul>
                  </li>
 
@@ -110,20 +110,20 @@
                         <i class="fa fa-empire"></i>  Returns <span class="fa fa-chevron-down" #arrow></span>
                     </a>
                     <a *ngIf="chinessFlag" (click)="toggle_returns(arrow)">
-                            <i class="fa fa-empire"></i> 回报 <span class="fa fa-chevron-down" #arrow>
+                            <i class="fa fa-empire"></i> 退件 <span class="fa fa-chevron-down" #arrow>
                             </span>
                     </a>
                     <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSeven ? 'block' : 'none'}">
                         <li *ngIf="englishFlag"><a routerLink="/returns/outstanding">Outstanding Returns</a></li>
-                        <li *ngIf="chinessFlag"><a routerLink="/returns/outstanding">杰出的回报</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/returns/outstanding">未解决的退件</a></li>
                         <li *ngIf="englishFlag"><a routerLink="/returns/action">Action Returns</a></li>
-                        <li *ngIf="chinessFlag"><a routerLink="/returns/action">行动回报</a></li>
+                        <li *ngIf="chinessFlag"><a routerLink="/returns/action">已解决的退件</a></li>
                     </ul>
                  </li> 
 
                  <li>
                     <a *ngIf="englishFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> Logout</a>
-                    <a *ngIf="chinessFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> 登出</a>
+                    <a *ngIf="chinessFlag" routerLink={{pageSwitch}}><i class="fa fa-sign-out"></i> 退出</a>
                  </li>
                 
                 </ul>
