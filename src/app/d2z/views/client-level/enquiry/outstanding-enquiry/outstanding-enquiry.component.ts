@@ -115,12 +115,12 @@ export class OutstandingEnquiryComponent implements OnInit{
           {
             headerName: "Comments",
             field: "comments",
-            width: 450
+            width: 350
           },
           {
-            headerName: "Tracking Status",
-            field: "trackingStatus",
-            width: 200
+            headerName: "D2Z Comments",
+            field: "d2zComments",
+            width: 300
           },
           {
             headerName: "Consignee Name",
@@ -168,8 +168,16 @@ export class OutstandingEnquiryComponent implements OnInit{
   };
 
   enquirySearch(){
+    var fromDate = null;
+    var toDate = null;
+    if(this.fromDate){
+      fromDate = this.fromDate+" "+"00:00:00:000"
+    }
+    if(this.toDate){
+      toDate = this.toDate+" "+"23:59:59:999"
+    }
     this.spinner.show();
-    this.consigmentUploadService.fetchEnquiry(this.status, this.fromDate+" "+"00:00:00:000", this.toDate+" "+"23:59:59:999", this.user_Id, (resp) => {
+    this.consigmentUploadService.fetchEnquiry(this.status, fromDate, toDate, this.user_Id, (resp) => {
       this.spinner.hide();
       this.rowData = resp;
       setTimeout(() => {

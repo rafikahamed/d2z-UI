@@ -98,12 +98,12 @@ export class BrokerCompletedEnquiryComponent implements OnInit{
           {
             headerName: "Comments",
             field: "comments",
-            width: 450
+            width: 350
           },
           {
-            headerName: "Tracking Status",
-            field: "trackingStatus",
-            width: 200
+            headerName: "D2Z Comments",
+            field: "d2zComments",
+            width: 300
           },
           {
             headerName: "Consignee Name",

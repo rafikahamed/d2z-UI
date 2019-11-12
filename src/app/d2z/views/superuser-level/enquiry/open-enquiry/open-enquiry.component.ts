@@ -38,7 +38,11 @@ export class superUserOpenEnquiryComponent{
             return;
         }
         window.scrollTo(0, 0)
-      })
+      });
+      this.openEnquiry();
+  };
+
+  openEnquiry(){
       this.spinner.show();
       this.trackingDataService.openEnquiryDetails((resp) => {
         this.spinner.hide();
@@ -48,9 +52,7 @@ export class superUserOpenEnquiryComponent{
       });
   };
 
-
   UpdateEnquiry(){
-
     if(this.openEnquiryArray.length > 0 ){
       this.openEnquiryList = [];
       let articleID = 'articleID';
@@ -58,7 +60,6 @@ export class superUserOpenEnquiryComponent{
       let d2zComments = 'd2zComments';
       let sendUpdate = 'sendUpdate';
       let status = 'status';
-
         for (var enquiryVal in this.openEnquiryArray) {
           var fieldObj = this.openEnquiryArray[enquiryVal];
           var openEnquiryObj = (
@@ -79,12 +80,12 @@ export class superUserOpenEnquiryComponent{
             this.successMsg = resp.error.message;
           }else{
             this.successMsg = resp.message;
+            this.spinner.show();
             this.trackingDataService.openEnquiryDetails((resp) => {
+              this.spinner.hide();
               this.openEnquiryArray = resp; 
             });
           }
-          setTimeout(() => {
-            this.spinner.hide() }, 5000);
         })
       }else{
         this.errorMsg =  "**Data is not Avilable to download";
