@@ -17,6 +17,10 @@ body{
 }
 
 
+.table-bordered .tbody .tr .td {
+    border : none;
+}
+
 .manifest_panel{
     width: 100%; 
     border: 2px solid #ccc; 
@@ -27,7 +31,7 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
+    color:green; font-size: 14px;font-weight: 500;
 }
 
 .err_msg{
@@ -230,6 +234,7 @@ body{
 body .container.body .right_col{
     background:#F7F7F7
 }
+
 .nav-md .container.body .right_col{
     padding:10px 20px 0;
     margin-left:230px
@@ -264,6 +269,7 @@ body .container.body .right_col{
     float: left;
     display: block;
     border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 .page-title .title_left h3{
     margin:9px 0
@@ -417,23 +423,6 @@ body .container.body .right_col{
     background-color:transparent
 }
 
-
-#sailorTableArea{
-    max-height: 300px;
-    max-width: 1000px;
-    overflow-x: auto;
-    overflow-y: auto;
-}
-
-#sailorTable
-{
-  
-    table-layout: fixed;
-    
-   
-
-}
- 
 .tiles,.top_tiles{
     margin-bottom:0
 }

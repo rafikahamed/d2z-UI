@@ -14,21 +14,6 @@
                             </div>
                     </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="brokerEnquiry" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                    </div>
-                                    <div class="modal-footer">
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-                   
                             
                             <!-- Modal -->
                             <div class="modal fade" id="brokerEnquiry" role="dialog">
@@ -55,17 +40,18 @@
                                             <p class="err_msg">{{errorMsg}}</p>
                                     </div>
                              </div>
-                        <table class="table1" >
+                        <table  class="table table-bordered">
                                  
                         
                      
                                                 <thead>
                                                     <tr >
-                                                        <th style ="text-align: center">MAWB</th>
-                                                        <th style ="text-align: center">HAWB</th>
+                                                        <th>MAWB</th>
+                                                        <th>HAWB</th>
                                                         
-                                                        <th style ="text-align: center">NOTES</th>
-                                                      <th style ="text-align: center">STAUS</th>
+                                                        <th>NOTES</th>
+                                                      <th>STATUS</th>
+                                                     
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -102,9 +88,8 @@
                                                             [options]="status" 
                                                             [(ngModel)]="field.stat" 
                                                             optionLabel="name" 
-                                                            
                                                             [editable]="true"
-                                                           
+                                                            [style]="{'width':'100%'}"
 >
                                                             </p-dropdown>
 
@@ -112,7 +97,7 @@
                                                        <td>
                                                             <button class="btn btn-default"  
                                                             type="button" 
-                                                            style="background-color: #16A085; color: white;width:40px;"
+                                                            style="background-color: #16A085; color: white;width:40px; border:none;"
                                                             (click)="deleteFieldValue(i)">
                                                             <span class="glyphicon glyphicon-trash"></span>
                                                             </button>
@@ -163,7 +148,7 @@
                                                             [options]="status" 
                                                             [(ngModel)]="newAttribute.stat" 
                                                             optionLabel="name" 
-                                                            
+                                                            [style]="{'width':'100%'}"
                                                             [editable]="true"
                                                            
 >
@@ -176,7 +161,7 @@
                                                                <td>
                                                             <button class="btn btn-default" 
                                                             type="button" 
-                                                            style="background-color: #16A085; color: white;width:40px;"
+                                                            style="background-color: #16A085; color: white;"
                                                             (click)="addFieldValue()">
                                                             <span class="glyphicon glyphicon-plus"></span>
                                                            
@@ -187,12 +172,12 @@
                                 </table>
                       
                           
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
                                             (click)="creatEnquiry()"
-                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            style="background-color: #16A085; float:right; margin-top:10px;">
                                             <span class="glyphicon glyphicon-thumbs-up"></span>
                                             Submit
                                     </button>

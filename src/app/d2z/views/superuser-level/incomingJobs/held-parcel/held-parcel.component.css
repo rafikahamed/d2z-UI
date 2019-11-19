@@ -17,6 +17,10 @@ body{
 }
 
 
+.table-bordered .tbody .tr .td {
+    border : none;
+}
+
 .manifest_panel{
     width: 100%; 
     border: 2px solid #ccc; 
@@ -27,7 +31,7 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important;
+    color:green; font-size: 14px;font-weight: 500;
 }
 
 .err_msg{
@@ -228,32 +232,13 @@ body{
     position:fixed
 }
 body .container.body .right_col{
-    background:#F7F7F7;
-    width:1200px
+    background:#F7F7F7
 }
 
 .nav-md .container.body .right_col{
     padding:10px 20px 0;
     margin-left:230px
 }
-.nav-md .container .body .right_col .table1{
-  padding:5px;
-   border-spacing: 80px;
-}
-
-.table1 {
-    display: table;
-    width: 80%;
-    height: 100%;
-    
-}
-
-.table1-cell {
-    display: table-cell;
-    vertical-align: middle;
-    height:100%;
-}
-
 .nav_title{
     width:230px;
     float:left;
@@ -284,6 +269,7 @@ body .container.body .right_col{
     float: left;
     display: block;
     border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 .page-title .title_left h3{
     margin:9px 0
