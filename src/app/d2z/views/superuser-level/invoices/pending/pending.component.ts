@@ -40,12 +40,14 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   private gridOptionsApproved: GridOptions;
   private gridOptionsNonD2zPending: GridOptions;
   private gridOptionsNonD2zApproved: GridOptions;
-   private gridOptionsWeight: GridOptions;
+  private gridOptionsShipmentCharges: GridOptions;
+  private gridOptionsWeight: GridOptions;
   private autoGroupColumnDef;
   private rowGroupPanelShow;
   private defaultColDef;
   private rowData: any[];
   private rowDataApproved: any[];
+  private rowDataShipmentChanges: any[];
   private rowDataNonD2zPending: any[];
   private rowDataNonD2zApproved: any[];
   private rowDataWeight: any[];
@@ -182,6 +184,75 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       }
     ];
 
+     //This grid is for Shipment Charges
+     this.gridOptionsShipmentCharges = <GridOptions>{ rowSelection: "multiple" };
+     this.gridOptionsShipmentCharges.columnDefs = [
+          {
+            headerName: "Broker Name",
+            field: "broker",
+            width: 150,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+          },
+          {
+            headerName: "Consignee Name",
+            field: "consignee",
+            width: 150
+          },
+          {
+            headerName: "MAWB",
+            field: "mawb",
+            width: 100
+          },
+          {
+            headerName: "Destination",
+            field: "pod",
+            width: 100
+          },
+          {
+            headerName: "Piece",
+            field: "pcs",
+            width: 80
+          },
+          {
+            headerName: "Weight",
+            field: "weight",
+            width: 80
+          },
+          {
+            headerName: "HAWB",
+            field: "hawb",
+            width: 100
+          },
+          {
+            headerName: "Process",
+            field: "process",
+            width: 150
+          },
+          {
+            headerName: "PickUp",
+            field: "pickUp",
+            width: 100
+          },
+          {
+            headerName: "Docs",
+            field: "docs",
+            width: 100
+          },
+          {
+            headerName: "Airport",
+            field: "airport",
+            width: 100
+          },
+          {
+            headerName: "Total",
+            field: "total",
+            width: 150
+          }
+     ];
+
   }
 
   ngOnInit() {
@@ -288,6 +359,60 @@ console.log( event);
         this.errorMsg =  "**Please select the below records to download the Invoice Data";
     } 
   };
+
+
+  downloadShipmentCharges(){
+    var selectedRows = this.gridOptionsShipmentCharges.api.getSelectedRows();
+    var shipmentDataFinalList = [];
+    if(selectedRows.length > 0 ){
+          let consignee = 'consignee';
+          let mawb = 'mawb';
+          let broker = 'broker';
+          let pod = 'pod';
+          let pcs = 'pcs';
+          let weight = 'weight';
+          let hawb = 'hawb';
+          let process = 'process';
+          let pickUp ='pickUp';
+          let docs = 'docs';
+          let airport = 'airport';
+          let total ='total';
+      for(var downloadShipment in selectedRows){
+        var shipmentData = selectedRows[downloadShipment];
+        var shipmentObjObj = (
+          shipmentObjObj={}, 
+          shipmentObjObj[broker]= shipmentData.broker != null ?  shipmentData.broker : '', shipmentObjObj,
+          shipmentObjObj[consignee]= shipmentData.consignee != null ? shipmentData.consignee : '' , shipmentObjObj,
+          shipmentObjObj[mawb]= shipmentData.mawb != null ? shipmentData.mawb : '', shipmentObjObj,
+          shipmentObjObj[pod]= shipmentData.pod != null ? shipmentData.pod : '', shipmentObjObj,
+          shipmentObjObj[pcs]= shipmentData.pcs != null ? shipmentData.pcs : '', shipmentObjObj,
+          shipmentObjObj[weight]= shipmentData.weight != null ? shipmentData.weight : '', shipmentObjObj,
+          shipmentObjObj[hawb]= shipmentData.hawb != null ? shipmentData.hawb : '', shipmentObjObj,
+          shipmentObjObj[process]= shipmentData.process != null ? shipmentData.process : '', shipmentObjObj,
+          shipmentObjObj[pickUp]= shipmentData.pickUp != null ? shipmentData.pickUp : '', shipmentObjObj,
+          shipmentObjObj[docs]= shipmentData.docs != null ? shipmentData.docs : '', shipmentObjObj,
+          shipmentObjObj[airport]= shipmentData.airport != null ? shipmentData.airport : '', shipmentObjObj,
+          shipmentObjObj[total]= shipmentData.total != null ? shipmentData.total : '', shipmentObjObj
+        );
+        shipmentDataFinalList.push(shipmentObjObj);
+     }
+
+     var currentTime = new Date();
+     var fileName = '';
+     fileName = "Shipment Charges"+"-"+currentTime.toLocaleDateString();
+     var options = { 
+       fieldSeparator: ',',
+       quoteStrings: '"',
+       decimalseparator: '.',
+       showLabels: true, 
+       useBom: true,
+       headers: [ 'Broker Name', 'Consignee', 'MAWB', 'POD', 'PCS', 'Weight', 'HAWB', 'Process','Pick Up','Docs','Airport','Total']
+       };
+       new Angular2Csv(shipmentDataFinalList, fileName, options);  
+    }else{
+        this.errorMsg =  "**Please select the below records to download the Shipmet Charges";
+    } 
+  }
 
   downloadApprovedInvoice(){
     var selectedApprovedRows = this.gridOptionsApproved.api.getSelectedRows();
@@ -620,7 +745,8 @@ uploadWeight()
     this.errorMsg =null;
     this.successMsg = null;
   };
-incomingfile(event) {
+  
+  incomingfile(event) {
     this.rowDataWeight = [];
     this.file = event.target.files[0]; 
     this.uploadArticleID();
@@ -777,8 +903,9 @@ shipmentExport(){
         }
   }
 
-
-
+  onSelectionShipmentChange(){
+    this.errorMsg = null;
+  };
 
   tabChanged(event){
     this.errorMsg = null;
@@ -799,6 +926,16 @@ shipmentExport(){
       this.consigmentUploadService.invoiceApprovedData((resp) => {
         this.spinner.hide();
         this.rowDataApproved = resp;
+        if(!resp){
+            this.errorMsg = "Something Went wrong";
+        }  
+      })
+    }else if(event.index == 4){
+      this.spinner.show();
+      this.invoiceBilledFlag = false;
+      this.consigmentUploadService.shipmentCharges((resp) => {
+        this.spinner.hide();
+        this.rowDataShipmentChanges = resp;
         if(!resp){
             this.errorMsg = "Something Went wrong";
         }  

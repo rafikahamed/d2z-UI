@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
-// const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 //const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
@@ -875,6 +875,15 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
       } else {
         console.error("Not Found!")
       }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  shipmentCharges(callback): any {
+    this.http.get(baseUrl+'/superUser-level/shipment-Charge'
+    ).subscribe((resp) => {
+      callback(resp);
     }, (error) => {
       callback(error);
     });

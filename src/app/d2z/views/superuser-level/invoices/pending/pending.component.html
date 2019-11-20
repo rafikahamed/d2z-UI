@@ -47,7 +47,7 @@
                     </div>
                         
                     <div style="padding:20px; margin-top:10px">
-                      <p> Please select the below records to download the Shipment details </p>
+                      <p style="margin-left:15px !important"> Please select the below records to download the Shipment details </p>
                         
                           <div class="col-md-9">
                             <ag-grid-angular 
@@ -137,7 +137,7 @@
                   </div>
 
                   <div style="padding:10px; margin-top:10px">
-                      <p> Please select the below records to download the Approved Invoice details </p>
+                      <p style="margin-left:15px !important"> Please select the below records to download the Approved Invoice details </p>
 
                       <div class="col-md-9">
                           <ag-grid-angular 
@@ -194,6 +194,7 @@
               
               </div>
             </mat-tab>
+
  <mat-tab label="Invoices / Upload Weight"> 
 
     <div class="delete_search">
@@ -409,10 +410,59 @@
 </div>
                             </div>
                           </div>
-
-
-
  </mat-tab>
+
+            <mat-tab label="Shipment Charges"> 
+              <div class="delete_panel">
+                  <ngx-spinner
+                    bdColor="rgba(51,51,51,0.8)"
+                    size="medium"
+                    color="#fff"
+                    loadingText="Loading..."
+                    type="ball-clip-rotate-multiple">
+                  </ngx-spinner>
+                  
+                  <div>
+                    <p class="err_msg">{{errorMsg}}</p>
+                  </div>
+
+                   <div style="padding:10px; margin-top:10px">
+                      <p style="margin-left:15px !important"> Please select the below records to download the shipment charges details </p>
+                      <div>
+                          <button type="button" 
+                                  class="btn btn-info" 
+                                  (click)="downloadShipmentCharges()"
+                                  style="background-color: #16A085; float:right;margin-bottom:10px;margin-right:37px;">
+                                  <span class="glyphicon glyphicon-cloud-download"></span>
+                                      Download  Shipment Charges
+                          </button>
+                      </div>
+                      <div class="col-md-12">
+                          <ag-grid-angular 
+                                    #agGrid style="width:98%; height:550px" 
+                                    class="ag-theme-balham" 
+                                    [autoGroupColumnDef]="autoGroupColumnDef"
+                                    [rowData]="rowDataShipmentChanges"
+                                    [enableSorting]="true"
+                                    [enableFilter]="true"
+                                    [suppressRowClickSelection]="true"
+                                    [groupSelectsChildren]="true"
+                                    [debug]="true"
+                                    [rowSelection]="rowSelection"
+                                    [enableColResize]="true"
+                                    [rowGroupPanelShow]="rowGroupPanelShow"
+                                    [pivotPanelShow]="pivotPanelShow"
+                                    [enableRangeSelection]="true"
+                                    [pagination]="true"
+                                    [defaultColDef]="defaultColDef"
+                                    [gridOptions]="gridOptionsShipmentCharges" 
+                                    [pagination]="true"
+                                    (selectionChanged)="onSelectionShipmentChange($event)">
+                          </ag-grid-angular>
+                        </div>
+                    </div>
+              </div>
+            </mat-tab>
 
            <!-- <mat-tab label="Invoices Non-D2Z / Pending"> 
               <div class="delete_panel">
@@ -591,15 +641,8 @@
               
               </div>
             </mat-tab>-->
-
-
-
           </mat-tab-group>
-          
-
-         
-
-        </div>
+    </div>
 
         <footer id="footer" class="wow fadeIn">
             <div class="copyright">
