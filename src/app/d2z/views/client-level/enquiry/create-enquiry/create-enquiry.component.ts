@@ -22,6 +22,7 @@ export class CreateEnquiryComponent{
   type: String;
   file:File;
   user_Id: String;
+  userName: String;
   system: String;
   arrayBuffer:any;
   cities2: City[];
@@ -44,6 +45,7 @@ export class CreateEnquiryComponent{
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
+      this.userName = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.userName: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
@@ -88,7 +90,7 @@ export class CreateEnquiryComponent{
       let enquiry = 'enquiry';
       let pod = 'pod';
       let comments = 'comments';
-      let userId = 'userId';
+      let userName = 'userName'; 
       let enquiryDetails = 'enquiryDetails'
       var newEnquiryArray = [];
       if(this.newAttributeClient.type){
@@ -122,7 +124,7 @@ export class CreateEnquiryComponent{
         var enquiryFinalObj = (
           enquiryFinalObj={}, 
           enquiryFinalObj[enquiryDetails]= this.importIndividualList, enquiryFinalObj,
-          enquiryFinalObj[userId]= this.user_Id, enquiryFinalObj
+          enquiryFinalObj[userName]= this.userName, enquiryFinalObj
         );
         
         if(this.errorMsg == null){
@@ -131,7 +133,7 @@ export class CreateEnquiryComponent{
                 this.spinner.hide();
                 console.log(resp)
                 if(resp.error){
-                  this.successMsg = resp.error.message;
+                  this.successMsg = resp.error.errorMessage;
                 }else{
                   this.successMsg = resp.message;
                   this.fieldArray = [];
@@ -233,8 +235,9 @@ export class CreateEnquiryComponent{
       let identifier = 'identifier';
       let enquiry = 'enquiry';
       let pod = 'pod';
-      let userId = 'userId';
+      let userName = 'userName';
       let comments = 'comments';
+      let enquiryDetails = 'enquiryDetails'
       for (var fieldVal in this.fieldCreateArray) {
         var fieldObj = this.fieldCreateArray[fieldVal];
         var enquiryObj = (
@@ -243,14 +246,20 @@ export class CreateEnquiryComponent{
           enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
           enquiryObj[enquiry]= fieldObj.enquiry == true ? "yes" : "no", enquiryObj,
           enquiryObj[pod]= fieldObj.pod == true ? "yes" : "no", enquiryObj,
-          enquiryObj[userId]= this.user_Id,
           enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
         );
         this.importFileList.push(enquiryObj);
-      }
+      };
+
+      var enquiryFinalObj = (
+        enquiryFinalObj={}, 
+        enquiryFinalObj[enquiryDetails]= this.importFileList, enquiryFinalObj,
+        enquiryFinalObj[userName]= this.userName, enquiryFinalObj
+      );
+
       if(this.importFileList.length > 0){
         this.spinner.show();
-        this.consigmentUploadService.createEnquiry(this.importFileList, (resp) => {
+        this.consigmentUploadService.createEnquiry(enquiryFinalObj, (resp) => {
           this.spinner.hide();
           if(resp.error){
             this.successMsg = resp.error.errorMessage;
