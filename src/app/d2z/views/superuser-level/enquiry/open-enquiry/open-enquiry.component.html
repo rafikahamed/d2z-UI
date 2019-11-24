@@ -20,8 +20,18 @@
                     <div style="float:right">
                         <button type="button" 
                         class="btn btn-info" 
-                        (click)="downloadEnquiryDetails()"
+                        (click)="updateTrackingDetails()"
                         style="background-color: #16A085; margin-top: -50px">
+                        <span class="glyphicon glyphicon-send"></span>
+                            Update Tracking Details
+                        </button>
+                    </div>
+
+                    <div style="float:right">
+                        <button type="button" 
+                        class="btn btn-info" 
+                        (click)="downloadEnquiryDetails()"
+                        style="background-color: #16A085;margin-top:-50px;margin-right:10px">
                         <span class="glyphicon glyphicon-cloud-download"></span>
                             Download  Enquiry
                         </button>
@@ -174,7 +184,7 @@
                         <button type="button" 
                                 class="btn btn-info" 
                                 (click)="UpdateEnquiry()"
-                                style="background-color: #16A085; float:right; margin-top:10px;">
+                                style="background-color: #16A085;float:right;margin-top:10px;margin-bottom:20px">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 Submit
                         </button>

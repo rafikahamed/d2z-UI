@@ -42,6 +42,16 @@ export class superUserOpenEnquiryComponent{
       this.openEnquiry();
   };
 
+  updateTrackingDetails(){
+      this.spinner.show();
+      this.trackingDataService.updateTrackingDetails((resp) => {
+        this.spinner.hide();
+        this.openEnquiry();
+        setTimeout(() => {
+          this.spinner.hide() }, 5000);
+      });
+  }
+
   openEnquiry(){
       this.spinner.show();
       this.trackingDataService.openEnquiryDetails((resp) => {
