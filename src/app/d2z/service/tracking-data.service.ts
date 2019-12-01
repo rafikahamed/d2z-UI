@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-//const baseUrl = "https://"+hostname+"/v1/"+apiName;
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
 const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
  //const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
@@ -277,6 +277,18 @@ exportConsignmentfile( type, List,callback): any {
 
   openEnquiryDetails( callback): any {
     this.http.get(baseUrl+'/superUser-level/open-enquiry').subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  updateTrackingDetails(callback): any {
+    this.http.get(baseUrl+'/superUser-level/tracking-status').subscribe((resp) => {
       callback(resp);
       if (resp) {
       } else {
