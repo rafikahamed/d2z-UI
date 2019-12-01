@@ -33,6 +33,7 @@ export class SuperUserReconcileComponent implements OnInit {
   downloadReconcile: Boolean;
   suplier1Flag: Boolean;
   suplier2Flag: Boolean;
+  suplier3Flag: Boolean;
   pcaFlag: Boolean;
   ubiNonD2zFlag: Boolean;
   freiPostNonD2zFlag: Boolean;
@@ -45,6 +46,7 @@ export class SuperUserReconcileComponent implements OnInit {
   private defaultColDef;
   private gridOptionsSuplier1: GridOptions;
   private gridOptionsSuplier2: GridOptions;
+  private gridOptionsSuplier3: GridOptions;
   private gridOptionsFastWay: GridOptions;
   private gridOptionsNonD2zSuplier1: GridOptions;
   private gridOptionsNonD2zSuplier2: GridOptions;
@@ -52,6 +54,7 @@ export class SuperUserReconcileComponent implements OnInit {
   nonD2zSupplierTypeDropdown: dropdownTemplate[];
   private rowDataSupplier1: any[];
   private rowDataSupplier2: any[];
+  private rowDataSupplier3: any[];
   private rowDataFastWay: any[];
   private rowDataNonD2zSupplier1: any[];
   private rowDataNonD2zSupplier2: any[];
@@ -59,6 +62,7 @@ export class SuperUserReconcileComponent implements OnInit {
   system: String;
   public supplierOneList = [];
   public supplierTwoList = [];
+  public supplierThreeList = [];
   public fastWatStarTrackList = [];
   public supplierOneNonD2zList = [];
   public supplierTwoNonD2zList = [];
@@ -124,6 +128,29 @@ export class SuperUserReconcileComponent implements OnInit {
       }
     ];
 
+
+this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsSuplier3.columnDefs = [
+      {
+        headerName: "Article ID",
+        field: "articleNo",
+        width: 270,
+        checkboxSelection: true,
+        headerCheckboxSelection: function(params) {
+          return params.columnApi.getRowGroupColumns().length === 0;
+        }
+      },
+      {
+        headerName: "Supplier Weight",
+        field: "chargedWeight",
+        width: 230
+      },
+      {
+        headerName: "Supplier Charge",
+        field: "cost",
+        width: 230
+      }
+    ];
     this.gridOptionsNonD2zSuplier1 = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsNonD2zSuplier1.columnDefs = [
       {
@@ -213,7 +240,8 @@ export class SuperUserReconcileComponent implements OnInit {
     this.downloadReconcile = false;
     this.supplierTypeDropdown = [
       { "name": "UBI Template", "value": "UBITemplate" },
-      { "name": "PFL Template", "value": "pflTemplate" }
+      { "name": "PFL Template", "value": "pflTemplate" },
+      {"name": "APG Template", "value": "apgTemplate"}
     ];
     this.supplierType = this.supplierTypeDropdown[0].value;
     this.nonD2zSupplierTypeDropdown = [
@@ -306,6 +334,46 @@ export class SuperUserReconcileComponent implements OnInit {
           }
         }
     }
+
+    else if(this.supplierType == 'apgTemplate'){
+      this.supplierThreeList= [];
+      this.rowDataSupplier3  = [];
+      fileReader.readAsArrayBuffer(this.file);
+
+        let articleNo = 'articleNo';
+      let chargedWeight = 'chargedWeight';
+      let cost = 'cost';
+      let supplierType = 'supplierType';
+  
+     
+  
+      fileReader.onload = (e) => {
+          this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            var exportData = XLSX.utils.sheet_to_json(worksheet);
+            for (var importVal in exportData) {
+              var reconcile = exportData[importVal];
+              
+              if(this.errorMsg == null){
+                var reconcileThreeObj = (
+                  reconcileThreeObj={}, 
+                  reconcileThreeObj[articleNo]= reconcile['Article number'] != undefined ? reconcile['Article number'] : '', reconcileThreeObj,
+                  reconcileThreeObj[chargedWeight]= reconcile['Charge Weight'] != undefined ? reconcile['Charge Weight'] : '', reconcileThreeObj,
+                  reconcileThreeObj[cost]= reconcile['Total Invoice Amount'] != undefined ? reconcile['Total Invoice Amount'] : '', reconcileThreeObj,
+                  reconcileThreeObj[supplierType]= 'APG', reconcileThreeObj
+                );
+              this.supplierThreeList.push(reconcileThreeObj)
+              this.rowDataSupplier3 = this.supplierThreeList;
+              }
+          }
+        }
+    }
   };
 
   onSuplierTypeChange(event){
@@ -314,10 +382,18 @@ export class SuperUserReconcileComponent implements OnInit {
     this.supplierType = event.value ? event.value.value : '';
     if(this.supplierType == 'UBITemplate'){
       this.suplier2Flag = false;
+        this.suplier3Flag = false;
+      
       this.suplier1Flag = true;
     }else if(this.supplierType == 'pflTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = true;
+         this.suplier3Flag = false;
+    }
+    else if(this.supplierType == 'apgTemplate'){
+      this.suplier1Flag = false;
+      this.suplier2Flag = false;
+         this.suplier3Flag = true;
     }
   };
 
@@ -446,6 +522,34 @@ export class SuperUserReconcileComponent implements OnInit {
     }
   };
 
+
+uploadSupplier3Data(){
+    this.errorMsg = null;
+    this.successMsg = null;
+    this.errorDetails1 = null;
+    this.show = false;
+    var supplier3Data = [];
+    supplier3Data = this.gridOptionsSuplier3.api.getSelectedRows();
+    if(supplier3Data.length > 0 ){
+      this.spinner.show();
+      this.consigmentUploadService.reconcileData(supplier3Data, (resp) => {
+        this.spinner.hide();
+        if(resp.error){
+          this.errorMsg = resp.error.errorMessage;
+          this.errorDetails = resp.error.errorDetails;
+          this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
+          this.show = true;
+          $('#reconcileModal').modal('show');  
+        }else{
+          this.successMsg = resp.message;
+          this.downloadReconcile = true;
+          $('#reconcileModal').modal('show'); 
+        }
+      })
+    }else{
+      this.errorMsg = '**Please select the below records to upload the reconcile data';
+    }
+  };
   downloadReconcileReport(resp){
     var reconcileObjList = [];
     let airwaybill = 'airwaybill';
@@ -476,7 +580,20 @@ export class SuperUserReconcileComponent implements OnInit {
             var reconcile = supplier2Data[supplierTwo];
             reconcileNumbers.push(reconcile.articleNo);
         }
+        }
+        else if(this.supplierType == 'apgTemplate')
+        {
+         var supplier3Data = this.gridOptionsSuplier3.api.getSelectedRows();
+        for (var supplierThree in supplier3Data) {
+            var reconcile = supplier3Data[supplierThree];
+            reconcileNumbers.push(reconcile.articleNo);
+        }
+        
     }
+    console.log(reconcileNumbers);
+
+
+
     this.spinner.show();
     this.consigmentUploadService.downloadReconcile(reconcileNumbers, (resp) => {
       this.spinner.hide();
@@ -524,6 +641,8 @@ export class SuperUserReconcileComponent implements OnInit {
   onSupplier2Change(){
   };
 
+onSupplier3Change(){
+  };
   getLoginDetails(){
     if(this.consigmentUploadService.userMessage != undefined){
       this.userName = this.consigmentUploadService.userMessage.userName;
@@ -538,6 +657,7 @@ export class SuperUserReconcileComponent implements OnInit {
     if(event.index == 0){
       this.suplier1Flag = true;
       this.suplier2Flag = false;
+      this.suplier3Flag = false;
     }else if(event.index == 1){
       this.pcaFlag = true;
       this.ubiNonD2zFlag =  false;
