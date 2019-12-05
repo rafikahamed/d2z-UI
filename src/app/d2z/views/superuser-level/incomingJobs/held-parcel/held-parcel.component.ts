@@ -109,10 +109,7 @@ export class SuperHeldParcelComponent implements OnInit{
      
   };
 
-onClientTypeChange(event){
-console.log( event);
-    this.client = event.value ? event.value.value: '';
-  };
+
    addFieldValue() {
  
   console.log(this.newAttribute);
@@ -166,7 +163,7 @@ fileReader.onload = (e) => {
                 importObj[mawb]= dataObj['MAWB'] != undefined ? dataObj['MAWB'] : '', importObj,
                 importObj[stat]= dataObj['STATUS'] != undefined ? dataObj['STATUS'] : '', importObj,
                 importObj[note]= dataObj['NOTES'] != undefined ? dataObj['NOTES'] : '', importObj,
-                importObj[client]= this.client != undefined ? this.client : '', importObj,
+                importObj[client]= dataObj['CLIENT'] != undefined ? dataObj['CLIENT'] : '', importObj,
                 importObj[pod]= dataObj['POD'] != undefined ? dataObj['POD'] : '', importObj
               );
             this.recordList.push(importObj)
@@ -208,10 +205,7 @@ uploadRecords(){
 
        this.errorMsg1 = null;
     this.successMsg1 = null;
-   if(this.client ==  undefined){
-      this.errorMsg1 = "**Please select Client";
-      this.spinner.hide();
-      }
+  
       if(this.recordList.length == 0)
       {
         this.errorMsg1 = "Please Upload File";

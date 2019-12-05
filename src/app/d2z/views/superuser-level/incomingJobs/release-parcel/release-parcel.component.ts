@@ -225,6 +225,7 @@ console.log( event);
         this.consigmentUploadService.updateParcel(this.importIndividualList, (resp) => {
             this.spinner.hide();
             this.successMsg = resp.message;
+            this.clientSearch();
             $('#brokerEnquiry').modal('show');
             
            
@@ -275,21 +276,7 @@ console.log( event);
      if(fieldObj.checked === true)
      {
 
-        var enquiryObj = (
-          enquiryObj={}, 
-         
-          enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
-         
-            enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
-            enquiryObj[parcelid] = fieldObj.parcelid != undefined ? fieldObj.parcelid : '', enquiryObj,
-           enquiryObj[note]= fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
-           enquiryObj[output] = 'E',
-             enquiryObj[stat]= fieldObj.stat != undefined ? fieldObj.stat: '', enquiryObj,
-              enquiryObj[pod]= fieldObj.pod != undefined ? fieldObj.pod: '', enquiryObj,
-             enquiryObj[client]= fieldObj.client != undefined ? fieldObj.client: '', enquiryObj
-         
-         
-        );
+      
 var exportObj = (
 exportObj={}, 
          
@@ -305,24 +292,20 @@ exportObj={},
 
 );
 
-        console.log(enquiryObj);
-        this.importIndividualList.push(enquiryObj);
+       
         this.ExportList.push(exportObj);
       }
       }
-      if(this.importIndividualList.length > 0 ){
+      if(this.ExportList .length > 0 ){
      
 
-  this.spinner.show();
-        this.consigmentUploadService.updateParcel(this.importIndividualList, (resp) => {
 
-         new Angular2Csv(this.ExportList, fileName, options);  
+  this.spinner.show();
+        
+ new Angular2Csv(this.ExportList, fileName, options);  
             this.spinner.hide();
-            this.successMsg = resp.message;
+            this.successMsg = "Exported Successfully";
             $('#brokerEnquiry').modal('show');
-            
-           
-        });
       }else{
         this.errorMsg = "** Atleast add one Job to proceed";
       }

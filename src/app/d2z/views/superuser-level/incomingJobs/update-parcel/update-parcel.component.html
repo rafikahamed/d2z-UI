@@ -41,7 +41,7 @@
                     </ngx-spinner>
                      <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="tabChanged($event)">
             <mat-tab label="File Upload">
-              <div class="delete_panel">
+              <div>
                 
                     <div style="padding:20px">
                                     <div style="margin-top: 10px;">
@@ -49,31 +49,14 @@
                                     </div>
                              </div>
                   <div style="padding:10px; margin-top:10px">
-                      <p> Please select the Client to upload the held parcel details </p>
-                      <div class = "row">
-                      <div class="col-md-6">
-                 <p> Client : </p>
-                          <div>
-                                 <p-dropdown [options]="brokerDropdown" 
-                                          [(ngModel)]="selectedClient" 
-                                          optionLabel="name" 
-                                            [showClear]="true"
-                                            [editable]="true"
-                                            [style]="{'width':'200px'}"
-                                            (onChange)="onClientTypeChange($event)">
-
-                                            >
-                              </p-dropdown>
-                           
-                        </div>
-
-                  </div>
-                  
-                     
-                        
-                      </div>
+                      <div style="padding-right: 15px; margin-bottom:50px">
+                       <a  href="/assets/forms/UpdateParcels_Template.xlsx" class="fa fa-file-excel-o" 
+                                                style="color: darkgreen; font-size:17px; float: left;" download>
+                                                  **Please click here to download the template 
+                                        </a>
+                                    </div>
                       <div class="row" style="margin-top: 25px">
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                           <div style="float: left">
                             <p style="float: left"> Select the File to upload : </p>
                             <input type="file" 
@@ -83,7 +66,7 @@
                                    accept=".xlsx">
                           </div> 
                       </div>
-                       <div class="col-md-3">
+                       <div class="col-md-6">
                              
                     <button type="button" 
                               class="btn btn-info" 
@@ -101,7 +84,7 @@
             </div>
             </mat-tab>
              <mat-tab label="Manual">
-              <div class="delete_panel">
+              <div>
                             <div style="padding:20px">
                                     <div style="margin-top: 10px;">
                                             <p class="err_msg">{{errorMsg}}</p>
