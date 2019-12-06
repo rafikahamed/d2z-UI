@@ -28,15 +28,20 @@ export class SuperReleaseParcelComponent implements OnInit{
  
   successMsg: String;
   brokerUserName: String;
+  brokerListMainData = [];
   displayedColumns = ["Broker", "Mlid", "Consignee"];
- status:City[]
+ status:City[];
+ destinations: City[];
   type: String;
 tabs =[];
   user_Id: String;
   system: String;
+    client: String;
   arrayBuffer:any;
     form: FormGroup;
      brokerAddClientForm: FormGroup;
+      brokerDropdown: City[];  
+   brokerDropdownValue = [];
  
   public importList = [];
   public importIndividualList = [];
@@ -61,6 +66,15 @@ tabs =[];
          {"name":"CLEAR","value":"CLEAR"}
         
       ]
+      this.destinations = [
+      {"name":"PER","value":"PER"},
+        {"name":"ADL","value":"ADL"},
+         {"name":"BNE","value":"BNE"},
+         {"name":"SYD","value":"SYD"},
+        
+        {"name":"MEL","value":"MEL"},
+         {"name":"OTH","value":"OTH"}
+      ]
     this._compiler.clearCache();  
      this.form = this.fb.group({
       published: true,
@@ -75,16 +89,29 @@ tabs =[];
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
-       this.consigmentUploadService.releaseparcellist( (resp) => {
+     /*  this.consigmentUploadService.releaseparcellist( (resp) => {
          this.spinner.hide();
       this.fieldArray = resp;
      this.fieldArrayout = resp;
       var that = this;
       
     
+    })*/
+  
+    this.consigmentUploadService.joblist( (resp) => {
+
+      this.brokerListMainData = resp;
+      this.spinner.hide();
+      var that = this;
+      
+      resp.forEach(function(entry) {
+     
+     
+        that.brokerDropdownValue.push(entry.brokerName);
+      })
+      this.brokerDropdown = this.brokerDropdownValue;
     })
-  
-  
+     
      
       this.showFile = false;
      
@@ -107,7 +134,35 @@ tabs =[];
      
   };
 
- 
+ onClientTypeChange(event){
+console.log( event);
+    this.client = event.value ? event.value.value: '';
+  };
+  
+  clientSearch(){
+    var client = this.client;
+       this.consigmentUploadService.releaseparcellist(client,(resp) => {
+         console.log(resp);
+         this.spinner.hide();
+      this.fieldArray = resp;
+     this.fieldArrayout = resp;
+     var that = this;
+      
+    
+    })
+    }
+
+    check(element)
+ {
+
+ for (var fieldVal in this.fieldArray) {
+        var fieldObj = this.fieldArray[fieldVal];
+        fieldObj.checked = element.target.checked;
+
+ }
+
+
+}
  
 
 
@@ -132,6 +187,8 @@ tabs =[];
       let mawb = 'mawb';
       let parcelid = 'parcelid';
       let output = 'output';
+      let client = 'client';
+      let pod = 'pod';
       var newBrokerEnquiryArray =  this.fieldArray;
       
 
@@ -151,7 +208,10 @@ tabs =[];
             enquiryObj[parcelid] = fieldObj.parcelid != undefined ? fieldObj.parcelid : '', enquiryObj,
            enquiryObj[note]= fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
            enquiryObj[output] = 'D',
-             enquiryObj[stat]= fieldObj.stat != undefined ? fieldObj.stat: '', enquiryObj
+             enquiryObj[stat]= fieldObj.stat != undefined ? fieldObj.stat: '', enquiryObj,
+              enquiryObj[pod]= fieldObj.pod != undefined ? fieldObj.pod: '', enquiryObj,
+             enquiryObj[client]= fieldObj.client != undefined ? fieldObj.client: '', enquiryObj
+         
          
         );
         console.log(enquiryObj);
@@ -165,6 +225,7 @@ tabs =[];
         this.consigmentUploadService.updateParcel(this.importIndividualList, (resp) => {
             this.spinner.hide();
             this.successMsg = resp.message;
+            this.clientSearch();
             $('#brokerEnquiry').modal('show');
             
            
@@ -193,6 +254,8 @@ tabs =[];
       let mawb = 'mawb';
       let parcelid = 'parcelid';
       let output = 'output';
+      let client = 'client';
+      let pod = 'pod';
         var currentTime = new Date();
       var newBrokerEnquiryArray =  this.fieldArray;
        var fileName = '';
@@ -203,7 +266,7 @@ tabs =[];
               decimalseparator: '.',
               showLabels: true, 
               useBom: true,
-              headers: [ "MAWB" ,"HAWB", "NOTE", "STATUS" ]
+              headers: [ "MAWB" ,"HAWB", "NOTE", "CLIENT","POD","STATUS" ]
             };
 
       for (var fieldVal in newBrokerEnquiryArray) {
@@ -213,18 +276,7 @@ tabs =[];
      if(fieldObj.checked === true)
      {
 
-        var enquiryObj = (
-          enquiryObj={}, 
-         
-          enquiryObj[mawb]= fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
-         
-            enquiryObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
-            enquiryObj[parcelid] = fieldObj.parcelid != undefined ? fieldObj.parcelid : '', enquiryObj,
-           enquiryObj[note]= fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
-           enquiryObj[output] = 'E',
-             enquiryObj[stat]= fieldObj.stat != undefined ? fieldObj.stat: '', enquiryObj
-         
-        );
+      
 var exportObj = (
 exportObj={}, 
          
@@ -233,29 +285,27 @@ exportObj={},
             exportObj[hawb]= fieldObj.hawb != undefined ? fieldObj.hawb : '', exportObj,
             
            exportObj[note]= fieldObj.note != undefined ? fieldObj.note : '', exportObj,
-          
-             exportObj[stat]= fieldObj.stat != undefined ? fieldObj.stat.name: '', exportObj
+           exportObj[client]= fieldObj.client != undefined ? fieldObj.client.name: '', exportObj,
+           exportObj[pod]= fieldObj.pod != undefined ? fieldObj.pod.name: '', exportObj,
+          exportObj[stat]= fieldObj.stat != undefined ? fieldObj.stat.name: '', exportObj
+         
 
 );
 
-        console.log(enquiryObj);
-        this.importIndividualList.push(enquiryObj);
+       
         this.ExportList.push(exportObj);
       }
       }
-      if(this.importIndividualList.length > 0 ){
+      if(this.ExportList .length > 0 ){
      
 
-  this.spinner.show();
-        this.consigmentUploadService.updateParcel(this.importIndividualList, (resp) => {
 
-         new Angular2Csv(this.ExportList, fileName, options);  
+  this.spinner.show();
+        
+ new Angular2Csv(this.ExportList, fileName, options);  
             this.spinner.hide();
-            this.successMsg = resp.message;
+            this.successMsg = "Exported Successfully";
             $('#brokerEnquiry').modal('show');
-            
-           
-        });
       }else{
         this.errorMsg = "** Atleast add one Job to proceed";
       }

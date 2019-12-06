@@ -39,7 +39,40 @@
                         loadingText="Loading..."
                         type="ball-clip-rotate-multiple">
                     </ngx-spinner>
-                            <div>
+                                 <div>
+                            
+                             <div style="padding-bottom:15px" class="row">
+                                
+                                <div class="col-md-2">
+                                        <p style="float:left; margin-top:5px"> CLIENT : </p>
+                                </div>
+
+                                <div class="col-md-2">
+                                        
+                                         <p-dropdown 
+                                                            [options]="brokerDropdown" 
+                                                            [(ngModel)]="type" 
+                                                            optionLabel="name" 
+                                                            (onChange)="onClientTypeChange($event)"
+                                                            [autoWidth]="false"
+                                                            [editable]="true"
+                                                            [style]="{'width':'100px'}"
+                                                            >
+                                                            </p-dropdown>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                        <button type="button" 
+                                                class="btn btn-info" 
+                                                (click)="clientSearch()"
+                                                style="background-color: #16A085">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                                Search
+                                        </button>
+                                </div>
+                        
+                        </div>
+                                  
                                     
                                     <div style="margin-top: 10px;">
                                             <p class="err_msg">{{errorMsg}}</p>
@@ -55,10 +88,18 @@
                                                     <tr >
                                                       
                                                          
-                                                        <th  style="width:5px;"> </th>
+                                                         <th  style="width:5px;">
+                                                           <input 
+                                                        style="width:18px; height:18px"
+                                            
+                                            type="checkbox" 
+                                            
+                                            (click)="check($event)" /> </th>
                                                         <th   style="text-align:center;">MAWB</th>
                                                         <th   style="text-align:center;">HAWB</th>
                                                          <th   style="text-align:center;">NOTE</th>
+                                                         <th   style="text-align:center;">CLIENT</th>
+                                                         <th   style="text-align:center;">POD</th>
                                                         <th style="text-align:center;">STATUS</th>
                                                        
                                                     </tr>
@@ -106,17 +147,29 @@
                                                                readonly="true" 
                                                                 name="{{field.note}}" />
                                                         </td>
-                                                        
                                                          <td>
-                                                        <p-dropdown 
-                                                            [options]="status" 
-                                                            [(ngModel)]="field.stat" 
-                                                            optionLabel="name" 
-                                                            readonly="true" 
-                                                            [editable]="true"
-                                                           [style]="{'width':'100%'}"
->
-                                                            </p-dropdown>
+                                                            <input 
+                                                                [(ngModel)]="field.client.name" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                               readonly="true" 
+                                                                name="{{field.client.name}}" />
+                                                        </td>
+                                                         <td>
+                                                            <input 
+                                                                [(ngModel)]="field.pod.name" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                               readonly="true" 
+                                                                name="{{field.pod.name}}" />
+                                                        </td>
+                                                         <td>
+                                                         <input 
+                                                                [(ngModel)]="field.stat.name" 
+                                                                class="form-control" 
+                                                                type="text" 
+                                                               readonly="true" 
+                                                                name="{{field.stat.name}}" />
 
 </td>
                                                       

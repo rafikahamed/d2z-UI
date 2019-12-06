@@ -35,20 +35,66 @@
                         loadingText="Loading..."
                         type="ball-clip-rotate-multiple">
                     </ngx-spinner>
+                    <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="tabChanged($event)">
+            <mat-tab label="File Upload">
+              <div >
+                
+                    <div style="padding:20px">
+                                    <div style="margin-top: 10px;">
+                                            <p class="err_msg">{{errorMsg1}}</p>
+                                    </div>
+                             </div>
+                  <div style="padding:10px; margin-top:10px">
+                        <div style="padding-right: 15px; margin-bottom:50px">
+                       <a  href="/assets/forms/HeldParcels_Template.xlsx" class="fa fa-file-excel-o" 
+                                                style="color: darkgreen; font-size:17px; float: left;" download>
+                                                  **Please click here to download the template 
+                                        </a>
+                                    </div>
+                      <div class="col-md-12">
+                          <div style="float: left">
+                            <p style="float: left"> Select the File to upload : </p>
+                            <input type="file" 
+                                   style="display: inline-block; margin-left:25px" 
+                                   (change)="incomingfile($event)" 
+                                   placeholder="Upload file" 
+                                   accept=".xlsx">
+                          </div> 
+                      </div>
+                       <div class="col-md-6">
+                             
+                    <button type="button" 
+                              class="btn btn-info" 
+                              (click)="uploadRecords()"
+                              style="background-color: #16A085; float:left; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-upload"></span>
+                                Upload
+                      </button>
+                         
+                        </div>
+
+                  
+              
+              </div>
+            </div>
+            </mat-tab>
+             <mat-tab label="Manual">
+              <div>
                             <div style="padding:20px">
                                     <div style="margin-top: 10px;">
                                             <p class="err_msg">{{errorMsg}}</p>
                                     </div>
                              </div>
-                        <table  class="table table-bordered">
+                        <table  class="table1 table-bordered">
                                  
                         
                      
                                                 <thead>
                                                     <tr >
+                                                        <th>CLIENT</th>
                                                         <th>MAWB</th>
                                                         <th>HAWB</th>
-                                                        
+                                                        <th>POD</th>
                                                         <th>NOTES</th>
                                                       <th>STATUS</th>
                                                      
@@ -56,7 +102,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let field of fieldArray; let i = index">
-
+                                                        <td>
+                                                            <p-dropdown 
+                                                            [options]="brokerDropdown" 
+                                                            [(ngModel)]="field.client" 
+                                                            optionLabel="name" 
+                                                           
+                                                           [autoWidth]="false"
+                                                            [editable]="true"
+                                                            [style]="{'width':'80px'}"
+                                                            
+                                                            >
+                                                            </p-dropdown>
+                                                        </td>
                                                         <td>
                                                             <input 
                                                                 [(ngModel)]="field.mawb" 
@@ -73,6 +131,17 @@
                                                                 type="text" 
                                                                 
                                                                 name="{{field.hawb}}" />
+                                                        </td>
+                                                           <td>
+                                                             <p-dropdown 
+                                                            [options]="destinations" 
+                                                            [(ngModel)]="field.pod" 
+                                                            optionLabel="name" 
+                                                            
+                                                            [editable]="true"
+                                                            [style]="{'width':'70px'}"
+                                                           >
+                                                            </p-dropdown>
                                                         </td>
 
  <td>
@@ -104,6 +173,18 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                    <td>
+                                                            <p-dropdown 
+                                                            [options]="brokerDropdown" 
+                                                            [(ngModel)]="newAttribute.client" 
+                                                            optionLabel="name" 
+                                                          
+                                                            [editable]="true"
+                                                            [style]="{'width':'80px'}"
+                                                            >
+                                                            </p-dropdown>
+                                                         
+                                                        </td>
                                                         <td>
                                                            
                                                             <input 
@@ -124,6 +205,17 @@
                                                                    
                                                                 id = "newAttributeHawb"
                                                                 name="newAttributeHawb" />
+                                                        </td>
+                                                        <td>
+                                                        <p-dropdown 
+                                                            [options]="destinations" 
+                                                            [(ngModel)]="newAttribute.pod" 
+                                                            optionLabel="name" 
+                                                            
+                                                            [editable]="true"
+                                                            [style]="{'width':'70px'}"
+>
+                                                            </p-dropdown>
                                                         </td>
 <td>
                                                             <input 
@@ -170,8 +262,8 @@
                                                     </tr>
                                                 </tbody>
                                 </table>
-                      
-                          
+                      </div>
+
                             <div class="col-md-12">
                                     <button type="button" 
                                             class="btn btn-info" 
@@ -184,6 +276,10 @@
                 
                                    
                             </div>
+                  </mat-tab>
+              </mat-tab-group>
+
+                          
                        
                 </div>
             </div>

@@ -322,8 +322,8 @@ outstandingJob( callback): any {
 };
 
 
-releaseparcellist( callback): any {
-    this.http.get(baseUrl+'/superUser-level/incoming-parcel-releaselist')
+releaseparcellist(client, callback): any {
+    this.http.get(baseUrl+'/superUser-level/incoming-parcel-releaselist/'+client)
     .subscribe((resp) => {
       callback(resp);
       if (resp) {
@@ -335,8 +335,8 @@ releaseparcellist( callback): any {
     });
 };
 
-parcellist( callback): any {
-    this.http.get(baseUrl+'/superUser-level/incoming-parcel-list')
+parcellist(client, callback): any {
+    this.http.get(baseUrl+'/superUser-level/incoming-parcel-list/'+client)
     .subscribe((resp) => {
       callback(resp);
       if (resp) {

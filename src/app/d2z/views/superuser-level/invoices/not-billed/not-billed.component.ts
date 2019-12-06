@@ -72,6 +72,11 @@ export class SuperUserNotBilledComponent implements OnInit {
         headerName: "D2Z Postage",
         field: "d2zRate",
         width: 150
+      },
+      {
+        headerName: "Date Allocated",
+        field: "dateAllocated",
+        width: 250
       }
     ];
 
@@ -131,6 +136,7 @@ export class SuperUserNotBilledComponent implements OnInit {
     let articleId = 'articleId';
     let referenceNumber = 'referenceNumber';
     let d2zRate = 'd2zRate';
+    let dateAllocated = 'dateAllocated';
     
      for(var notBilledData in selectedRows){
         var billedData = selectedRows[notBilledData];
@@ -140,7 +146,9 @@ export class SuperUserNotBilledComponent implements OnInit {
           notBillObj[airwayBill]= billedData.airwayBill != null ? billedData.airwayBill : '', notBillObj,
           notBillObj[articleId]= billedData.articleId != null ?  billedData.articleId : '', notBillObj,
           notBillObj[referenceNumber]= billedData.referenceNumber != null ? billedData.referenceNumber : '', notBillObj,
-          notBillObj[d2zRate]= billedData.d2zRate != null ? billedData.d2zRate : '', notBillObj
+          notBillObj[d2zRate]= billedData.d2zRate != null ? billedData.d2zRate : '', notBillObj,
+          notBillObj[dateAllocated]= billedData.dateAllocated != null ? "'"+billedData.dateAllocated+"'" : '', notBillObj
+
         );
       this.notBilledList.push(notBillObj)
      }
@@ -155,7 +163,7 @@ export class SuperUserNotBilledComponent implements OnInit {
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Postage']
+            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Postage','Date Allocated']
           };
         new Angular2Csv(this.notBilledList, fileName, options);   
     }else{
