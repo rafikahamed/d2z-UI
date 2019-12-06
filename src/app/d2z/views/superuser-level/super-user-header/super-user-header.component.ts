@@ -56,6 +56,7 @@ export class SuperUserHeaderComponent implements OnInit {
   reports: boolean;
   reportShipment: boolean;
   reportLog: boolean;
+  reportZone: boolean;
   reportDelivery: boolean;
   labels: boolean;
   enquiry: boolean;
@@ -115,6 +116,7 @@ export class SuperUserHeaderComponent implements OnInit {
       this.reports= true;
       this.reportShipment= true;
       this.reportLog= true;
+      this.reportZone= true;
       this.reportDelivery = true;
       this.labels= true;
       this.zebraPrint= true;
