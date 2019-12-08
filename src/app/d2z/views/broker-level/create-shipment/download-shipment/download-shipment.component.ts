@@ -32,10 +32,11 @@ export class DownloadShipmentComponent implements OnInit{
   template1: Boolean;
   template2: Boolean;
   template3:Boolean;
+  template4:Boolean;
   template11: Boolean;
   template21: Boolean;
   template31:Boolean;
-
+  template41:Boolean;
   userName: String;
   role_id: String;
   userId: String;
@@ -562,13 +563,15 @@ export class DownloadShipmentComponent implements OnInit{
       this.templateArray = [
         { "name": "Export Template 1", "value": "export-template-1" },
         { "name": "Export Template 2", "value": "export-template-2" },
-         { "name": "Export Template 3", "value": "export-template-3" }
+         { "name": "Export Template 3", "value": "export-template-3" },
+         { "name": "Export Template 4", "value": "export-template-4" }
       ];
       this.selectedTemplate = this.templateArray[0];
        this.templateArray1 = [
         { "name": "Export Template 1", "value": "export-template-1" },
         { "name": "Export Template 2", "value": "export-template-2" },
-         { "name": "Export Template 3", "value": "export-template-3" }
+         { "name": "Export Template 3", "value": "export-template-3" },
+         { "name": "Export Template 4", "value": "export-template-4" },
       ];
       this.selectedTemplate1 = this.templateArray1[0];
       this.templateType = this.templateArray[0].value;
@@ -747,17 +750,27 @@ this.uploadBarcodeLabel();
       this.template1 = false;
       this.template2 = true;
       this.template3 = false;
+      this.template4 = false;
       this.rowData = null;
     }else if(event.value.value == 'export-template-1'){
       this.template1 = true;
       this.template2 = false;
       this.template3 = false;
+      this.template4 = false;
       this.rowData = null;
     } 
     else if(event.value.value == 'export-template-3'){
       this.template1 = false;
       this.template2 = false;
       this.template3 = true;
+      this.template4 = false;
+      this.rowData = null;
+    } 
+     else if(event.value.value == 'export-template-4'){
+      this.template1 = false;
+      this.template2 = false;
+      this.template3 = false;
+      this.template4 = true;
       this.rowData = null;
     } 
   }
@@ -767,22 +780,33 @@ onTemplateChange1(event){
       this.template11 = false;
       this.template21 = true;
        this.template31= false;
+       this.template41= false;
       this.rowData1 = null;
     }else if(event.value.value == 'export-template-1'){
       this.template11 = true;
       this.template21 = false;
        this.template31= false;
+       this.template41= false;
       this.rowData1 = null;
     } 
     else if(event.value.value == 'export-template-3'){
       this.template11 = false;
       this.template21 = false;
       this.template31= true;
+      this.template41= false;
+      this.rowData1 = null;
+    } 
+     else if(event.value.value == 'export-template-4'){
+      this.template11 = false;
+      this.template21 = false;
+       this.template31= false;
+       this.template41= true;
       this.rowData1 = null;
     } 
   }
   downLoadSearch(){
     this.rowData=null;
+    console.log(this.templateType);
     if(this.templateType == 'export-template-1'){
       this.spinner.show();
       this.trackingDataService.fetchShipmentDetails(this.shipmentNumber, this.userId, (resp) => {
@@ -792,7 +816,8 @@ onTemplateChange1(event){
           this.spinner.hide();
         }, 5000);
       });
-    }else if(this.templateType == 'export-template-2'){
+    }else if(this.templateType == 'export-template-2' || this.templateType == 'export-template-4'){
+      console.log("inside 2 and 4");
       this.spinner.show();
       this.trackingDataService.fetchShipmentDetailsTempalte2(this.shipmentNumber, this.userId,(resp) => {
         this.spinner.hide();
@@ -849,7 +874,8 @@ this.outputData = this.barcodeData;
         }, 5000);
       });
     }
-    else if(this.errorMsg1 == null && this.templateType1 == 'export-template-2'){
+    else if(this.errorMsg1 == null && (this.templateType1 == 'export-template-2'
+                                                     || this.templateType1 == 'export-template-4')){
       this.spinner.show();
       this.trackingDataService.fetchShipmentDetailsTempalte2Type(this.outputData ,this.userId,this.Type1,(resp) => {
         this.spinner.hide();
@@ -1143,7 +1169,8 @@ selectedRowsTemplate2    = this.gridOptionsTemplate11.api.getSelectedRows();
         };
 };
 //Template 3 file download
- if((this.template3 && Type==="nfil")|| (this.template31 && Type==="fil")){
+ if((this.template3 && Type==="nfil")|| (this.template31 && Type==="fil"))
+ {
  var selectedRowsTemplate1;
  console.log("in template 3");
      if(Type==="fil")
@@ -1242,7 +1269,131 @@ selectedRowsTemplate1  = this.gridOptionsTemplate21.api.getSelectedRows();
              this.errorMsg = "**Please select the below records to download the Shipment details";
         };
       };
+if((this.template4 && Type==="nfil")|| (this.template41 && Type==="fil"))
+ {
+ var selectedRowsTemplate1;
+ console.log("in template 4");
+     if(Type==="fil")
+  {
+selectedRowsTemplate1  = this.gridOptionsTemplate11.api.getSelectedRows();
+  }
+  else
+  {
+  selectedRowsTemplate1  = this.gridOptionsTemplate1.api.getSelectedRows();
+  }
+      
+      if(selectedRowsTemplate1.length > 0){
+        var currentTime = new Date();
+        var shipmentList = [];
+        var fileName = '';
+            fileName = "Shipment_Details_Template4"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ "Article number" , "Consignee Name", "Consignee Address1", "Consignee Address2", "Consignee City",
+            "Consignee State","Consignee Postcode",
+            "Consignee Country Code","Consignee Phone","Parcel Qty","Parcel Volume",
+            "Volume UQ","Parcel Weight","Weight UQ","Goods Description","Good Value","Value Currency","Payment Method",
+            "Service Level ","Rate type","Consignor Name","Consignor Address 1", "Consignor Address 2","Consignor City",
+            "Consignor State","Consignor Postcode","Consignor Country","VendorID","GSTexemptionCode","ABN number","MAWB",
+            "Flight","Load","Discharge","Destination","ETA Destination"]
+          };
+          let Article_number = 'Article_number';
+        let Consignee_Name = 'Consignee_Name';
+          let Consignee_Address1 = 'Consignee_Address1';
+          let Consignee_Address2 = 'Consignee_Address2';
+          let Consignee_City = 'Consignee_City';
+          let Consignee_State = 'Consignee_State';
+          let Consignee_Postcode = 'Consignee_Postcode';
+          let Consignee_Country = 'Consignee_Country';
+          let Consignee_Phone = 'Consignee_Phone';
+          let Parcel_Qty = 'Parcel_Qty';
+          let Parcel_Volume = 'Parcel_Volume';
+          let Volume_UQ = 'Volume_UQ';
+          let Parcel_Weight = 'Parcel_Weight';
+          let Weight_UQ = 'Weight_UQ';
+          let Goods_Description = 'Goods_Description';
+          let Good_Value = 'Good_Value';
+          let Value_Currency = 'Value_Currency';
+         
+          let Payment_Method = 'Payment_Method';
+          let Service_Level = 'Service_Level';
+          let Rate_type = 'Rate_type';
+          let Consignor_Name = 'Consignor_Name';
+          let Consignor_Address1 = 'Consignor_Address1';
+          let Consignor_Address2 = 'Consignor_Address2';
+          let Consignor_City = 'Consignor_City';
+          let Consignor_State = 'Consignor_State';
+          let Consignor_Postcode = 'Consignor_Postcode';
+          let Consignor_Country = 'Consignor_Country';
+          let VendorID = 'VendorID';
+          let GSTexemptionCode= 'GSTexemptionCode';      
+          let ABN_number= 'ABN_number';
+          let MAWB = "MAWB";
+          let Flight = "Flight";
+           let Load = "Load";
+           let Discharge = "Discharge";
+           let Destination = "Destination";
+           let ETA_Destination = "ETA_Destination";
+           console.log(selectedRowsTemplate1.length);
+          for (var importVal in selectedRowsTemplate1) {
 
+              var adminObj = selectedRowsTemplate1[importVal];
+              console.log(adminObj);
+              var importObj = (
+                  importObj={}, 
+                  importObj[Article_number] = adminObj.barcodelabelNumber!=null ? adminObj.barcodelabelNumber : '' ,importObj,
+                   importObj[Consignee_Name]= adminObj.consignee_name != null ? adminObj.consignee_name : '', importObj,
+                 importObj[Consignee_Address1]= adminObj.consignee_addr1 != null ? adminObj.consignee_addr1 : '', importObj,
+                 importObj[Consignee_Address2]='',importObj,
+                 importObj[Consignee_City]= adminObj.consignee_Suburb != null ? adminObj.consignee_Suburb : '', importObj,
+                  importObj[Consignee_State]= adminObj.consignee_State != null ? adminObj.consignee_State : '', importObj,
+                  importObj[Consignee_Postcode]= adminObj.consignee_Postcode != null ? adminObj.consignee_Postcode : '',  importObj,  
+                  importObj[Consignee_Country]= 'AU', importObj,
+                  importObj[Consignee_Phone]= adminObj.consignee_Phone != null ? adminObj.consignee_Phone : '', importObj,
+                  importObj[Parcel_Qty]= '1', importObj,
+                  importObj[Parcel_Volume]=  '', importObj,
+                  importObj[Volume_UQ]=  'M3', importObj,
+                  importObj[Parcel_Weight]= adminObj.weight != null ? adminObj.weight : '', importObj,
+                    importObj[Weight_UQ] = 'KG' ,importObj,
+                      importObj[Goods_Description]= adminObj.product_Description != null ? adminObj.product_Description : '', importObj,
+                  importObj[Good_Value]= adminObj.value != null ? adminObj.value : '', importObj,
+                  importObj[Value_Currency]= 'AUD', importObj,
+                    importObj[Payment_Method]=  'PO', importObj,
+                  importObj[Service_Level]= 'TRA', importObj,
+                  importObj[Rate_type]=  'AG2', importObj,
+
+                    importObj[Consignor_Name]= adminObj.shipper_Name != null ? adminObj.shipper_Name : '', importObj,
+                  importObj[Consignor_Address1]= adminObj.shipper_Addr1 != null ? adminObj.shipper_Addr1 : '', importObj,
+                  importObj[Consignor_Address2] = adminObj.shipper_Addr2 != null ? adminObj.shipper_Addr2 : '', importObj,
+                  importObj[Consignor_State]= adminObj.shipper_State != null ? adminObj.shipper_State : '', importObj,
+                  importObj[Consignor_City]= adminObj.shipper_City != null ? adminObj.shipper_City : '', importObj,
+                  importObj[Consignor_Postcode]= adminObj.shipper_Postcode != null ? adminObj.shipper_Postcode : '', importObj,
+                 importObj[Consignor_Country]= adminObj.shipper_Country != null ? adminObj.shipper_Country : '', importObj,
+                  importObj[VendorID]= '', importObj,
+                  importObj[GSTexemptionCode]='', importObj,
+                 importObj[ABN_number]= '', importObj,
+                  importObj[MAWB]= '', importObj,
+                  importObj[Flight]= '', importObj,
+                     importObj[Load]= '', importObj,
+                  importObj[Discharge]= '', importObj,
+                  importObj[Destination]= '', importObj,
+                  importObj[ETA_Destination]= '', importObj
+               
+                 
+
+                );
+                console.log(importObj);
+              shipmentList.push(importObj)
+          }
+        new Angular2Csv(shipmentList, fileName, options); 
+        }else{
+             this.errorMsg = "**Please select the below records to download the Shipment details";
+        };
+      };
   }
 
   onSelectionChange() {
