@@ -12,6 +12,7 @@ const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
+ 
   public newUserSubject = new Subject<any>();
   userMessage:userMessage;
   englishFlag:boolean;
@@ -899,6 +900,20 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
       }
     }, (error) => {
         callback(error);
+    });
+  };
+
+
+  getZoneDetails( brokerRequestList, callback): any {
+    this.http.post(baseUrl+'/superUser-level/zone-report', brokerRequestList
+    ).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
     });
   };
 

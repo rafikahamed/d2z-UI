@@ -38,7 +38,7 @@ export class SuperUpdateParcelComponent implements OnInit{
 tabs =[];
   user_Id: String;
   system: String;
-  client: String;
+  client:any;
   arrayBuffer:any;
     form: FormGroup;
      brokerAddClientForm: FormGroup;
@@ -110,6 +110,8 @@ tabs =[];
         that.brokerDropdownValue.push(entry.brokerName);
       })
       this.brokerDropdown = this.brokerDropdownValue;
+      this.client = this.brokerDropdownValue.values;
+      console.log(this.brokerDropdownValue.values)
     })
      
       this.showFile = false;
@@ -201,8 +203,8 @@ fileReader.onload = (e) => {
             if(this.errorMsg1 == null){
               var clientObj=(
                 clientObj = {},
-                clientObj[name]= this.client != undefined ? this.client : '', clientObj,
-                clientObj[value]= this.client != undefined ? this.client : '', clientObj
+                clientObj[name]= dataObj['CLIENT'] != undefined ? dataObj['CLIENT'] : '', clientObj,
+                clientObj[value]= dataObj['CLIENT'] != undefined ? dataObj['CLIENT']: '', clientObj
                 );
               var podObj=(
                 podObj = {},
@@ -219,7 +221,7 @@ fileReader.onload = (e) => {
                 importObj[hawb]= dataObj['HAWB'] != undefined ? dataObj['HAWB'] : '', importObj,
                 importObj[mawb]= dataObj['MAWB'] != undefined ? dataObj['MAWB'] : '', importObj,
                 importObj[stat]= statusObj, importObj,
-                importObj[note]= dataObj['NOTE'] != undefined ? dataObj['NOTE'] : '', importObj,
+                importObj[note]= dataObj['NOTES'] != undefined ? dataObj['NOTES'] : '', importObj,
                 importObj[client]= clientObj,importObj,
                 importObj[pod]= podObj, importObj,
                 importObj[output]= "C", importObj
@@ -268,10 +270,7 @@ uploadRecords(){
       this.successMsg1 = null;
   
       this.errorMsg1 = null;
-   if(this.client ==  undefined){
-      this.errorMsg1 = "**Please select Client";
-      this.spinner.hide();
-      }
+  
       if(this.recordList.length == 0)
       {
         this.errorMsg1 = "Please Upload File";
@@ -355,6 +354,7 @@ $('#invoice').modal('show');
         this.consigmentUploadService.updateParcel(this.importIndividualList, (resp) => {
             this.spinner.hide();
             this.successMsg = resp.message;
+            this.clientSearch();
             $('#brokerEnquiry').modal('show');
             
            
