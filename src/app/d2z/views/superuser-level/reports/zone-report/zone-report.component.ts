@@ -124,10 +124,9 @@ export class SuperUserZoneReportComponent implements OnInit{
     let userId = 'userId';
     let fromDate = 'fromDate';
     let toDate = 'toDate';
-    console.log(selectedbroker)
+
     for (var data in selectedbroker) {
       var brokerData = selectedbroker[data];
-      console.log(brokerData)
       var brokerSelObj = (
         brokerSelObj={}, 
         brokerSelObj[brokerName]= brokerData.brokerName != undefined ? brokerData.brokerName : '', brokerSelObj,
@@ -136,12 +135,26 @@ export class SuperUserZoneReportComponent implements OnInit{
         brokerSelObj[toDate]= this.toDate != undefined ? this.toDate+" 23:59:59:999" : '', brokerSelObj
       )
       this.brokerRequestList.push(brokerSelObj);
-    }
-     console.log( this.brokerRequestList)
-    //   this.spinner.show()
-    //   this.consignmenrServices.getZoneDetails(this.brokerRequestList, (resp) => {
-    //     this.spinner.hide();
-    //   });
+      }
+
+      if(this.brokerRequestList.length > 1){
+        this.errorMsg = "**Only one broker allowed"
+      }else{
+        this.errorMsg = null;
+        console.log(this.brokerRequestList);
+        this.spinner.show()
+        this.consignmenrServices.getZoneDetails(this.brokerRequestList, (resp) => {
+          console.log(resp)
+          console.log(resp.length)
+          if(resp.length > 0){
+
+          }else{
+            this.successMsg = "**Given Broker dose not have any zone details";
+          }
+          this.spinner.hide();
+        });
+      }
+     
 
   };
 

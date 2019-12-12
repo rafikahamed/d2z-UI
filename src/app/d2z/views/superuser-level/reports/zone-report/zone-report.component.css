@@ -28,11 +28,11 @@ body{
 }
 
 .success_msg{
-    color:green; font-size: 14px;font-weight: 500; margin-left: 20px !important; margin-top: 10px !important;
+    color:green; font-size: 14px;font-weight: 500; margin-bottom: 10px !important;
 }
 
 .err_msg{
-    color: #ca2929; font-size:14px; font-weight:500; margin-left: 20px !important; margin-top: 10px !important;
+    color: #ca2929; font-size:14px; font-weight:500; margin-bottom: 10px !important;
 }
 
 .h3, h3 {
