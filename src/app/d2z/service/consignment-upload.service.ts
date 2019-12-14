@@ -706,6 +706,19 @@ uploadweight(Weight,callback):any{
     });
   };
 
+  shipmentApproved(shipmentFinalList, callback): any {
+    this.http.put(baseUrl+'/superUser-level/approve-shipment',shipmentFinalList
+    ).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+          console.error("Not Found!")
+      }
+    }, (error) => {
+        callback(error);
+    });
+  };
+
   nonD2zInvoiceApproved(nonD2zInvoiceApproved, callback): any {
     this.http.put(baseUrl+'/superUser-level/approve-NonD2z-Invoice',nonD2zInvoiceApproved
     ).subscribe((resp) => {

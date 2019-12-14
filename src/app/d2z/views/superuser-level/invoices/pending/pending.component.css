@@ -12,14 +12,14 @@ body{
 .delete_search{
     padding: 20px;
     margin-bottom: 20px;
-    padding-bottom: 50px;
+    margin-top: 20px;
     width:80%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .delete_panel{
-    width: 100%; 
+    width: 80%; 
     border: 2px solid #ccc; 
     height: 660px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 

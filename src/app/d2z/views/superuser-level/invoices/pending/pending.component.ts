@@ -26,12 +26,11 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   successMsg: String;
   file:File;
   file1:File;
-   FileArticle = ['ArticleID'];
- public articleList = [];
-
+  FileArticle = ['ArticleID'];
+  public articleList = [];
   public importList = [];
-   arrayBuffer:any;
-     arrayBuffer1:any;
+  arrayBuffer:any;
+  arrayBuffer1:any;
   invoiceApproveFlag: Boolean;
   invoiceBilledFlag: Boolean;
   nonD2zInvoiceApproveFlag: Boolean;
@@ -61,12 +60,11 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   serviceType: String;
    shipmentAllocateForm: FormGroup;
     private articlegridOptions:GridOptions;
-  constructor(
-    public consigmentUploadService: ConsigmentUploadService,
-    private spinner: NgxSpinnerService
-  ){
-
-   this.shipmentAllocateForm = new FormGroup({
+    constructor(
+      public consigmentUploadService: ConsigmentUploadService,
+      private spinner: NgxSpinnerService
+    ){
+    this.shipmentAllocateForm = new FormGroup({
       shipmentNumber: new FormControl()
     });
     this.autoGroupColumnDef = {
@@ -135,7 +133,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
         width: 250
       }
     ];
-  this.gridOptionsWeight = <GridOptions>{ rowSelection: "multiple" };
+    this.gridOptionsWeight = <GridOptions>{ rowSelection: "multiple" };
     this.gridOptionsWeight.columnDefs = [
       {
         headerName: "Article ID",
@@ -153,7 +151,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       }
     ];
 
-     this.articlegridOptions = <GridOptions>{ rowSelection: "multiple" };
+    this.articlegridOptions = <GridOptions>{ rowSelection: "multiple" };
     this.articlegridOptions.columnDefs = [
       {
         headerName: "Article ID",
@@ -252,7 +250,6 @@ export class SuperUserInvoicePendingComponent implements OnInit {
             width: 150
           }
      ];
-
   }
 
   ngOnInit() {
@@ -273,18 +270,17 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       this.spinner.hide();
       var that = this;
       resp.forEach(function(entry) {
-      console.log(entry.name);
+      //console.log(entry.name);
         that.serviceDropdownValue.push(entry.name);
       })
       this.serviceTypeDropdown = this.serviceDropdownValue;
-       console.log( this.serviceTypeDropdown);
+      // console.log( this.serviceTypeDropdown);
     })
   }
-onServiceTypeChange(event){
-console.log( event);
-    this.serviceType = event.value ? event.value.value: '';
+
+  onServiceTypeChange(event){
+      this.serviceType = event.value ? event.value.value: '';
   };
-  
 
   getLoginDetails(){
     if(this.consigmentUploadService.userMessage != undefined){
@@ -412,7 +408,7 @@ console.log( event);
     }else{
         this.errorMsg =  "**Please select the below records to download the Shipmet Charges";
     } 
-  }
+  };
 
   downloadApprovedInvoice(){
     var selectedApprovedRows = this.gridOptionsApproved.api.getSelectedRows();
@@ -446,7 +442,6 @@ console.log( event);
         let serviceType = 'serviceType';
         let airwaybill ='airwaybill';
 
-        
          for(var downloadApproveInvoice in downloadInvoiceApprovedData){
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
             var invoiceApproveObj = (
@@ -504,6 +499,32 @@ console.log( event);
         $('#invoice').modal('show');  
         setTimeout(() => { this.spinner.hide() }, 5000);
       });
+  };
+
+  chargesApprove(){
+    var shipmentArray = this.gridOptionsShipmentCharges.api.getSelectedRows();
+    var shipmentFinalList = [];
+    if(shipmentArray.length > 0){
+      let mawb = 'mawb';
+      for(var shipmentData in shipmentArray){
+        var shipmentApprovedData = shipmentArray[shipmentData];
+        var shipmentApproveObj = (
+          shipmentApproveObj={}, 
+          shipmentApproveObj[mawb]= shipmentApprovedData.mawb != null ? shipmentApprovedData.mawb : '' , shipmentApproveObj
+        )
+        shipmentFinalList.push(shipmentApproveObj);
+      }
+      console.log(shipmentFinalList);
+      this.spinner.show();
+      this.consigmentUploadService.shipmentApproved(shipmentFinalList, (resp) => {
+          this.spinner.hide();
+          this.successMsg = resp.message;
+          $('#invoice').modal('show');  
+          this.shipmentCharge();
+        });
+    }else{
+      this.errorMsg = "**Please select atleast one record to Approve the shipment Charges";
+    }
   };
 
   billedInvoice(){
@@ -649,29 +670,24 @@ console.log( event);
     } 
   };
 
-
-uploadWeight()
-{
-  var selectedweight = this.gridOptionsWeight.api.getSelectedRows();
-  if(selectedweight.length > 0)
-  {
- for (var weightrow in selectedweight) {
- var approveObj = selectedweight[weightrow];
- console.log(approveObj);
- }
-  this.spinner.show();
-    this.consigmentUploadService.uploadweight(selectedweight,  (resp) => {
+  uploadWeight(){
+    var selectedweight = this.gridOptionsWeight.api.getSelectedRows();
+    if(selectedweight.length > 0){
+    for (var weightrow in selectedweight) {
+      var approveObj = selectedweight[weightrow];
+      console.log(approveObj);
+    }
+    this.spinner.show();
+      this.consigmentUploadService.uploadweight(selectedweight,  (resp) => {
           this.spinner.hide();
-         
-            this.successMsg = resp.message;
-           console.log(resp);
- });
-  }
-  else
-  {
-  this.errorMsg =  "**Please select the below records to upload the weight";
-  }
-}
+          this.successMsg = resp.message;
+          console.log(resp);
+      });
+    }else{
+      this.errorMsg =  "**Please select the below records to upload the weight";
+    }
+  };
+
   downloadNonD2zApprovedInvoice(){
     var selectedNonD2zApprovedRows = this.gridOptionsNonD2zApproved.api.getSelectedRows();
     var invoiceApprovedDownloadFinalList = [];
@@ -734,7 +750,7 @@ uploadWeight()
     }else{
         this.errorMsg =  "**Please select the below records to download the Non-D2Z Approved Invoice Data";
     } 
-  }
+  };
 
   onNonD2zPendingChange(){
     this.errorMsg =null;
@@ -759,14 +775,13 @@ uploadWeight()
     this.shipmentExport();
   };
 
-shipmentExport(){
-    var worksheet;
+  shipmentExport(){
+      var worksheet;
       this.errorMsg = null;
       let fileReader = new FileReader();
       this.importList= [];
       this.articleList=[];
       fileReader.readAsArrayBuffer(this.file1);
-     
       let articleid = 'articleid';
       fileReader.onload = (e) => {
           this.arrayBuffer1 = fileReader.result;
@@ -783,32 +798,22 @@ shipmentExport(){
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
                 console.log(dataObj['ArticleID']);
-
-               
-                
                 {
-                if(!this.FileArticle.includes(keyVal)){
-                  this.errorMsg = "***Invalid file format, Please check the field in given files ArticleID, allowed fields are ['ArticleID']"
+                  if(!this.FileArticle.includes(keyVal)){
+                    this.errorMsg = "***Invalid file format, Please check the field in given files ArticleID, allowed fields are ['ArticleID']"
+                    }
                 }
-                }
-
               }
               if(this.errorMsg == null){
-             
-                
                 {
                  var importObj = (
                   importObj={}, 
                   importObj[articleid]= dataObj['ArticleID'] != undefined ? dataObj['ArticleID'] : '', importObj
                 );
- this.articleList.push(importObj);
-
-               this.rowDataArticle= this.articleList;
-               console.log(this.rowDataArticle);
+                this.articleList.push(importObj);
+                this.rowDataArticle= this.articleList;
+                console.log(this.rowDataArticle);
                 }
-             
-
-             
               }
           }
         }
@@ -817,22 +822,15 @@ shipmentExport(){
   allocateShipment(){
     this.errorMsg = null;
     this.successMsg = '';
-
-
-{
-   var selectedRows = this.articlegridOptions.api.getSelectedRows();
-   var select = "Article";
-   var refrenceNumList = [];
-    for (var labelValue in selectedRows) {
-          var labelObj = selectedRows[labelValue];
-         
-          refrenceNumList.push(labelObj.articleid)
+    {
+      var selectedRows = this.articlegridOptions.api.getSelectedRows();
+      var select = "Article";
+      var refrenceNumList = [];
+        for (var labelValue in selectedRows) {
+              var labelObj = selectedRows[labelValue];
+              refrenceNumList.push(labelObj.articleid)
+        }
     }
-}
-   
-    
-     
-
     if(this.shipmentAllocateForm.value.shipmentNumber == null || this.shipmentAllocateForm.value.shipmentNumber == ''){
       this.errorMsg = "**Please Enter the shipment number for the selected items";
     }
@@ -842,8 +840,6 @@ shipmentExport(){
     if(selectedRows.length > 0 && this.errorMsg == null ){
         this.spinner.show();
         console.log(refrenceNumList);
-
-       
         {
          this.consigmentUploadService.shipmentAllocationArticleID(refrenceNumList.toString(), this.shipmentAllocateForm.value.shipmentNumber, (resp) => {
           this.spinner.hide();
@@ -857,12 +853,11 @@ shipmentExport(){
           setTimeout(() => {
             this.spinner.hide();
           }, 5000);
-        });
+          });
         }
     }
   };
 
-  
   uploadArticleID(){
     var worksheet;
       this.errorMsg = null;
@@ -871,10 +866,6 @@ shipmentExport(){
       fileReader.readAsArrayBuffer(this.file);
       let ArticleID   ='articleid'; 
       let Weigh = 'weight'  ;
-
-
-      
-
       fileReader.onload = (e) => {
            this.arrayBuffer = fileReader.result;
           var data = new Uint8Array(this.arrayBuffer);
@@ -892,8 +883,7 @@ shipmentExport(){
               var importObj = (
                 importObj={}, 
                 importObj[ArticleID]= dataObj['Article ID'] != undefined ? dataObj['Article ID'] : '', importObj,
-                 importObj[Weigh]= dataObj['Weight'] != undefined ? dataObj['Weight'] : '', importObj
-              
+                importObj[Weigh]= dataObj['Weight'] != undefined ? dataObj['Weight'] : '', importObj
               );
               this.importList.push(importObj)
               console.log(this.importList);
@@ -901,7 +891,7 @@ shipmentExport(){
               }
           }
         }
-  }
+  };
 
   onSelectionShipmentChange(){
     this.errorMsg = null;
@@ -933,14 +923,18 @@ shipmentExport(){
     }else if(event.index == 4){
       this.spinner.show();
       this.invoiceBilledFlag = false;
-      this.consigmentUploadService.shipmentCharges((resp) => {
-        this.spinner.hide();
-        this.rowDataShipmentChanges = resp;
-        if(!resp){
-            this.errorMsg = "Something Went wrong";
-        }  
-      })
+      this.shipmentCharge();
     }
+  };
+
+  shipmentCharge(){
+    this.consigmentUploadService.shipmentCharges((resp) => {
+      this.spinner.hide();
+      this.rowDataShipmentChanges = resp;
+      if(!resp){
+          this.errorMsg = "Something Went wrong";
+      }  
+    })
   };
 
   clearInvoiceD2zPending(){
