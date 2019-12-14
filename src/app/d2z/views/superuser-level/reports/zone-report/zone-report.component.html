@@ -61,7 +61,7 @@
                         <div class="col-md-3">
                             <p > From Date : </p>
                             <mat-form-field>
-                                <input #frominput matInput [matDatepicker]="picker" 
+                                <input id="frominput" matInput [matDatepicker]="picker" 
                                             placeholder="Choose a date" 
                                             (dateChange)="FromDateChange($event)">
                                 <mat-datepicker-toggle
@@ -75,7 +75,7 @@
                         <div class="col-md-3">
                             <p > To Date : </p>
                             <mat-form-field>
-                                <input #toinput matInput [matDatepicker]="pickerTo" 
+                                <input id="toinput" matInput [matDatepicker]="pickerTo" 
                                                 placeholder="Choose a date" 
                                                 (dateChange)="ToDateChange($event)">
                                 <mat-datepicker-toggle 
@@ -94,26 +94,25 @@
                                     <span class="glyphicon glyphicon-search"></span>
                               Search
                             </button>
-
-
                         </div>
 
                         <div class="col-md-2" style="margin-top:30px">
                            <button type="button" 
                               class="btn btn-info" 
-                              (click)="clearDetails()"
+                              (click)="clearZone()"
                               style="background-color: #16A085;">
                               <span class="glyphicon glyphicon-refresh"></span>
                                Refresh
                             </button>
                         </div>
+
                     </div>
                   </div>
               </div>
 
         </div>
 
-        <!-- <footer id="footer" class="wow fadeIn">
+        <footer id="footer" class="wow fadeIn">
             <div class="copyright">
               <div class="container">
                 <div class="row">
@@ -125,7 +124,7 @@
                 </div>
               </div>
             </div>
-        </footer> -->
+        </footer>
 
       </div>
     </div>
