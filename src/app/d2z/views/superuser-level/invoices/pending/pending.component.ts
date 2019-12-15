@@ -428,10 +428,13 @@ export class SuperUserInvoicePendingComponent implements OnInit {
       var billed = 'N';
       var invoiced = 'Y';
       this.spinner.show();
+      // console.log(brokerListFFinal);
+      // console.log(airwaybillListFinal);
       this.consigmentUploadService.downloadInvoiceData(brokerListFFinal, airwaybillListFinal,
         billed, invoiced, (resp) => {
         this.spinner.hide();
         var downloadInvoiceApprovedData = resp;
+        let brokerName = 'brokerName'
         let trackingNumber = 'trackingNumber';
         let reference = 'reference';
         let postcode = 'postcode';
@@ -446,6 +449,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
             var invoiceApproveObj = (
               invoiceApproveObj={}, 
+              invoiceApproveObj[brokerName]= invoiceApprovedData.brokerName != null ? invoiceApprovedData.brokerName : '' , invoiceApproveObj,
               invoiceApproveObj[trackingNumber]= invoiceApprovedData.trackingNumber != null ? invoiceApprovedData.trackingNumber : '' , invoiceApproveObj,
               invoiceApproveObj[reference]= invoiceApprovedData.referenceNuber != null ? invoiceApprovedData.referenceNuber : '', invoiceApproveObj,
               invoiceApproveObj[postcode]= invoiceApprovedData.postcode != null ?  invoiceApprovedData.postcode : '', invoiceApproveObj,
@@ -455,7 +459,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
               invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
               invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
               invoiceApproveObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : '', invoiceApproveObj,
-                invoiceApproveObj[airwaybill]= invoiceApprovedData.airwaybill != null ? invoiceApprovedData.airwaybill : '', invoiceApproveObj
+              invoiceApproveObj[airwaybill]= invoiceApprovedData.airwaybill != null ? invoiceApprovedData.airwaybill : '', invoiceApproveObj
             );
             invoiceApprovedDownloadFinalList.push(invoiceApproveObj);
          };
@@ -468,7 +472,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill']
+            headers: ['Broker Name','Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill']
           };
         new Angular2Csv(invoiceApprovedDownloadFinalList, fileName, options);   
         this.invoiceBilledFlag = true;
