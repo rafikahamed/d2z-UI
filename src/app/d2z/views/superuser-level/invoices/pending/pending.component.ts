@@ -6,6 +6,7 @@ import { GridOptions } from "ag-grid";
 import * as XLSX from 'xlsx';
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
+import { Global } from 'app/d2z/service/Global';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import _ from 'lodash';
 interface dropdownTemplate {
@@ -24,6 +25,8 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   role_id: String;
   errorMsg: string;
   successMsg: String;
+  selectedTab: Number;
+   indicator: String;
   file:File;
   file1:File;
   FileArticle = ['ArticleID'];
@@ -62,7 +65,9 @@ export class SuperUserInvoicePendingComponent implements OnInit {
     private articlegridOptions:GridOptions;
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+        private global: Global,
+    private router:Router
     ){
     this.shipmentAllocateForm = new FormGroup({
       shipmentNumber: new FormControl()
@@ -257,6 +262,16 @@ export class SuperUserInvoicePendingComponent implements OnInit {
     this.getLoginDetails();
     this.spinner.show();
     this.invoiceApproveFlag = false;
+    if(this.global.oustanding_InvoiceMAWB){
+      console.log("outstanding");
+      this.selectedTab=3;
+      this.global.setoustanding_InvoiceMAWB(false);
+    }
+    else{
+      console.log("invoice");
+      this.selectedTab=0;
+    }
+console.log("init:::"+this.selectedTab);
     this.consigmentUploadService.invoicePendingData((resp) => {
       this.spinner.hide();
       this.rowData = resp;

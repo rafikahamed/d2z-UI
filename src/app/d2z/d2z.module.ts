@@ -18,6 +18,7 @@ import { ContactComponent } from 'app/d2z/views/contact/contact.component'
 import { WhyChooseComponent } from 'app/d2z/views/whychoose/whychoose.component'
 import { TrackParcelComponent } from 'app/d2z/views/track-parcel/track-parcel.component'
 import { LoginService } from 'app/d2z/service/login.service';
+import { Global } from 'app/d2z/service/Global';
 import { ZebraFileUpload } from 'app/d2z/views/client-level/consignment/file-upload/file-upload.component';
 import { ZebraDelete } from 'app/d2z/views/client-level/consignment/delete/delete.component';
 import { ZebraPdfFileUpload } from 'app/d2z/views/client-level/print-labels/zibra/zibra.component';
@@ -279,7 +280,8 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
     { provide: 'Window', useValue: window },
     LoginService,
     ConsigmentUploadService,
-    TrackingDataService
+    TrackingDataService,
+    Global
   ],
   bootstrap: [
     d2zComponent
