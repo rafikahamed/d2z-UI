@@ -139,11 +139,11 @@ export class SuperUserHeaderComponent implements OnInit {
       this.actionReturns = true;
 
     }else if(role == 4){
-      this.tracking = true;
-      this.trackingArrival = true;
+      this.tracking = false;
+      this.trackingArrival = false;
       this.reports= true;
       this.reportShipment = true;
-      this.auweight = true;
+      this.auweight = false;
       this.labels= true;
       this.zebraPrint= true;
       this.zebraPdf= true;

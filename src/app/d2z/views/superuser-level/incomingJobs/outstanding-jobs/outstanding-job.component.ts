@@ -5,6 +5,7 @@ declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Global } from 'app/d2z/service/Global';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -47,6 +48,7 @@ tabs =[];
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,
+    public global : Global,
     private spinner: NgxSpinnerService,
     private router: Router,
     private fb : FormBuilder,
@@ -363,6 +365,11 @@ check(event,index)
 
 
 }
+
+loadInvoicePending(){
+  this.global.setoustanding_InvoiceMAWB(true);
+  this.router.navigateByUrl('/superuser/invoices/pending');
+}
     viewEnquiry(){
       
 this.tabs = [];
@@ -422,6 +429,7 @@ this.tabs = [];
 
   
 }
+
 
 
 interface City {

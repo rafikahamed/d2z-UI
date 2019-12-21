@@ -27,7 +27,7 @@
             </div>
           </div>
 
-          <mat-tab-group animationDuration="1000ms" #tabGroup (selectedTabChange)="tabChanged($event)">
+           <mat-tab-group animationDuration="1000ms" [(selectedIndex)]="selectedTab" #tabGroup (selectedTabChange)="tabChanged($event)">
             <mat-tab label="Invoices / Pending">
               <div class="delete_panel">
                     <ngx-spinner
