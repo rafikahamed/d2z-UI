@@ -80,9 +80,9 @@ export class ZebraFileUpload implements OnInit{
       this.exportTypeDropdown = [
         { "name": "eParcel", "value": "eParcel" },
         { "name": "Express", "value": "Express" },
-        { "name": "Fastway", "value": "fastway" },
-        { "name": "Multi Carrier", "value": "multiCarrier" },
-        { "name": "AuPost", "value":"aupost"}
+        { "name": "Fastway", "value": "fastway" }
+       /** { "name": "Multi Carrier", "value": "multiCarrier" },
+        { "name": "AuPost", "value":"aupost"} */
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.router.events.subscribe((evt) => {
