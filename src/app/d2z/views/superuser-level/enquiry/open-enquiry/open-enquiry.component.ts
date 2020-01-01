@@ -90,10 +90,11 @@ export class superUserOpenEnquiryComponent{
             if(that.formdataIndex == enquiryIndex){
                 var sendUpdate = that.openEnquiryList[0].sendUpdate == true ? "yes" : "no";
                 var closeEnquiry = that.openEnquiryList[0].closeEnquiry == true ? "closed" : "open";
+                var comments = that.openEnquiryList[0].comments ? that.openEnquiryList[0].comments : null;
+                var d2zComments = that.openEnquiryList[0].d2zComments ? that.openEnquiryList[0].d2zComments : null;
                 that.spinner.show();
                 that.consigmentUploadService.enquiryFileUpload(that.formdata,
-                  that.openEnquiryList[0].ticketNumber,that.openEnquiryList[0].comments,
-                  that.openEnquiryList[0].d2zComments, sendUpdate, closeEnquiry, (resp) => {
+                  that.openEnquiryList[0].ticketNumber, comments, d2zComments, sendUpdate, closeEnquiry, (resp) => {
                       that.successMsg = resp.message;
                       that.spinner.hide();
                       $('#superEnquiry').modal('show');
@@ -105,9 +106,10 @@ export class superUserOpenEnquiryComponent{
               that.spinner.show();
               var sendUpdate = that.openEnquiryList[0].sendUpdate == true ? "yes" : "no";
               var closeEnquiry = that.openEnquiryList[0].closeEnquiry == true ? "closed" : "open";
+              var comments = that.openEnquiryList[0].comments ? that.openEnquiryList[0].comments : null;
+              var d2zComments = that.openEnquiryList[0].d2zComments ? that.openEnquiryList[0].d2zComments : null;
               that.consigmentUploadService.enquiryUpload(
-                  that.openEnquiryList[0].ticketNumber,that.openEnquiryList[0].comments,
-                  that.openEnquiryList[0].d2zComments, sendUpdate, closeEnquiry, (resp) => {
+                  that.openEnquiryList[0].ticketNumber, comments, d2zComments, sendUpdate, closeEnquiry, (resp) => {
                       that.successMsg = resp.message;
                       that.spinner.hide();
                       $('#superEnquiry').modal('show');
