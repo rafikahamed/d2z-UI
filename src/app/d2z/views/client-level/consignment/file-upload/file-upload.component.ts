@@ -457,16 +457,13 @@ export class ZebraFileUpload implements OnInit{
               for(var keyVal in dataObj){
                 var newLine = "\r\n"
 
-if(keyVal === 'Reference number' || keyVal ==='Referencenumber' || keyVal ==='referencenumber' || keyVal === 'reference number' ){
+              if(keyVal === 'Reference number' || keyVal ==='Referencenumber' || keyVal ==='referencenumber' || keyVal === 'reference number' ){
                referencenumber = keyVal; 
-              }
-              else if(keyVal ==='Consignee Name'|| keyVal ==='ConsigneeName' || keyVal ==='consigneename'|| keyVal ==='consignee name'){
+              }else if(keyVal ==='Consignee Name'|| keyVal ==='ConsigneeName' || keyVal ==='consigneename'|| keyVal ==='consignee name'){
                 cname = keyVal;
-              }
-              else if(keyVal === 'Consignee Address 1'|| keyVal ==='ConsigneeAddress1' || keyVal === 'consignee address 1'|| keyVal === 'consigneeaddress1'){
+              }else if(keyVal === 'Consignee Address 1'|| keyVal ==='ConsigneeAddress1' || keyVal === 'consignee address 1'|| keyVal === 'consigneeaddress1'){
                cadd = keyVal;
-              }
-              else if(keyVal === 'Consignee Suburb'|| keyVal ==='consignee suburb'|| keyVal ==='ConsigneeSuburb' || keyVal ==='consigneesuburb'){
+              }else if(keyVal === 'Consignee Suburb'|| keyVal ==='consignee suburb'|| keyVal ==='ConsigneeSuburb' || keyVal ==='consigneesuburb'){
                csub = keyVal;
               }else if(keyVal ==='Consignee State' || keyVal ==='ConsigneeState'|| keyVal ==='consigneestate'|| keyVal ==='consignee state' ){
                 cstate = keyVal;
@@ -476,12 +473,10 @@ if(keyVal === 'Reference number' || keyVal ==='Referencenumber' || keyVal ==='re
                pd = keyVal;
               }else if(keyVal === 'Value'|| keyVal === 'value'){
                valu = keyVal;
-              }
-else if(keyVal === 'Weight'|| keyVal === 'weight'){
-console.log("in weight");
+              }else if(keyVal === 'Weight'|| keyVal === 'weight'){
+                console.log("in weight");
                 we = keyVal;
-              }
-              else if(keyVal === 'Service type'|| keyVal === 'service type'|| keyVal === 'servicetype'|| keyVal === 'Servicetype'){
+              }else if(keyVal === 'Service type'|| keyVal === 'service type'|| keyVal === 'servicetype'|| keyVal === 'Servicetype'){
                servi = keyVal;
               }
 

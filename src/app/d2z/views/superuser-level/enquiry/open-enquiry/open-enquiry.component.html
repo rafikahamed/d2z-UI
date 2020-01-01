@@ -62,10 +62,11 @@
                             <p class="err_msg">{{errorMsg}}</p>
                     </div>
 
-                    <div style="width:100%; border:1px solid #ccc; overflow:auto">
+                    <div style="width:100%; border:1px solid #ccc; height:800px; overflow:auto">
                         <table class="table" style="width:2000px;">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Broker Name</th>
                                     <th>Ticket Number</th>
                                     <th>Tracking Event Date</th>
@@ -82,6 +83,14 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let field of openEnquiryArray; let i = index">
+                                    <td>
+                                        <input style="width:18px; height:18px" 
+                                                [(ngModel)]="field.selection" 
+                                                class="form-control" 
+                                                type="checkbox" 
+                                                [checked]="field.selection"
+                                                name="{{field.selection}}" />
+                                    </td>
                                     <td>
                                         <input 
                                             [(ngModel)]="field.userName" 
@@ -163,15 +172,17 @@
                                             [(ngModel)]="field.closeEnquiry" 
                                             class="form-control" 
                                             type="checkbox" 
-                                            [checked]="field.closeEnquiry"
+                                            [checked]="field.status"
                                             name="{{field.closeEnquiry}}" />
                                     </td>
                                     <td>
                                         <input type="file" 
-                                                [(ngModel)]="field.attachment" 
+                                                [(ngModel)]="field.fileName" 
                                                 class="form-control" 
-                                                name="{{field.attachment}}"
-                                                name="pic" accept="pdf/*">
+                                                (change)="fileChange($event, i)"
+                                                name="{{field.fileName}}"
+                                                accept="pdf/*">
+                                                {{field.fileName}}
                                     </td>
                                 </tr>
                             

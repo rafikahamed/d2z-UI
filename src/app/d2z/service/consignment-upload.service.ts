@@ -12,7 +12,7 @@ const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
- 
+
   public newUserSubject = new Subject<any>();
   userMessage:userMessage;
   englishFlag:boolean;
@@ -916,10 +916,35 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
     });
   };
 
-
   getZoneDetails( brokerRequestList, callback): any {
     this.http.post(baseUrl+'/superUser-level/zone-report', brokerRequestList
     ).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  enquiryFileUpload( formdata,ticketNumber,comments,d2zComments,sendUpdate,status, callback): any {
+    this.http.post(baseUrl+'/superUser-level/enquiryPodFile/'+ticketNumber+"/"+comments+"/"+d2zComments+"/"+sendUpdate+"/"+status, formdata)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  enquiryUpload( ticketNumber,comments,d2zComments,sendUpdate,status, callback): any {
+    this.http.post(baseUrl+'/superUser-level/enquiryPod/'+ticketNumber+"/"+comments+"/"+d2zComments+"/"+sendUpdate+"/"+status, null)
+    .subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
       } else {

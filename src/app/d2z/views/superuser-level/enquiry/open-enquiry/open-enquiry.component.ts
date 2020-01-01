@@ -5,6 +5,7 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'hms-open-enquiry',
@@ -19,6 +20,8 @@ export class superUserOpenEnquiryComponent{
   user_Id: String;
   system: String;
   arrayBuffer:any;
+  formdata: any;
+  formdataIndex: any;
   public openEnquiryList = [];
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
@@ -63,45 +66,93 @@ export class superUserOpenEnquiryComponent{
   };
 
   UpdateEnquiry(){
-    if(this.openEnquiryArray.length > 0 ){
-      this.openEnquiryList = [];
-      let articleID = 'articleID';
-      let comments = 'comments';
-      let d2zComments = 'd2zComments';
-      let sendUpdate = 'sendUpdate';
-      let status = 'status';
-        for (var enquiryVal in this.openEnquiryArray) {
-          var fieldObj = this.openEnquiryArray[enquiryVal];
-          var openEnquiryObj = (
-            openEnquiryObj={}, 
-            openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
-            openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
-            openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
-            openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
-            openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
-          );
-          this.openEnquiryList.push(openEnquiryObj);
+    this.openEnquiryList = []; 
+    var that = this;
+    this.openEnquiryArray.forEach(function(item, index){
+        if(item.selection){
+          item.index = index;
+          that.openEnquiryList.push(item);
+        }else {
         }
-        this.spinner.show();
-        this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
-          this.spinner.hide();
-          $('#superEnquiry').modal('show');
-          if(resp.error){
-            this.successMsg = resp.error.message;
-          }else{
-            this.successMsg = resp.message;
-            this.spinner.show();
-            this.trackingDataService.openEnquiryDetails((resp) => {
-              this.spinner.hide();
-              this.openEnquiryArray = resp; 
-            });
-          }
-        })
-      }else{
-        this.errorMsg =  "**Data is not Avilable to download";
-    } 
-  }
+    });
+    
+    if(that.openEnquiryList.length == 0){
+        that.errorMsg = "**Atleast one item should be selected to update the Records";
+    }else if(that.openEnquiryList.length > 1){
+        that.errorMsg = "**Only one item is allowed to udate the details";
+    }else{
+        that.errorMsg = '';
+        var enquiryIndex = that.openEnquiryList[0].index;
+        console.log(that.openEnquiryList[0]);
+        console.log(that.formdataIndex);
+        console.log(enquiryIndex);
+        if(that.formdata){
+            if(that.formdataIndex == enquiryIndex){
+                var sendUpdate = that.openEnquiryList[0].sendUpdate == true ? "yes" : "no";
+                var closeEnquiry = that.openEnquiryList[0].closeEnquiry == true ? "closed" : "open";
+                that.spinner.show();
+                that.consigmentUploadService.enquiryFileUpload(that.formdata,
+                  that.openEnquiryList[0].ticketNumber,that.openEnquiryList[0].comments,
+                  that.openEnquiryList[0].d2zComments, sendUpdate, closeEnquiry, (resp) => {
+                      that.successMsg = resp.message;
+                      that.spinner.hide();
+                      $('#superEnquiry').modal('show');
+                });
+            }else{
+              this.errorMsg = "Selected records vs upload attachment both has differnt index, please select the records or attachment appropriately";
+            }
+        }else{
+              that.spinner.show();
+              var sendUpdate = that.openEnquiryList[0].sendUpdate == true ? "yes" : "no";
+              var closeEnquiry = that.openEnquiryList[0].closeEnquiry == true ? "closed" : "open";
+              that.consigmentUploadService.enquiryUpload(
+                  that.openEnquiryList[0].ticketNumber,that.openEnquiryList[0].comments,
+                  that.openEnquiryList[0].d2zComments, sendUpdate, closeEnquiry, (resp) => {
+                      that.successMsg = resp.message;
+                      that.spinner.hide();
+                      $('#superEnquiry').modal('show');
+              });
+        }
+    }
 
+    // if(this.openEnquiryArray.length > 0 ){
+    //   this.openEnquiryList = [];
+    //   let articleID = 'articleID';
+    //   let comments = 'comments';
+    //   let d2zComments = 'd2zComments';
+    //   let sendUpdate = 'sendUpdate';
+    //   let status = 'status';
+    //     for (var enquiryVal in this.openEnquiryArray) {
+    //       var fieldObj = this.openEnquiryArray[enquiryVal];
+    //       var openEnquiryObj = (
+    //         openEnquiryObj={}, 
+    //         openEnquiryObj[articleID]= fieldObj.articleID != undefined ? fieldObj.articleID : '', openEnquiryObj,
+    //         openEnquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '', openEnquiryObj,
+    //         openEnquiryObj[d2zComments]= fieldObj.d2zComments != undefined ? fieldObj.d2zComments : null, openEnquiryObj,
+    //         openEnquiryObj[sendUpdate]= fieldObj.sendUpdate == true ? "yes" : "no", openEnquiryObj,
+    //         openEnquiryObj[status]= fieldObj.closeEnquiry == true ? "closed" : "open", openEnquiryObj
+    //       );
+    //       this.openEnquiryList.push(openEnquiryObj);
+    //     }
+    //     this.spinner.show();
+    //     this.trackingDataService.updateEnquiry(this.openEnquiryList,(resp) => {
+    //       this.spinner.hide();
+    //       $('#superEnquiry').modal('show');
+    //       if(resp.error){
+    //         this.successMsg = resp.error.message;
+    //       }else{
+    //         this.successMsg = resp.message;
+    //         this.spinner.show();
+    //         this.trackingDataService.openEnquiryDetails((resp) => {
+    //           this.spinner.hide();
+    //           this.openEnquiryArray = resp; 
+    //         });
+    //       }
+    //     })
+    //   }else{
+    //     this.errorMsg =  "**Data is not Avilable to download";
+    // } 
+  };
 
   downloadEnquiryDetails(){
     var enquiryDownloadData = []
@@ -151,9 +202,19 @@ export class superUserOpenEnquiryComponent{
       }else{
           this.errorMsg =  "**Data is not Avilable to download";
       }   
-  }
-  
+  };
+
+  fileChange(event,index){
+    let fileList: FileList = event.target.files;
+      if(fileList.length > 0) {
+          let file: File = fileList[0];
+          const formdata: FormData = new FormData();
+          formdata.append('file', file);  
+          this.formdata = formdata;
+          this.formdataIndex = index;
+          console.log( this.formdataIndex)
+          console.log(this.formdata)
+      }
+  };
+
 }
-
-
-
