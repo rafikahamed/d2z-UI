@@ -325,6 +325,7 @@ console.log("init:::"+this.selectedTab);
         billed, invoiced, (resp) => {
           this.spinner.hide();
           var downloadInvoiceData = resp;
+          let brokerName = 'brokerName';
           let trackingNumber = 'trackingNumber';
           let reference = 'reference';
           let postcode = 'postcode';
@@ -339,6 +340,7 @@ console.log("init:::"+this.selectedTab);
               var invoiceData = downloadInvoiceData[downloadInvoice];
               var invoiceObj = (
                 invoiceObj={}, 
+                invoiceObj[brokerName]= invoiceData.brokerName != null ? invoiceData.brokerName : '' , invoiceObj,
                 invoiceObj[trackingNumber]= invoiceData.trackingNumber != null ? invoiceData.trackingNumber : '' , invoiceObj,
                 invoiceObj[reference]= invoiceData.referenceNuber != null ? invoiceData.referenceNuber : '', invoiceObj,
                 invoiceObj[postcode]= invoiceData.postcode != null ?  invoiceData.postcode : '', invoiceObj,
@@ -361,7 +363,7 @@ console.log("init:::"+this.selectedTab);
              decimalseparator: '.',
              showLabels: true, 
              useBom: true,
-             headers: [ 'Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill']
+             headers: [ 'Broker Name','Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill']
              };
              new Angular2Csv(invoiceDownloadFinalList, fileName, options);   
              this.invoiceApproveFlag = true;
