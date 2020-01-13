@@ -580,7 +580,7 @@ export class ZebraFileUpload implements OnInit{
       this.errorDetails1 = '';
       this.showSuccess = false;
       this.show = false;
-      var fastwayArray = ["FWS","FWM"];
+      var fastwayArray = ["FWS","FWM","FW"];
       var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS"];
       var nonEparcel = ["MCM","MCM1","MCM2","MCM3","MCS","FWS","FWM","1PME"];
       var aupostArray = ["1PME","1PM"]
