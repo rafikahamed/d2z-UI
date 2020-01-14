@@ -868,8 +868,7 @@ downloadMlidData( service, callback): any {
 shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
 
 
- this.http.get(baseUrl+'/superUser-level/allocate-shipment', {
-      params: { articleid: referenceNumbers, shipment: shipmentNumber  }})
+ this.http.put(baseUrl+'/superUser-level/allocate-shipment/'+shipmentNumber, referenceNumbers)
    .subscribe((resp) => {
       callback(resp);
       if (resp) {
