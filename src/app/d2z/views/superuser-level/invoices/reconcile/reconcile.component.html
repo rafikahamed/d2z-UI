@@ -101,32 +101,42 @@
                     </div>
                     
                     <button type="button"
-                             class="btn btn-info" 
-                                *ngIf="suplier1Flag"
-                                  (click)="uploadSupplier1Data()"
-                                  style="background-color: #16A085; float:right; margin-right:20px">
-                                  <span class="glyphicon glyphicon-cloud-upload"></span>
-                                    Upload Supplier-1 Data
+                            class="btn btn-info" 
+                            *ngIf="suplier1Flag"
+                            (click)="uploadSupplier1Data()"
+                            style="background-color: #16A085; float:right; margin-right:20px">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Upload Supplier-1 Data
                     </button>
 
                     <button type="button"
-                             class="btn btn-info" 
-                                *ngIf="suplier2Flag"
-                                  (click)="uploadSupplier2Data()"
-                                  style="background-color: #16A085; float:right; margin-right:20px">
-                                  <span class="glyphicon glyphicon-cloud-upload"></span>
-                                 Upload Supplier-2 Data
+                            class="btn btn-info" 
+                            *ngIf="suplier2Flag"
+                            (click)="uploadSupplier2Data()"
+                            style="background-color: #16A085; float:right; margin-right:20px">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Upload Supplier-2 Data
                     </button>
 
 
-  <button type="button"
-                             class="btn btn-info" 
-                                *ngIf="suplier3Flag"
-                                  (click)="uploadSupplier3Data()"
-                                  style="background-color: #16A085; float:right; margin-right:20px">
-                                  <span class="glyphicon glyphicon-cloud-upload"></span>
-                                 Upload Supplier-3 Data
+                    <button type="button"
+                            class="btn btn-info" 
+                            *ngIf="suplier3Flag"
+                            (click)="uploadSupplier3Data()"
+                            style="background-color: #16A085; float:right; margin-right:20px">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Upload Supplier-3 Data
                     </button>
+
+                    <button type="button"
+                            class="btn btn-info" 
+                            *ngIf="pcaFlag"
+                            (click)="uploadFastWayData()"
+                            style="background-color: #16A085; float:right; margin-right:20px">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Upload Fastway/StarTrack Data
+                    </button>
+
                     <div *ngIf="suplier1Flag" style="padding:20px; margin-top:30px">
                       <p> Please select the below records to upload the UBI Data: </p>
                       <div class="col-md-10">
@@ -181,8 +191,7 @@
                           </div>
                     </div>
 
-
- <div *ngIf="suplier3Flag" style="padding:20px; margin-top:30px">
+                    <div *ngIf="suplier3Flag" style="padding:20px; margin-top:30px">
                         <p> Please select the below records to upload the APG Data: </p>
                         <div class="col-md-10">
                               <ag-grid-angular 
@@ -208,6 +217,34 @@
                               </ag-grid-angular>
                           </div>
                     </div>
+
+                    <div *ngIf="pcaFlag" style="padding:20px; margin-top:30px">
+                      <p> Please select the below records to upload the PCA Fastway/StarTrack Data </p>
+                      <div class="col-md-10">
+                            <ag-grid-angular 
+                                      #agGrid style="width: 100%; height: 450px;" 
+                                      class="ag-theme-balham" 
+                                      [autoGroupColumnDef]="autoGroupColumnDef"
+                                      [rowData]="rowDataFastWay"
+                                      [enableSorting]="true"
+                                      [enableFilter]="true"
+                                      [suppressRowClickSelection]="true"
+                                      [groupSelectsChildren]="true"
+                                      [debug]="true"
+                                      [rowSelection]="rowSelection"
+                                      [enableColResize]="true"
+                                      [rowGroupPanelShow]="rowGroupPanelShow"
+                                      [pivotPanelShow]="pivotPanelShow"
+                                      [enableRangeSelection]="true"
+                                      [pagination]="true"
+                                      [defaultColDef]="defaultColDef"
+                                      [gridOptions]="gridOptionsFastWay" 
+                                      [pagination]="true"
+                                      (selectionChanged)="onFastWayChange($event)">
+                            </ag-grid-angular>
+                        </div>
+                    </div>
+
                     <div class="col-md-2">
                         <button type="button"
                                 class="btn btn-info" 
@@ -218,6 +255,7 @@
                                     Reconcile Data
                         </button>
                     </div>
+
               </div>
           </mat-tab>
 

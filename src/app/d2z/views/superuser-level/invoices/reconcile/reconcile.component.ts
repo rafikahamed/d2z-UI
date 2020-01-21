@@ -241,12 +241,12 @@ this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
     this.supplierTypeDropdown = [
       { "name": "UBI Template", "value": "UBITemplate" },
       { "name": "PFL Template", "value": "pflTemplate" },
-      {"name": "APG Template", "value": "apgTemplate"}
+      { "name": "APG Template", "value": "apgTemplate" },
+      { "name": "PCA Fastway Invoice", "value": "PCAStarTrackInvoice" },
+      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" }
     ];
     this.supplierType = this.supplierTypeDropdown[0].value;
     this.nonD2zSupplierTypeDropdown = [
-      { "name": "PCA Fastway Invoice", "value": "PCAStarTrackInvoice" },
-      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" },
       { "name": "UBI Template", "value": "UBITemplate" },
       { "name": "Freipost template", "value": "freipostTemplate" }
     ];
@@ -382,18 +382,24 @@ this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
     this.supplierType = event.value ? event.value.value : '';
     if(this.supplierType == 'UBITemplate'){
       this.suplier2Flag = false;
-        this.suplier3Flag = false;
-      
+      this.suplier3Flag = false;
       this.suplier1Flag = true;
+      this.pcaFlag = false;
     }else if(this.supplierType == 'pflTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = true;
-         this.suplier3Flag = false;
-    }
-    else if(this.supplierType == 'apgTemplate'){
+      this.suplier3Flag = false;
+      this.pcaFlag = false;
+    }else if(this.supplierType == 'apgTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = false;
-         this.suplier3Flag = true;
+      this.suplier3Flag = true;
+      this.pcaFlag = false;
+    }else if(this.supplierType == 'PCAStarTrackInvoice'){
+      this.suplier1Flag = false;
+      this.suplier2Flag = false;
+      this.suplier3Flag = false;
+      this.pcaFlag = true;
     }
   };
 
