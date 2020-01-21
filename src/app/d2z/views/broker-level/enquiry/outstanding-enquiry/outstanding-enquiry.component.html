@@ -32,30 +32,6 @@
                                         </div>
                                   </div>
     
-                                  <!-- <div class="col-md-2">
-                                        <p> Delivery Enquiry : </p>
-                                        <div style="margin-top:15px">
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="enquiry" value="yes">Yes
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="enquiry" value="no">NO
-                                                </label>
-                                        </div>
-                                  </div>
-    
-                                  <div class="col-md-2">
-                                        <p> POD : </p>
-                                        <div style="margin-top:15px">
-                                                <label class="radio-inline">
-                                                        <input type="radio" name="pod" value="yes">Yes
-                                                      </label>
-                                                      <label class="radio-inline">
-                                                        <input type="radio" name="pod" value="no">NO
-                                                      </label>
-                                        </div>
-                                  </div> -->
-    
                                   <div class="col-md-3">
                                         <p > From Date : </p>
                                         <mat-form-field>
@@ -98,24 +74,11 @@
       
                                 </div>
     
-                                <!-- <div class="row" style="float:right">
-                                    <div>
-                                        <div class="col-md-2" style="margin-top:10px">
-                                                <button type="button" 
-                                                        class="btn btn-info" 
-                                                        (click)="enquirySearch()"
-                                                       style="background-color: #16A085; margin-left:10px">
-                                                       <span class="glyphicon glyphicon-search"></span>
-                                                 Search
-                                               </button>
-                                           </div>
-                                    </div>
-                                </div> -->
-    
                             </div>
                     </div>
     
                     <div class="delete_panel">
+                        
                         <ngx-spinner
                             bdColor="rgba(51,51,51,0.8)"
                             size="medium"
@@ -123,13 +86,25 @@
                             loadingText="Loading..."
                             type="ball-clip-rotate-multiple">
                         </ngx-spinner>
-    
+
+                        <div style="margin-top: 10px">
+                            <p class="err_msg">{{errorMsg}}</p>
+                        </div>
+                        
+                        <button type="button" 
+                                class="btn btn-info" 
+                                *ngIf="englishFlag" 
+                                (click)="downloadOutstandingDetails()"
+                                style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                            Download Outstanding Details
+                        </button>
     
                         <div style="padding:20px">
                             <p> Outstanding Enquiries Details </p>
                               <div>
                                   <ag-grid-angular 
-                                            #agGrid style="width: 100%; height: 400px;" 
+                                            #agGrid style="width:100%; height:400px" 
                                             class="ag-theme-balham" 
                                             [autoGroupColumnDef]="autoGroupColumnDef"
                                             [rowData]="rowData"

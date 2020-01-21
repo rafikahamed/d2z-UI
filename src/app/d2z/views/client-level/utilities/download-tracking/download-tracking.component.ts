@@ -1,5 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, Compiler} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Compiler} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 declare var $: any;

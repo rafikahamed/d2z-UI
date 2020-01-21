@@ -24,6 +24,21 @@
                         type="ball-clip-rotate-multiple">
                     </ngx-spinner>
 
+                    <div style="margin-top: 10px">
+                        <div>
+                            <p class="err_msg">{{errorMsg}}</p>
+                        </div>
+                    </div>
+
+                    <button type="button" 
+                            class="btn btn-info" 
+                            *ngIf="englishFlag" 
+                            (click)="completeEnquiryDetails()"
+                            style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                            <span class="glyphicon glyphicon-cloud-download"></span>
+                        Download Completed Enquiry Details
+                    </button>
+
                     <div style="padding:20px">
                         <p> Completed Enquiries Details </p>
                           <div>

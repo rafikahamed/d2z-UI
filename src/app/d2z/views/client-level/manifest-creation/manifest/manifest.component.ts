@@ -1,5 +1,5 @@
 import { Component, OnInit, Compiler} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 declare var $: any;
 import { GridOptions } from "ag-grid";

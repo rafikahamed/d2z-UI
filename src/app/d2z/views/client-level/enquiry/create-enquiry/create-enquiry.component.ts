@@ -200,10 +200,10 @@ export class CreateEnquiryComponent{
                 var newLine = "\r\n"
               }
 
-              if(!dataObj['Parcel Type']){
-                this.errorMsg = "Parcel Type is mandatory";
-              }else if(!dataObj['Parcel Details']){
-                this.errorMsg = "Parcel Details is mandatory";
+              if(!dataObj['Search Type']){
+                this.errorMsg = "Search Type is mandatory";
+              }else if(!dataObj['Search Details']){
+                this.errorMsg = "Search Details is mandatory";
               }else if(!dataObj['Delivery Enquiry']){
                 this.errorMsg = "Delivery Enquiry is mandatory";
               }else if(!dataObj['Delivery POD']){
@@ -215,8 +215,8 @@ export class CreateEnquiryComponent{
               if(this.errorMsg == null){
                 var importObj = (
                   importObj={}, 
-                  importObj[type]= dataObj['Parcel Type'] != undefined ? dataObj['Parcel Type'] : '', importObj,
-                  importObj[identifier]= dataObj['Parcel Details'] != undefined ? dataObj['Parcel Details'] : '', importObj,
+                  importObj[type]= dataObj['Search Type'] != undefined ? dataObj['Search Type'] : '', importObj,
+                  importObj[identifier]= dataObj['Search Details'] != undefined ? dataObj['Search Details'] : '', importObj,
                   importObj[enquiry]= dataObj['Delivery Enquiry'] == 'yes' ? true : false, importObj,
                   importObj[pod]= dataObj['Delivery POD'] == 'yes' ? true : false, importObj,
                   importObj[comments]= dataObj['Comments'] != undefined ? dataObj['Comments'] : '',  importObj

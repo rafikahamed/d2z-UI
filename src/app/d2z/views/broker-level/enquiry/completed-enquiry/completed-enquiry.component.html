@@ -16,6 +16,7 @@
                     </div>
     
                     <div class="delete_panel">
+
                         <ngx-spinner
                             bdColor="rgba(51,51,51,0.8)"
                             size="medium"
@@ -23,6 +24,19 @@
                             loadingText="Loading..."
                             type="ball-clip-rotate-multiple">
                         </ngx-spinner>
+
+                        <div style="margin-top: 10px">
+                            <p class="err_msg">{{errorMsg}}</p>
+                        </div>
+                        
+                        <button type="button" 
+                                class="btn btn-info" 
+                                *ngIf="englishFlag" 
+                                (click)="downloadCompletedEnquiryDetails()"
+                                style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                            Download Completed Enquiry Details
+                        </button>
     
                         <div style="padding:20px">
                             <p> Completed Enquiries Details </p>
