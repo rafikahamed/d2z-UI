@@ -592,7 +592,7 @@ export class ZebraFileUpload implements OnInit{
             break;
           }
         }else if(selectedRows[k].carrier == 'Express'){
-          if(selectedRows[k].serviceType != '1PME'){
+          if(selectedRows[k].serviceType != '1PME' || selectedRows[k].serviceType != '1PSE'){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
