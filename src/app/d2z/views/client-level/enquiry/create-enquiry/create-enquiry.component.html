@@ -64,8 +64,8 @@
                                                 <tr>
                                                     <th>Search Type</th>
                                                     <th>Search Details</th>
-                                                    <th>Delivery Enquiry</th>
-                                                    <th>Delivery POD</th>
+                                                    <th>Search Enquiry / POD</th>
+                                                    <!-- <th>Delivery POD</th> -->
                                                     <th>Comments</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -90,6 +90,17 @@
                                                             name="{{field.identifier}}" />
                                                     </td>
                                                     <td>
+                                                        <p-dropdown 
+                                                        [options]="cities2" 
+                                                        [(ngModel)]="field.type" 
+                                                        optionLabel="name" 
+                                                        [showClear]="true"
+                                                        [editable]="true"
+                                                        [style]="{'width':'100%'}"
+                                                        (onChange)="onFileChange($event)">
+                                                        </p-dropdown>
+                                                    </td>
+                                                    <!-- <td>
                                                         <input style="margin-left:50px; width:18px; height:18px" 
                                                             [(ngModel)]="field.enquiry" 
                                                             class="form-control" 
@@ -102,7 +113,7 @@
                                                             class="form-control" 
                                                             type="checkbox" 
                                                             name="{{field.pod}}" />
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <textarea [(ngModel)]="field.comments" 
                                                                 class="form-control" cols="35" rows="2" 
@@ -138,6 +149,17 @@
                                                                 name="newAttributeClientIdentifier" />
                                                     </td>
                                                     <td>
+                                                        <p-dropdown 
+                                                        [options]="cities2" 
+                                                        [(ngModel)]="newAttributeClient.type" 
+                                                        optionLabel="name" 
+                                                        [showClear]="true"
+                                                        [editable]="true"
+                                                        [style]="{'width':'100%'}"
+                                                        (onChange)="onFileChange($event)">
+                                                        </p-dropdown>
+                                                    </td>
+                                                    <!-- <td>
                                                         <input style="margin-left:50px; width:18px; height:18px" 
                                                                 type="checkbox" 
                                                                 id="newAttributeClientEnquiry" 
@@ -150,7 +172,7 @@
                                                                 id="newAttributeClientPod" 
                                                                 [(ngModel)]="newAttributeClient.pod"
                                                                 name="newAttributeClientPod" />
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <textarea id="newAttributeClientComments" 
                                                                 class="form-control" cols="35" rows="2" 
@@ -271,8 +293,7 @@
                                             <tr>
                                                 <th>Search Type</th>
                                                 <th>Search Details</th>
-                                                <th>Delivery Enquiry</th>
-                                                <th>Delivery POD</th>
+                                                <th>Search Enquiry POD</th>
                                                 <th>Comments</th>
                                                 <th>Action</th>
                                             </tr>
@@ -294,6 +315,13 @@
                                                         name="{{field.identifier}}" />
                                                 </td>
                                                 <td>
+                                                    <input 
+                                                        [(ngModel)]="field.type" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        name="{{field.identifier}}" />
+                                                </td>
+                                                <!-- <td>
                                                     <input style="margin-left:50px; width:18px; height:18px" 
                                                         [(ngModel)]="field.enquiry" 
                                                         class="form-control" 
@@ -308,7 +336,7 @@
                                                         type="checkbox" 
                                                         [checked]="field.pod"
                                                         name="{{field.pod}}" />
-                                                </td>
+                                                </td> -->
                                                 <td>
                                                     <textarea [(ngModel)]="field.comments" 
                                                             class="form-control" cols="35" rows="2" 
