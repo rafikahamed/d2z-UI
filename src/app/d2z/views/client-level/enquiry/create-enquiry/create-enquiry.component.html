@@ -91,13 +91,13 @@
                                                     </td>
                                                     <td>
                                                         <p-dropdown 
-                                                        [options]="cities2" 
-                                                        [(ngModel)]="field.type" 
+                                                        [options]="enquiryType" 
+                                                        [(ngModel)]="field.enquiry" 
                                                         optionLabel="name" 
                                                         [showClear]="true"
                                                         [editable]="true"
                                                         [style]="{'width':'100%'}"
-                                                        (onChange)="onFileChange($event)">
+                                                        (onChange)="onEnquiryChange($event)">
                                                         </p-dropdown>
                                                     </td>
                                                     <!-- <td>
@@ -150,13 +150,13 @@
                                                     </td>
                                                     <td>
                                                         <p-dropdown 
-                                                        [options]="cities2" 
-                                                        [(ngModel)]="newAttributeClient.type" 
+                                                        [options]="enquiryType" 
+                                                        [(ngModel)]="newAttributeClient.enquiry" 
                                                         optionLabel="name" 
                                                         [showClear]="true"
                                                         [editable]="true"
                                                         [style]="{'width':'100%'}"
-                                                        (onChange)="onFileChange($event)">
+                                                        (onChange)="onEnquiryChange($event)">
                                                         </p-dropdown>
                                                     </td>
                                                     <!-- <td>
@@ -293,7 +293,7 @@
                                             <tr>
                                                 <th>Search Type</th>
                                                 <th>Search Details</th>
-                                                <th>Search Enquiry POD</th>
+                                                <th>Search Enquiry / POD</th>
                                                 <th>Comments</th>
                                                 <th>Action</th>
                                             </tr>
@@ -316,7 +316,7 @@
                                                 </td>
                                                 <td>
                                                     <input 
-                                                        [(ngModel)]="field.type" 
+                                                        [(ngModel)]="field.enquiry" 
                                                         class="form-control" 
                                                         type="text" 
                                                         name="{{field.identifier}}" />

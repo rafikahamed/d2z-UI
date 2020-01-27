@@ -96,10 +96,20 @@ export class superUserReturnsScanComponent{
       var that = this;
       elem.onkeyup = function(e){
           if(e.keyCode == 13){
-            console.log("Entered ---->")
-            var scanValue = event.target.value;
+            console.log("Entered ---->");
+            var referenceNumber = null;
+            var barcodeLabel = null;
+            var articleId = null;
+            console.log(that.newAttribute.type.value);
+            if(that.newAttribute.type.value == 'referenceNumber'){
+              referenceNumber = event.target.value;
+            }else if(that.newAttribute.type.value == 'articleId'){
+              articleId = event.target.value;
+            }else if(that.newAttribute.type.value == 'barcode'){
+              barcodeLabel = event.target.value;
+            }
             that.spinner.show();
-            that.consigmentUploadService.fetchReturnsClientDetails(scanValue, (resp) => {
+            that.consigmentUploadService.fetchReturnsClientDetails(referenceNumber,barcodeLabel,articleId, (resp) => {
               that.spinner.hide();
               that.successMsg = resp.message;
                that.newAttribute.brokerName = resp.brokerName;
@@ -120,7 +130,7 @@ export class superUserReturnsScanComponent{
           
           }
         }
-    }
+    };
 
     returnEnquiry(){
       this.importReturnsList = [];

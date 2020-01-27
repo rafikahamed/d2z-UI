@@ -20,12 +20,14 @@ export class CreateEnquiryComponent{
   errorMsg: string;
   successMsg: String;
   type: String;
-  file:File;
+  enquiry: String;
+  file: File;
   user_Id: String;
   userName: String;
   system: String;
   arrayBuffer:any;
   cities2: City[];
+  enquiryType: City[];
   public importList = [];
   public importIndividualList = [];
   public importFileList = [];
@@ -54,6 +56,10 @@ export class CreateEnquiryComponent{
         {"name":"Article Id","value":"articleId"},
         {"name":"Reference Number","value":"referenceNumber"}
       ];
+      this.enquiryType = [
+        {"name":"Status Enquiry","value":"enquiry"},
+        {"name":"POD","value":"pod"}
+      ];
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
@@ -62,7 +68,7 @@ export class CreateEnquiryComponent{
       });
       this.newAttributeClient = {};
      
-  };
+    };
 
     addFieldValue() {
         this.fieldArray.push(this.newAttributeClient)
@@ -78,9 +84,13 @@ export class CreateEnquiryComponent{
       this.type = event.value ? event.value.value : '';
     }
 
+    onEnquiryChange(event){
+      this.enquiry = event.value ? event.value.value : '';
+    }
+
     deleteFieldFileValue(index) {
       this.fieldCreateArray.splice(index, 1);
-  }
+    }
 
     creatEnquiry(){
       this.importIndividualList = [];
@@ -108,12 +118,13 @@ export class CreateEnquiryComponent{
           enquiryObj={}, 
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
           enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
+          enquiryObj[enquiry]= fieldObj.enquiry.value == 'enquiry'  ? "yes" : "no", enquiryObj,
+          enquiryObj[pod]= fieldObj.enquiry.value == 'pod' ? "yes" : "no", enquiryObj,
           enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
         );
         this.importIndividualList.push(enquiryObj);
       }
+
       if(this.importIndividualList.length > 0){
         for(var k = 0; k != this.importIndividualList.length; k++){
           if( this.importIndividualList[k].identifier.length == 0 ){
@@ -126,12 +137,10 @@ export class CreateEnquiryComponent{
           enquiryFinalObj[enquiryDetails]= this.importIndividualList, enquiryFinalObj,
           enquiryFinalObj[userName]= this.userName, enquiryFinalObj
         );
-        
         if(this.errorMsg == null){
             this.spinner.show();
             this.consigmentUploadService.createEnquiry(enquiryFinalObj, (resp) => {
                 this.spinner.hide();
-                console.log(resp)
                 if(resp.error){
                   this.successMsg = resp.error.errorMessage;
                 }else{
@@ -140,7 +149,6 @@ export class CreateEnquiryComponent{
                   this.newAttributeClient = {};
                 }
                 $('#enquiry').modal('show');
-                
             });
         }
       }else{
@@ -165,7 +173,6 @@ export class CreateEnquiryComponent{
     };
 
     clearEnquiry(){
-      console.log("Clear Data")
       $("#enquiryFileControl").val('');
       this.fieldCreateArray = [];
       this.importList = [];
@@ -204,10 +211,8 @@ export class CreateEnquiryComponent{
                 this.errorMsg = "Search Type is mandatory";
               }else if(!dataObj['Search Details']){
                 this.errorMsg = "Search Details is mandatory";
-              }else if(!dataObj['Delivery Enquiry']){
-                this.errorMsg = "Delivery Enquiry is mandatory";
-              }else if(!dataObj['Delivery POD']){
-                this.errorMsg = 'Delivery POD is mandatory';
+              }else if(!dataObj['Search Enquiry / POD']){
+                this.errorMsg = "Search Enquiry / POD is mandatory";
               }else if(!dataObj['Comments']){
                 this.errorMsg = 'Comments is mandatory';
               }
@@ -217,8 +222,7 @@ export class CreateEnquiryComponent{
                   importObj={}, 
                   importObj[type]= dataObj['Search Type'] != undefined ? dataObj['Search Type'] : '', importObj,
                   importObj[identifier]= dataObj['Search Details'] != undefined ? dataObj['Search Details'] : '', importObj,
-                  importObj[enquiry]= dataObj['Delivery Enquiry'] == 'yes' ? true : false, importObj,
-                  importObj[pod]= dataObj['Delivery POD'] == 'yes' ? true : false, importObj,
+                  importObj[enquiry]= dataObj['Search Enquiry / POD'] != undefined ? dataObj['Search Enquiry / POD'] : '', importObj,
                   importObj[comments]= dataObj['Comments'] != undefined ? dataObj['Comments'] : '',  importObj
               );
               this.importList.push(importObj);
@@ -231,22 +235,29 @@ export class CreateEnquiryComponent{
 
     creatFileEnquiry(){
       this.importFileList = [];
+      this.errorMsg = null;
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
       let pod = 'pod';
       let userName = 'userName';
       let comments = 'comments';
-      let enquiryDetails = 'enquiryDetails'
+      let enquiryDetails = 'enquiryDetails';
       for (var fieldVal in this.fieldCreateArray) {
-        var fieldObj = this.fieldCreateArray[fieldVal];
+        var fieldFileObj = this.fieldCreateArray[fieldVal];
+        var searchEnquiry = fieldFileObj.enquiry;
+        if( searchEnquiry != "Enquiry" && searchEnquiry != "POD"){
+          this.errorMsg = "**Allowed values are 'Enquiry' or 'POD' ";
+          return;
+        }
+       
         var enquiryObj = (
           enquiryObj={}, 
-          enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type : '', enquiryObj,
-          enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry == true ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod == true ? "yes" : "no", enquiryObj,
-          enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
+          enquiryObj[type]= fieldFileObj.type != undefined ? fieldFileObj.type : '', enquiryObj,
+          enquiryObj[identifier]= fieldFileObj.identifier != undefined ? fieldFileObj.identifier : '', enquiryObj,
+          enquiryObj[enquiry]= fieldFileObj.enquiry == 'Enquiry' ? "yes" : "no", enquiryObj,
+          enquiryObj[pod]=  fieldFileObj.enquiry == 'POD' ? "yes" : "no", enquiryObj,
+          enquiryObj[comments]= fieldFileObj.comments != undefined ? fieldFileObj.comments : '',  enquiryObj
         );
         this.importFileList.push(enquiryObj);
       };
@@ -256,7 +267,7 @@ export class CreateEnquiryComponent{
         enquiryFinalObj[enquiryDetails]= this.importFileList, enquiryFinalObj,
         enquiryFinalObj[userName]= this.userName, enquiryFinalObj
       );
-
+      
       if(this.importFileList.length > 0){
         this.spinner.show();
         this.consigmentUploadService.createEnquiry(enquiryFinalObj, (resp) => {
@@ -278,7 +289,6 @@ export class CreateEnquiryComponent{
     }
 
 }
-
 
 interface City {
   name: string;

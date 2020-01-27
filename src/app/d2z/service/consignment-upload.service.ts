@@ -824,9 +824,9 @@ downloadMlidData( service, callback): any {
   };
 
     
-  fetchReturnsClientDetails( scanValue, callback): any {
+  fetchReturnsClientDetails( referenceNumber, barcodeLabel, articleId,  callback): any {
     this.http.get(baseUrl+'/superUser-level/clientDetails', {
-      params: { referenceNumber: scanValue, barcodeLabel: scanValue, articleId: scanValue  }
+      params: { referenceNumber: referenceNumber, barcodeLabel: barcodeLabel, articleId: articleId  }
     }).subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {

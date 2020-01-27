@@ -62,8 +62,8 @@
                                                     <tr>
                                                         <th>Search Type</th>
                                                         <th>Search Details</th>
-                                                        <th>Delivery Enquiry</th>
-                                                        <th>Delivery POD</th>
+                                                        <th>Search Enquiry / POD</th>
+                                                        <!-- <th>Delivery POD</th> -->
                                                         <th>Comments</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -88,6 +88,17 @@
                                                                 name="{{field.identifier}}" />
                                                         </td>
                                                         <td>
+                                                            <p-dropdown 
+                                                            [options]="enquiryType" 
+                                                            [(ngModel)]="field.enquiry" 
+                                                            optionLabel="name" 
+                                                            [showClear]="true"
+                                                            [editable]="true"
+                                                            [style]="{'width':'100%'}"
+                                                            (onChange)="onEnquiryChange($event)">
+                                                            </p-dropdown>
+                                                        </td>
+                                                        <!-- <td>
                                                             <input style="margin-left:50px; width:18px; height:18px" 
                                                                 [(ngModel)]="field.enquiry" 
                                                                 class="form-control" 
@@ -100,7 +111,7 @@
                                                                 class="form-control" 
                                                                 type="checkbox" 
                                                                 name="{{field.pod}}" />
-                                                        </td>
+                                                        </td> -->
                                                         <td>
                                                             <textarea [(ngModel)]="field.comments" 
                                                                     class="form-control" cols="35" rows="2" 
@@ -136,6 +147,17 @@
                                                                     name="newAttributeIdentifier" />
                                                         </td>
                                                         <td>
+                                                            <p-dropdown 
+                                                            [options]="enquiryType" 
+                                                            [(ngModel)]="newAttribute.enquiry" 
+                                                            optionLabel="name" 
+                                                            [showClear]="true"
+                                                            [editable]="true"
+                                                            [style]="{'width':'100%'}"
+                                                            (onChange)="onEnquiryChange($event)">
+                                                            </p-dropdown>
+                                                        </td>
+                                                        <!-- <td>
                                                             <input style="margin-left:50px; width:18px; height:18px" 
                                                                     type="checkbox" 
                                                                     id="newAttributeEnquiry" 
@@ -148,7 +170,7 @@
                                                                     id="newAttributePod" 
                                                                     [(ngModel)]="newAttribute.pod"
                                                                     name="newAttributePod" />
-                                                        </td>
+                                                        </td> -->
                                                         <td>
                                                             <textarea id="newAttributeComments" 
                                                                     class="form-control" cols="35" rows="2" 
@@ -268,8 +290,7 @@
                                                 <tr>
                                                     <th>Search Type</th>
                                                     <th>Search Details</th>
-                                                    <th>Delivery Enquiry</th>
-                                                    <th>Delivery POD</th>
+                                                    <th>Search Enquiry / POD</th>
                                                     <th>Comments</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -291,6 +312,13 @@
                                                             name="{{field.identifier}}" />
                                                     </td>
                                                     <td>
+                                                        <input 
+                                                            [(ngModel)]="field.enquiry" 
+                                                            class="form-control" 
+                                                            type="text" 
+                                                            name="{{field.identifier}}" />
+                                                    </td>
+                                                    <!-- <td>
                                                         <input style="margin-left:50px; width:18px; height:18px" 
                                                             [(ngModel)]="field.enquiry" 
                                                             class="form-control" 
@@ -305,7 +333,7 @@
                                                             type="checkbox" 
                                                             [checked]="field.pod"
                                                             name="{{field.pod}}" />
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <textarea [(ngModel)]="field.comments" 
                                                                 class="form-control" cols="35" rows="2" 
@@ -321,54 +349,6 @@
                                                         Delete</button>
                                                     </td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <td>
-                                                            <input class="form-control" 
-                                                            type="text" 
-                                                            id="newAttributeType" 
-                                                            [(ngModel)]="newAttribute.type" 
-                                                            name="newAttributeType" />
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" 
-                                                                type="text" 
-                                                                id="newAttributeIdentifier" 
-                                                                [(ngModel)]="newAttribute.identifier" 
-                                                                name="newAttributeIdentifier" />
-                                                    </td>
-                                                    <td>
-                                                        <input style="margin-left:50px; width:18px; height:18px" 
-                                                                type="checkbox" 
-                                                                id="newAttributeEnquiry"
-                                                                [checked]="newAttribute.enquiry"
-                                                                [(ngModel)]="newAttribute.enquiry" 
-                                                                name="newAttributeEnquiry" />
-                                                    </td>
-                                                    <td>
-                                                        <input style="margin-left:38px; width:18px; height:18px" 
-                                                                type="checkbox" 
-                                                                id="newAttributePod" 
-                                                                [checked]="newAttribute.pod"
-                                                                [(ngModel)]="newAttribute.pod"
-                                                                name="newAttributePod" />
-                                                    </td>
-                                                    <td>
-                                                        <textarea id="newAttributeComments" 
-                                                                class="form-control" cols="35" rows="2" 
-                                                                [(ngModel)]="newAttribute.comments"
-                                                                name="newAttributeComments">
-                                                        </textarea>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-default" 
-                                                        type="button" 
-                                                        style="background-color: #16A085; color: white;"
-                                                        (click)="addFieldValue()">
-                                                        <span class="glyphicon glyphicon-plus"></span>
-                                                        Add
-                                                    </button>
-                                                    </td>
-                                                </tr> -->
                                             </tbody>
                                 </table>
     

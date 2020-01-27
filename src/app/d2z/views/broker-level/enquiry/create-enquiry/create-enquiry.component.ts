@@ -20,6 +20,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
   errorMsg: string;
   successMsg: String;
   type: String;
+  enquiry: String;
   file:File;
   user_Id: String;
   userName: String;
@@ -27,6 +28,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
   arrayBuffer:any;
   cities2: City[];
   public importList = [];
+  enquiryType: City[];
   public importIndividualList = [];
   public importFileList = [];
   englishFlag:boolean;
@@ -54,6 +56,10 @@ export class BrokerCreateEnquiryComponent implements OnInit{
         {"name":"Article Id","value":"articleId"},
         {"name":"Reference Number","value":"referenceNumber"}
       ];
+      this.enquiryType = [
+        {"name":"Status Enquiry","value":"enquiry"},
+        {"name":"POD","value":"pod"}
+      ];
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
@@ -66,6 +72,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
     addFieldValue() {
         this.fieldArray.push(this.newAttribute)
         this.newAttribute = {};
+        this.errorMsg = '';
     }
 
     deleteFieldValue(index) {
@@ -76,9 +83,13 @@ export class BrokerCreateEnquiryComponent implements OnInit{
       this.type = event.value ? event.value.value : '';
     }
 
+    onEnquiryChange(event){
+      this.enquiry = event.value ? event.value.value : '';
+    }
+
     deleteFieldFileValue(index) {
       this.fieldCreateArray.splice(index, 1);
-  }
+    }
 
     creatEnquiry(){
       this.errorMsg = null;
@@ -107,8 +118,8 @@ export class BrokerCreateEnquiryComponent implements OnInit{
             enquiryObj={}, 
             enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
             enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-            enquiryObj[enquiry]= fieldObj.enquiry != undefined ? "yes" : "no", enquiryObj,
-            enquiryObj[pod]= fieldObj.pod != undefined ? "yes" : "no", enquiryObj,
+            enquiryObj[enquiry]= fieldObj.enquiry.value == 'enquiry'  ? "yes" : "no", enquiryObj,
+            enquiryObj[pod]= fieldObj.enquiry.value == 'pod' ? "yes" : "no", enquiryObj,
             enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
           );
           this.importIndividualList.push(enquiryObj);
@@ -202,10 +213,8 @@ export class BrokerCreateEnquiryComponent implements OnInit{
                 this.errorMsg = "Search Type is mandatory";
               }else if(!dataObj['Search Details']){
                 this.errorMsg = "Search Details is mandatory";
-              }else if(!dataObj['Delivery Enquiry']){
-                this.errorMsg = "Delivery Enquiry is mandatory";
-              }else if(!dataObj['Delivery POD']){
-                this.errorMsg = 'Delivery POD is mandatory';
+              }else if(!dataObj['Search Enquiry / POD']){
+                this.errorMsg = "Search Enquiry / POD is mandatory";
               }else if(!dataObj['Comments']){
                 this.errorMsg = 'Comments is mandatory';
               }
@@ -215,8 +224,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
                   importObj={}, 
                   importObj[type]= dataObj['Search Type'] != undefined ? dataObj['Search Type'] : '', importObj,
                   importObj[identifier]= dataObj['Search Details'] != undefined ? dataObj['Search Details'] : '', importObj,
-                  importObj[enquiry]= dataObj['Delivery Enquiry'] == 'yes' ? true : false, importObj,
-                  importObj[pod]= dataObj['Delivery POD'] == 'yes' ? true : false, importObj,
+                  importObj[enquiry]= dataObj['Search Enquiry / POD'] != undefined ? dataObj['Search Enquiry / POD'] : '', importObj,
                   importObj[comments]= dataObj['Comments'] != undefined ? dataObj['Comments'] : '',  importObj
               );
               this.importList.push(importObj);
@@ -229,6 +237,7 @@ export class BrokerCreateEnquiryComponent implements OnInit{
 
     creatFileEnquiry(){
       this.importFileList = [];
+      this.errorMsg = null;
       let type = 'type';
       let identifier = 'identifier';
       let enquiry = 'enquiry';
@@ -238,12 +247,17 @@ export class BrokerCreateEnquiryComponent implements OnInit{
       let enquiryDetails = 'enquiryDetails'
       for (var fieldVal in this.fieldCreateArray) {
         var fieldObj = this.fieldCreateArray[fieldVal];
+        var searchEnquiry = fieldObj.enquiry;
+        if( searchEnquiry != "Enquiry" && searchEnquiry != "POD"){
+          this.errorMsg = "**Allowed values are 'Enquiry' or 'POD' ";
+          return;
+        }
         var enquiryObj = (
           enquiryObj={}, 
           enquiryObj[type]= fieldObj.type != undefined ? fieldObj.type : '', enquiryObj,
           enquiryObj[identifier]= fieldObj.identifier != undefined ? fieldObj.identifier : '', enquiryObj,
-          enquiryObj[enquiry]= fieldObj.enquiry == true ? "yes" : "no", enquiryObj,
-          enquiryObj[pod]= fieldObj.pod == true ? "yes" : "no", enquiryObj,
+          enquiryObj[enquiry]= fieldObj.enquiry == 'Enquiry' ? "yes" : "no", enquiryObj,
+          enquiryObj[pod]= fieldObj.pod == 'POD' ? "yes" : "no", enquiryObj,
           enquiryObj[comments]= fieldObj.comments != undefined ? fieldObj.comments : '',  enquiryObj
         );
         this.importFileList.push(enquiryObj);
