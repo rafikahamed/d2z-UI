@@ -69,6 +69,7 @@ import { SuperUserZebraScanPDF } from 'app/d2z/views/superuser-level/zebra-label
 import { SuperUserZebraScanPrint } from 'app/d2z/views/superuser-level/zebra-labels/print/print.component';
 import { SuperUserLogReportComponent } from 'app/d2z/views/superuser-level/reports/log-report/log-report.component';
 import { SuperUserZoneReportComponent } from 'app/d2z/views/superuser-level/reports/zone-report/zone-report.component';
+import { SuperUserProfitLossReportComponent } from 'app/d2z/views/superuser-level/reports/profit-loss/profit-loss.component';
 import { MLIDComponent } from 'app/d2z/views/superuser-level/mlid/mlid.component';
 import { AUweightComponent } from 'app/d2z/views/superuser-level/auweight/auweight.component';
 import { SuperIncomingJobComponent } from 'app/d2z/views/superuser-level/incomingJobs/create-jobs/create-job.component';
@@ -166,22 +167,16 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
           { path: "superuser/mld", component:MLIDComponent},
           { path: "superuser/auweight", component:AUweightComponent},
           { path: "superuser/reports/log-report", component: SuperUserLogReportComponent },
+          { path: "superuser/reports/profit-loss", component: SuperUserProfitLossReportComponent },
           { path: "superuser/reports/zone-report", component: SuperUserZoneReportComponent },
           { path: "superuser/labels/pdf", component: SuperUserZebraScanPDF },
-
-          {path:"superuser/incomingJobs/create",component: SuperIncomingJobComponent},
-
-          {path:"superuser/incomingJobs/outstanding",component: SuperOutstandingJobComponent},
-
-          {path:"superuser/incomingJobs/closed",component: SuperClosingJobComponent},
-
-          {path:"superuser/incomingJobs/held",component: SuperHeldParcelComponent},
-
+          { path:"superuser/incomingJobs/create",component: SuperIncomingJobComponent},
+          { path:"superuser/incomingJobs/outstanding",component: SuperOutstandingJobComponent},
+          { path:"superuser/incomingJobs/closed",component: SuperClosingJobComponent},
+          { path:"superuser/incomingJobs/held",component: SuperHeldParcelComponent},
           { path :"superuser/incomingJobs/updateparcel" ,component:SuperUpdateParcelComponent},
           { path :"superuser/incomingJobs/release",component:SuperReleaseParcelComponent},
-          
           { path: "superuser/labels/print", component: SuperUserZebraScanPrint },
-          
           { path: "superuser/enquiry/open-enquiry", component: superUserOpenEnquiryComponent },
           { path: "superuser/enquiry/completed-enquiry", component: superUserCompletedEnquiryComponent },
           { path: "returns/outstanding", component: ReturnsOutStandingComponent },
@@ -272,7 +267,8 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
     superUserReturnsScanComponent,
     SuperHeldParcelComponent,
     SuperUpdateParcelComponent,
-    SuperReleaseParcelComponent
+    SuperReleaseParcelComponent,
+    SuperUserProfitLossReportComponent
 
   ],
   entryComponents: [],

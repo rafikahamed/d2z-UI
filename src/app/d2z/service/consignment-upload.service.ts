@@ -823,7 +823,20 @@ downloadMlidData( service, callback): any {
     });
   };
 
-    
+  fetchProfitAndLoss( fromDate, toDate,  callback): any {
+    this.http.get(baseUrl+'/superUser-level/profit-loss', {
+      params: { fromDate: fromDate, toDate: toDate }
+    }).subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
   fetchReturnsClientDetails( referenceNumber, barcodeLabel, articleId,  callback): any {
     this.http.get(baseUrl+'/superUser-level/clientDetails', {
       params: { referenceNumber: referenceNumber, barcodeLabel: barcodeLabel, articleId: articleId  }

@@ -40,10 +40,11 @@
                                 <li *ngIf="reportDelivery"><a routerLink="/superuser/reports/delivery-report">Delivery Report</a></li>
                                 <li *ngIf="reportLog"><a routerLink="/superuser/reports/log-report">API Log Report</a></li>
                                 <li *ngIf="reportZone"><a routerLink="/superuser/reports/zone-report">Zone Report</a></li>
+                                <li *ngIf="reportZone"><a routerLink="/superuser/reports/profit-loss">Profit & Loss Report</a></li>
                                 </ul>
                             </li>
 
-   <li *ngIf="invoices"><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="invoices"><a (click)="super_user_invoices(arrow)"><i class="fa fa-connectdevelop"></i> INVOICES <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperFive ? 'block' : 'none'}">
                                 <li *ngIf="invoicePending"><a routerLink="/superuser/invoices/pending">Pending</a></li>
                                 <li *ngIf="invoiceReconcile"><a routerLink="/superuser/invoices/reconcile">Reconcile</a></li>
