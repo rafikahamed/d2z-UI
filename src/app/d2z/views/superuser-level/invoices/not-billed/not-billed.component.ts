@@ -77,6 +77,11 @@ export class SuperUserNotBilledComponent implements OnInit {
         headerName: "Date Allocated",
         field: "dateAllocated",
         width: 250
+      },
+       {
+        headerName: "Weight",
+        field: "weight",
+        width: 250
       }
     ];
 
@@ -137,7 +142,8 @@ export class SuperUserNotBilledComponent implements OnInit {
     let referenceNumber = 'referenceNumber';
     let d2zRate = 'd2zRate';
     let dateAllocated = 'dateAllocated';
-    
+    let weight = 'weight';
+
      for(var notBilledData in selectedRows){
         var billedData = selectedRows[notBilledData];
         var notBillObj = (
@@ -147,7 +153,8 @@ export class SuperUserNotBilledComponent implements OnInit {
           notBillObj[articleId]= billedData.articleId != null ?  billedData.articleId : '', notBillObj,
           notBillObj[referenceNumber]= billedData.referenceNumber != null ? billedData.referenceNumber : '', notBillObj,
           notBillObj[d2zRate]= billedData.d2zRate != null ? billedData.d2zRate : '', notBillObj,
-          notBillObj[dateAllocated]= billedData.dateAllocated != null ? "'"+billedData.dateAllocated+"'" : '', notBillObj
+          notBillObj[dateAllocated]= billedData.dateAllocated != null ? "'"+billedData.dateAllocated+"'" : '', notBillObj,
+          notBillObj[weight]= billedData.weight != null ? billedData.weight : '', notBillObj
 
         );
       this.notBilledList.push(notBillObj)
@@ -163,7 +170,7 @@ export class SuperUserNotBilledComponent implements OnInit {
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Postage','Date Allocated']
+            headers: [ 'Customer', 'Shipment Number', 'Tracking Number', 'Reference Number', 'D2Z Postage','Date Allocated','Weight']
           };
         new Angular2Csv(this.notBilledList, fileName, options);   
     }else{
