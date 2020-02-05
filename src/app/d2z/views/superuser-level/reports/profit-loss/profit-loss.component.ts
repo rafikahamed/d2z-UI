@@ -111,7 +111,6 @@ export class SuperUserProfitLossReportComponent implements OnInit{
 
   zoneSearch(){
     if(this.fromDate != null && this.toDate != null){
-
       this.spinner.show();
       this.consignmenrServices.fetchProfitAndLoss(
         this.fromDate+" 00:00:00:000",this.toDate+" 23:59:59:999", (resp) => {
@@ -122,7 +121,49 @@ export class SuperUserProfitLossReportComponent implements OnInit{
     }else{
       this.errorMsg = "From Date and To Date is not empty"
     }
-   
+  };
+
+  downloadProfitData(){
+    this.errorMsg = null;
+    var zoneDataDownloadedList =[];
+    if(this.gridOptionsProfit.api.getSelectedRows().length > 1){
+      let broker = 'broker';
+      let revenue = 'revenue';
+      let parcel = 'parcel';
+      let shipmentCharge = 'shipmentCharge';
+      let profit = 'profit';
+      let profitPerParcel = 'profitPerParcel';
+            
+      for(var profitObj in this.rowProfitData){
+        var prfLossObjData = this.rowProfitData[profitObj];
+        var prfLossObj = (
+          prfLossObj={}, 
+          prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
+          prfLossObj[revenue]= prfLossObjData.revenue != null ? prfLossObjData.revenue : '', prfLossObj,
+          prfLossObj[parcel]= prfLossObjData.parcel != null ?  prfLossObjData.parcel : '', prfLossObj,
+          prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? prfLossObjData.shipmentCharge : '', prfLossObj,
+          prfLossObj[profit]= prfLossObjData.profit != null ? prfLossObjData.profit : '', prfLossObj,
+          prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? prfLossObjData.profitPerParcel : '', prfLossObj
+        );
+        zoneDataDownloadedList.push(prfLossObj);
+     };
+     console.log(zoneDataDownloadedList)
+      var currentTime = new Date();
+      var fileName = '';
+        fileName = "Profit & Loss Report"+"-"+currentTime.toLocaleDateString();
+        var options = { 
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalseparator: '.',
+          showLabels: true, 
+          title: "Profit & Loss Report",
+          useBom: true,
+          headers: [ 'Broker / Supplier', 'Revenue / Cost', 'Parcels', 'Shipment Charges', 'Profit', 'Profit per parcel']
+        };
+        new Angular2Csv(zoneDataDownloadedList, fileName, options);  
+    }else{
+        this.errorMsg = "**Please select one item to download the profit & loss report";
+    }
   };
 
   clearZone(){
