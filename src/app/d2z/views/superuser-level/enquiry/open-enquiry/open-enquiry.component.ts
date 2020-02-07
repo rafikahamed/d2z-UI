@@ -1,6 +1,5 @@
-import { Component, ViewChild,ChangeDetectorRef,OnInit, Compiler} from '@angular/core';
+import { Component, OnInit, Compiler} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { NgForm,FormGroup, FormControl,  FormArray, FormBuilder, Validators } from '@angular/forms';
 declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
@@ -14,8 +13,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
   styleUrls: ['./open-enquiry.component.css']
 })
 
-export class superUserOpenEnquiryComponent implements OnInit {
-  @ViewChild('myForm') myForm: NgForm;
+export class superUserOpenEnquiryComponent{
   private openEnquiryArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
@@ -24,8 +22,6 @@ export class superUserOpenEnquiryComponent implements OnInit {
   arrayBuffer:any;
   formdata: any;
   formdataIndex: any;
-  public selectedIndex: number = 0;
-  tabs = [];
   public openEnquiryList = [];
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
@@ -158,37 +154,6 @@ export class superUserOpenEnquiryComponent implements OnInit {
     //   }else{
     //     this.errorMsg =  "**Data is not Avilable to download";
     // } 
-  };
-
-  viewTickets(){
-    this.tabs = [];
-    var clientEnquiryArray = this.openEnquiryArray;
-
-    for (var fieldVal in clientEnquiryArray) {
-      var fieldObj = clientEnquiryArray[fieldVal];
-      console.log(fieldObj);
-      if (fieldObj.selection === true) {
-        this.tabs.push({
-          'label': 'Enquiry - ' + fieldObj.ticketNumber,
-          'userName': fieldObj.userName,
-          'ticketNumber': fieldObj.ticketNumber,
-          'trackingEventDateOccured': fieldObj.trackingEventDateOccured != undefined ? fieldObj.trackingEventDateOccured : '',
-          'articleID': fieldObj.articleID != undefined ? fieldObj.articleID : '',
-          'consigneeName': fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',
-          'trackingEvent': fieldObj.trackingEvent != undefined ? fieldObj.trackingEvent : '',
-          'trackingDeliveryDate': fieldObj.trackingDeliveryDate != undefined ? fieldObj.trackingDeliveryDate : '',
-          'comments': fieldObj.comments != undefined ? fieldObj.comments : '',
-          'd2zComments': fieldObj.d2zComments != undefined ? fieldObj.d2zComments : '',
-          'sendUpdate': fieldObj.sendUpdate != undefined ? fieldObj.sendUpdate : '',
-          'closeEnquiry': fieldObj.closeEnquiry != undefined ? fieldObj.closeEnquiry : '',
-          'fileName': fieldObj.fileName != undefined ? fieldObj.fileName : ''
-        });
-      }else{
-        this.errorMsg = 'Please select atleast one item to view';
-      }
-     }
-   
-     this.selectedIndex = 1;
   };
 
   downloadEnquiryDetails(){
