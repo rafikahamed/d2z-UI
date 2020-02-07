@@ -80,7 +80,8 @@ export class ZebraFileUpload implements OnInit{
       this.exportTypeDropdown = [
         { "name": "eParcel", "value": "eParcel" },
         { "name": "Express", "value": "Express" },
-        { "name": "Fastway", "value": "fastway" }
+        { "name": "Fastway", "value": "fastway" },
+        { "name": "STAR TRACK", "value": "StarTrack" }
        /** { "name": "Multi Carrier", "value": "multiCarrier" },
         { "name": "AuPost", "value":"aupost"} */
       ];
@@ -583,7 +584,8 @@ export class ZebraFileUpload implements OnInit{
       var fastwayArray = ["FWS","FWM","FW"];
       var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS"];
       var nonEparcel = ["MCM","MCM1","MCM2","MCM3","MCS","FWS","FWM","1PME"];
-      var aupostArray = ["1PME","1PM"]
+      var aupostArray = ["1PME","1PM"];
+      
       
       for(var k = 0; k != selectedRows.length; ++k){
         if(selectedRows[k].carrier == 'eParcel'){
@@ -615,6 +617,13 @@ export class ZebraFileUpload implements OnInit{
             break;
           }
         }
+          else if(selectedRows[k].carrier == 'StarTrack'){
+          if(selectedRows[k].serviceType != 'STS'){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
+        
+        }
       }
 
       if(!this.carrierType){
@@ -628,6 +637,7 @@ export class ZebraFileUpload implements OnInit{
         this.consigmentUploadService.consigmentFileUpload(selectedRows, (resp) => {
         this.spinner.hide();
         if(resp.error){
+          console.log(resp);
             this.errorMsg = resp.error.errorMessage;
             this.errorDetails = resp.error.errorDetails;
             this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
