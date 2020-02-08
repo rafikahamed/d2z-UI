@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
- const baseUrl = "https://"+hostname+"/v1/"+apiName;
-//const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+// const baseUrl = "https://"+hostname+"/v1/"+apiName;
+const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 //const baseUrl = "http://18.220.140.225:8080/v1/d2z";
 
 @Injectable()
@@ -955,8 +955,21 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
     });
   };
 
-  enquiryUpload( ticketNumber,comments,d2zComments,sendUpdate,status, callback): any {
-    this.http.post(baseUrl+'/superUser-level/enquiryPod/'+ticketNumber+"/"+comments+"/"+d2zComments+"/"+sendUpdate+"/"+status, null)
+  enquiryNonFileUpload( ticketNumber,comments,d2zComments,sendUpdate,status, callback): any {
+    this.http.post(baseUrl+'/superUser-level/enquiryPod/'+ticketNumber+"/"+comments+"/"+d2zComments+"/"+sendUpdate+"/"+status,'')
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+  enquiryUpload( openEnquiryList, callback): any {
+    this.http.put(baseUrl+'/superUser-level/enquiry/update', openEnquiryList)
     .subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {

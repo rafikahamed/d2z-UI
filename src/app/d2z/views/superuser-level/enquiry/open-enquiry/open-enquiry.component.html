@@ -5,7 +5,6 @@
             <super-user-header></super-user-header>
 
             <div class="right_col" role="main">
-                
                 <div class="row tile_count">
                         <div class="page-title">
                                 <div class="title_left">
@@ -14,196 +13,332 @@
                         </div>
                 </div>
 
-                <div>
-                    <h3> Customer Service Profile </h3> 
-
-                    <div style="float:right">
-                        <button type="button" 
-                        class="btn btn-info" 
-                        (click)="updateTrackingDetails()"
-                        style="background-color: #16A085; margin-top: -50px">
-                        <span class="glyphicon glyphicon-send"></span>
-                            Update Tracking Details
-                        </button>
-                    </div>
-
-                    <div style="float:right">
-                        <button type="button" 
-                        class="btn btn-info" 
-                        (click)="downloadEnquiryDetails()"
-                        style="background-color: #16A085;margin-top:-50px;margin-right:10px">
-                        <span class="glyphicon glyphicon-cloud-download"></span>
-                            Download  Enquiry
-                        </button>
-                    </div>
-                    
-                    <div class="modal fade" id="superEnquiry" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
+                <div class="modal fade" id="superEnquiry" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                            </div>
+                            <div class="modal-footer">
                             </div>
                         </div>
                     </div>
-
-                    <ngx-spinner
-                        bdColor="rgba(51,51,51,0.8)"
-                        size="medium"
-                        color="#fff"
-                        loadingText="Loading..."
-                        type="ball-clip-rotate-multiple">
-                    </ngx-spinner>
-                    
-                    <div style="margin-top: 10px;">
-                            <p class="err_msg">{{errorMsg}}</p>
-                    </div>
-
-                    <div style="width:100%; border:1px solid #ccc; height:800px; overflow:auto">
-                        <table class="table" style="width:2000px;">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Broker Name</th>
-                                    <th>Ticket Number</th>
-                                    <th>Tracking Event Date</th>
-                                    <th>Tracking Number</th>
-                                    <th>Consignee Name</th>
-                                    <th>Tracking Event</th>
-                                    <th>Expected Delivery</th>
-                                    <th>Broker/Client Comments</th>
-                                    <th>D2Z Comments</th>
-                                    <th>Send Update</th>
-                                    <th>Close Enquiry</th>
-                                    <th>Upload attachment</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let field of openEnquiryArray; let i = index">
-                                    <td>
-                                        <input style="width:18px; height:18px" 
-                                                [(ngModel)]="field.selection" 
-                                                class="form-control" 
-                                                type="checkbox" 
-                                                [checked]="field.selection"
-                                                name="{{field.selection}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.userName" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.userName}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.ticketNumber" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.ticketNumber}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.trackingEventDateOccured" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.trackingEventDateOccured}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.articleID" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.articleID}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.consigneeName" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.consigneeName}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.trackingEvent" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.trackingEvent}}" />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            [(ngModel)]="field.trackingDeliveryDate" 
-                                            class="form-control" 
-                                            type="text" 
-                                            disabled=true
-                                            name="{{field.trackingDeliveryDate}}" />
-                                    </td>
-                                    <td>
-                                        <textarea [(ngModel)]="field.comments" 
-                                                class="form-control" cols="35" rows="3" 
-                                                name="{{field.comments}}">
-                                        </textarea>
-                                    </td>
-                                    <td>
-                                        <textarea [(ngModel)]="field.d2zComments" 
-                                                class="form-control" cols="35" rows="3" 
-                                                name="{{field.d2zComments}}">
-                                        </textarea>
-                                    </td>
-                                    <td>
-                                        <input style="margin-left:15px; width:18px; height:18px" 
-                                            [(ngModel)]="field.sendUpdate" 
-                                            class="form-control" 
-                                            type="checkbox" 
-                                            [checked]="field.sendUpdate"
-                                            name="{{field.sendUpdate}}" />
-                                    </td>
-                                    <td>
-                                        <input style="margin-left:15px; width:18px; height:18px" 
-                                            [(ngModel)]="field.closeEnquiry" 
-                                            class="form-control" 
-                                            type="checkbox" 
-                                            [checked]="field.status"
-                                            name="{{field.closeEnquiry}}" />
-                                    </td>
-                                    <td>
-                                        <input type="file" 
-                                                [(ngModel)]="field.fileName" 
-                                                class="form-control" 
-                                                (change)="fileChange($event, i)"
-                                                name="{{field.fileName}}"
-                                                accept="pdf/*">
-                                                {{field.fileName}}
-                                    </td>
-                                </tr>
-                            
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
 
-                <div class="col-md-12">
-                        <button type="button" 
-                                class="btn btn-info" 
-                                (click)="UpdateEnquiry()"
-                                style="background-color: #16A085;float:right;margin-top:10px;margin-bottom:20px">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                Submit
-                        </button>
-                </div>
+                <div style="margin-top:-30px">
+                    <mat-tab-group animationDuration="1000ms" [(selectedIndex)]="selectedIndex" #tabGroup (selectedTabChange)="tabChanged($event)">
 
-              
+                        <mat-tab label="Enquiry Details">
+                                <ngx-spinner bdColor="rgba(51,51,51,0.8)" 
+                                                size="medium" color="#fff" 
+                                                loadingText="Loading..." 
+                                                type="ball-clip-rotate-multiple">
+                                </ngx-spinner>
+                                
+                                <div>
+                                    <div style="margin-top: 10px;">
+                                        <p class="err_msg">{{errorMsg}}</p>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div style="float:right; margin-bottom:10px">
+                                            <button type="button" 
+                                                    class="btn btn-info" 
+                                                    (click)="viewTickets()" 
+                                                    style="background-color: #16A085">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div style="float:right; margin-bottom:10px">
+                                            <button type="button" 
+                                            class="btn btn-info" 
+                                            (click)="updateTrackingDetails()"
+                                            style="background-color: #16A085">
+                                            <span class="glyphicon glyphicon-send"></span>
+                                                Update Tracking Details
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                        <div style="float:right; margin-bottom:10px">
+                                            <button type="button" 
+                                            class="btn btn-info" 
+                                            (click)="downloadEnquiryDetails()"
+                                            style="background-color: #16A085;margin-right:10px">
+                                            <span class="glyphicon glyphicon-cloud-download"></span>
+                                                Download  Enquiry
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div style="float:right; margin-bottom:10px">
+                                            <button type="button" 
+                                                    class="btn btn-info" 
+                                                    (click)="UpdateEnquiry()"
+                                                    style="background-color: #16A085">
+                                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                                    Update
+                                            </button>
+                                        </div>    
+                                    </div>
+
+                                    <div style="width:100%; border:1px solid #ccc; height:800px; overflow:auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:5px;"> </th>
+                                                    <th>Broker Name</th>
+                                                    <th>Tracking Number</th>
+                                                    <th>Tracking Event</th>
+                                                    <th>Broker/Client Comments</th>
+                                                    <th>D2Z Comments</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let field of openEnquiryArray; let i = index">
+
+                                                    <td>
+                                                        <input style="width:18px; height:18px" 
+                                                                [(ngModel)]="field.selection" 
+                                                                class="form-control" 
+                                                                type="checkbox" 
+                                                                [checked]="field.selection"
+                                                                name="{{field.selection}}" />
+                                                    </td>
+
+                                                    <td>
+                                                        <input 
+                                                            [(ngModel)]="field.userName" 
+                                                            class="form-control" 
+                                                            type="text" 
+                                                            disabled=true
+                                                            name="{{field.userName}}" />
+                                                    </td>
+
+                                                    <td>
+                                                        <input 
+                                                            [(ngModel)]="field.articleID" 
+                                                            class="form-control" 
+                                                            type="text" 
+                                                            disabled=true
+                                                            name="{{field.articleID}}" />
+                                                    </td>
+
+                                                    <td>
+                                                        <input 
+                                                            [(ngModel)]="field.trackingEvent" 
+                                                            class="form-control" 
+                                                            type="text" 
+                                                            disabled=true
+                                                            name="{{field.trackingEvent}}" />
+                                                    </td>
+
+                                                    <td>
+                                                        <textarea [(ngModel)]="field.comments" 
+                                                                class="form-control" cols="35" rows="3" 
+                                                                name="{{field.comments}}">
+                                                        </textarea>
+                                                    </td>
+                                                    <td>
+                                                        <textarea [(ngModel)]="field.d2zComments" 
+                                                                class="form-control" cols="35" rows="3" 
+                                                                name="{{field.d2zComments}}">
+                                                        </textarea>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </mat-tab>
+
+                            <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
+
+                                <ngx-spinner bdColor="rgba(51,51,51,0.8)" 
+                                                size="medium" color="#fff"
+                                                loadingText="Loading..." 
+                                                type="ball-clip-rotate-multiple">
+                                </ngx-spinner>
+
+                                <form #myForm="ngForm" class="well form-horizontal">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Broker Name : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.userName" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.userName}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Ticket Number : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.ticketNumber" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.ticketNumber}}" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Tracking Event Date : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.trackingEventDateOccured" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.trackingEventDateOccured}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Tracking Number : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.articleID" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.articleID}}" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Consignee Name : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.consigneeName" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.consigneeName}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Tracking Event : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.trackingEvent" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.trackingEvent}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Expected Delivery : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.trackingDeliveryDate" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.trackingDeliveryDate}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Broker/Client Comments : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <textarea [(ngModel)]="tab.comments" 
+                                                    class="form-control" 
+                                                    cols="35" 
+                                                    rows="3" 
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.comments}}">
+                                                </textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">D2Z Comments : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <textarea [(ngModel)]="tab.d2zComments" 
+                                                    class="form-control" 
+                                                    cols="35" 
+                                                    rows="3" 
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.d2zComments}}">
+                                                </textarea>
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Upload attachment : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input type="file" 
+                                                    [(ngModel)]="tab.fileName" 
+                                                    class="form-control" 
+                                                    (change)="fileChange($event, i)"
+                                                    name="{{tab.fileName}}"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    accept="pdf/*">
+                                                    {{tab.fileName}}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="col-md-2 control-label">Close Enquiry : </label>
+                                            <div class="col-md-4 ">
+                                                <input  
+                                                    [(ngModel)]="tab.closeEnquiry" 
+                                                    type="checkbox" 
+                                                    style="width: 20px; height:15px"
+                                                    [checked]="tab.status"
+                                                    name="{{tab.closeEnquiry}}"
+                                                    [ngModelOptions]="{standalone: true}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Send Update : </label>
+                                            <div class="col-md-4">
+                                                <input
+                                                    [(ngModel)]="tab.sendUpdate" 
+                                                    type="checkbox" 
+                                                    style="width: 20px; height:15px"
+                                                    [checked]="tab.sendUpdate"
+                                                    name="{{tab.sendUpdate}}"
+                                                    [ngModelOptions]="{standalone: true}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="button" 
+                                                    class="btn btn-info" 
+                                                    (click)="check($event,index)" 
+                                                    style="background-color: #16A085; float:right; margin:10px;">
+                                                Update
+                                            </button>
+                                        </div>
+
+                                    </fieldset>
+
+                                </form>
+
+                            </mat-tab>
+                    </mat-tab-group>
+
+                </div>
 
             </div>
         </div>
     </div>
 </body>
+    
