@@ -92,6 +92,11 @@ export class ReturnsOutStandingComponent{
             headerName: "Return Reason",
             field: "returnReason",
             width: 200
+          },
+          {
+            headerName: "Shipment Number",
+            field: "airwaybill",
+            width: 200
           }
         ];
        }
@@ -146,6 +151,7 @@ export class ReturnsOutStandingComponent{
       let consigneeName = 'consigneeName';
       let clientName = 'clientName';
       let returnReason = 'returnReason';
+      let airwaybill = 'airwaybill';
       for(var returnsData in this.rowData){
           var returnArrayData = this.rowData[returnsData];
           var returnObj = (
@@ -154,7 +160,8 @@ export class ReturnsOutStandingComponent{
               returnObj[referenceNumber]= returnArrayData.referenceNumber != null ? returnArrayData.referenceNumber : '', returnObj,
               returnObj[consigneeName]= returnArrayData.consigneeName != null ?  returnArrayData.consigneeName : '', returnObj,
               returnObj[clientName]= returnArrayData.clientName != null ? returnArrayData.clientName : '', returnObj,
-              returnObj[returnReason]= returnArrayData.returnReason != null ? returnArrayData.returnReason : '', returnObj         
+              returnObj[returnReason]= returnArrayData.returnReason != null ? returnArrayData.returnReason : '', returnObj,
+              returnObj[airwaybill]= returnArrayData.airwaybill != null ? returnArrayData.airwaybill : '', returnObj
             );
             returnArrayDetails.push(returnObj);
        };
@@ -167,13 +174,15 @@ export class ReturnsOutStandingComponent{
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: [ 'Article Id', 'Reference Number', 'Consignee Name', 'Client Name', 'Return Reason']
+            headers: [ 'Article Id', 'Reference Number', 'Consignee Name', 'Client Name', 'Return Reason', 'Shipment Number']
           };
         new Angular2Csv(returnArrayDetails, fileName, options); 
     }else{
         this.errorMsg =  "**Data is not Avilable to download";
     } 
-  }
+  };
+
+  onEnquiryChange(){}
 
   
 }

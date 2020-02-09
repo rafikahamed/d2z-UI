@@ -122,6 +122,7 @@ export class superUserReturnsScanComponent{
                that.newAttribute.referenceNumber = resp.referenceNumber;
                that.newAttribute.barcodelabelNumber = resp.barcodelabelNumber;
                that.newAttribute.articleId = resp.articleId;
+               that.newAttribute.airwayBill = resp.airwayBill;
                that.fieldArray.push(that.newAttribute);
                that.newAttribute = {};
                that.newAttribute.type = that.scanType[0];
@@ -166,6 +167,7 @@ export class superUserReturnsScanComponent{
           let userId = 'userId';
           let clientBrokerId = 'clientBrokerId';
           let carrier = 'carrier';
+          let airwayBill = 'airwayBill'; 
     
           for (var fieldVal in newReturnsArray) {
             var fieldObj = newReturnsArray[fieldVal];
@@ -181,15 +183,18 @@ export class superUserReturnsScanComponent{
               enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
               enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
               enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
-              enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj
+              enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
+              enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
             );
             this.importReturnsList.push(enquiryObj);
           }
           this.spinner.show();
           this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
               this.spinner.hide();
+              console.log(resp)
               if(resp.error){
                   this.successMsg = resp.error.message;
+                  this.successMsg = resp.error.errorMessage;
                   $('#returnsScan').modal('show');
               }else{
                   this.successMsg = resp.message;
