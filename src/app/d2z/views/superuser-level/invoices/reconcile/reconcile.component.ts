@@ -364,7 +364,7 @@ this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
                 var reconcileThreeObj = (
                   reconcileThreeObj={}, 
                   reconcileThreeObj[articleNo]= reconcile['Article number'] != undefined ? reconcile['Article number'] : '', reconcileThreeObj,
-                  reconcileThreeObj[chargedWeight]= reconcile['Charge Weight'] != undefined ? reconcile['Charge Weight'] : '', reconcileThreeObj,
+                  reconcileThreeObj[chargedWeight]= reconcile['Parcel Weight'] != undefined ? reconcile['Parcel Weight'] : '', reconcileThreeObj,
                   reconcileThreeObj[cost]= reconcile['Total Invoice Amount'] != undefined ? reconcile['Total Invoice Amount'] : '', reconcileThreeObj,
                   reconcileThreeObj[supplierType]= 'APG', reconcileThreeObj
                 );

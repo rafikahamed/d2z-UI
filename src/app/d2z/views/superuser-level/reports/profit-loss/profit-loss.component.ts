@@ -57,7 +57,7 @@ export class SuperUserProfitLossReportComponent implements OnInit{
        {
             headerName: "Broker / Supplier",
             field: "broker",
-            width: 300,
+            width: 200,
             checkboxSelection: true,
             headerCheckboxSelection: function(params) {
               return params.columnApi.getRowGroupColumns().length === 0;
@@ -116,6 +116,28 @@ export class SuperUserProfitLossReportComponent implements OnInit{
         this.fromDate+" 00:00:00:000",this.toDate+" 23:59:59:999", (resp) => {
         this.spinner.hide();
         this.rowProfitData = resp;
+        
+        let broker = 'broker';
+        let revenue = 'revenue';
+        let parcel = 'parcel';
+        let shipmentCharge = 'shipmentCharge';
+        let profit = 'profit';
+        let profitPerParcel = 'profitPerParcel';
+        
+        for(var profitObj in resp){
+          var prfLossObjData = resp[profitObj];
+          var prfLossObj = (
+            prfLossObj={}, 
+            prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
+            prfLossObj[revenue]= prfLossObjData.revenue != null ? prfLossObjData.revenue : '', prfLossObj,
+            prfLossObj[parcel]= prfLossObjData.parcel != null ?  prfLossObjData.parcel : '', prfLossObj,
+            prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? prfLossObjData.shipmentCharge : '', prfLossObj,
+            prfLossObj[profit]= prfLossObjData.profit != null ? prfLossObjData.profit : '', prfLossObj,
+            prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? prfLossObjData.profitPerParcel : '', prfLossObj
+          );
+        this.rowProfitData.push(prfLossObj);
+       };
+
        });
 
     }else{
