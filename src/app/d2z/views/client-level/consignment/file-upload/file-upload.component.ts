@@ -621,8 +621,28 @@ export class ZebraFileUpload implements OnInit{
           if(selectedRows[k].serviceType != 'STS'){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
+          }else{
+            console.log(selectedRows[k].serviceType);
+            console.log(selectedRows[k].dimensionsHeight);
+            console.log(selectedRows[k].dimensionsWidth);
+            console.log(selectedRows[k].dimensionsLength);
+            if(selectedRows[k].dimensionsHeight == null || selectedRows[k].dimensionsHeight == '' ){
+              this.errorMsg = "**Dim_Z is mandatory";
+              break;
+            }
+
+            if(selectedRows[k].dimensionsWidth == null || selectedRows[k].dimensionsWidth == '' ){
+              this.errorMsg = "**Dim_Y is mandatory";
+              break;
+            } 
+
+            if(selectedRows[k].dimensionsLength == null || selectedRows[k].dimensionsLength == ''){
+              this.errorMsg = "**Dim_X is mandatory";
+              break;
+            }  
+
           }
-        
+       
         }
       }
 
