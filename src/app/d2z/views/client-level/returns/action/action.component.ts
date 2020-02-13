@@ -5,6 +5,7 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GridOptions } from "ag-grid";
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -19,6 +20,10 @@ export class ReturnsActionComponent implements OnInit{
   successMsg: String;
   errorModal: String;
   showGrid: boolean;
+   showSuccess: Boolean;
+    stsFlag: Boolean;
+     errorDetails: any[];
+    successReferenceNumber: any[];
   public resendReferNumber: any[];
   public returnsAction: any[];
   user_Id: String;
@@ -448,6 +453,26 @@ export class ReturnsActionComponent implements OnInit{
             this.errorModal = "**Unable to process the request - "+" "+resp.error.errorMessage;
           }else{  
             console.log(resp);
+             for (var data in resp) {
+              var dataObj = resp[data];
+                if(dataObj.message != null){
+                  this.stsFlag = true;
+                }else{
+                  this.stsFlag = false;
+                }
+            }
+
+            if(!this.stsFlag){
+              this.successMsg = 'File data uploaded successfully to System';
+              this.successReferenceNumber = resp;
+              this.showSuccess = true;
+              $('#fileUploadModal').modal('show');
+            }else{
+              this.successMsg = 'Having Issue with Uploaing File';
+              this.successReferenceNumber = resp;
+              this.showSuccess = true;
+              $('#fileUploadModal').modal('show');
+            }
             if(resp[0].referenceNumber){
               for (let item of this.resendData ) {
                 item.resendRefNumber = this.importList[0].referenceNumber;
@@ -502,8 +527,142 @@ export class ReturnsActionComponent implements OnInit{
     }
     return data;
   };
-}
+  downLoad(){
+      var fileName = "Reference Number Details";
+      if(!this.showSuccess){
+        if(this.errorMsg == 'Invalid Service Type'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number', 'Service Type']
+          }
+        }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb or Consiggnee State'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number', 'Suburb', 'PostCode', 'State']
+          }
+        }else if(this.errorMsg == 'Reference Number must be unique'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number']
+          }
+      }else if(this.errorMsg = 'VALIDATION FAILED'){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Reference Number']
+          }
+      }else{
+         var options = { 
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalseparator: '.',
+          showLabels: true, 
+          useBom: true,
+          headers: ['Reference Number']
+        }
+      }
+    }else{
+        if(!this.stsFlag){
+            var options = { 
+              fieldSeparator: ',',
+              quoteStrings: '"',
+              decimalseparator: '.',
+              showLabels: true, 
+              useBom: true,
+              headers: ['Reference Number', 'BarCode Label Number']
+            }
+        }else{
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Message']
+          }
+        }
+    }
+      
+      var refernceNumberList = [];
+      let referenceNumber = 'referenceNumber';
+      let serviceType = 'serviceType';
+      let postCode = 'postCode';
+      let suburb = 'suburb';
+      let state = 'state';
+      let barCodeNumber = 'barCodeNumber';
+      let errorMsg = 'errorMsg';
+      if(!this.showSuccess) {
+        for(var refNum in this.errorDetails){
+          var a = this.errorDetails[refNum].split("-") // Delimiter is a string
+            for (var i = 0; i < a.length; i++){
+              if(this.errorMsg == 'Invalid Service Type'){
+                  var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj,
+                    importObj[serviceType]= a[1], importObj
+                  )
+               }else if(this.errorMsg == 'Invalid Consignee Postcode or Consignee Suburb or Consiggnee State'){
+                  var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj,
+                    importObj[suburb]= a[1], importObj,
+                    importObj[postCode]= a[2], importObj,
+                    importObj[state] = a[3], importObj
+                  )
+               }else if(this.errorMsg == 'Reference Number must be unique'){
+                var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj
+                  )
+               }else if(this.errorMsg == 'VALIDATION FAILED'){
+                  var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= a[0], importObj
+                  )
+               }
+              }
+            refernceNumberList.push(importObj)
+          }
+      }else{
+        if(!this.stsFlag){
+          for(var refNum in this.successReferenceNumber){
+            var importObj = (
+                importObj={}, 
+                importObj[referenceNumber]= this.successReferenceNumber[refNum].referenceNumber, importObj,
+                importObj[barCodeNumber]= this.successReferenceNumber[refNum].barcodeLabelNumber ? this.successReferenceNumber[refNum].barcodeLabelNumber : '', importObj
+            )
+            refernceNumberList.push(importObj);
+          }
+        }else if(this.stsFlag){
+          console.log(this.successReferenceNumber)
+          for(var refNum in this.successReferenceNumber){
+            var importObj = (
+                importObj={}, 
+                importObj[errorMsg]= this.successReferenceNumber[refNum].message, importObj
+            )
+            refernceNumberList.push(importObj);
+          }
+        }
+      }
+      new Angular2Csv(refernceNumberList, fileName, options);
+    };
 
+}
 
 interface City {
   name: string;
