@@ -19,6 +19,7 @@ export class superUserReturnsScanComponent{
   private newCreateAttribute: any = {};
   errorMsg: string;
   successMsg: String;
+  errorMessage: String;
   type: String;
   reason: String;
   file:File;
@@ -137,6 +138,8 @@ export class superUserReturnsScanComponent{
       this.importReturnsList = [];
       var newReturnsArray = [];
       var scanValidData = [];
+      this.errorMsg = null;
+      this.errorMessage = null;
       if(this.newAttribute.type){
         newReturnsArray.push(this.newAttribute);
       }
@@ -154,7 +157,6 @@ export class superUserReturnsScanComponent{
             scanValidData.push(scanObj);
           }
       }
-      console.log(scanValidData);
       if(scanValidData.length > 0){
           let scanType = 'scanType';
           let articleId = 'articleId';
@@ -169,32 +171,67 @@ export class superUserReturnsScanComponent{
           let carrier = 'carrier';
           let airwayBill = 'airwayBill'; 
     
-          for (var fieldVal in newReturnsArray) {
-            var fieldObj = newReturnsArray[fieldVal];
-            var enquiryObj = (
-              enquiryObj={}, 
-              enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
-              enquiryObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : '', enquiryObj,
-              enquiryObj[barcodelabelNumber]= fieldObj.barcodelabelNumber != undefined ? fieldObj.barcodelabelNumber : '', enquiryObj,
-              enquiryObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : '', enquiryObj,
-              enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
-              enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
-              enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
-              enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
-              enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
-              enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
-              enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
-              enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
-            );
+          for (var fieldVal in scanValidData) {
+            var fieldObj = scanValidData[fieldVal];
+            if(fieldObj.type.value == "barcode"){
+              var enquiryObj = (
+                enquiryObj={}, 
+                enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+                enquiryObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : null, enquiryObj,
+                enquiryObj[barcodelabelNumber]= fieldObj.scan != undefined ? fieldObj.scan : null, enquiryObj,
+                enquiryObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : null, enquiryObj,
+                enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
+                enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
+                enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
+                enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
+                enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
+                enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
+                enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
+                enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
+              );
+            }else if(fieldObj.type.value == "articleId"){
+              var enquiryObj = (
+                enquiryObj={}, 
+                enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+                enquiryObj[articleId]= fieldObj.scan != undefined ? fieldObj.scan : null, enquiryObj,
+                enquiryObj[barcodelabelNumber]= fieldObj.barcodelabelNumber != undefined ? fieldObj.barcodelabelNumber : null, enquiryObj,
+                enquiryObj[referenceNumber]= fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : null, enquiryObj,
+                enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
+                enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
+                enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
+                enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
+                enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
+                enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
+                enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
+                enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
+              );
+            }else if(fieldObj.type.value == "referenceNumber"){
+              var enquiryObj = (
+                enquiryObj={}, 
+                enquiryObj[scanType]= fieldObj.type != undefined ? fieldObj.type.name : '', enquiryObj,
+                enquiryObj[articleId]= fieldObj.articleId != undefined ? fieldObj.articleId : null, enquiryObj,
+                enquiryObj[barcodelabelNumber]= fieldObj.barcodelabelNumber != undefined ? fieldObj.barcodelabelNumber : null, enquiryObj,
+                enquiryObj[referenceNumber]= fieldObj.scan != undefined ? fieldObj.scan : null, enquiryObj,
+                enquiryObj[returnReason]= fieldObj.reason != undefined ? fieldObj.reason.name : '', enquiryObj,
+                enquiryObj[brokerName]= fieldObj.brokerName != undefined ? fieldObj.brokerName : '',  enquiryObj,
+                enquiryObj[clientName]= fieldObj.clientName != undefined ? fieldObj.clientName : '',  enquiryObj,
+                enquiryObj[carrier]= fieldObj.carrier != undefined ? fieldObj.carrier : '',  enquiryObj,
+                enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
+                enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
+                enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
+                enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
+              );
+            }
+           
             this.importReturnsList.push(enquiryObj);
           }
           this.spinner.show();
           this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
               this.spinner.hide();
-              console.log(resp)
               if(resp.error){
                   this.successMsg = resp.error.message;
                   this.successMsg = resp.error.errorMessage;
+                  this.errorMessage = JSON.stringify(resp.error.errorDetails);
                   $('#returnsScan').modal('show');
               }else{
                   this.successMsg = resp.message;
@@ -207,6 +244,7 @@ export class superUserReturnsScanComponent{
       }else{
         this.errorMsg = "** Atleast add one Returns to proceed";
       }
+      
     };
 
 }
