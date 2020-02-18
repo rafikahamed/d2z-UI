@@ -152,7 +152,6 @@ export class superUserReturnsScanComponent{
 
       for(var scanArray in newReturnsArray ){
         var scanObj = newReturnsArray[scanArray];
-          console.log(scanObj)
           if(scanObj.scan){
             scanValidData.push(scanObj);
           }
