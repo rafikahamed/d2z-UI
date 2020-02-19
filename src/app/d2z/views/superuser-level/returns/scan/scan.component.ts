@@ -168,7 +168,7 @@ export class superUserReturnsScanComponent{
           let userId = 'userId';
           let clientBrokerId = 'clientBrokerId';
           let carrier = 'carrier';
-          let airwayBill = 'airwayBill'; 
+          let airwaybill = 'airwaybill'; 
     
           for (var fieldVal in scanValidData) {
             var fieldObj = scanValidData[fieldVal];
@@ -186,7 +186,7 @@ export class superUserReturnsScanComponent{
                 enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
                 enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
                 enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
-                enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
+                enquiryObj[airwaybill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
               );
             }else if(fieldObj.type.value == "articleId"){
               var enquiryObj = (
@@ -202,7 +202,7 @@ export class superUserReturnsScanComponent{
                 enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
                 enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
                 enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
-                enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
+                enquiryObj[airwaybill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
               );
             }else if(fieldObj.type.value == "referenceNumber"){
               var enquiryObj = (
@@ -218,7 +218,7 @@ export class superUserReturnsScanComponent{
                 enquiryObj[consigneeName]= fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',  enquiryObj,
                 enquiryObj[userId]= fieldObj.userId != undefined ? fieldObj.userId : '',  enquiryObj,
                 enquiryObj[clientBrokerId]= fieldObj.clientBrokerId != undefined ? fieldObj.clientBrokerId : '',  enquiryObj,
-                enquiryObj[airwayBill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
+                enquiryObj[airwaybill]= fieldObj.airwayBill != undefined ? fieldObj.airwayBill : '', enquiryObj
               );
             }
            

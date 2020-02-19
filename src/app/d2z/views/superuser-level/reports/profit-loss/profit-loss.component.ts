@@ -110,34 +110,34 @@ export class SuperUserProfitLossReportComponent implements OnInit{
   };
 
   zoneSearch(){
+    this.rowProfitData = []; 
     if(this.fromDate != null && this.toDate != null){
       this.spinner.show();
       this.consignmenrServices.fetchProfitAndLoss(
         this.fromDate+" 00:00:00:000",this.toDate+" 23:59:59:999", (resp) => {
         this.spinner.hide();
         this.rowProfitData = resp;
+        // let broker = 'broker';
+        // let revenue = 'revenue';
+        // let parcel = 'parcel';
+        // let shipmentCharge = 'shipmentCharge';
+        // let profit = 'profit';
+        // let profitPerParcel = 'profitPerParcel';
         
-        let broker = 'broker';
-        let revenue = 'revenue';
-        let parcel = 'parcel';
-        let shipmentCharge = 'shipmentCharge';
-        let profit = 'profit';
-        let profitPerParcel = 'profitPerParcel';
-        
-        for(var profitObj in resp){
-          var prfLossObjData = resp[profitObj];
-          var prfLossObj = (
-            prfLossObj={}, 
-            prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
-            prfLossObj[revenue]= prfLossObjData.revenue != null ? prfLossObjData.revenue : '', prfLossObj,
-            prfLossObj[parcel]= prfLossObjData.parcel != null ?  prfLossObjData.parcel : '', prfLossObj,
-            prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? prfLossObjData.shipmentCharge : '', prfLossObj,
-            prfLossObj[profit]= prfLossObjData.profit != null ? prfLossObjData.profit : '', prfLossObj,
-            prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? prfLossObjData.profitPerParcel : '', prfLossObj
-          );
-        this.rowProfitData.push(prfLossObj);
-       };
-
+      //   for(var profitObj in resp){
+      //     var prfLossObjData = resp[profitObj];
+      //     var prfLossObj = (
+      //       prfLossObj={}, 
+      //       prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
+      //       prfLossObj[revenue]= prfLossObjData.revenue != null ? prfLossObjData.revenue : '', prfLossObj,
+      //       prfLossObj[parcel]= prfLossObjData.parcel != null ?  prfLossObjData.parcel : '', prfLossObj,
+      //       prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? prfLossObjData.shipmentCharge : '', prfLossObj,
+      //       prfLossObj[profit]= prfLossObjData.profit != null ? prfLossObjData.profit : '', prfLossObj,
+      //       prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? prfLossObjData.profitPerParcel : '', prfLossObj
+      //     );
+      //   this.rowProfitData.push(prfLossObj);
+      //  };
+       console.log(this.rowProfitData)
        });
 
     }else{
@@ -158,18 +158,32 @@ export class SuperUserProfitLossReportComponent implements OnInit{
             
       for(var profitObj in this.rowProfitData){
         var prfLossObjData = this.rowProfitData[profitObj];
-        var prfLossObj = (
-          prfLossObj={}, 
-          prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
-          prfLossObj[revenue]= prfLossObjData.revenue != null ? prfLossObjData.revenue : '', prfLossObj,
-          prfLossObj[parcel]= prfLossObjData.parcel != null ?  prfLossObjData.parcel : '', prfLossObj,
-          prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? prfLossObjData.shipmentCharge : '', prfLossObj,
-          prfLossObj[profit]= prfLossObjData.profit != null ? prfLossObjData.profit : '', prfLossObj,
-          prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? prfLossObjData.profitPerParcel : '', prfLossObj
-        );
-        zoneDataDownloadedList.push(prfLossObj);
+        if(prfLossObjData.broker === 'PFL' || prfLossObjData.broker === 'PCA' || prfLossObjData.broker === 'UBI' 
+                || prfLossObjData.broker === 'FDM' || prfLossObjData.broker ==='APG'){
+          var prfLossObj = (
+            prfLossObj={}, 
+            prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
+            prfLossObj[revenue]= prfLossObjData.revenue != null ? "-"+prfLossObjData.revenue : '', prfLossObj,
+            prfLossObj[parcel]= prfLossObjData.parcel != null ?  "-"+prfLossObjData.parcel : '', prfLossObj,
+            prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? "-"+prfLossObjData.shipmentCharge : '', prfLossObj,
+            prfLossObj[profit]= prfLossObjData.profit != null ? "-"+prfLossObjData.profit : '', prfLossObj,
+            prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? "-"+prfLossObjData.profitPerParcel : '', prfLossObj
+          );
+          zoneDataDownloadedList.push(prfLossObj);
+        }else{
+          var prfLossObj = (
+            prfLossObj={}, 
+            prfLossObj[broker]= prfLossObjData.broker != null ? prfLossObjData.broker : '' , prfLossObj,
+            prfLossObj[revenue]= prfLossObjData.revenue != null ? prfLossObjData.revenue : '', prfLossObj,
+            prfLossObj[parcel]= prfLossObjData.parcel != null ?  prfLossObjData.parcel : '', prfLossObj,
+            prfLossObj[shipmentCharge]= prfLossObjData.shipmentCharge != null ? prfLossObjData.shipmentCharge : '', prfLossObj,
+            prfLossObj[profit]= prfLossObjData.profit != null ? prfLossObjData.profit : '', prfLossObj,
+            prfLossObj[profitPerParcel]= prfLossObjData.profitPerParcel != null ? prfLossObjData.profitPerParcel : '', prfLossObj
+          );
+          zoneDataDownloadedList.push(prfLossObj);
+        }
+     
      };
-     console.log(zoneDataDownloadedList)
       var currentTime = new Date();
       var fileName = '';
         fileName = "Profit & Loss Report"+"-"+currentTime.toLocaleDateString();
