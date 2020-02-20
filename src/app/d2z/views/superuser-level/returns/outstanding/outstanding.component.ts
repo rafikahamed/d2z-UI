@@ -104,7 +104,8 @@ export class superUserReturnsOutstandingComponent implements OnInit{
             headerName: "Shipment Number",
             field: "airwaybill",
             width: 200
-          },
+          }
+          ,
           {
             headerName: "Scanned Date",
             field: "returnsCreatedDate",
