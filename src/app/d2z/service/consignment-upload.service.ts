@@ -942,8 +942,8 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
     });
   };
 
-  enquiryFileUpload( formdata,ticketNumber,comments,d2zComments,sendUpdate,status, callback): any {
-    this.http.post(baseUrl+'/superUser-level/enquiryPodFile/'+ticketNumber+"/"+comments+"/"+d2zComments+"/"+sendUpdate+"/"+status, formdata)
+  enquiryFileUpload( formdata,ticketNumber, callback): any {
+    this.http.post(baseUrl+'/superUser-level/enquiryPodFile/'+ticketNumber, formdata)
     .subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
@@ -955,8 +955,8 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
     });
   };
 
-  enquiryNonFileUpload( ticketNumber,comments,d2zComments,sendUpdate,status, callback): any {
-    this.http.post(baseUrl+'/superUser-level/enquiryPod/'+ticketNumber+"/"+comments+"/"+d2zComments+"/"+sendUpdate+"/"+status,'')
+  enquiryNonFileUpload( updatedData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/enquiryPod',updatedData)
     .subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
