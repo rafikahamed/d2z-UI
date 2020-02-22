@@ -15,23 +15,22 @@
                         </div>
                 </div>
 
+                <div class="modal fade" id="outstandingEnquiry" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="delete_search">
                         <div class="container">
                             <div class="row">
-                             
-                              <!-- <div class="col-md-3">
-                                    <p> Status : </p>
-                                    <div style="margin-top:10px">
-                                        <p-dropdown 
-                                            [options]="statusDropdown" 
-                                            [(ngModel)]="selectedStatusType" 
-                                            optionLabel="name" 
-                                            [style]="{'width':'100%'}"
-                                            (onChange)="onStatusChange($event)">
-                                        </p-dropdown>
-                                    </div>
-                              </div> -->
-
                               <div class="col-md-3">
                                     <p > From Date : </p>
                                     <mat-form-field>
@@ -71,64 +70,273 @@
                                            </button>
                                        </div>
                                 </div>
-  
+                            </div>
+                        </div>
+                </div>
+
+                <mat-tab-group animationDuration="1000ms" [(selectedIndex)]="selectedIndex" #tabGroup (selectedTabChange)="tabChanged($event)">
+
+                    <mat-tab label="Enquiry Details">
+                        <ngx-spinner 
+                                bdColor="rgba(51,51,51,0.8)" 
+                                size="medium" color="#fff" 
+                                loadingText="Loading..." 
+                                type="ball-clip-rotate-multiple">
+                        </ngx-spinner>
+                        
+                        <div>
+                           <div style="margin-top: 10px;">
+                                <p class="err_msg">{{errorMsg}}</p>
+                            </div>
+
+                            <div style="float:right; margin-right:-70px">
+                                <div class="col-md-1">
+                                    <div style="float:right; margin-bottom:10px">
+                                        <button type="button" 
+                                                class="btn btn-info" 
+                                                *ngIf="showOutstandingView" 
+                                                (click)="viewOutStandingTickets()" 
+                                                style="background-color: #16A085">
+                                            View
+                                        </button>
+                                    </div>
+                                </div>
+        
+                                <div class="col-md-1">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="showOutstandingDownload" 
+                                            (click)="downloadOutstandingTracking()"
+                                            style="background-color: #16A085">
+                                            <span class="glyphicon glyphicon-cloud-download"></span>
+                                        Download Outstanding Details
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div style="width:100%; border:1px solid #ccc; height:600px; overflow:auto">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:5px;"> </th>
+                                            <th>Ticket ID</th>
+                                            <th>Article ID</th>
+                                            <th>Reference Number</th>
+                                            <th>Comments</th>
+                                            <th>D2Z Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let field of outstandingEnquiryArray; let i = index">
+
+                                            <td>
+                                                <input style="width:18px; height:18px" 
+                                                        [(ngModel)]="field.selection" 
+                                                        class="form-control" 
+                                                        type="checkbox" 
+                                                        [checked]="field.selection"
+                                                        name="{{field.selection}}"/>
+                                            </td>
+
+                                            <td style="height:15px;">
+                                                <input 
+                                                    [(ngModel)]="field.ticketID" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    disabled=true
+                                                    name="{{field.ticketID}}" />
+                                            </td>
+
+                                            <td style="height:15px;">
+                                                <input 
+                                                    [(ngModel)]="field.articleID" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    disabled=true
+                                                    name="{{field.articleID}}" />
+                                            </td>
+
+                                            <td style="height:15px;">
+                                                <input 
+                                                    [(ngModel)]="field.referenceNumber" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    disabled=true
+                                                    name="{{field.referenceNumber}}" />
+                                            </td>
+
+                                            <td style="height:15px;">
+                                                <textarea [(ngModel)]="field.comments" 
+                                                        disabled=true
+                                                        class="form-control" cols="35" rows="2" 
+                                                        name="{{field.comments}}">
+                                                </textarea>
+                                            </td>
+
+                                            <td style="height:15px;">
+                                                <textarea [(ngModel)]="field.d2zComments" 
+                                                        disabled=true
+                                                        class="form-control" cols="35" rows="2" 
+                                                        name="{{field.d2zComments}}">
+                                                </textarea>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>
-                </div>
 
-                <div class="delete_panel">
-                    <ngx-spinner
-                        bdColor="rgba(51,51,51,0.8)"
-                        size="medium"
-                        color="#fff"
-                        loadingText="Loading..."
-                        type="ball-clip-rotate-multiple">
-                    </ngx-spinner>
+                    </mat-tab>
 
-                    <div style="margin-top: 10px">
-                        <div>
-                            <p class="err_msg">{{errorMsg}}</p>
-                        </div>
-                    </div>
+                            <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.label">
 
-                    <button type="button" 
-                            class="btn btn-info" 
-                            *ngIf="englishFlag" 
-                            (click)="downloadOutstandingTracking()"
-                            style="background-color: #16A085; float:right; margin-right:20px; margin-top:10px">
-                            <span class="glyphicon glyphicon-cloud-download"></span>
-                        Download Outstanding Details
-                    </button>
+                                <ngx-spinner bdColor="rgba(51,51,51,0.8)" 
+                                                size="medium" color="#fff"
+                                                loadingText="Loading..." 
+                                                type="ball-clip-rotate-multiple">
+                                </ngx-spinner>
 
-                    <div style="padding:20px">
-                        <p> Outstanding Enquiries Details </p>
-                          <div>
-                              <ag-grid-angular 
-                                        #agGrid style="width: 100%; height: 400px;" 
-                                        class="ag-theme-balham" 
-                                        [autoGroupColumnDef]="autoGroupColumnDef"
-                                        [rowData]="rowData"
-                                        [enableSorting]="true"
-                                        [enableFilter]="true"
-                                        [suppressRowClickSelection]="true"
-                                        [groupSelectsChildren]="true"
-                                        [debug]="true"
-                                        [rowSelection]="rowSelection"
-                                        [enableColResize]="true"
-                                        [rowGroupPanelShow]="rowGroupPanelShow"
-                                        [pivotPanelShow]="pivotPanelShow"
-                                        [enableRangeSelection]="true"
-                                        [pagination]="true"
-                                        [defaultColDef]="defaultColDef"
-                                        [gridOptions]="gridOptions" 
-                                        [pagination]="true"
-                                        (selectionChanged)="onEnquiryChange($event)">
-                              </ag-grid-angular>
-                          </div>
-                      </div>
+                                <form #myForm="ngForm" class="well form-horizontal">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Ticket Number : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.ticketID" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.ticketID}}" />
+                                            </div>
 
-                </div>
+                                            <label class="col-md-2 control-label">Consignee Name : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.consigneeName" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.consigneeName}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Article ID : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.articleID" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.articleID}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Reference Number : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.referenceNumber" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}" 
+                                                    name="{{tab.referenceNumber}}" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Tracking Event : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.trackingEvent" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.trackingEvent}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">Tracking Event Date Occured : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <input 
+                                                    [(ngModel)]="tab.trackingEventDateOccured" 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    readonly="true"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.trackingEventDateOccured}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Delivery Enquiry : </label>
+                                            <div class="col-md-4 ">
+                                                <input 
+                                                [(ngModel)]="tab.deliveryEnquiry" 
+                                                class="form-control" 
+                                                type="text" 
+                                                readonly="true"
+                                                [ngModelOptions]="{standalone: true}"
+                                                name="{{tab.deliveryEnquiry}}" />
+                                            </div>
+
+                                            <label class="col-md-2 control-label">POD : </label>
+                                            <div class="col-md-4">
+                                                <input 
+                                                [(ngModel)]="tab.pod" 
+                                                class="form-control" 
+                                                type="text" 
+                                                readonly="true"
+                                                [ngModelOptions]="{standalone: true}"
+                                                name="{{tab.pod}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Broker/Client Comments : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <textarea [(ngModel)]="tab.comments" 
+                                                    class="form-control" 
+                                                    cols="35" 
+                                                    rows="5" 
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.comments}}">
+                                                </textarea>
+                                            </div>
+
+                                            <label class="col-md-2 control-label">D2Z Comments : </label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                <textarea [(ngModel)]="tab.d2zComments" 
+                                                    class="form-control" 
+                                                    cols="35" 
+                                                    rows="3" 
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    name="{{tab.d2zComments}}"
+                                                    disabled>
+                                                </textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="button" 
+                                                    class="btn btn-info" 
+                                                    (click)="outStandingCheck($event,index)" 
+                                                    style="background-color: #16A085; float:right; margin:10px;">
+                                                Update
+                                            </button>
+                                        </div>
+
+                                    </fieldset>
+
+                                </form>
+
+                            </mat-tab>
+                    </mat-tab-group>
 
             </div>
 

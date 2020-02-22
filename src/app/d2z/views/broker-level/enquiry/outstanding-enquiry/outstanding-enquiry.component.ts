@@ -1,16 +1,11 @@
-import { Component, OnInit, Compiler} from '@angular/core';
+import { Component, ViewChild, OnInit, Compiler} from '@angular/core';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 declare var $: any;
-import { GridOptions } from "ag-grid";
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-
-interface dropdownTemplate {
-  name: string;
-  value: string;
-}
 
 @Component({
   selector: 'hms-outstanding-enquiry',
@@ -19,25 +14,24 @@ interface dropdownTemplate {
 })
 
 export class BrokerOutstandingEnquiryComponent implements OnInit{
+  @ViewChild('myForm') myForm: NgForm;
+  private outstandingEnquiryArray: Array<any> = [];
   fileName: string;
   errorMsg: string;
   successMsg: String;
   user_Id: String;
   fromDate: String;
   toDate: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
   status: String;
-  statusDropdown: dropdownTemplate[];  
-  selectedStatusType: dropdownTemplate;
+  tabs = [];
+  public selectedIndex: number = 0;
   favoriteSeason: string;
   file:File;
   system: String;
   englishFlag:boolean;
   chinessFlag:boolean;
+  showOutstandingView:boolean;
+  showOutstandingDownload:boolean;
   public enquiryDetailsList = [];
 
   constructor(
@@ -48,100 +42,23 @@ export class BrokerOutstandingEnquiryComponent implements OnInit{
     private _compiler: Compiler
   ) {
     this._compiler.clearCache();
-    this.autoGroupColumnDef = {
-      headerCheckboxSelection: true,
-      cellRenderer: "agGroupCellRenderer",
-      cellRendererParams: { checkbox: true }
-    };      
-    this.rowGroupPanelShow = "always";
-    this.defaultColDef = {
-      editable: true
-    };
-    this.gridOptions = <GridOptions>{ rowSelection: "multiple" };
   }
 
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
-      this.statusDropdown = [
-        { "name": "Open", "value": "open" },
-        { "name": "In Progress", "value": "InProgress"},
-        { "name": "Closed", "value": "closed"}
-      ];
-      this.status = this.statusDropdown[0].value;
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;
+      this.showOutstandingDownload = false;
+      this.showOutstandingView = false;
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
         }
         window.scrollTo(0, 0)
       });
-      if(this.englishFlag){
-        this.gridOptions.columnDefs = [
-          {
-            headerName: "Ticket ID",
-            field: "ticketID",
-            width: 150,
-            checkboxSelection: true,
-            headerCheckboxSelection: function(params) {
-              return params.columnApi.getRowGroupColumns().length === 0;
-            }
-          },
-          {
-            headerName: "Article ID",
-            field: "articleID",
-            width: 180
-          },
-          {
-            headerName: "Reference Number",
-            field: "referenceNumber",
-            width: 180
-          },
-          {
-            headerName: "Enquiry",
-            field: "deliveryEnquiry",
-            width: 100
-          },
-          {
-            headerName: "POD",
-            field: "pod",
-            width: 100
-          },
-          {
-            headerName: "Comments",
-            field: "comments",
-            width: 350
-          },
-          {
-            headerName: "D2Z Comments",
-            field: "d2zComments",
-            width: 300
-          },
-          {
-            headerName: "Consignee Name",
-            field: "consigneeName",
-            width: 200
-          },
-          {
-            headerName: "Tracking Event",
-            field: "trackingEvent",
-            width: 200
-          },
-          {
-            headerName: "Tracking Date",
-            field: "trackingEventDateOccured",
-            width: 200
-          }
-        ];
-       }
-      if(this.chinessFlag){ }
   }
-
-  onStatusChange(event){
-    this.status = event.value.value;
-  };
 
   FromDateChange(event){
     var str = event.target.value;
@@ -159,16 +76,13 @@ export class BrokerOutstandingEnquiryComponent implements OnInit{
      this.toDate = [ date.getFullYear(), mnth, day ].join("-");
   };
 
-  onEnquiryChange() {
-    var selectedRows = this.gridOptions.api.getSelectedRows();
-    this.errorMsg = null;
-  };
-
   enquiryBrokerSearch(){
     this.spinner.show();
     var userIds = [];
     var fromDate = null;
     var toDate = null;
+    this.showOutstandingDownload = true;
+    this.showOutstandingView = true;
     if(this.fromDate){
       fromDate = this.fromDate+" "+"00:00:00:000"
     }
@@ -179,18 +93,65 @@ export class BrokerOutstandingEnquiryComponent implements OnInit{
       this.spinner.hide();
       userIds.push(resp);
       userIds.push(this.user_Id);
-      console.log(userIds.toString())
       this.spinner.show();
         this.consigmentUploadService.fetchEnquiry(this.status, fromDate, toDate, userIds.toString(), (resp) => {
             this.spinner.hide();
-            this.rowData = resp;
+            this.outstandingEnquiryArray = resp;
           })
     })
   };
 
-  downloadOutstandingDetails(){
+  viewOutStandingTickets(){
+    this.tabs = [];
+    var outstandingEnquiryArray = this.outstandingEnquiryArray;
+    for (var enquiryVal in outstandingEnquiryArray) {
+      var fieldObj = outstandingEnquiryArray[enquiryVal];
+      if (fieldObj.selection === true) {
+        this.tabs.push({
+          'label': 'Enquiry - ' + fieldObj.ticketID,
+          'ticketID': fieldObj.ticketID,
+          'articleID': fieldObj.articleID != undefined ? fieldObj.articleID : '',
+          'referenceNumber': fieldObj.referenceNumber != undefined ? fieldObj.referenceNumber : '',
+          'deliveryEnquiry': fieldObj.deliveryEnquiry != undefined ? fieldObj.deliveryEnquiry : '',
+          'pod': fieldObj.pod != undefined ? fieldObj.pod : '',
+          'consigneeName': fieldObj.consigneeName != undefined ? fieldObj.consigneeName : '',
+          'trackingEvent': fieldObj.trackingEvent != undefined ? fieldObj.trackingEvent : '',
+          'trackingEventDateOccured': fieldObj.trackingEventDateOccured != undefined ? fieldObj.trackingEventDateOccured : '',
+          'comments': fieldObj.comments != undefined ? fieldObj.comments : '',
+          'd2zComments': fieldObj.d2zComments != undefined ? fieldObj.d2zComments : ''
+        });
+        this.selectedIndex = 1;
+      }else{
+        this.errorMsg = '**Please select atleast one item to view the details';
+      }
+     } 
+  };
+
+  tabChanged(event){
+    this.errorMsg = null;
+  };
+
+  outStandingCheck(event, index){
+    var enquiryTabObj = this.tabs[index];
+    let ticketId = 'ticketId';
+    let comments = 'comments';
+    var enquiryObj = (
+      enquiryObj={}, 
+      enquiryObj[ticketId]=  enquiryTabObj.ticketID, enquiryObj,
+      enquiryObj[comments]=  enquiryTabObj.comments, enquiryObj
+    )
+    this.spinner.show();
+    this.consigmentUploadService.enquiryUpdate(enquiryObj, (resp) => {
+        this.successMsg = resp.message;
+        this.spinner.hide();
+        $('#outstandingEnquiry').modal('show');
+        this.tabs = [];
+    })
+  };
+
+  downloadOutstandingTracking(){
     this.enquiryDetailsList = [];
-    var selectedRows = this.gridOptions.api.getSelectedRows();
+    var selectedRows = this.outstandingEnquiryArray;
     if(selectedRows.length > 0 ){
         var currentTime = new Date();
         var fileName = '';
@@ -236,7 +197,8 @@ export class BrokerOutstandingEnquiryComponent implements OnInit{
       }else{
           this.errorMsg = "**Please select the below records to download the Outstanding enquiry details";
       } 
-  };
+  }
+ 
  
 }
 

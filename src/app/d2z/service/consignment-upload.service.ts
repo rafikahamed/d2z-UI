@@ -981,6 +981,19 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
     });
   };
 
+  enquiryUpdate( updateEnquiry, callback): any {
+    this.http.put(baseUrl+'/update-enquiry', updateEnquiry)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
 }
 
 export interface userMessage {
