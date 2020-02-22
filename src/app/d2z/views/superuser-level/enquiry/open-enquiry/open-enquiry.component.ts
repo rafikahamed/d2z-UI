@@ -23,6 +23,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
   arrayBuffer:any;
   formdata: any;
   formdataIndex: any;
+  updateData = [];
   public selectedIndex: number = 0;
   tabs = [];
   public openEnquiryList = [];
@@ -71,14 +72,14 @@ export class superUserOpenEnquiryComponent implements OnInit {
   UpdateEnquiry(){
     this.openEnquiryList = []; 
     var that = this;
-    this.openEnquiryArray.forEach(function(item, index){
-        if(item.selection){
-          item.index = index;
-          that.openEnquiryList.push(item);
-        }else {
+     for(var enquiryData in this.openEnquiryArray){
+            var updatedData = this.openEnquiryArray[enquiryData];
+            if(updatedData.selection){
+          that.openEnquiryList.push(updatedData);
         }
-    });
-    if(that.openEnquiryList.length > 1){
+        }
+    
+    if(that.openEnquiryList.length > 0){
       that.spinner.show();
       that.consigmentUploadService.enquiryUpload( that.openEnquiryList, (resp) => {
               that.successMsg = resp.message;
@@ -120,32 +121,47 @@ export class superUserOpenEnquiryComponent implements OnInit {
   };
 
   check(event, index) {
-    var enquiryTabObj = this.tabs[index];
-    var sendUpdate = enquiryTabObj.sendUpdate == true ? "yes" : "no";
-    var closeEnquiry = enquiryTabObj.closeEnquiry == true ? "closed" : "open";
-    var comments = enquiryTabObj.comments ? enquiryTabObj.comments : null;
-    var d2zComments = enquiryTabObj.d2zComments ? enquiryTabObj.d2zComments : null;
+   var enquiryTabObj = this.tabs[index];
+    this.updateData = [];
+    //var sendUpdate = enquiryTabObj.sendUpdate == true ? "yes" : "no";
+    //var closeEnquiry = enquiryTabObj.closeEnquiry == true ? "closed" : "open";
+    //var comments = enquiryTabObj.comments ? enquiryTabObj.comments : null;
+    //var d2zComments = enquiryTabObj.d2zComments ? enquiryTabObj.d2zComments : null;
+    let ticketNumber = 'ticketNumber';
+    let comments = 'comments';
+    let d2zComments = 'd2zComments';
+    let sendUpdate = 'sendUpdate';
+    let status = 'status';
+        var that = this;
+        var dataObj = (
+            dataObj={}, 
+            dataObj[ticketNumber]= enquiryTabObj.ticketNumber != undefined ? enquiryTabObj.ticketNumber : '', dataObj,
+            dataObj[comments]= enquiryTabObj.comments != undefined ? enquiryTabObj.comments: '', dataObj,
+            dataObj[d2zComments]= enquiryTabObj.d2zComments != undefined ? enquiryTabObj.d2zComments:'', dataObj,
+            dataObj[sendUpdate]= enquiryTabObj.sendUpdate == true ? "yes" : "no", dataObj,
+            dataObj[status]= enquiryTabObj.closeEnquiry == true ? "closed" : "open", dataObj
+        );
+        console.log(dataObj);
+        that.updateData.push(dataObj);
     if(this.formdata){
       this.spinner.show();
-      this.consigmentUploadService.enquiryFileUpload(this.formdata, enquiryTabObj.ticketNumber, comments, 
-        d2zComments, sendUpdate, closeEnquiry, (resp) => {
-          this.successMsg = resp.message;
-          this.spinner.hide();
-          $('#superEnquiry').modal('show');
-          this.tabs = [];
-          this.openEnquiry();
-      });
-    }else{
-      this.spinner.show();
-      this.consigmentUploadService.enquiryNonFileUpload(enquiryTabObj.ticketNumber, comments, 
-        d2zComments, sendUpdate, closeEnquiry, (resp) => {
-          this.successMsg = resp.message;
-          this.spinner.hide();
-          $('#superEnquiry').modal('show');
-          this.tabs = [];
-          this.openEnquiry();
+      this.consigmentUploadService.enquiryFileUpload(this.formdata,enquiryTabObj.ticketNumber, (resp) => {
+          //this.successMsg = resp.message;
+          //this.spinner.hide();
+          //$('#superEnquiry').modal('show');
+          //this.tabs = [];
+          //this.openEnquiry();
       });
     }
+      //this.spinner.show();
+      this.consigmentUploadService.enquiryNonFileUpload( dataObj, (resp) => {
+          this.successMsg = resp.message;
+          this.spinner.hide();
+          $('#superEnquiry').modal('show');
+          this.tabs = [];
+          this.openEnquiry();
+      });
+    
    
   };
 
@@ -169,6 +185,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
         let comments ='comments';
         for(var enquiryData in this.openEnquiryArray){
             var invoiceApprovedData = this.openEnquiryArray[enquiryData];
+            if(invoiceApprovedData.selection){
             var invoiceApproveObj = (
               invoiceApproveObj={}, 
               invoiceApproveObj[articleID]= invoiceApprovedData.articleID != null ? invoiceApprovedData.articleID : '' , invoiceApproveObj,
@@ -184,6 +201,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
               invoiceApproveObj[comments]= invoiceApprovedData.comments != null ? invoiceApprovedData.comments : '', invoiceApproveObj
             );
             enquiryDownloadData.push(invoiceApproveObj);
+            }
          };
 
           var currentTime = new Date();
