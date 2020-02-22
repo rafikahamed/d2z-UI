@@ -79,7 +79,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
         }else {
         }
     });
-    if(that.openEnquiryList.length > 1){
+    if(that.openEnquiryList.length > 0){
       that.spinner.show();
       that.consigmentUploadService.enquiryUpload( that.openEnquiryList, (resp) => {
               that.successMsg = resp.message;
@@ -184,6 +184,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
         let comments ='comments';
         for(var enquiryData in this.openEnquiryArray){
             var invoiceApprovedData = this.openEnquiryArray[enquiryData];
+            if(invoiceApprovedData.selection){
             var invoiceApproveObj = (
               invoiceApproveObj={}, 
               invoiceApproveObj[articleID]= invoiceApprovedData.articleID != null ? invoiceApprovedData.articleID : '' , invoiceApproveObj,
@@ -199,6 +200,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
               invoiceApproveObj[comments]= invoiceApprovedData.comments != null ? invoiceApprovedData.comments : '', invoiceApproveObj
             );
             enquiryDownloadData.push(invoiceApproveObj);
+            }
          };
 
           var currentTime = new Date();
