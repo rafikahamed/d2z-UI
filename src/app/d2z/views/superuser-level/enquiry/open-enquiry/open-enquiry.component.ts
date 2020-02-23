@@ -146,13 +146,13 @@ export class superUserOpenEnquiryComponent implements OnInit {
      if(this.formdata){
        this.spinner.show();
        this.consigmentUploadService.enquiryFileUpload(this.formdata,enquiryTabObj.ticketNumber, (resp) => {
-           this.successMsg = resp.message;
-           this.spinner.hide();
-           $('#superEnquiry').modal('show');
-           this.tabs = [];
-           this.openEnquiry();
+           //this.successMsg = resp.message;
+           //this.spinner.hide();
+           //$('#superEnquiry').modal('show');
+           //this.tabs = [];
+           //this.openEnquiry();
        });
-     }else{
+     }
       this.spinner.show();
       this.consigmentUploadService.enquiryNonFileUpload( dataObj, (resp) => {
           this.successMsg = resp.message;
@@ -161,7 +161,7 @@ export class superUserOpenEnquiryComponent implements OnInit {
           this.tabs = [];
           this.openEnquiry();
         });
-     }
+     
    };
 
   tabChanged(event){
@@ -232,5 +232,12 @@ export class superUserOpenEnquiryComponent implements OnInit {
           console.log(this.formdata)
       }
   };
+checked(element)
+ {
 
+ for (var fieldVal in this.openEnquiryArray) {
+        var fieldObj = this.openEnquiryArray[fieldVal];
+        fieldObj.selection = element.target.checked;
+ }
+ }
 }
