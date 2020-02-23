@@ -19,8 +19,7 @@ body{
 
 .table {
     display: table;
-    /* width: 100%; */
-    height: 70% !important;
+    height: 20% !important;
 }
 
 .success_msg{
