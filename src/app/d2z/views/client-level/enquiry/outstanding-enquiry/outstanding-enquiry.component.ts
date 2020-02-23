@@ -146,13 +146,14 @@ export class OutstandingEnquiryComponent implements OnInit{
         this.spinner.hide();
         $('#outstandingEnquiry').modal('show');
         this.tabs = [];
+        this.enquirySearch();
     })
   };
 
   downloadOutstandingTracking(){
     this.enquiryDetailsList = [];
-    var selectedRows = this.outstandingEnquiryArray;
-    if(selectedRows.length > 0 ){
+    //var selectedRows = this.outstandingEnquiryArray;
+    if(this.outstandingEnquiryArray.length > 0 ){
         var currentTime = new Date();
         var fileName = '';
             fileName = "Outstanding_Enquiry_Details"+"-"+currentTime.toLocaleDateString();
@@ -165,8 +166,9 @@ export class OutstandingEnquiryComponent implements OnInit{
             headers: [ 'Ticket ID', 'Article ID', 'Reference Number', 'Enquiry', 'POD', 'Comments', 'D2Z Comments', 'Consignee Name', 'Tracking Event', 'Tracking Date' ]
           };
         
-        for (var selectVal in selectedRows) {
-          var dataObj = selectedRows[selectVal];
+        for (var selectVal in this.outstandingEnquiryArray) {
+          var dataObj = this.outstandingEnquiryArray[selectVal];
+          if(dataObj.selection){
           let ticketID = 'ticketID';
           let articleID = 'articleID';
           let referenceNumber = 'referenceNumber';
@@ -193,11 +195,19 @@ export class OutstandingEnquiryComponent implements OnInit{
         )
         this.enquiryDetailsList.push(importObj);
         }    
+        }
         new Angular2Csv(this.enquiryDetailsList, fileName, options);   
       }else{
           this.errorMsg = "**Please select the below records to download the Outstanding enquiry details";
       } 
   }
- 
+ check(element)
+ {
+
+ for (var fieldVal in this.outstandingEnquiryArray) {
+        var fieldObj = this.outstandingEnquiryArray[fieldVal];
+        fieldObj.selection = element.target.checked;
+ }
+ }
 }
 
