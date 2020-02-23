@@ -111,7 +111,8 @@ export class superUserOpenEnquiryComponent implements OnInit {
           'd2zComments': fieldObj.d2zComments != undefined ? fieldObj.d2zComments : '',
           'sendUpdate': fieldObj.sendUpdate != undefined ? fieldObj.sendUpdate : '',
           'closeEnquiry': fieldObj.closeEnquiry != undefined ? fieldObj.closeEnquiry : '',
-          'fileName': fieldObj.fileName != undefined ? fieldObj.fileName : ''
+          'fileName': fieldObj.fileName != undefined ? fieldObj.fileName : '',
+          'emailAddress': fieldObj.emailAddress != undefined ? fieldObj.emailAddress : ''
         });
         this.selectedIndex = 1;
       }else{
@@ -122,16 +123,14 @@ export class superUserOpenEnquiryComponent implements OnInit {
 
   check(event, index) {
     var enquiryTabObj = this.tabs[index];
+    console.log(enquiryTabObj)
      this.updateData = [];
-     //var sendUpdate = enquiryTabObj.sendUpdate == true ? "yes" : "no";
-     //var closeEnquiry = enquiryTabObj.closeEnquiry == true ? "closed" : "open";
-     //var comments = enquiryTabObj.comments ? enquiryTabObj.comments : null;
-     //var d2zComments = enquiryTabObj.d2zComments ? enquiryTabObj.d2zComments : null;
      let ticketNumber = 'ticketNumber';
      let comments = 'comments';
      let d2zComments = 'd2zComments';
      let sendUpdate = 'sendUpdate';
      let status = 'status';
+     let emailAddress = 'emailAddress';
 
      var dataObj = (
              dataObj={}, 
@@ -139,7 +138,8 @@ export class superUserOpenEnquiryComponent implements OnInit {
              dataObj[comments]= enquiryTabObj.comments != undefined ? enquiryTabObj.comments: '', dataObj,
              dataObj[d2zComments]= enquiryTabObj.d2zComments != undefined ? enquiryTabObj.d2zComments:'', dataObj,
              dataObj[sendUpdate]= enquiryTabObj.sendUpdate == true ? "yes" : "no", dataObj,
-             dataObj[status]= enquiryTabObj.closeEnquiry == true ? "closed" : "open", dataObj
+             dataObj[status]= enquiryTabObj.closeEnquiry == true ? "closed" : "open", dataObj,
+             dataObj[emailAddress]= enquiryTabObj.emailAddress != undefined ? enquiryTabObj.emailAddress : '', dataObj
      );
   
      this.updateData.push(dataObj);
