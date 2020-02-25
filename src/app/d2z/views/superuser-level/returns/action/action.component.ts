@@ -13,7 +13,6 @@ import { GridOptions } from "ag-grid";
 })
 
 export class superUserReturnsActionComponent implements OnInit{
- 
   private actionReturnsArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
@@ -22,8 +21,10 @@ export class superUserReturnsActionComponent implements OnInit{
   public resendReferNumber: any[];
   public returnsAction: any[];
   user_Id: String;
+  role_Id: Number;
   exportCall: boolean;
   nonExportCall: boolean;
+  showReturn: boolean;
   system: String;
   fileExists: String;
   file:File;
@@ -70,8 +71,14 @@ export class superUserReturnsActionComponent implements OnInit{
   };
 
   ngOnInit() {
+      this.showReturn = true;
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
+      this.role_Id  = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.role_Id: '';
+      console.log(this.role_Id)
+      if(this.role_Id == 5){
+          this.showReturn = false;
+      }
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;

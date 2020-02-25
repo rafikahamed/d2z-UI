@@ -16,7 +16,8 @@
                     <div class="menu_section">
                         <ul class="nav side-menu">
                             <li>
-                                <a (click)="super_user(arrow)"><i class="fa fa-home"></i> HOME <span class="fa fa-chevron-down" #arrow></span></a>
+                                <a (click)="super_user(arrow)">
+                                    <i class="fa fa-home"></i> HOME <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperOne ? 'block' : 'none'}">
                                 <li><a routerLink="/superuser-main">Information</a></li>
                                 </ul>
