@@ -68,6 +68,8 @@ export class SuperUserHeaderComponent implements OnInit {
   completedEnquiry: boolean;
   zebraPrint: boolean;
   zebraPdf: boolean;
+  superUserHome: boolean;
+  superUserHomeInfo: boolean;
   userName: String;
   pageSwitch: String;
 
@@ -89,14 +91,15 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperEight = menuSelection.childmenuSuperEight;
     this.childmenuSuperNine = menuSelection.childmenuSuperNine;
 
-    
-
     this.childmenuSuperTen = menuSelection.childmenuSuperTen;
     this.childmenuSuperEleven = menuSelection.childmenuSuperEleven;
-     this.childmenuSuperTwelve = menuSelection.childmenuSuperTwelve;
+    this.childmenuSuperTwelve = menuSelection.childmenuSuperTwelve;
+
     var role = this.consigmentUploadService.userMessage.role_Id;
     console.log(role);
     if(role == 1){
+      this.superUserHome = true;
+      this.superUserHomeInfo = true;
       this.client = true;
       this.clientAdd = true;
       this.mlid = true;
@@ -138,8 +141,9 @@ export class SuperUserHeaderComponent implements OnInit {
       this.scanReturns = true;
       this.outstandingReturns = true;
       this.actionReturns = true;
-
     }else if(role == 4){
+      this.superUserHome = true;
+      this.superUserHomeInfo = true;
       this.tracking = false;
       this.trackingArrival = false;
       this.reports= true;
@@ -155,41 +159,20 @@ export class SuperUserHeaderComponent implements OnInit {
       this.scanReturns = true;
       this.outstandingReturns = true;
       this.actionReturns = true;
-       this.incomingJob = true;
+      this.incomingJob = true;
       this.addShipment = true;
       this.incomingShipment = true;
       this.outstandingShipment = true;
       this.releaseparcel=true;
       this.heldparcel=true;
       this.updateparcel=true;
-
-
-    }
-    else if(role == 5){
-      this.tracking = false;
-      this.trackingArrival = false;
-      this.reports= false;
-      this.reportShipment = false;
-      this.auweight = false;
-      this.labels= false;
-      this.zebraPrint= false;
-      this.zebraPdf= false;
-      this.enquiry= false;
-      this.openEnquiry= false;
-      this.completedEnquiry= false;
+    }else if(role == 5){
+      this.superUserHome = false;
+      this.superUserHomeInfo = false;
       this.returns = true;
       this.scanReturns = true;
       this.outstandingReturns = false;
       this.actionReturns = true;
-       this.incomingJob = false;
-      this.addShipment = false;
-      this.incomingShipment = false;
-      this.outstandingShipment = false;
-      this.releaseparcel=false;
-      this.heldparcel=false;
-      this.updateparcel=false;
-
-
     }
   }
 

@@ -12,7 +12,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./scan.component.css']
 })
 
-export class superUserReturnsScanComponent{
+export class superUserReturnsScanComponent implements OnInit{
   private fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};
@@ -24,17 +24,18 @@ export class superUserReturnsScanComponent{
   reason: String;
   file:File;
   user_Id: String;
+  role_Id: Number;
   system: String;
   arrayBuffer:any;
   scanType: City[];
   reasonType: City[];
-  admin_1_2Flag: Boolean;
   public importList = [];
   public importIndividualList = [];
   public importFileList = [];
   public importReturnsList = [];
   englishFlag:boolean;
   chinessFlag:boolean;
+  showReturn:boolean;
   showFile:boolean;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
@@ -47,11 +48,13 @@ export class superUserReturnsScanComponent{
   }
 
   ngOnInit() {
+      this.showReturn = true;
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
-      this.admin_1_2Flag = true;
-      if(this.consigmentUploadService.userMessage.role_Id == 5){
-      this.admin_1_2Flag = false;
+      this.role_Id  = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.role_Id: '';
+      console.log(this.role_Id)
+      if(this.role_Id == 5){
+          this.showReturn = false;
       }
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
