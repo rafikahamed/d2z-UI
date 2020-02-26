@@ -53,7 +53,7 @@
                                     <th>Article ID</th>
                                     <th>Reference Number</th>
                                     <th>Consignee Name</th>
-                                    <th>Client Name</th>
+                                    <th *ngIf="admin_1_2Flag">Client Name</th>
                                     <th>Action</th>
                                     <th>Print Label</th>
                                 </tr>
@@ -89,7 +89,7 @@
                                             type="text" 
                                             name="{{field.consigneeName}}" />
                                     </td>
-                                    <td>
+                                    <td *ngIf="admin_1_2Flag">
                                         <input 
                                             [(ngModel)]="field.clientName" 
                                             class="form-control" 

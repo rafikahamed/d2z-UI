@@ -323,6 +323,15 @@
                                         </div>
 
                                         <div class="form-group">
+                                             <button type="button" 
+                                                    class="btn btn-info" 
+                                                    [disabled]= "tab.proof == null"
+                                                    (click)="downloadPOD($event,index)" 
+                                                    style="background-color: #16A085; float:right; margin:10px;">
+                                                     <span class="glyphicon glyphicon-cloud-download"></span>
+                                                Download POD
+                                            </button>
+
                                             <button type="button" 
                                                     class="btn btn-info" 
                                                     (click)="outStandingCheck($event,index)" 

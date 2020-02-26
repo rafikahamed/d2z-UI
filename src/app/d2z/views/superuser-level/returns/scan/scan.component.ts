@@ -28,6 +28,7 @@ export class superUserReturnsScanComponent{
   arrayBuffer:any;
   scanType: City[];
   reasonType: City[];
+  admin_1_2Flag: Boolean;
   public importList = [];
   public importIndividualList = [];
   public importFileList = [];
@@ -48,6 +49,10 @@ export class superUserReturnsScanComponent{
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
+      this.admin_1_2Flag = true;
+      if(this.consigmentUploadService.userMessage.role_Id == 5){
+      this.admin_1_2Flag = false;
+      }
       var lanObject = this.consigmentUploadService.currentMessage.source['_value'];
       this.englishFlag = lanObject.englishFlag;
       this.chinessFlag = lanObject.chinessFlag;

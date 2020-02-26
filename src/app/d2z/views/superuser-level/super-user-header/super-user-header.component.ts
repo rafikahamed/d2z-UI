@@ -95,6 +95,7 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperEleven = menuSelection.childmenuSuperEleven;
      this.childmenuSuperTwelve = menuSelection.childmenuSuperTwelve;
     var role = this.consigmentUploadService.userMessage.role_Id;
+    console.log(role);
     if(role == 1){
       this.client = true;
       this.clientAdd = true;
@@ -161,6 +162,32 @@ export class SuperUserHeaderComponent implements OnInit {
       this.releaseparcel=true;
       this.heldparcel=true;
       this.updateparcel=true;
+
+
+    }
+    else if(role == 5){
+      this.tracking = false;
+      this.trackingArrival = false;
+      this.reports= false;
+      this.reportShipment = false;
+      this.auweight = false;
+      this.labels= false;
+      this.zebraPrint= false;
+      this.zebraPdf= false;
+      this.enquiry= false;
+      this.openEnquiry= false;
+      this.completedEnquiry= false;
+      this.returns = true;
+      this.scanReturns = true;
+      this.outstandingReturns = false;
+      this.actionReturns = true;
+       this.incomingJob = false;
+      this.addShipment = false;
+      this.incomingShipment = false;
+      this.outstandingShipment = false;
+      this.releaseparcel=false;
+      this.heldparcel=false;
+      this.updateparcel=false;
 
 
     }

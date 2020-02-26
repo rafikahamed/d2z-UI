@@ -118,9 +118,11 @@ export class OutstandingEnquiryComponent implements OnInit{
           'trackingEvent': fieldObj.trackingEvent != undefined ? fieldObj.trackingEvent : '',
           'trackingEventDateOccured': fieldObj.trackingEventDateOccured != undefined ? fieldObj.trackingEventDateOccured : '',
           'comments': fieldObj.comments != undefined ? fieldObj.comments : '',
-          'd2zComments': fieldObj.d2zComments != undefined ? fieldObj.d2zComments : ''
+          'd2zComments': fieldObj.d2zComments != undefined ? fieldObj.d2zComments : '',
+          'proof': fieldObj.proof
         });
         this.selectedIndex = 1;
+        console.log(fieldObj.proof);
       }else{
         this.errorMsg = '**Please select atleast one item to view the details';
       }
@@ -149,7 +151,19 @@ export class OutstandingEnquiryComponent implements OnInit{
         this.enquirySearch();
     })
   };
-
+  downloadPOD(event,index){ 
+   var enquiryTabObj = this.tabs[index];
+  var linkSource = 'data:application/pdf;base64,' + enquiryTabObj.proof;
+        var downloadLink = document.createElement("a");
+        var fileName = enquiryTabObj.ticketID+"_POD.pdf";
+        document.body.appendChild(downloadLink);
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+        this.successMsg = "POD downloaded successfully";
+      
+    
+  };
   downloadOutstandingTracking(){
     this.enquiryDetailsList = [];
     //var selectedRows = this.outstandingEnquiryArray;

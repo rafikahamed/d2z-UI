@@ -49,8 +49,8 @@
                                                 <th>Scan Type</th>
                                                 <th>Scan Details</th>
                                                 <th>Return Reason</th>
-                                                <th>Broker Name</th>
-                                                <th>Client Name</th>
+                                                <th *ngIf="admin_1_2Flag">Broker Name</th>
+                                                <th *ngIf="admin_1_2Flag">Client Name</th>
                                                 <th>Consignee Name</th>
                                                 <th>Action</th>
                                             </tr>
@@ -87,14 +87,14 @@
                                                     (onChange)="onReasonTypeChange($event)">
                                                 </p-dropdown>
                                                 </td>
-                                                <td>
+                                                <td *ngIf="admin_1_2Flag">
                                                     <input 
                                                         [(ngModel)]="field.brokerName" 
                                                         class="form-control" 
                                                         type="text" 
                                                         name="{{field.brokerName}}" />
                                                 </td>
-                                                <td>
+                                                <td *ngIf="admin_1_2Flag">
                                                     <input 
                                                         [(ngModel)]="field.clientName" 
                                                         class="form-control" 
@@ -150,14 +150,14 @@
                                                         (onChange)="onReasonTypeChange($event)">
                                                     </p-dropdown>
                                                 </td>
-                                                <td>
+                                                <td *ngIf="admin_1_2Flag">
                                                     <input class="form-control" 
                                                             type="text" 
                                                             id="newAttributeBrokerName" 
                                                             [(ngModel)]="newAttribute.brokerName" 
                                                             name="newAttributeBrokerName" />
                                                 </td>
-                                                <td>
+                                                <td *ngIf="admin_1_2Flag">
                                                     <input class="form-control" 
                                                             type="text" 
                                                             id="newAttributeClientName" 

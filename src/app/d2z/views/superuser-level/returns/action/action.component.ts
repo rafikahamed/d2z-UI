@@ -28,6 +28,7 @@ export class superUserReturnsActionComponent implements OnInit{
   fileExists: String;
   file:File;
   arrayBuffer:any;
+  admin_1_2Flag: boolean;
   public openEnquiryList = [];
   public importList = [];
   public superuserAction = [];
@@ -72,6 +73,10 @@ export class superUserReturnsActionComponent implements OnInit{
   ngOnInit() {
       this.system = document.location.hostname.includes("speedcouriers.com.au") == true ? "Speed Couriers" :"D2Z";
       this.user_Id = this.consigmentUploadService.userMessage ? this.consigmentUploadService.userMessage.user_id: '';
+      this.admin_1_2Flag = true;
+      if(this.consigmentUploadService.userMessage.role_Id == 5){
+      this.admin_1_2Flag = false;
+      }
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;

@@ -128,7 +128,7 @@ export class WhyChooseComponent implements OnInit{
             }else if(resp.role_Id == 2){
                 this.router.navigate(['/broker-main/']);
                 this.consigmentUploadService.getLoginDetails(this.userMessage);
-            }else if(resp.role_Id == 1){
+            }else if(resp.role_Id == 1 || resp.role_Id == 4 || resp.role_Id == 5){
                 this.router.navigate(['/superuser-main/']);
                 this.consigmentUploadService.getLoginDetails(this.userMessage);
             }

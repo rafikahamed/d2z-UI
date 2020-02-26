@@ -122,13 +122,14 @@ export class AboutComponent implements OnInit{
             this.errorMsg = "**Invalid Credentials, Please try again";
         }else{
             $('#myModal').modal('toggle');
+            console.log(resp.role_id);
             if(resp.role_Id == 3){
                 this.router.navigate(['/main/']);
                 this.consigmentUploadService.getLoginDetails(this.userMessage);
             }else if(resp.role_Id == 2){
                 this.router.navigate(['/broker-main/']);
                 this.consigmentUploadService.getLoginDetails(this.userMessage);
-            }else if(resp.role_Id == 1){
+            }else if(resp.role_Id == 1 || resp.role_Id == 4 || resp.role_Id == 5){
                 this.router.navigate(['/superuser-main/']);
                 this.consigmentUploadService.getLoginDetails(this.userMessage);
             }
