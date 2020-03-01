@@ -63,7 +63,7 @@ export class superUserReturnsActionComponent implements OnInit{
 
   fetchReturnActionData(){
       this.spinner.show();
-        this.consigmentUploadService.fetchActionReturns((resp) => {
+        this.consigmentUploadService.fetchActionReturns(this.role_Id,(resp) => {
           this.spinner.hide();
           this.actionReturnsArray = resp;
         })

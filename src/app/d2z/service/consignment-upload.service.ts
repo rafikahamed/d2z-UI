@@ -895,8 +895,8 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
     });
   };
 
-  fetchActionReturns(callback): any {
-    this.http.get(baseUrl+'/superUser-level/action-returns').subscribe((resp:userMessage) => {
+  fetchActionReturns(roleId,callback): any {
+    this.http.get(baseUrl+'/superUser-level/action-returns/'+ roleId).subscribe((resp:userMessage) => {
       callback(resp);
       if (resp) {
       } else {
