@@ -95,6 +95,7 @@
                                                     <th style="width:5px;"><input style="width:18px; height:18px" type="checkbox" (click)="checked($event)" /> </th>
                                                     <th>Broker Name</th>
                                                     <th>Tracking Number</th>
+                                                    <th>Created Date</th>
                                                     <th>Tracking Event</th>
                                                     <th>Broker/Client Comments</th>
                                                     <th>D2Z Comments</th>
@@ -112,7 +113,7 @@
                                                                 name="{{field.selection}}" />
                                                     </td>
 
-                                                    <td>
+                                                    <td style="width:10%; height:40px">
                                                         <input 
                                                             [(ngModel)]="field.userName" 
                                                             class="form-control" 
@@ -121,7 +122,7 @@
                                                             name="{{field.userName}}" />
                                                     </td>
 
-                                                    <td>
+                                                    <td style="width:23%; height:40px">
                                                         <input 
                                                             [(ngModel)]="field.articleID" 
                                                             class="form-control" 
@@ -129,7 +130,14 @@
                                                             disabled=true
                                                             name="{{field.articleID}}" />
                                                     </td>
-
+                                                     <td style="width:12%; height:40px">
+                                                        <input 
+                                                            [(ngModel)]="field.createdDate" 
+                                                            class="form-control" 
+                                                            type="text" 
+                                                            disabled=true
+                                                            name="{{field.createdDate}}" />
+                                                    </td>
                                                     <td>
                                                         <input 
                                                             [(ngModel)]="field.trackingEvent" 

@@ -4,6 +4,7 @@ declare var $: any;
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -29,6 +30,9 @@ export class superUserReturnsScanComponent implements OnInit{
   arrayBuffer:any;
   scanType: City[];
   reasonType: City[];
+  errorDetails: any[];
+  invalidRef = [];
+  show: boolean;
   public importList = [];
   public importIndividualList = [];
   public importFileList = [];
@@ -120,6 +124,7 @@ export class superUserReturnsScanComponent implements OnInit{
             that.spinner.show();
             that.consigmentUploadService.fetchReturnsClientDetails(referenceNumber,barcodeLabel,articleId, (resp) => {
               that.spinner.hide();
+              
               that.successMsg = resp.message;
                that.newAttribute.brokerName = resp.brokerName;
                that.newAttribute.clientName = resp.clientName;
@@ -136,12 +141,14 @@ export class superUserReturnsScanComponent implements OnInit{
                that.newAttribute = {};
                that.newAttribute.type = that.scanType[0];
                that.errorMsg = '';
+              
              });
           
           }
         }
     };
 
+   
     returnEnquiry(){
       this.importReturnsList = [];
       var newReturnsArray = [];
@@ -233,12 +240,22 @@ export class superUserReturnsScanComponent implements OnInit{
             this.importReturnsList.push(enquiryObj);
           }
           this.spinner.show();
+          console.log(this.importReturnsList);
           this.consigmentUploadService.createReturns(this.importReturnsList, (resp) => {
               this.spinner.hide();
               if(resp.error){
                   this.successMsg = resp.error.message;
-                  this.successMsg = resp.error.errorMessage;
-                  this.errorMessage = JSON.stringify(resp.error.errorDetails);
+                  this.errorMessage = resp.error.errorMessage;
+                  //this.errorMessage = JSON.stringify(resp.error.errorDetails); 
+                  this.errorDetails = resp.error.errorDetails;
+                  console.log(this.errorDetails)
+                   for(var refNum in this.errorDetails){
+                   
+                 this.invalidRef.push(this.errorDetails[refNum])
+
+        }
+                console.log(this.invalidRef)
+                this.show = true;
                   $('#returnsScan').modal('show');
               }else{
                   this.successMsg = resp.message;
@@ -252,6 +269,30 @@ export class superUserReturnsScanComponent implements OnInit{
         this.errorMsg = "** Atleast add one Returns to proceed";
       }
       
+    };
+ download(){
+       var refernceNumberList = [];
+       let referenceNumber = 'referenceNumber';
+       var fileName = 'Invalid Scan Details';
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ['Scan Details']}
+          
+     
+        for(var refNum in this.errorDetails){
+         var importObj = (
+                    importObj={}, 
+                    importObj[referenceNumber]= this.errorDetails[refNum], importObj
+                    )
+         refernceNumberList.push(importObj)
+
+        }
+        console.log(refernceNumberList);
+      new Angular2Csv(refernceNumberList, fileName, options);
     };
 
 }
