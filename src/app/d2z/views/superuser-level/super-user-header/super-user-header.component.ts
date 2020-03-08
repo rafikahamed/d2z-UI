@@ -96,7 +96,6 @@ export class SuperUserHeaderComponent implements OnInit {
     this.childmenuSuperTwelve = menuSelection.childmenuSuperTwelve;
 
     var role = this.consigmentUploadService.userMessage.role_Id;
-    console.log(role);
     if(role == 1){
       this.superUserHome = true;
       this.superUserHomeInfo = true;

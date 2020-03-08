@@ -109,8 +109,8 @@ export class superUserOpenEnquiryComponent implements OnInit {
           'trackingDeliveryDate': fieldObj.trackingDeliveryDate != undefined ? fieldObj.trackingDeliveryDate : '',
           'comments': fieldObj.comments != undefined ? fieldObj.comments : '',
           'd2zComments': fieldObj.d2zComments != undefined ? fieldObj.d2zComments : '',
-          'sendUpdate': fieldObj.sendUpdate != undefined ? fieldObj.sendUpdate : '',
-          'closeEnquiry': fieldObj.closeEnquiry != undefined ? fieldObj.closeEnquiry : '',
+          'sendUpdate': fieldObj.sendUpdate == 'yes' ? true : false,
+          'closeEnquiry': fieldObj.closeEnquiry == 'yes' ? true : false,
           'fileName': fieldObj.fileName != undefined ? fieldObj.fileName : '',
           'emailAddress': fieldObj.emailAddress != undefined ? fieldObj.emailAddress : ''
         });
@@ -123,7 +123,6 @@ export class superUserOpenEnquiryComponent implements OnInit {
 
   check(event, index) {
     var enquiryTabObj = this.tabs[index];
-    console.log(enquiryTabObj)
      this.updateData = [];
      let ticketNumber = 'ticketNumber';
      let comments = 'comments';

@@ -147,7 +147,6 @@ this.spinner.show();
       this.consigmentUploadService.authenticate(this.loginForm.value, (resp) => {
         this.userMessage = resp;
         this.consigmentUploadService.getLoginDetails(resp);
-        console.log(resp.role_Id);
         this.spinner.hide();
         if(resp.status == 500){
             this.errorMsg = "**Invalid Credentials, Please try again";
