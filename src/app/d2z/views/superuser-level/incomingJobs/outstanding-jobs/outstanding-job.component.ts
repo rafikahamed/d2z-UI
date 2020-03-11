@@ -23,6 +23,7 @@ export class SuperOutstandingJobComponent implements OnInit {
   private newAttribute: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
+  errorMsg1: string;
   private selectedTab = 0;
   successMsg: String;
   brokerUserName: String;
@@ -31,6 +32,8 @@ export class SuperOutstandingJobComponent implements OnInit {
   brokerListMainData = [];
   MlidListMainData = [];
   fromDate: String;
+  public recordList = [];
+  file:File;
   type: String;
   tabs = [];
   user_Id: String;
@@ -117,6 +120,10 @@ export class SuperOutstandingJobComponent implements OnInit {
    let piece = 'piece';
    let userId = 'userId';
    var newBrokerEnquiryArray = this.fieldArray;
+ let injectionDate = 'injectionDate';
+   let clearanceDate = 'clearanceDate';
+   let surplus = 'surplus';
+   let damage = 'damage';
  
  
    for (var fieldVal in newBrokerEnquiryArray) {
@@ -142,7 +149,11 @@ export class SuperOutstandingJobComponent implements OnInit {
       enquiryObj[note] = fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
       enquiryObj[held] = fieldObj.held != undefined ? fieldObj.held : '', enquiryObj,
  
-      enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj
+      enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj,
+  enquiryObj[injectionDate] = fieldObj.injectionDate != undefined ? fieldObj.injectionDate : '', enquiryObj,
+    enquiryObj[clearanceDate] = fieldObj.clearanceDate != undefined ? fieldObj.clearanceDate : '', enquiryObj,
+    enquiryObj[surplus] = fieldObj.surplus != undefined ? fieldObj.surplus : '', enquiryObj,
+    enquiryObj[damage] = fieldObj.damage != undefined ? fieldObj.damage : '', enquiryObj
  
      );
      this.importIndividualList.push(enquiryObj);
@@ -155,6 +166,7 @@ export class SuperOutstandingJobComponent implements OnInit {
     this.consigmentUploadService.updateJob(this.importIndividualList, (resp) => {
      this.spinner.hide();
      this.successMsg = resp.message;
+
      $('#brokerEnquiry').modal('show');
  
  
@@ -186,7 +198,10 @@ export class SuperOutstandingJobComponent implements OnInit {
    let flight = 'flight';
    let eta = 'eta';
    let piece = 'piece';
- 
+   let injectionDate = 'injectionDate';
+   let clearanceDate = 'clearanceDate';
+   let surplus = 'surplus';
+   let damage = 'damage';
  
    let userId = 'userId';
    var newBrokerEnquiryArray = this.fieldArray;
@@ -222,7 +237,11 @@ export class SuperOutstandingJobComponent implements OnInit {
       enquiryObj[note] = fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
       enquiryObj[held] = fieldObj.held != undefined ? fieldObj.held : '', enquiryObj,
  
-      enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj
+      enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj,
+  enquiryObj[injectionDate] = fieldObj.injectionDate != undefined ? fieldObj.injectionDate : '', enquiryObj,
+    enquiryObj[clearanceDate] = fieldObj.clearanceDate != undefined ? fieldObj.clearanceDate : '', enquiryObj,
+    enquiryObj[surplus] = fieldObj.surplus != undefined ? fieldObj.surplus : '', enquiryObj,
+    enquiryObj[damage] = fieldObj.damage != undefined ? fieldObj.damage : '', enquiryObj
  
      );
      this.importIndividualList.push(enquiryObj);
@@ -274,6 +293,10 @@ export class SuperOutstandingJobComponent implements OnInit {
    let flight = 'flight';
    let eta = 'eta';
    let piece = 'piece';
+   let injectionDate = 'injectionDate';
+   let clearanceDate = 'clearanceDate';
+   let surplus = 'surplus';
+   let damage = 'damage';
  
    var enquiryObj = (
     enquiryObj = {},
@@ -300,7 +323,11 @@ export class SuperOutstandingJobComponent implements OnInit {
     enquiryObj[note] = fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
     enquiryObj[held] = fieldObj.held != undefined ? fieldObj.held : '', enquiryObj,
  
-    enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj
+    enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj,
+    enquiryObj[injectionDate] = fieldObj.injectionDate != undefined ? fieldObj.injectionDate : '', enquiryObj,
+    enquiryObj[clearanceDate] = fieldObj.clearanceDate != undefined ? fieldObj.clearanceDate : '', enquiryObj,
+    enquiryObj[surplus] = fieldObj.surplus != undefined ? fieldObj.surplus : '', enquiryObj,
+    enquiryObj[damage] = fieldObj.damage != undefined ? fieldObj.damage : '', enquiryObj
  
    );
  
@@ -311,7 +338,12 @@ export class SuperOutstandingJobComponent implements OnInit {
  
    this.spinner.show();
    this.consigmentUploadService.updateJob(this.importIndividualList, (resp) => {
- 
+   console.log(fieldObj.surplus)
+    if(fieldObj.surplus){
+
+    this.consigmentUploadService.heldParcel(this.recordList, (resp) => {
+    })
+    }
     this.successMsg = resp.message;
     $('#brokerEnquiry').modal('show');
     this.consigmentUploadService.outstandingJob((resp) => {
@@ -369,7 +401,12 @@ export class SuperOutstandingJobComponent implements OnInit {
  
       'ata': fieldObj.ata != undefined ? fieldObj.ata : '',
  
-      'jobid': fieldObj.jobid != undefined ? fieldObj.jobid : ''
+      'jobid': fieldObj.jobid != undefined ? fieldObj.jobid : '',
+      'injectionDate' :  fieldObj.injectionDate != undefined ? fieldObj.injectionDate : '',
+      'clearanceDate' :  fieldObj.clearanceDate != undefined ? fieldObj.clearanceDate : '',
+      'surplus' :  fieldObj.surplus != undefined ? fieldObj.surplus : '',
+      'damage' :  fieldObj.damage != undefined ? fieldObj.damage : ''
+
      });
     }
  
@@ -388,8 +425,74 @@ export class SuperOutstandingJobComponent implements OnInit {
    this.errorMsg = null;
    this.successMsg = null;
   };
- 
- 
+ incomingfile(event,mawb) {
+    
+    this.file = event.target.files[0]; 
+    this.importRecords(mawb);
+  }
+
+  importRecords(selectedMawb){
+    var worksheet;
+    this.errorMsg1 = null;
+    let fileReader = new FileReader();
+    this.recordList = [];
+    fileReader.readAsArrayBuffer(this.file);
+    let mawb = 'mawb';
+    let hawb = 'hawb';
+    let note = 'note';
+    let pod = 'pod';
+    let stat = 'stat';
+    let client = 'client';
+
+
+fileReader.onload = (e) => {
+        this.arrayBuffer = fileReader.result;
+          var data = new Uint8Array(this.arrayBuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+          var workbook = XLSX.read(bstr, {type:"binary"});
+          var first_sheet_name = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[first_sheet_name];
+          var exportData = XLSX.utils.sheet_to_json(worksheet);
+          console.log(exportData);
+         this.validateData(exportData);
+          for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+            console.log(dataObj);
+            console.log(this.errorMsg1);
+            if(this.errorMsg1 == null){
+            console.log("No Error");
+              var importObj = (
+                importObj={}, 
+                importObj[hawb]= dataObj['ArticleID'] != undefined ? dataObj['ArticleID'] : '', importObj,
+                importObj[mawb]= selectedMawb, importObj,
+                importObj[stat]= dataObj['SURPLUS/SHORTAGE'] != undefined ? dataObj['SURPLUS/SHORTAGE'] : '', importObj,
+                importObj[note]= 'SURPLUS/SHORTAGE', importObj
+              );
+            this.recordList.push(importObj)
+            
+            }
+        }
+        console.log(this.recordList);
+      }
+  };
+
+
+ validateData(exportData)
+{
+console.log("in validate Data");
+   var statusArr = ["SURPLUS","SHORTAGE"];
+   for (var importVal in exportData) {
+            var dataObj = exportData[importVal];
+            if(this.errorMsg1 == null){
+        
+         if(!statusArr.includes(dataObj['SURPLUS/SHORTAGE'])){
+         this.errorMsg1 = dataObj['ArticleID']+" - Invalid Status";
+         }
+}
+}
+}
  }
  
  

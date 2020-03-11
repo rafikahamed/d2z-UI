@@ -234,7 +234,7 @@
                                   <label class="col-md-2 control-label">OUTTURN</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.outturn" class="form-control" type="checkbox" name="outturn">
+                                      <input [(ngModel)]="tab.outturn" type="checkbox" name="outturn">
                                   </div>
                               </div>
 
@@ -246,7 +246,51 @@
                                   </div>
 
                               </div>
+                              <div class="form-group">
+                                  <label class="col-md-2 control-label">INJECTION DATE</label>
+                                  <div class="col-md-4 inputGroupContainer">
 
+                                      <input [(ngModel)]="tab.injectionDate" class="form-control" type="date" [ngModelOptions]="{standalone: true}" name="{{tab.injectionDate}}">
+                                  </div>
+
+                                  <label class="col-md-2 control-label">CLEARANCE DATE</label>
+                                  <div class="col-md-4 inputGroupContainer">
+
+                                      <input [(ngModel)]="tab.clearanceDate" class="form-control" type="date" name="clearanceDate">
+                                  </div>
+
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-md-2 control-label">DAMAGE/OTHER</label>
+                                  <div class="col-md-8 inputGroupContainer">
+
+                                      <input [(ngModel)]="tab.damage" class="form-control" type="text" name="damage">
+                                  </div>
+
+                              </div>
+                                 <div class="form-group">
+                                            <label class="col-md-2 control-label">SURPLUS/SHORTAGE</label>
+                                            <div class="col-md-2 ">
+                                                <input  
+                                                    [(ngModel)]="tab.surplus" 
+                                                    type="checkbox" 
+                                                    style="width: 20px; height:15px"
+                                                    [checked]="tab.surplus"
+                                                    name="{{tab.surplus}}"
+                                                    [ngModelOptions]="{standalone: true}" />
+                                            </div>
+
+                                              <label  *ngIf="tab.surplus" class="col-md-4 control-label">UPLOAD SURPLUS/SHORTAGE DETAILS</label>
+                                            <div class="col-md-4 inputGroupContainer">
+                                                
+                                                <input type="file" 
+                                                    (change)="incomingfile($event,tab.mawb)"
+                                                    *ngIf="tab.surplus"
+                                                    accept=".xlsx">
+                                                    <p class="err_msg">{{errorMsg1}}</p>
+                                                    
+                                            </div>
+                                          </div>
                               <div class="form-group">
                                   <button type="button" class="btn btn-info" (click)="loadInvoicePending()" style="background-color: #16A085; float:left; margin:10px;">
 
