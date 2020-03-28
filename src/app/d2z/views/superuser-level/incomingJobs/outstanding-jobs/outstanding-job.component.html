@@ -162,7 +162,7 @@
                                   <label class="col-md-2 control-label">DESTINATION</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.dest" class="form-control" type="text" [ngModelOptions]="{standalone: true}" readonly="true" name="{{tab.dest}}">
+                                      <input [(ngModel)]="tab.dest" class="form-control"  type="text" [ngModelOptions]="{standalone: true}" readonly="true" name="{{tab.dest}}">
                                   </div>
 
                               </div>
@@ -171,13 +171,13 @@
                                   <label class="col-md-2 control-label">MAWB</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.mawb" class="form-control" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.mawb}}">
+                                      <input [(ngModel)]="tab.mawb" class="form-control" [readonly] = "!edit" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.mawb}}">
                                   </div>
 
                                   <label class="col-md-2 control-label">HAWB</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.hawb" class="form-control" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.hawb}}">
+                                      <input [(ngModel)]="tab.hawb" class="form-control" [readonly] = "!edit" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.hawb}}">
                                   </div>
                               </div>
 
@@ -185,13 +185,13 @@
                                   <label class="col-md-2 control-label">ETA</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.eta" class="form-control" type="date" [ngModelOptions]="{standalone: true}" name="{{tab.eta}}">
+                                      <input [(ngModel)]="tab.eta" class="form-control" [readonly] = "!edit" type="date" [ngModelOptions]="{standalone: true}" name="{{tab.eta}}">
                                   </div>
 
                                   <label class="col-md-2 control-label">ATA</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.ata" class="form-control" type="date" name="ata">
+                                      <input [(ngModel)]="tab.ata" class="form-control" [readonly] = "!edit" type="date" name="ata">
                                   </div>
 
                               </div>
@@ -200,13 +200,13 @@
                                   <label class="col-md-2 control-label">FLIGHT</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.flight" class="form-control" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.flight}}">
+                                      <input [(ngModel)]="tab.flight" class="form-control" [readonly] = "!edit" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.flight}}">
                                   </div>
 
                                   <label class="col-md-2 control-label">WEIGHT</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.weight" class="form-control" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.weight}}">
+                                      <input [(ngModel)]="tab.weight" class="form-control" [readonly] = "!edit" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.weight}}">
                                   </div>
                               </div>
 
@@ -214,13 +214,13 @@
                                   <label class="col-md-2 control-label">PIECE</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.piece" class="form-control" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.piece}}">
+                                      <input [(ngModel)]="tab.piece" class="form-control" [readonly] = "!edit" type="text" [ngModelOptions]="{standalone: true}" name="{{tab.piece}}">
                                   </div>
 
                                   <label class="col-md-2 control-label">CLEAR</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.clear" class="form-control" type="text" name="clear">
+                                      <input [(ngModel)]="tab.clear" class="form-control" [readonly] = "!edit" type="text" name="clear">
                                   </div>
                               </div>
 
@@ -228,13 +228,13 @@
                                   <label class="col-md-2 control-label">HELD</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.held" class="form-control" type="text" name="held">
+                                      <input [(ngModel)]="tab.held" class="form-control" [readonly] = "!edit" type="text" name="held">
                                   </div>
 
                                   <label class="col-md-2 control-label">OUTTURN</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.outturn" type="checkbox" name="outturn">
+                                      <input [(ngModel)]="tab.outturn" type="checkbox" [readonly] = "!edit" name="outturn">
                                   </div>
                               </div>
 
@@ -242,7 +242,7 @@
                                   <label class="col-md-2 control-label">NOTE</label>
                                   <div class="col-md-8 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.note" class="form-control" type="text" name="note">
+                                      <input [(ngModel)]="tab.note" class="form-control" [readonly] = "!edit" type="text" name="note">
                                   </div>
 
                               </div>
@@ -250,13 +250,13 @@
                                   <label class="col-md-2 control-label">INJECTION DATE</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.injectionDate" class="form-control" type="date" [ngModelOptions]="{standalone: true}" name="{{tab.injectionDate}}">
+                                      <input [(ngModel)]="tab.injectionDate" class="form-control" [readonly] = "!edit" type="date" [ngModelOptions]="{standalone: true}" name="{{tab.injectionDate}}">
                                   </div>
 
                                   <label class="col-md-2 control-label">CLEARANCE DATE</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.clearanceDate" class="form-control" type="date" name="clearanceDate">
+                                      <input [(ngModel)]="tab.clearanceDate" class="form-control" [readonly] = "!edit" type="date" name="clearanceDate">
                                   </div>
 
                               </div>
@@ -264,7 +264,7 @@
                                   <label class="col-md-2 control-label">DAMAGE/OTHER</label>
                                   <div class="col-md-8 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.damage" class="form-control" type="text" name="damage">
+                                      <input [(ngModel)]="tab.damage" class="form-control" [readonly] = "!edit" type="text" name="damage">
                                   </div>
 
                               </div>
@@ -274,6 +274,7 @@
                                                 <input  
                                                     [(ngModel)]="tab.surplus" 
                                                     type="checkbox" 
+                                                    [readonly] = "!edit"
                                                     style="width: 20px; height:15px"
                                                     [checked]="tab.surplus"
                                                     name="{{tab.surplus}}"
@@ -284,6 +285,7 @@
                                             <div class="col-md-4 inputGroupContainer">
                                                 
                                                 <input type="file" 
+                                                [disabled] = "!edit"
                                                     (change)="incomingfile($event,tab.mawb)"
                                                     *ngIf="tab.surplus"
                                                     accept=".xlsx">
@@ -296,10 +298,20 @@
 
                                       Invoices / Invoicing per MAWB
                                   </button>
-                                  <button type="button" class="btn btn-info" (click)="check($event,index)" style="background-color: #16A085; float:right; margin:10px;">
+                                   <button type="button" class="btn btn-info" [disabled]= "edit"  (click)="generateReport($event,index)" style="background-color: #16A085; float:left; margin:10px; ">
+
+                                      Shipment Summary
+                                  </button>
+                                 
+                                           <button type="button" class="btn btn-info" [disabled]= "edit" (click)="edit=true" style="background-color: #16A085; float:right; margin:10px;">
+
+                                      Edit
+                                  </button>
+                                  <button type="button" class="btn btn-info" [disabled]= "!edit" (click)="edit=false;check($event,index)" style="background-color: #16A085; float:right; margin:10px;">
 
                                       Update
                                   </button>
+
                               </div>
 
                           </fieldset>

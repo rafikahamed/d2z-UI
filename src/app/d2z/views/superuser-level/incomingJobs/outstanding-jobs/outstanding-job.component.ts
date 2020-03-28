@@ -349,7 +349,7 @@ export class SuperOutstandingJobComponent implements OnInit {
     this.consigmentUploadService.outstandingJob((resp) => {
      this.spinner.hide();
      this.fieldArray = resp;
-     this.tabs = [];
+     //this.tabs = [];
  
  
  
@@ -367,6 +367,96 @@ export class SuperOutstandingJobComponent implements OnInit {
  
   }
  
+ generateReport(event, index) {
+ 
+   var newBrokerEnquiryArray = this.tabs;
+   var fieldObj = this.tabs[index];
+ 
+   this.errorMsg = '';
+   let clear = 'clear';
+   let outturn = 'outturn';
+   let note = 'note'
+   let ata = 'ata';
+   let held = 'held';
+   let jobid = 'jobid';
+   let broker = 'broker';
+   let mlid = 'mlid';
+   let consignee = 'consignee';
+   let hawb = 'hawb';
+   let dest = 'destination';
+   let weight = 'weight';
+   let mawb = 'mawb';
+   let flight = 'flight';
+   let eta = 'eta';
+   let piece = 'piece';
+   let injectionDate = 'injectionDate';
+   let clearanceDate = 'clearanceDate';
+   let surplus = 'surplus';
+   let damage = 'damage';
+ 
+   var enquiryObj = (
+    enquiryObj = {},
+    enquiryObj[broker] = fieldObj.broker != undefined ? fieldObj.broker : '', enquiryObj,
+    enquiryObj[mlid] = fieldObj.mlid != undefined ? fieldObj.mlid : '', enquiryObj,
+    enquiryObj[consignee] = fieldObj.consignee != undefined ? fieldObj.consignee : '', enquiryObj,
+    enquiryObj[mawb] = fieldObj.mawb != undefined ? fieldObj.mawb : '', enquiryObj,
+    enquiryObj[dest] = fieldObj.dest != undefined ? fieldObj.dest : '', enquiryObj,
+    enquiryObj[flight] = fieldObj.flight != undefined ? fieldObj.flight : '', enquiryObj,
+    enquiryObj[eta] = fieldObj.eta != undefined ? fieldObj.eta : '', enquiryObj,
+    enquiryObj[weight] = fieldObj.weight != undefined ? fieldObj.weight : '', enquiryObj,
+    enquiryObj[piece] = fieldObj.piece != undefined ? fieldObj.piece : '', enquiryObj,
+    enquiryObj[hawb] = fieldObj.hawb != undefined ? fieldObj.hawb : '', enquiryObj,
+    enquiryObj[jobid] = fieldObj.jobid != undefined ? fieldObj.jobid : '', enquiryObj,
+    /** enquiryObj[clear]= this.myForm.controls['clear'].value!= undefined ? this.myForm.controls['clear'].value : '', enquiryObj,
+     enquiryObj[outturn]= this.myForm.controls['outturn'].value != undefined ? this.myForm.controls['outturn'].value: '', enquiryObj,
+      enquiryObj[note]= this.myForm.controls['note'].value != undefined ? this.myForm.controls['note'].value : '', enquiryObj,
+      enquiryObj[held]=this.myForm.controls['held'].value != undefined ? this.myForm.controls['held'].value : '', enquiryObj,
+        
+            enquiryObj[ata]= this.myForm.controls['ata'].value != undefined ? this.myForm.controls['ata'].value : '', enquiryObj**/
+ 
+    enquiryObj[clear] = fieldObj.clear != undefined ? fieldObj.clear : '', enquiryObj,
+    enquiryObj[outturn] = fieldObj.outturn != undefined ? fieldObj.outturn : '', enquiryObj,
+    enquiryObj[note] = fieldObj.note != undefined ? fieldObj.note : '', enquiryObj,
+    enquiryObj[held] = fieldObj.held != undefined ? fieldObj.held : '', enquiryObj,
+ 
+    enquiryObj[ata] = fieldObj.ata != undefined ? fieldObj.ata : '', enquiryObj,
+    enquiryObj[injectionDate] = fieldObj.injectionDate != undefined ? fieldObj.injectionDate : '', enquiryObj,
+    enquiryObj[clearanceDate] = fieldObj.clearanceDate != undefined ? fieldObj.clearanceDate : '', enquiryObj,
+    enquiryObj[surplus] = fieldObj.surplus != undefined ? fieldObj.surplus : '', enquiryObj,
+    enquiryObj[damage] = fieldObj.damage != undefined ? fieldObj.damage : '', enquiryObj
+ 
+   );
+ 
+   console.log(enquiryObj);
+   this.importIndividualList.push(enquiryObj);
+ 
+ 
+ 
+   this.spinner.show();
+   this.consigmentUploadService.generateShipmentSummary(enquiryObj,(resp) => {
+   
+    this.successMsg = resp.message;
+    $('#brokerEnquiry').modal('show');
+    this.consigmentUploadService.outstandingJob((resp) => {
+     this.spinner.hide();
+     this.fieldArray = resp;
+     this.tabs = [];
+ 
+ 
+ 
+ 
+    })
+ 
+ 
+ 
+   });
+ 
+ 
+ 
+ 
+ 
+ 
+  }
   loadInvoicePending() {
    this.global.setoustanding_InvoiceMAWB(true);
    this.router.navigateByUrl('/superuser/invoices/pending');

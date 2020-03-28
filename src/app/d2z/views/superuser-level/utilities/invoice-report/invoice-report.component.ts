@@ -642,7 +642,7 @@ this.uploadBarcodeLabel();
             var dataObj = exportData[importVal];
           
             if(this.errorMsg == null){
-            var importObj = dataObj['Article ID'] != undefined ? dataObj['Article ID'] : '';
+            var importObj = dataObj['ArticleID'] != undefined ? dataObj['ArticleID'] : '';
               
               this.importList1.push(importObj)
             
