@@ -24,6 +24,7 @@ export class SuperOutstandingJobComponent implements OnInit {
   private newCreateAttribute: any = {};
   errorMsg: string;
   errorMsg1: string;
+  errorMsg2: string;
   private selectedTab = 0;
   successMsg: String;
   brokerUserName: String;
@@ -368,10 +369,9 @@ export class SuperOutstandingJobComponent implements OnInit {
   }
  
  generateReport(event, index) {
- 
+    this.errorMsg2 = '';
    var newBrokerEnquiryArray = this.tabs;
    var fieldObj = this.tabs[index];
- 
    this.errorMsg = '';
    let clear = 'clear';
    let outturn = 'outturn';

@@ -293,16 +293,18 @@
                                                     
                                             </div>
                                           </div>
+                                          <p class="err_msg">{{errorMsg2}}</p>
                               <div class="form-group">
                                   <button type="button" class="btn btn-info" (click)="loadInvoicePending()" style="background-color: #16A085; float:left; margin:10px;">
 
                                       Invoices / Invoicing per MAWB
                                   </button>
-                                   <button type="button" class="btn btn-info" [disabled]= "edit"  (click)="generateReport($event,index)" style="background-color: #16A085; float:left; margin:10px; ">
+                                  <div>
+                                   <button type="button" class="btn btn-info" [disabled]= "edit"  (click)="tab.outturn?generateReport($event,index):errorMsg2='Shipment not Outturned'" style="background-color: #16A085; float:left; margin:10px; ">
 
                                       Shipment Summary
                                   </button>
-                                 
+                                 </div>
                                            <button type="button" class="btn btn-info" [disabled]= "edit" (click)="edit=true" style="background-color: #16A085; float:right; margin:10px;">
 
                                       Edit
@@ -313,6 +315,7 @@
                                   </button>
 
                               </div>
+
 
                           </fieldset>
 
