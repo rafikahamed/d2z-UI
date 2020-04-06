@@ -428,8 +428,7 @@ export class SuperOutstandingJobComponent implements OnInit {
    );
  
    console.log(enquiryObj);
-   this.importIndividualList.push(enquiryObj);
- 
+   this.importIndividualList.push(enquiryObj);'']
  
  
    this.spinner.show();
