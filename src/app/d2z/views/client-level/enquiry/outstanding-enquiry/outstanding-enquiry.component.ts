@@ -83,6 +83,7 @@ export class OutstandingEnquiryComponent implements OnInit{
     this.errorMsg = null;
     var fromDate = null;
     var toDate = null;
+    this.status = 'open';
     this.showOutstandingDownload = true;
     this.showOutstandingView = true;
     if(this.fromDate){
