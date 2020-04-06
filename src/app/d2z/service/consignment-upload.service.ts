@@ -282,6 +282,18 @@ updateJob( enquiryData, callback): any {
     });
 };
 
+generateShipmentSummary( enquiryData, callback): any {
+    this.http.post(baseUrl+'/superUser-level/shipmentReport',enquiryData)
+    .subscribe((resp:userMessage) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+};
 updateParcel( enquiryData, callback): any {
     this.http.post(baseUrl+'/superUser-level/update-parcel',enquiryData)
     .subscribe((resp:userMessage) => {
