@@ -350,6 +350,7 @@ export class SuperOutstandingJobComponent implements OnInit {
     this.consigmentUploadService.outstandingJob((resp) => {
      this.spinner.hide();
      this.fieldArray = resp;
+     this.errorMsg2 = '';
      //this.tabs = [];
  
  

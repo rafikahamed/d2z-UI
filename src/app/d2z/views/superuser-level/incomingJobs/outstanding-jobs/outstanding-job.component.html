@@ -234,7 +234,7 @@
                                   <label class="col-md-2 control-label">OUTTURN</label>
                                   <div class="col-md-4 inputGroupContainer">
 
-                                      <input [(ngModel)]="tab.outturn" type="checkbox" [readonly] = "!edit" name="outturn">
+                                      <input [(ngModel)]="tab.outturn" type="checkbox" [disabled] = "!edit" name="outturn">
                                   </div>
                               </div>
 
@@ -274,7 +274,7 @@
                                                 <input  
                                                     [(ngModel)]="tab.surplus" 
                                                     type="checkbox" 
-                                                    [readonly] = "!edit"
+                                                    [disabled] = "!edit"
                                                     style="width: 20px; height:15px"
                                                     [checked]="tab.surplus"
                                                     name="{{tab.surplus}}"
@@ -300,7 +300,7 @@
                                       Invoices / Invoicing per MAWB
                                   </button>
                                   <div>
-                                   <button type="button" class="btn btn-info" [disabled]= "edit"  (click)="tab.outturn?generateReport($event,index):errorMsg2='Shipment not Outturned'" style="background-color: #16A085; float:left; margin:10px; ">
+                                   <button type="button" class="btn btn-info" [disabled]= "edit"  (click)="tab.outturn && tab.injectionDate>=tab.eta && tab.clearanceDate>=tab.eta?generateReport($event,index):errorMsg2='Shipment summary conditions not met'" style="background-color: #16A085; float:left; margin:10px; ">
 
                                       Shipment Summary
                                   </button>
