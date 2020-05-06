@@ -118,10 +118,19 @@
 								<div class="slide-text left">
 									<div class="slider-inner">
 										
-										<h1>Global Freight forwarding  eCommerce and supply chain specialist</h1>
-										<p>Australia’s leading international freight forwarder and ecommerce logistics at your fingertips</p>
+										<h1>ECOMMERCE SPECIALISTS</h1>
+										<p>Australia’s leading international freight forwarder and ecommerce specialist at your fingertips</p>
 										<div class="slide-button">
-											<a  routerLink="/contact" class="button primary">I want a free quote</a>
+											<!-- <a  routerLink="/shipping-quote" class="button primary">I want a free quote</a> -->
+											 <button type="button" class="btn btn-info" (click)="routeShippingQuoteAir()" style=" background-color: #16A085;  margin:10px;">
+
+
+
+                                      Air Quote
+                                  </button>
+                                   <button type="button" class="btn btn-info" (click)="routeShippingQuoteSea()" style=" background-color: #16A085;  margin:10px;">Sea Quote</button>
+                                  <a href="https://d2z.sendeasy.com.au/" target="_blank" > <button type="button" class="btn btn-info" style=" background-color: #16A085;  margin:10px;">Courier Quote</button></a>
+                                   <a routerLink="/customs-quote" > <button type="button" class="btn btn-info" style=" background-color: #16A085;  margin:10px;">Customs Quote</button></a>
 										</div>
 									</div>
 								</div>
@@ -166,36 +175,36 @@
 			<div class="col-md-2 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
 				<div class="single-service">
 					<i class="fa fa-plane"></i>
-					<h2>Import/Export Air Freight</h2>
-					<p>Experts in documentations, rate negotiations and finding the most cost saving ways to get your product into the hands of the buyers</p>
+					<h2>Airfreight</h2>
+					<p>Door-to-door, warehouse to port and everything in between</p>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
 				<div class="single-service">
 					<i class="fa fa-ship"></i>
-					<h2>Sea Freight Forwarding</h2>
-					<p>Specialist in customs clearance available in all major ports of Australia .	</p>
+					<h2>Sea Freight</h2>
+					<p>Ex HKG/CN globally</p>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
 				<div class="single-service">
-					<i class="fa fa-cog"></i>
-					<h2>Track & Trace System</h2>
-					<p>‘Track and Trace' your shipments via our sophisticated web base system.</p>
+					<i class="fa fa-space-shuttle"></i>
+					<h2>Airship</h2>
+					<p>Our revolutionary product, enjoy the benefits of sea freight savings with air freight transits</p>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
 				<div class="single-service">
-					<i class="fa fa-book"></i>
-					<h2>Multiple Injection Ports</h2>
-					<p>Our customs brokers are up to date on all the latest rules and regulations on customs and quarantine so you don’t have to be.</p>
+					<i class="fa fa-users"></i>
+					<h2>B2C</h2>
+					<p>The ecommerce specialist can offer a variety of customised B2C solutions</p>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
 				<div class="single-service">
-					<i class="fa fa-globe"></i>
-					<h2>eCommerce 3PL</h2>
-					<p>A comprehensive full service Third party logistics aimed to deliver efficiency solutions with proven results at every point along the supply chain management.</p>
+					<i class="fa fa-briefcase"></i>
+					<h2>B2B</h2>
+					<p>Tailor-made solutions to streamline supply chain; Cost reduction strategies to win/gain more working capital</p>
 				</div>
 			</div>
 		</div>
@@ -233,19 +242,19 @@
 						<!-- Tab Nav -->
 						<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#welcome"  data-toggle="tab">What we do best</a></li>
-							<li role="presentation"><a href="#ports" data-toggle="tab">Our Ports of Operation</a></li>
-							<li role="presentation"><a href="#information"  data-toggle="tab">Freight Management System</a></li>
+							<!--<li role="presentation"><a href="#ports" data-toggle="tab">Our Ports of Operation</a></li>-->
+							<li role="presentation"><a href="#information"  data-toggle="tab">Technology</a></li>
 						</ul>
 						<!--/ End Tab Nav -->
 						<!-- Tab Content -->
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane fade in active" id="welcome">
-								<p>We are passionate and committed to our customers in finding a logistical solution for every eCommerce needs. Our knowledge of the global eCommerce space will put you ahead of your competitors.</p>
+								<!-- <p>We are passionate and committed to our customers in finding a logistical solution for every eCommerce needs. Our knowledge of the global eCommerce space will put you ahead of your competitors.</p> -->
 								<div class="row">
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<div class="single-tab">
 											<i class="fa fa-check"></i>
-											<h4>Competitive rates and services</h4>
+											<h4>Solution Innovation</h4>
 											
 										</div>
 										
@@ -254,7 +263,7 @@
 										
 										<div class="single-tab">
 											<i class="fa fa-support"></i>
-											<h4>Sophisticated software in 'track and trace' shipments </h4>
+											<h4>Customer Experience</h4>
 										
 										</div>
 										
@@ -263,7 +272,7 @@
 										
 										<div class="single-tab">
 											<i class="fa fa-send"></i>
-											<h4>Real time customer support</h4>
+											<h4>Regional Port Injection</h4>
 											
 										</div>
 										
@@ -271,8 +280,8 @@
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										
 										<div class="single-tab">
-											<i class="fa fa-rocket"></i>
-											<h4>eCommerce parcel injection Australia wide</h4>
+											<i class="fa fa-user"></i>
+											<h4>Account Management</h4>
 											
 										</div>
 										
@@ -352,8 +361,8 @@
 										
 										<div class="single-tab">
 											<i class="fa fa-rocket"></i>
-											<h4>Freight1</h4>
-											<p>Cloud based application with multiple last mile delivery options</p>
+											<h4>Web-based and API</h4>
+											<!--<p>Cloud based application with multiple last mile delivery options</p>-->
 										</div>
 										
 									</div>
@@ -361,8 +370,8 @@
 										
 										<div class="single-tab">
 											<i class="fa fa-rocket"></i>
-											<h4>Freight2</h4>
-											<p>API integration that can be integrated seamlessly</p>
+											<h4>Automated report generation</h4>
+											<!--<p>API integration that can be integrated seamlessly</p>-->
 										</div>
 										
 									</div>
@@ -399,7 +408,7 @@
 	<section id="our-skill" class="section">
 		<div class="container">
 			<div class="row"> 
-				<div class="col-md-7 col-sm-12 col-xs-12 wow fadeIn">
+				<div class="wow fadeIn">
 					<div class="info-main">
 						<div class="section-title center">
 							<h2>D2Z <span>Information</span></h2>
@@ -422,17 +431,16 @@
 						</div>
 						
 						<ul class="info-list">
-							<li><i class="fa fa-check"></i>Best in class logistics solutions with simplified and standardised processes .</li>
-							<li><i class="fa fa-check"></i>Highly driven by customer first motto and committed to delivering the best user experience possible.</li>
-							<li><i class="fa fa-check"></i>Cutting edge technology at highly competitive price points.</li>
-							<li><i class="fa fa-check"></i>Customised solutions for every single customer requirements and problems.</li>
-							<li><i class="fa fa-check"></i>Modern tracking platform with in-house designed web-based System and ready to integrate APIs.</li>
-							<li><i class="fa fa-check"></i>A dynamic system to make supply chain efficient and cost effective.</li>
+							<li><i class="fa fa-check"></i><b>Solution Innovation</b> - we continually scour the globe for improved rates and cutting-edge services</li>
+							<li><i class="fa fa-check"></i><b>Customer Experience</b> - system focused Customer Service & Returns providing real time updates</li>
+							<li><i class="fa fa-check"></i><b>Regional Port Injection</b> - including Darwin, Cairns, Gold Coast and Geelong</li>
+							<li><i class="fa fa-check"></i><b>System Generated Reports</b> - including held items, returns, enquiries open, shipment and delivery</li>
+							<li><i class="fa fa-check"></i><b>Account Management</b> - discussing performance and opportunities, we believe in building a strong relationship to benefit both parties</li>
 						</ul>	
 					</div>
 					
 				</div>				
-				<div class="col-md-5 col-sm-10 col-xs-10">
+				<!-- <div class="col-md-5 col-sm-10 col-xs-10">
 					
 					<div class="skill-main">
 						<div class="section-title left">
@@ -468,8 +476,9 @@
 						
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
+	</div>
 	</section>
 
 	<div id="why-choose" class="section">
@@ -479,7 +488,7 @@
 		<div class="why-image">
 		<!--	<div class="video"><a href="https://www.youtube.com/watch?v=wZWiRoktNWA" 
 							class="video-play mfp-iframe wow zoomIn"><i class="fa fa-play"></i></a></div>-->
-								<img src="../../../assets/img/Slide1.png" alt=""/>
+								<img src="../../../assets/img/WhyChooseUs.png" alt=""/>
 		</div>
 		</div>
 				<div class="col-md-7 col-sm-12 col-xs-12 wow fadeIn">
@@ -496,7 +505,7 @@
 		</div>
 	</div>	
 
-	<section id="testimonial" class="section wow fadeIn">
+	<!--<section id="testimonial" class="section wow fadeIn">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
@@ -537,7 +546,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
 
 	<section id="contact" class="section">
 		<div class="container">
@@ -599,40 +608,42 @@
 
 				<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
 					<div class="section-title center">
-						<h2>Our <span>Location</span></h2>
+						<h2>Our <span>Details</span></h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
+
+				<div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+					<div class="section-title center">
+					<i class="fa fa-linkedin-square" style="font-size: 48px">	</i>				
+					</div>
+				</div>
+			</div>
+			<!-- <div class="row">
 				<div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-					<!-- Single Address -->
 					<div class="single-address">
 						<i class="fa fa-phone"></i>
 						<h4>Our Phone</h4>
 						<p>	+61470271180 </p>
 					</div>
-					<!--/ End Single Address -->
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
-					<!-- Single Address -->
 					<div class="single-address active">
 						<i class="fa fa-phone"></i>
 						<h4></h4>
 						<p>Ground Floor, Suite 3, 410 Church Street, North Parramatta, NSW - 2151.</p>
 					</div>
-					<!--/ End Single Address -->
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-					<!-- Single Address -->
 					<div class="single-address">
 						<i class="fa fa-phone"></i>
 						<h4>Corporate Email</h4>
 						<p>dwayne@d2z.com.au</p>
 					</div>
-					<!--/ End Single Address -->
 				</div>
 
-			</div>
+			</div> -->
 		</div>
 	</section>
 

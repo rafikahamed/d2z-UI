@@ -1,0 +1,401 @@
+<!-- Start Header -->
+<header id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                    <!-- Logo -->
+                    <div class="logo">
+                    </div>
+                    <!--/ End Logo -->
+                </div>
+                <div class="col-md-10 col-sm-12 col-xs-12">
+                    <div class="nav-area">
+                        <!-- Main Menu -->
+                        <nav class="mainmenu">
+                     
+                        <div class="mobile-nav"></div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav menu">
+                                <li><a routerLink="/home">Home</a></li>
+                                <li><a routerLink="/service">Services</a></li>
+                                <li><a routerLink="/about">About Us</a></li>
+                                <li><a routerLink="/whychoose">Why Choose</a></li>
+                                
+                                <li><a routerLink="/contact">Contact US</a></li>
+                                <li><a routerLink="/policy">Legal</a></li>
+                                <li><a routerLink="/track-parcel">Track Parcel</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#myModal">Login</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                        <!--/ End Main Menu -->
+                    </div>
+                </div>
+            </div>
+        </div>
+</header>
+<!--/ End Header -->
+  
+<!--Start Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+      <div class="modal-body">
+        <div class="limiter">
+          <div class="container-login100">
+            <div class="wrap-login100">
+              <div class="login100-pic js-tilt" data-tilt>
+                <img src="../../../assets/img/d2z-logo-login.png" alt="IMG">
+              </div>
+      
+              <form class="login100-form validate-form" [formGroup]="loginForm">
+                <span class="login100-form-title">
+                  D2Z Login
+                </span>
+      
+                <div class="wrap-input100 validate-input" data-validate = "UserName is required">
+                  <input class="input100" type="text" name="UserName" placeholder="UserName"
+                                  formControlName="userName">
+                  <span class="focus-input100"></span>
+                  <span class="symbol-input100">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                  </span>
+                </div>
+      
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                  <input class="input100" type="password" name="pass" placeholder="Password"
+                              formControlName="passWord">
+                  <span class="focus-input100"></span>
+                  <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                  </span>
+                </div>
+
+                <div>
+                  <p class="error-msg">{{errorMsg}}</p>
+                </div>
+                
+                <div class="container-login100-form-btn">
+                  <button class="login100-form-btn" (click)="login()">
+                    Login
+                  </button>
+                </div>
+      
+                <div class="text-center p-t-12">
+                  <span class="txt1">
+                    Forgot
+                  </span>
+                  <a class="txt2" href="#">
+                    Username / Password?
+                  </a>
+                </div>
+      
+                <!-- <div class="text-center p-t-136">
+                  <a class="txt2" href="#">
+                    Create your Account
+                    <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                  </a>
+                </div> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+<!--End Modal -->
+
+
+
+
+<section id="our-skill" class="section" style="padding:0px">
+        <div class="container">
+          <div class="row"> 
+            <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+              <div class="info-main">
+                <div class="section-title left">
+                  <h2 style="font-size: 20px; text-align: center">  
+                        <span> SHIPPING QUOTE - {{shippingQuoteMode}}</span></h2>
+                        <h4 class="modal-title text-success" style="font-size: 14px; text-align: center">{{successMsg}}</h4>
+
+                </div>
+              </div>
+              <div>
+              </div>
+            </div>    
+          </div>
+        </div>
+    </section>
+              <!-- Modal -->
+             <!--  <div class="modal fade" id="brokerEnquiry" role="dialog">
+                  <div class="modal-dialog">
+                      <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                          </div>
+                          <div class="modal-footer">
+                          </div>
+                      </div>
+                  </div>
+              </div> -->
+                <div class = "quoteForm">
+                      <form name="ngForm" class="well form-horizontal" [formGroup]="companyDetails">
+                          <fieldset>
+                              <div class="form-group">
+                                 
+
+                                  <label class="col-md-3 control-label">NAME</label>
+                                  <div class="col-md-6 inputGroupContainer">
+
+                                      <input id="name" class="form-control" type="text" required  formControlName="name" >
+                                      <div *ngIf="name.errors.required"> Name is required.</div>
+                                      <div *ngIf="name.errors.maxlength"> Name can be max 100 characters long.</div>
+
+                                  </div>
+
+                             </div>
+
+                              
+
+                              <div class="form-group">
+                                  
+
+                                  <label class="col-md-3 control-label">COMPANY NAME</label>
+                                  <div class="col-md-6 inputGroupContainer">
+
+                                      <input id="companyName" class="form-control"  type="text" required formControlName="companyName">
+                                      <div *ngIf="companyName.errors.required"> Company Name is required.</div>
+                                      <div *ngIf="companyName.errors.maxlength"> Company Name can be max 100 characters long.</div>
+                                  </div>
+
+                                  </div>
+
+                              
+
+                              <div class="form-group">
+                               
+
+                                  <label class="col-md-3 control-label">EMAIL ADDRESS</label>
+                                  <div class="col-md-6 inputGroupContainer">
+
+                                      <input id="emailAddress" class="form-control" type="email" required formControlName="emailAddress">
+                                      <div *ngIf="emailAddress.errors.required"> Email Address is required.</div>
+                                      <div *ngIf="emailAddress.errors.maxlength"> Email Address can be max 100 characters long.</div>
+                                  </div>
+</div>
+</fieldset>
+</form>
+</div>
+
+              <div class = "quoteForm">
+                      <form #myForm="ngForm" class="well form-horizontal" [formGroup]="quoteDetails">
+                          <fieldset>
+                              <div class="form-group">
+                                 
+
+                                  <label class="col-md-3 control-label">DEPARTURE</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                      <input id="departure" class="form-control" type="text"  formControlName="departure" required placeholder="City,Post Code,Country">
+                                      <div *ngIf="departure.invalid">Departure is required.</div>
+                                  </div>
+
+                                  <label class="col-md-3 control-label">DEPARTURE TYPE</label>
+                                  <div class="col-md-3 inputGroupContainer">
+                                 <p-dropdown [options]="departureArrivalType" 
+                                              formControlName="selectedDepartureType" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true">
+                                </p-dropdown>          </div>
+
+                              </div>
+
+                              <div class="form-group">
+                                  
+
+                                  <label class="col-md-3 control-label">ARRIVAL</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                      <input id="arrival" class="form-control"  type="text"  formControlName="arrival" required placeholder="City,Post Code,Country">
+                                      <div *ngIf="arrival.invalid">Arrival is required.</div>
+                                  </div>
+
+                                     <label class="col-md-3 control-label">ARRIVAL TYPE</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                       <p-dropdown [options]="departureArrivalType" 
+                                              formControlName="selectedArrivalType" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true">
+                                </p-dropdown>
+                                  </div>
+
+                              </div>
+
+                              <div class="form-group">
+                               
+
+                                  <label class="col-md-3 control-label">CARGO READY DATE</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                      <input id="cargoDate" class="form-control" type="date" formControlName="cargoDate">
+                                  </div>
+
+                                   <label class="col-md-3 control-label">COMMODITY</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                      <textarea id="commodity"  formControlName="commodity"style=width:100%; ></textarea> 
+                                      <div *ngIf="commodity.invalid">Commodity can be max 100 characters long..</div>
+
+                                  </div>
+
+                              </div>
+
+                              <div class="form-group">
+                                 
+                                  <label class="col-md-3 control-label">PACKING TYPE</label>
+                                  <div class="col-md-3 ">
+
+                                        <p-dropdown [options]="packingType" 
+                                              formControlName="selectedPackingType" 
+                                               optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true">
+                                </p-dropdown>
+                                  </div>
+
+                                   <label class="col-md-3 control-label">SHIPPING QUANTITY</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                      <input id="shippingQuantity" class="form-control" type="number" formControlName="shippingQuantity">
+                                  </div>
+
+                              </div>
+
+                              <div class="form-group">
+                                 
+
+                                  <label class="col-md-3 control-label">TOTAL WEIGHT (KG)</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                      <input id="weight" class="form-control" type="number"  formControlName="weight">
+                                  </div>
+                                  <label class="col-md-3 control-label">INCOTERMS</label>
+                                  <div class="col-md-3 inputGroupContainer">
+
+                                       <textarea id="incoterms" formControlName="incoterms" style=width:100%; ></textarea>
+                                      <div *ngIf="incoterms.invalid">Incoterms can be max 100 characters long.</div>
+
+                                  </div>
+                                    
+                              </div>
+
+                              <div class="form-group">
+                                
+                                <label class="col-md-3 control-label">DIMENSIONS (CM)</label>
+                                  <div class="col-md-1 inputGroupContainer">
+
+                                      <input id="dimHeight" class="form-control"  type="number" required="required"   formControlName="dimHeight" title = "Please provide a numerial value">
+                                      </div><span class="col-md-1" style="text-align:center;">X</span>
+                                       <div class="col-md-1 inputGroupContainer">
+                                       <input id="dimWidth" class="form-control"  type="number" required="required" formControlName="dimWidth" title = "Please provide a numerial value"></div> 
+                                       <span class="col-md-1" style="text-align:center;">X</span>
+                                        <div class="col-md-1 inputGroupContainer">
+                                        <input id="dimLength" class="form-control" type="number" required="required"   formControlName="dimLength" title = "Please provide a numerial value">
+                                  </div>
+                                
+                               
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-3 control-label">STACKABLE?</label>
+                                  <div class="col-md-2 inputGroupContainer">
+
+                                      <p-dropdown [options]="answerOptions" 
+                                              formControlName="stackable" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true"
+                                              [style]="{'width':'100%'}">
+                                </p-dropdown>
+                                  </div>
+
+                                  <label class="col-md-3 control-label">HAZARDOUS?</label>
+                                  <div class="col-md-2 inputGroupContainer">
+
+                                      <p-dropdown [options]="answerOptions" 
+                                              formControlName="hazardous" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true"
+                                              [style]="{'width':'100%'}">
+                                </p-dropdown>                                  </div>
+</div>
+<div class="form-group">
+                            
+                                  <label class="col-md-3 control-label">CARGO INSURANCE?</label>
+                                  <div class="col-md-2 inputGroupContainer">
+
+                                       <p-dropdown [options]="answerOptions" 
+                                              formControlName="insurance" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true"
+                                              [style]="{'width':'100%'}">
+                                </p-dropdown>
+                                  </div>
+
+                                  <label class="col-md-3 control-label">PERSONAL EFFECTS?</label>
+                                  <div class="col-md-2 inputGroupContainer">
+
+                                       <p-dropdown [options]="answerOptions" 
+                                              formControlName="personalEffects" 
+                                              optionLabel="name" 
+                                              [style]="{'width':'100%'}"
+                                              [showClear]="true"
+                                              [editable]="true"
+                                              [style]="{'width':'100%'}">
+                                </p-dropdown>
+                                  </div>
+                              </div>
+                                
+                                  <button type="button" class="btn btn-info" (click)="submit()" style=" float:right; background-color: #16A085;  margin:10px;">
+
+                                      Submit
+                                  </button>
+
+                              
+
+                          </fieldset>
+
+                      </form>
+
+                    </div>
+
+                     <footer id="footer" class="wow fadeIn">
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="text">
+                        <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>D2Z</a> Logistics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+      

@@ -6,10 +6,11 @@ import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
-const baseUrl = "https://"+hostname+"/v1/"+apiName;
+//const baseUrl = "https://"+hostname+"/v1/"+apiName;
 // const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
 // const baseUrl = "http://52.65.135.232:8080/v1/d2z";
-
+//const baseUrl = "http://18.220.140.225:8080/v1/d2z"; 
+const baseUrl = "http://localhost:8080/v1/d2z"; 
 @Injectable()
 export class ConsigmentUploadService implements OnInit{
 
@@ -73,6 +74,21 @@ export class ConsigmentUploadService implements OnInit{
      this.http.get(baseUrl+'/contactUs',{
       params: { email: ContactObject.Email, name: ContactObject.Name ,subject:ContactObject.Subject,message:ContactObject.Message }}
             ).subscribe((resp) => {
+              callback(resp);
+              if (resp) {
+                
+              } else {
+                  console.error("Not Found!")
+              }
+            }, (error) => {
+                callback(error);
+            });
+
+  };
+    shippingQuote( object, callback ): any {
+ 
+     this.http.post(baseUrl+'/shippingQuote',object
+            ).subscribe((resp:userMessage) => {
               callback(resp);
               if (resp) {
                 

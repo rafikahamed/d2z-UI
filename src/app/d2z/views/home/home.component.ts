@@ -5,6 +5,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginService } from 'app/d2z/service/login.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
+import { Global } from 'app/d2z/service/Global';
+
 declare var $: any;
 
 @Component({
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit{
     public loginservice: LoginService,
     public consigmentUploadService: ConsigmentUploadService,
     private router: Router,
+     public global: Global,
     private spinner: NgxSpinnerService,
     private meta: Meta
   ) {
@@ -167,6 +170,15 @@ this.spinner.show();
     }else{
       this.errorMsg = "Form is invalid";
     }
+  }
+
+  routeShippingQuoteAir() {
+   this.global.setShippingQuote("AIR");
+   this.router.navigateByUrl('/shipping-quote');
+  }
+  routeShippingQuoteSea(){
+  this.global.setShippingQuote("SEA");
+   this.router.navigateByUrl('/shipping-quote');
   }
 }
 
