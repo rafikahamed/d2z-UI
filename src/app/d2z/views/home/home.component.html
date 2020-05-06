@@ -121,7 +121,16 @@
 										<h1>ECOMMERCE SPECIALISTS</h1>
 										<p>Australia’s leading international freight forwarder and ecommerce specialist at your fingertips</p>
 										<div class="slide-button">
-											<a  routerLink="/contact" class="button primary">I want a free quote</a>
+											<!-- <a  routerLink="/shipping-quote" class="button primary">I want a free quote</a> -->
+											 <button type="button" class="btn btn-info" (click)="routeShippingQuoteAir()" style=" background-color: #16A085;  margin:10px;">
+
+
+
+                                      Air Quote
+                                  </button>
+                                   <button type="button" class="btn btn-info" (click)="routeShippingQuoteSea()" style=" background-color: #16A085;  margin:10px;">Sea Quote</button>
+                                  <a href="https://d2z.sendeasy.com.au/" target="_blank" > <button type="button" class="btn btn-info" style=" background-color: #16A085;  margin:10px;">Courier Quote</button></a>
+                                   <a routerLink="/customs-quote" > <button type="button" class="btn btn-info" style=" background-color: #16A085;  margin:10px;">Customs Quote</button></a>
 										</div>
 									</div>
 								</div>

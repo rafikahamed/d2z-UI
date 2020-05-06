@@ -1,0 +1,61 @@
+.gst-service p{
+    font-size: 15px;
+  }
+  
+  .article-png{
+    text-align: center;
+    margin-left: 100px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .subheading{
+    margin-top: 25px;
+    font-size: 17px;
+    color: #398039;
+  }
+
+
+  .info-list li {
+  margin-bottom: 15px;
+  font-weight: 400;
+  color: #555;
+}
+.info-list li:last-child{
+  margin:0;
+}
+ .info-list li i {
+  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  margin-right: 10px;
+  line-height: 20px;
+  text-align: center;
+}
+.grid-container {
+  width:60%;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left:20%;
+  margin-right:20%;
+  margin-bottom: 10px;
+}
+
+.grid-container > div {
+border: 1px solid #000;
+  text-align: center;
+  padding: 10px 0;
+  
+}
+.grid-container > div > a{
+font-size:24px;
+color:#FF0000;
+  
+}
+.grid-container > div > h6{
+color:#000000;
+  
+}

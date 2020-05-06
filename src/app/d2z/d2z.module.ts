@@ -17,6 +17,8 @@ import { AboutComponent } from 'app/d2z/views/about/about.component'
 import { ContactComponent } from 'app/d2z/views/contact/contact.component'
 import { WhyChooseComponent } from 'app/d2z/views/whychoose/whychoose.component'
 import { TrackParcelComponent } from 'app/d2z/views/track-parcel/track-parcel.component'
+import { ShippingQuoteComponent } from 'app/d2z/views/shipping-quote/shipping-quote.component'
+import { CustomsQuoteComponent } from 'app/d2z/views/customs-quote/customs-quote.component'
 import { LoginService } from 'app/d2z/service/login.service';
 import { Global } from 'app/d2z/service/Global';
 import { ZebraFileUpload } from 'app/d2z/views/client-level/consignment/file-upload/file-upload.component';
@@ -156,6 +158,8 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
           { path: "whychoose",component:WhyChooseComponent},
           { path: "service", component : ServiceComponent},
           { path: "track-parcel", component: TrackParcelComponent},
+          { path: "shipping-quote", component: ShippingQuoteComponent},
+          { path: "customs-quote", component: CustomsQuoteComponent},
           { path: "superuser/rates/add", component: SuperUserRatesAddComponent},
           { path: "superuser/rates/update", component: SuperUserRatesUpdateComponent},
           { path: "superuser/rates/d2z-rates", component: SuperUserD2ZRatesComponent},
@@ -228,6 +232,8 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
     WhyChooseComponent,
     ContactComponent,
     TrackParcelComponent,
+    ShippingQuoteComponent,
+    CustomsQuoteComponent,
     EtowerTrackingComponent,
     ClientHeaderComponent,
     BrokerHeaderComponent,
