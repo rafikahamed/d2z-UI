@@ -229,7 +229,11 @@ body{
 }
 body .container.body .right_col{
     background:#F7F7F7;
-    width:1200px
+    /* width:1200px */
+}
+
+.table1 td{
+    padding:0 15px 0 0px;
 }
 
 .nav-md .container.body .right_col{
@@ -243,7 +247,7 @@ body .container.body .right_col{
 
 .table1 {
     display: table;
-    width: 80%;
+    width: 85%;
     height: 100%;
     
 }
@@ -284,6 +288,7 @@ body .container.body .right_col{
     float: left;
     display: block;
     border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 .page-title .title_left h3{
     margin:9px 0
