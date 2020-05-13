@@ -1,3 +1,6 @@
+ #header{
+    background: #16A085;
+  }
 .gst-service p{
     font-size: 15px;
   }
@@ -10,21 +13,20 @@
   }
   
   .subheading{
-    margin-top: 25px;
     font-size: 17px;
-    color: #398039;
+    color: #16A085;
   }
 
 
-  .info-list li {
+.info-list li {
   margin-bottom: 15px;
   font-weight: 400;
   color: #555;
 }
-.info-list li:last-child{
+ .info-list li:last-child{
   margin:0;
 }
- .info-list li i {
+.info-list li i {
   border: 1px solid;
   width: 20px;
   height: 20px;
@@ -34,28 +36,33 @@
   text-align: center;
 }
 .grid-container {
-  width:60%;
+
+  width:90%;
   display: grid;
   grid-template-columns: auto auto auto auto;
-  padding: 10px;
-  margin-top: 10px;
-  margin-left:20%;
-  margin-right:20%;
+  margin-top: 20px;
+  margin-left:20px;
+  margin-right:20px;
   margin-bottom: 10px;
 }
 
-.grid-container > div {
-border: 1px solid #000;
-  text-align: center;
-  padding: 10px 0;
-  
+.item1 {
+  grid-column: 1;
+  grid-row: 1 / span 4;
 }
+  
+
+
 .grid-container > div > a{
-font-size:24px;
+  text-align: center;
+color:#000000;
+
+}
+.icon{
+  font-size:24px;
 color:#FF0000;
   
 }
 .grid-container > div > h6{
-color:#000000;
   
 }

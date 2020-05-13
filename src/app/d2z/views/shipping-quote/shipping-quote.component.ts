@@ -1,12 +1,12 @@
-import { Component, ViewChild,ChangeDetectorRef,OnInit, Compiler} from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { NgForm,FormGroup, FormControl,  FormArray, FormBuilder, Validators } from '@angular/forms';
-declare var $: any;
-import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
-import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
+import { Component, ElementRef, ViewChild, OnInit, Injectable} from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LoginService } from 'app/d2z/service/login.service';
+import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { Global } from 'app/d2z/service/Global';
-import * as XLSX from 'xlsx';
+
+declare var $: any;
 
 interface dropdownTemplate {
   name: string;
@@ -20,63 +20,29 @@ interface dropdownTemplate {
 })
 
 export class ShippingQuoteComponent implements OnInit {
-  @ViewChild('myForm') myForm: NgForm;
- 
-  private fieldArray = [];
-  private fieldArrayout = [];
-  private fieldCreateArray: Array < any > = [];
-  private newAttribute: any = {};
-  private newCreateAttribute: any = {};
   errorMsg: string;
-  errorMsg1: string;
-  errorMsg2: string;
-  private selectedTab = 0;
-  successMsg: String;
-  shippingQuoteMode : String;
-  brokerUserName: String;
-  displayedColumns = ["Broker", "Mlid", "Consignee"];
-  consigneedata: String;
-  brokerListMainData = [];
-  MlidListMainData = [];
-  fromDate: String;
-  public recordList = [];
-  file:File;
-  type: String;
-  tabs = [];
-  user_Id: String;
-  system: String;
-  arrayBuffer: any;
-  form: FormGroup;
+    successMsg: String;
+    shippingQuoteMode : String;
+  loginForm: FormGroup;
+  userMessage: userMessage;
+  loginBut: boolean;
   companyDetails: FormGroup;
   quoteDetails: FormGroup;
 departureArrivalType:dropdownTemplate[];
      packingType : dropdownTemplate[];
   answerOptions : dropdownTemplate[];
-  public importList = [];
-  public importIndividualList = [];
-  public importFileList = [];
-  englishFlag: boolean;
-  public selectedIndex: number = 0;
-  showFile: boolean;
-   loginForm: FormGroup;
-  userMessage: userMessage;
-  loginBut: boolean;
   constructor(
-   public consigmentUploadService: ConsigmentUploadService,
-   public trackingDataService: TrackingDataService,
-   public global: Global,
-   private spinner: NgxSpinnerService,
-   private router: Router,
-   private fb: FormBuilder,
- 
-   private change: ChangeDetectorRef,
-   private _compiler: Compiler
-  ) {
-   this._compiler.clearCache();
-   this.form = this.fb.group({
-    published: true,
-    credentials: this.fb.array([]),
-   });
+    public loginservice: LoginService,
+    public consigmentUploadService: ConsigmentUploadService,
+       public global: Global,
+
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ){
+    this.loginForm = new FormGroup({
+      userName: new FormControl('', Validators.required),
+      passWord: new FormControl('', Validators.required)
+    });
     this.companyDetails = new FormGroup({
             companyName: new FormControl('',[Validators.required, Validators.maxLength(100)]),
             name: new FormControl('',[Validators.required, Validators.maxLength(100)]),
@@ -104,7 +70,6 @@ departureArrivalType:dropdownTemplate[];
        });
  
   }
-
  get name(){
  return this.companyDetails.get('name');
  }
@@ -127,9 +92,9 @@ departureArrivalType:dropdownTemplate[];
  return this.quoteDetails.get('arrival');
  } 
 
-  ngOnInit() {
-   this.spinner.show();
-  
+  ngOnInit(){
+    console.log("inside the data");
+
    this.shippingQuoteMode = this.global.getShippingQuote();
    this.departureArrivalType = [
    {"name" : "Residential","value" : "Residential"},
@@ -150,6 +115,7 @@ departureArrivalType:dropdownTemplate[];
    {"name" : "No", "value" : "No"}];
  
   };
+
   validateForm(){
     var input = $('.validate-input .input100');
     $('.validate-form').on('submit',function(){
@@ -219,7 +185,7 @@ departureArrivalType:dropdownTemplate[];
     }
     $('#myModal').modal('toggle');
   }
-    submit(){
+   submit(){
       let companyName = 'companyName';
       let name = 'name';
       let emailAddress = 'emailAddress';
@@ -281,10 +247,9 @@ departureArrivalType:dropdownTemplate[];
         }, 5000);
       });
     }
+}
 
-    }
-
-    export interface userMessage {
+export interface userMessage {
   contactName,
   address,
   suburb,
@@ -298,5 +263,3 @@ departureArrivalType:dropdownTemplate[];
   role_Id,
   companyName
 }
-
- 
