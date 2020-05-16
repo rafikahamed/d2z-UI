@@ -240,7 +240,7 @@
 
                               <div class="form-group">
                                   <label class="col-md-2 control-label">NOTE</label>
-                                  <div class="col-md-8 inputGroupContainer">
+                                  <div class="col-md-4 inputGroupContainer">
 
                                       <input [(ngModel)]="tab.note" class="form-control" [readonly] = "!edit" type="text" name="note">
                                   </div>
@@ -260,16 +260,18 @@
                                   </div>
 
                               </div>
-                              <div class="form-group">
+
+                              <!-- <div class="form-group">
                                   <label class="col-md-2 control-label">DAMAGE/OTHER</label>
                                   <div class="col-md-8 inputGroupContainer">
 
                                       <input [(ngModel)]="tab.damage" class="form-control" [readonly] = "!edit" type="text" name="damage">
                                   </div>
 
-                              </div>
+                              </div> -->
+
                                  <div class="form-group">
-                                            <label class="col-md-2 control-label">SURPLUS/SHORTAGE</label>
+                                            <!-- <label class="col-md-2 control-label">SURPLUS/SHORTAGE</label>
                                             <div class="col-md-2 ">
                                                 <input  
                                                     [(ngModel)]="tab.surplus" 
@@ -279,11 +281,12 @@
                                                     [checked]="tab.surplus"
                                                     name="{{tab.surplus}}"
                                                     [ngModelOptions]="{standalone: true}" />
-                                            </div>
+                                            </div> -->
 
-                                              <label  *ngIf="tab.surplus" class="col-md-4 control-label">UPLOAD SURPLUS/SHORTAGE DETAILS</label>
-                                            <div class="col-md-4 inputGroupContainer">
-                                                
+                                        <!-- <label  *ngIf="tab.surplus" class="col-md-4 control-label">UPLOAD SURPLUS/SHORTAGE DETAILS</label> -->
+                                        <label class="col-md-2 control-label">UPLOAD SURPLUS/SHORTAGE DETAILS</label>
+                                            
+                                            <div class="col-md-4 inputGroupContainer" style="margin-top: 15px"> 
                                                 <input type="file" 
                                                 [disabled] = "!edit"
                                                     (change)="incomingfile($event,tab.mawb)"
