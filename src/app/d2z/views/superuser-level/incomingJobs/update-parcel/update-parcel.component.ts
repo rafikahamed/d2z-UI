@@ -135,6 +135,10 @@ tabs =[];
      
   };
 
+  tabChanged(){
+    
+  }
+
  onClientTypeChange(event){
 console.log( event);
     this.client = event.value ? event.value.value: '';

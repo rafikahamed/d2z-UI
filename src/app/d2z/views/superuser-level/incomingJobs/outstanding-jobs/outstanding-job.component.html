@@ -270,7 +270,13 @@
 
                               </div> -->
 
-                                 <div class="form-group">
+                                <div class="form-group" style="margin-top:10px">
+                                                <div style="margin-left: 15px;margin-bottom:30px">
+                                                    <a  href="/assets/forms/HeldParcels_Template.xlsx" class="fa fa-file-excel-o" 
+                                                            style="color: darkgreen; font-size:17px; float: left;" download>
+                                                              **Please click here to download the template 
+                                                    </a>
+                                                </div>
                                             <!-- <label class="col-md-2 control-label">SURPLUS/SHORTAGE</label>
                                             <div class="col-md-2 ">
                                                 <input  
@@ -284,20 +290,21 @@
                                             </div> -->
 
                                         <!-- <label  *ngIf="tab.surplus" class="col-md-4 control-label">UPLOAD SURPLUS/SHORTAGE DETAILS</label> -->
-                                        <label class="col-md-2 control-label">UPLOAD SURPLUS/SHORTAGE DETAILS</label>
+                                        <label class="col-md-2 control-label">UPLOAD PARCEL DETAILS</label>
                                             
-                                            <div class="col-md-4 inputGroupContainer" style="margin-top: 15px"> 
+                                            <div class="col-md-4 inputGroupContainer" style="margin-top:5px"> 
                                                 <input type="file" 
                                                 [disabled] = "!edit"
                                                     (change)="incomingfile($event,tab.mawb)"
-                                                    *ngIf="tab.surplus"
                                                     accept=".xlsx">
                                                     <p class="err_msg">{{errorMsg1}}</p>
                                                     
                                             </div>
-                                          </div>
-                                          <p class="err_msg">{{errorMsg2}}</p>
-                              <div class="form-group">
+                                </div>
+                            
+                            <p class="err_msg">{{errorMsg2}}</p>
+                              
+                            <div class="form-group">
                                   <button type="button" class="btn btn-info" (click)="loadInvoicePending()" style="background-color: #16A085; float:left; margin:10px;">
 
                                       Invoices / Invoicing per MAWB
