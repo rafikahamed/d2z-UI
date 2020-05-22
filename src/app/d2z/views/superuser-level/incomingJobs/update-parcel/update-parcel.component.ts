@@ -18,16 +18,16 @@ export class SuperUpdateParcelComponent implements OnInit{
 @ViewChild('myForm') myForm: NgForm;
 
   private fieldArray = [];
-   private fieldArrayout = [];
+  private fieldArrayout = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
- errorMsg1:String;
- successMsg1: String;
+  errorMsg1:String;
+  successMsg1: String;
   successMsg: String;
   brokerUserName: String;
-    brokerListMainData = [];
+  brokerListMainData = [];
      file:File;
   brokerDropdown: City[];  
    brokerDropdownValue = [];
@@ -136,7 +136,7 @@ tabs =[];
   };
 
   tabChanged(){
-    
+
   }
 
  onClientTypeChange(event){

@@ -481,23 +481,23 @@ export class SuperOutstandingJobComponent implements OnInit {
   };
 
   validateData(exportData){
-    console.log("in validate Data");
-    var statusArr = ["AQIS HELD","BORDER HELD","CLEAR"];
-    var destinationArr = ["PER","SYD","ADL","BNE","MEL","OTH"];
-    for (var importVal in exportData) {
-            var dataObj = exportData[importVal];
-            console.log(this.errorMsg);
-            if(this.errorMsg1 == null){
-                //if(!(dataObj['STATUS'] != undefined && (dataObj['STATUS'] === 'AQIS HELD' || dataObj['STATUS'] === 'BORDER HELD' || dataObj['STATUS'] === 'CLEAR')))
-                if(!statusArr.includes(dataObj['STATUS'])){
-                    this.errorMsg1 = dataObj['MAWB']+" - Invalid Status";
-                }
-                //if(!(dataObj['POD'] != undefined && (dataObj['POD'] === 'PER' || dataObj['POD'] === 'SYD' || dataObj['POD'] === 'MEL' || dataObj['POD'] === 'ADL' || dataObj['POD'] === 'BNY' || dataObj['POD'] === 'OTH')))
-                if(!destinationArr.includes(dataObj['POD'])){       
-                    this.errorMsg1 = dataObj['MAWB']+" - Invalid POD";
-                }
-            }
-    }
+        console.log("in validate Data");
+        // var statusArr = ["AQIS HELD","BORDER HELD","CLEAR"];
+        // var destinationArr = ["PER","SYD","ADL","BNE","MEL","OTH"];
+        // for (var importVal in exportData) {
+        //         var dataObj = exportData[importVal];
+        //         console.log(this.errorMsg);
+        //         if(this.errorMsg1 == null){
+        //             //if(!(dataObj['STATUS'] != undefined && (dataObj['STATUS'] === 'AQIS HELD' || dataObj['STATUS'] === 'BORDER HELD' || dataObj['STATUS'] === 'CLEAR')))
+        //             // if(!statusArr.includes(dataObj['STATUS'])){
+        //             //     this.errorMsg1 = dataObj['MAWB']+" - Invalid Status";
+        //             // }
+        //             //if(!(dataObj['POD'] != undefined && (dataObj['POD'] === 'PER' || dataObj['POD'] === 'SYD' || dataObj['POD'] === 'MEL' || dataObj['POD'] === 'ADL' || dataObj['POD'] === 'BNY' || dataObj['POD'] === 'OTH')))
+        //             // if(!destinationArr.includes(dataObj['POD'])){       
+        //             //     this.errorMsg1 = dataObj['MAWB']+" - Invalid POD";
+        //             // }
+        //         }
+        // }
   };
 
   /*Outstanding job file returns Old */
