@@ -19,7 +19,7 @@ export class SuperReleaseParcelComponent implements OnInit{
 
   @ViewChild('myForm') myForm: NgForm;
 
-  private fieldArray = [];
+  public fieldArray = [];
    private fieldArrayout = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};

@@ -13,9 +13,9 @@ import * as XLSX from 'xlsx';
 })
 
 export class SuperIncomingJobComponent implements OnInit{
-  private fieldArray: Array<any> = [];
+  public fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
-  private newAttribute: any = {};
+  public newAttribute: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
   successMsg: String;

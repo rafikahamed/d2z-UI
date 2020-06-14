@@ -29,11 +29,11 @@ export class superUserReturnsOutstandingComponent implements OnInit{
   returnSuperFlag:boolean;
   brokerDropdown: dropdownTemplate[];  
   selectedBrokerName: dropdownTemplate;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
     public trackingDataService : TrackingDataService,

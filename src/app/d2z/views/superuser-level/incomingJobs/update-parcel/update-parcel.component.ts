@@ -17,7 +17,7 @@ import * as XLSX from 'xlsx';
 export class SuperUpdateParcelComponent implements OnInit{
 @ViewChild('myForm') myForm: NgForm;
 
-  private fieldArray = [];
+  public fieldArray = [];
   private fieldArrayout = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};
@@ -61,8 +61,10 @@ tabs =[];
     private _compiler: Compiler
   ) {
     this.status = [
+    {"name":"SURPLUS","value":"SURPLUS"},
       {"name":"AQIS HELD","value":"AQIS HELD"},
         {"name":"BORDER HELD","value":"BORDER HELD"},
+        {"name":"BOTH HELD","value":"BOTH HELD"},
          {"name":"CLEAR","value":"CLEAR"}
         
       ]

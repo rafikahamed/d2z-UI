@@ -38,22 +38,22 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   invoiceBilledFlag: Boolean;
   nonD2zInvoiceApproveFlag: Boolean;
   nonD2zInvoiceBilledFlag: Boolean;
-  private gridOptions: GridOptions;
-  private gridOptionsApproved: GridOptions;
-  private gridOptionsNonD2zPending: GridOptions;
-  private gridOptionsNonD2zApproved: GridOptions;
-  private gridOptionsShipmentCharges: GridOptions;
-  private gridOptionsWeight: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private defaultColDef;
-  private rowData: any[];
-  private rowDataApproved: any[];
-  private rowDataShipmentChanges: any[];
-  private rowDataNonD2zPending: any[];
-  private rowDataNonD2zApproved: any[];
-  private rowDataWeight: any[];
-  private rowDataArticle: any[];
+  public gridOptions: GridOptions;
+  public gridOptionsApproved: GridOptions;
+  public gridOptionsNonD2zPending: GridOptions;
+  public gridOptionsNonD2zApproved: GridOptions;
+  public gridOptionsShipmentCharges: GridOptions;
+  public gridOptionsWeight: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public defaultColDef;
+  public rowData: any[];
+  public rowDataApproved: any[];
+  public rowDataShipmentChanges: any[];
+  public rowDataNonD2zPending: any[];
+  public rowDataNonD2zApproved: any[];
+  public rowDataWeight: any[];
+  public rowDataArticle: any[];
   private invoiceDownloadList: any[];
   system: String;
   serviceListMainData = [];
@@ -62,7 +62,7 @@ export class SuperUserInvoicePendingComponent implements OnInit {
   selectedserviceType: dropdownTemplate;
   serviceType: String;
    shipmentAllocateForm: FormGroup;
-    private articlegridOptions:GridOptions;
+    public articlegridOptions:GridOptions;
     constructor(
       public consigmentUploadService: ConsigmentUploadService,
       private spinner: NgxSpinnerService,
@@ -624,7 +624,9 @@ console.log("init:::"+this.selectedTab);
   onApprovedChange(){
     this.errorMsg = null;
   };
-
+onSelectionArticleChange(){
+    this.errorMsg = null;
+  };
   downloadNonD2zPendingInvoice(){
     var selectedNonD2zPendingRows = this.gridOptionsNonD2zPending.api.getSelectedRows();
     var invoicePendingDownloadFinalList = [];

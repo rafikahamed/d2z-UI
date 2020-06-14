@@ -20,11 +20,11 @@ interface dropdownTemplate {
 })
 export class ZebraFileUpload implements OnInit{
     
-    private gridOptions: GridOptions;
-    private autoGroupColumnDef;
-    private rowGroupPanelShow;
-    private rowData: any[];
-    private defaultColDef;
+    public gridOptions: GridOptions;
+    public autoGroupColumnDef;
+    public rowGroupPanelShow;
+    public rowData: any[];
+    public defaultColDef;
     successMsg: String;
     show: Boolean;
     showSuccess: Boolean;

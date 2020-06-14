@@ -113,7 +113,7 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
         MatProgressSpinnerModule,
     UserIdleModule.forRoot({idle: 300, timeout: 30, ping: 1}),
     RouterModule.forRoot([
-          { path: "",  redirectTo : document.location.hostname.includes("speedcouriers.com.au") == true ? "login" :"home", pathMatch: "full" },
+          { path: "",  redirectTo : "home", pathMatch: "full" },
           { path: "home", component: HomeComponent },
           { path: "login", component: LoginComponent },
           { path: "main", component: ClientHomeComponent },

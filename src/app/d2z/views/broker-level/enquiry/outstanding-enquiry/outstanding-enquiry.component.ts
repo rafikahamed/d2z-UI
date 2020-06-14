@@ -15,7 +15,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 export class BrokerOutstandingEnquiryComponent implements OnInit{
   @ViewChild('myForm') myForm: NgForm;
-  private outstandingEnquiryArray: Array<any> = [];
+  public outstandingEnquiryArray: Array<any> = [];
   fileName: string;
   errorMsg: string;
   successMsg: String;

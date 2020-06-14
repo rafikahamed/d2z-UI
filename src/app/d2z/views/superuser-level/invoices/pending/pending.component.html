@@ -60,16 +60,14 @@
                                       [suppressRowClickSelection]="true"
                                       [groupSelectsChildren]="true"
                                       [debug]="true"
-                                      [rowSelection]="rowSelection"
                                       [enableColResize]="true"
                                       [rowGroupPanelShow]="rowGroupPanelShow"
-                                      [pivotPanelShow]="pivotPanelShow"
                                       [enableRangeSelection]="true"
                                       [pagination]="true"
                                       [defaultColDef]="defaultColDef"
                                       [gridOptions]="gridOptions" 
                                       [pagination]="true"
-                                      (selectionChanged)="onSelectionChange($event)">
+                                      (selectionChanged)="onSelectionChange()">
                             </ag-grid-angular>
                           </div>
 
@@ -150,16 +148,14 @@
                                     [suppressRowClickSelection]="true"
                                     [groupSelectsChildren]="true"
                                     [debug]="true"
-                                    [rowSelection]="rowSelection"
                                     [enableColResize]="true"
                                     [rowGroupPanelShow]="rowGroupPanelShow"
-                                    [pivotPanelShow]="pivotPanelShow"
                                     [enableRangeSelection]="true"
                                     [pagination]="true"
                                     [defaultColDef]="defaultColDef"
                                     [gridOptions]="gridOptionsApproved" 
                                     [pagination]="true"
-                                    (selectionChanged)="onApprovedChange($event)">
+                                    (selectionChanged)="onApprovedChange()">
                           </ag-grid-angular>
                         </div>
 
@@ -269,16 +265,14 @@
                                               [suppressRowClickSelection]="true"
                                               [groupSelectsChildren]="true"
                                               [debug]="true"
-                                              [rowSelection]="rowSelection"
                                               [enableColResize]="true"
                                               [rowGroupPanelShow]="rowGroupPanelShow"
-                                              [pivotPanelShow]="pivotPanelShow"
                                               [enableRangeSelection]="true"
                                               [pagination]="true"
                                               [defaultColDef]="defaultColDef"
                                               [gridOptions]="gridOptionsWeight" 
                                               [pagination]="true"
-                                              (selectionChanged)="onApprovedChange($event)">
+                                              (selectionChanged)="onApprovedChange()">
                                     </ag-grid-angular>    
                                 </div>
                                 
@@ -372,16 +366,14 @@
                                           [suppressRowClickSelection]="true"
                                           [groupSelectsChildren]="true"
                                           [debug]="true"
-                                          [rowSelection]="rowSelection"
                                           [enableColResize]="true"
                                           [rowGroupPanelShow]="rowGroupPanelShow"
-                                          [pivotPanelShow]="pivotPanelShow"
                                           [enableRangeSelection]="true"
                                           [pagination]="true"
                                           [defaultColDef]="defaultColDef"
                                           [gridOptions]="articlegridOptions" 
                                           [pagination]="true"
-                                          (selectionChanged)="onSelectionArticleChange($event)">
+                                          (selectionChanged)="onSelectionArticleChange()">
                                       </ag-grid-angular>
                                 </div>
                               </div>
@@ -437,16 +429,14 @@
                                     [suppressRowClickSelection]="true"
                                     [groupSelectsChildren]="true"
                                     [debug]="true"
-                                    [rowSelection]="rowSelection"
                                     [enableColResize]="true"
                                     [rowGroupPanelShow]="rowGroupPanelShow"
-                                    [pivotPanelShow]="pivotPanelShow"
                                     [enableRangeSelection]="true"
                                     [pagination]="true"
                                     [defaultColDef]="defaultColDef"
                                     [gridOptions]="gridOptionsShipmentCharges" 
                                     [pagination]="true"
-                                    (selectionChanged)="onSelectionShipmentChange($event)">
+                                    (selectionChanged)="onSelectionShipmentChange()">
                           </ag-grid-angular>
                         </div>
                     </div>

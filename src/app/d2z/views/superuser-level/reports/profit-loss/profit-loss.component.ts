@@ -34,11 +34,11 @@ export class SuperUserProfitLossReportComponent implements OnInit{
   userName: String;
   role_id: String;
   system: String;
-  private gridOptionsProfit: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowProfitData: any[];
-  private defaultColDef;
+  public gridOptionsProfit: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowProfitData: any[];
+  public defaultColDef;
   public profitDataList = [];
   shipmentAllocateForm: FormGroup;
   clientType: String;

@@ -28,13 +28,13 @@ export class SuperUserNonD2zClientComponent implements OnInit {
   brokerUserName: String;
   errorDetails1: String;
   errorDetails: String;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private defaultColDef;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public defaultColDef;
   file:File;
   system: String;
-  private gridOptions: GridOptions;
-  private rowData: any[];
+  public gridOptions: GridOptions;
+  public rowData: any[];
   public nonD2ZList = [];
   brokerDropDown: dropdownTemplate[];
   constructor(

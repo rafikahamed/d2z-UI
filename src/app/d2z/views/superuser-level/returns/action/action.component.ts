@@ -13,7 +13,7 @@ import { GridOptions } from "ag-grid";
 })
 
 export class superUserReturnsActionComponent implements OnInit{
-  private actionReturnsArray: Array<any> = [];
+  public actionReturnsArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
   errorModal: String;

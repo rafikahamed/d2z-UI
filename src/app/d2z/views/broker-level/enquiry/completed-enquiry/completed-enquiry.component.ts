@@ -19,11 +19,11 @@ export class BrokerCompletedEnquiryComponent implements OnInit{
   errorMsg: string;
   successMsg: String;
   user_Id: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   file:File;
   system: String;
   cities2: City[];

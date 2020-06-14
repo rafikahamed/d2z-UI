@@ -35,11 +35,11 @@ export class SuperUserD2ZRatesComponent implements OnInit {
   errorMsg: String;
   successMsg:  String;
   arrayBuffer:any;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   file:File;
 
   constructor(

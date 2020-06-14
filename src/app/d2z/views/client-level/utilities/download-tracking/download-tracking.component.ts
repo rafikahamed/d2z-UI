@@ -22,11 +22,11 @@ export class UtilitiesTracking implements OnInit{
   errorMsg: string;
   user_Id: String;
   successMsg: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   file:File;
   cities2: City[];  
   selectedCity2: City;

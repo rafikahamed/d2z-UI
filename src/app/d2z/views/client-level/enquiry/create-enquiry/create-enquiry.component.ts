@@ -13,9 +13,9 @@ import * as XLSX from 'xlsx';
 })
 
 export class CreateEnquiryComponent{
-  private fieldArray: Array<any> = [];
+  public fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
-  private newAttributeClient: any = {};
+  public newAttributeClient: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
   successMsg: String;

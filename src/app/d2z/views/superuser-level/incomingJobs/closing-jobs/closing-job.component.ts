@@ -16,7 +16,7 @@ import * as XLSX from 'xlsx';
 
 export class SuperClosingJobComponent implements OnInit{
 
-  private fieldArray = [];
+  public fieldArray = [];
    private fieldArrayout = [];
   private fieldCreateArray: Array<any> = [];
   private newAttribute: any = {};

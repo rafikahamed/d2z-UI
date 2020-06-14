@@ -15,7 +15,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 export class superUserOpenEnquiryComponent implements OnInit {
   @ViewChild('myForm') myForm: NgForm;
-  private openEnquiryArray: Array<any> = [];
+  public openEnquiryArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
   user_Id: String;

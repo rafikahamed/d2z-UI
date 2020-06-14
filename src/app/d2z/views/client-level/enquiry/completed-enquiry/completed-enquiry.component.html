@@ -53,13 +53,12 @@
                                         [groupSelectsChildren]="true"
                                         [enableColResize]="true"
                                         [rowGroupPanelShow]="rowGroupPanelShow"
-                                        [pivotPanelShow]="pivotPanelShow"
                                         [enableRangeSelection]="false"
                                         [pagination]="true"
                                         [defaultColDef]="defaultColDef"
                                         [gridOptions]="gridOptions" 
                                         [pagination]="true"
-                                        (selectionChanged)="onEnquiryChange($event)">
+                                        (selectionChanged)="onEnquiryChange()">
                               </ag-grid-angular>
                           </div>
                       </div>

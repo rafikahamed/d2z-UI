@@ -14,9 +14,9 @@ import * as XLSX from 'xlsx';
 })
 
 export class superUserReturnsScanComponent implements OnInit{
-  private fieldArray: Array<any> = [];
+  public fieldArray: Array<any> = [];
   private fieldCreateArray: Array<any> = [];
-  private newAttribute: any = {};
+  public newAttribute: any = {};
   private newCreateAttribute: any = {};
   errorMsg: string;
   successMsg: String;

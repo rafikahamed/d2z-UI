@@ -46,14 +46,12 @@
                                   [suppressRowClickSelection]="true"
                                   [groupSelectsChildren]="true"
                                   [debug]="false"
-                                  [rowSelection]="rowSelection"
                                   [enableColResize]="true"
                                   [rowGroupPanelShow]="rowGroupPanelShow"
-                                  [pivotPanelShow]="pivotPanelShow"
                                   [enableRangeSelection]="true"
                                   [defaultColDef]="defaultColDef"
                                   [gridOptions]="gridOptionsBroker" 
-                                  (selectionChanged)="onZoneReportChange($event)">
+                                  (selectionChanged)="onZoneReportChange()">
                               </ag-grid-angular>
                             </div>
                         </div>

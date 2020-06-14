@@ -25,7 +25,7 @@
                             <div class="col-md-4">
                               <p-dropdown 
                                     [options]="cities2" 
-                                    [(ngModel)]="selectedCity2" 
+                                    [(ngModel)]="fileName" 
                                     optionLabel="name" 
                                     [showClear]="true"
                                     [editable]="true"
@@ -153,16 +153,14 @@
                                         [suppressRowClickSelection]="true"
                                         [groupSelectsChildren]="true"
                                         [debug]="true"
-                                        [rowSelection]="rowSelection"
                                         [enableColResize]="true"
                                         [rowGroupPanelShow]="rowGroupPanelShow"
-                                        [pivotPanelShow]="pivotPanelShow"
                                         [enableRangeSelection]="true"
                                         [pagination]="true"
                                         [defaultColDef]="defaultColDef"
                                         [gridOptions]="gridOptions" 
                                         [pagination]="true"
-                                        (selectionChanged)="onSelectionChange($event)">
+                                        (selectionChanged)="onSelectionChange()">
                               </ag-grid-angular>
                           </div>
                       </div>

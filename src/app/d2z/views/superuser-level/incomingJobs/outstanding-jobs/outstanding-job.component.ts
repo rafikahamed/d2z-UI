@@ -17,7 +17,7 @@ import * as XLSX from 'xlsx';
 export class SuperOutstandingJobComponent implements OnInit {
   @ViewChild('myForm') myForm: NgForm;
  
-  private fieldArray = [];
+  public fieldArray = [];
   private fieldArrayout = [];
   private fieldCreateArray: Array < any > = [];
   private newAttribute: any = {};

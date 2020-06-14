@@ -56,7 +56,7 @@
                             <p> Supplier Type : </p>
                             <div>
                                   <p-dropdown [options]="supplierTypeDropdown" 
-                                                [(ngModel)]="selectedExportType" 
+                                                [(ngModel)]="supplierType" 
                                                 optionLabel="name" 
                                                 [style]="{'width':'100%'}"
                                                 (onChange)="onSuplierTypeChange($event)">
@@ -267,7 +267,7 @@
                           <p> Supplier Type : </p>
                           <div>
                                 <p-dropdown [options]="nonD2zSupplierTypeDropdown" 
-                                              [(ngModel)]="selectNonD2zSupplierType" 
+                                              [(ngModel)]="nonD2zSupplierType" 
                                               optionLabel="name" 
                                               [style]="{'width':'100%'}"
                                               (onChange)="onNonD2zSuplierTypeChange($event)">

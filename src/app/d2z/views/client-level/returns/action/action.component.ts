@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 })
 
 export class ReturnsActionComponent implements OnInit{
-  private actionReturnsArray: Array<any> = [];
+  public actionReturnsArray: Array<any> = [];
   errorMsg: string;
   successMsg: String;
   errorModal: String;

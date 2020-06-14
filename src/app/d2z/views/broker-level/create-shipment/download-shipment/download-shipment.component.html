@@ -13,7 +13,7 @@
                                 </div>
                         </div>
                   </div>
-                   <mat-tab-group animationDuration="1000ms" [selectedIndex]="selectedIndex" >
+                   <mat-tab-group animationDuration="1000ms">
        <mat-tab label="Download Reports">
                   <div class="delete_search">
                       <div>
@@ -21,7 +21,7 @@
 
                         <div style="margin-left:20px; float:left">
                             <p-dropdown [options]="ShipmentArray" 
-                                        [(ngModel)]="selectedShipment" 
+                                        [(ngModel)]="shipmentNumber" 
                                         optionLabel="name" 
                                         (onChange)="onShipmentChange($event)"
                                         [showClear]="true"

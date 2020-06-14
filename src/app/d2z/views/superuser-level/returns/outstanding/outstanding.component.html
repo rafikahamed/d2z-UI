@@ -23,7 +23,7 @@
                                 <div style="margin-top:10px">
                                         <p-dropdown 
                                             [options]="brokerDropdown" 
-                                            [(ngModel)]="selectedStatusType" 
+                                            [(ngModel)]="brokerName" 
                                             optionLabel="name" 
                                             [style]="{'width':'100%'}"
                                             (onChange)="onBrokerChange($event)">
@@ -106,16 +106,14 @@
                                         [suppressRowClickSelection]="true"
                                         [groupSelectsChildren]="true"
                                         [debug]="true"
-                                        [rowSelection]="rowSelection"
                                         [enableColResize]="true"
                                         [rowGroupPanelShow]="rowGroupPanelShow"
-                                        [pivotPanelShow]="pivotPanelShow"
                                         [enableRangeSelection]="true"
                                         [pagination]="true"
                                         [defaultColDef]="defaultColDef"
                                         [gridOptions]="gridOptions" 
                                         [pagination]="true"
-                                        (selectionChanged)="onEnquiryChange($event)">
+                                        (selectionChanged)="onEnquiryChange()">
                               </ag-grid-angular>
                           </div>
                       </div>

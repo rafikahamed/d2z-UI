@@ -28,11 +28,11 @@ export class DirectInjectionComponent implements OnInit{
   role_id: String;
   successMsg: String;
   system: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   companyDropdown: dropdownTemplate[];  
   selectedCompany: dropdownTemplate;
   constructor(

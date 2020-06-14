@@ -98,16 +98,14 @@
                                   [suppressRowClickSelection]="true"
                                   [groupSelectsChildren]="true"
                                   [debug]="true"
-                                  [rowSelection]="rowSelection"
                                   [enableColResize]="true"
                                   [rowGroupPanelShow]="rowGroupPanelShow"
-                                  [pivotPanelShow]="pivotPanelShow"
                                   [enableRangeSelection]="true"
                                   [pagination]="true"
                                   [defaultColDef]="defaultColDef"
                                   [gridOptions]="gridOptionsProfit" 
                                   [pagination]="true"
-                                  (selectionChanged)="onProfitChange($event)">
+                                  (selectionChanged)="onProfitChange()">
                         </ag-grid-angular>
                     </div>
                 </div>

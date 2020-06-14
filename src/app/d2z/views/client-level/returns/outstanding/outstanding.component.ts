@@ -20,11 +20,11 @@ export class ReturnsOutStandingComponent{
   system: String;
   fromDate: String;
   toDate: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   englishFlag:boolean;
   chinessFlag:boolean;
   returnClientFlag:boolean;

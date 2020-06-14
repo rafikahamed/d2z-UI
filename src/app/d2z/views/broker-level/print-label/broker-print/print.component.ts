@@ -26,11 +26,11 @@ export class BrokerPrintComponent implements OnInit{
   role_id: String;
   userId: String;
   system: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   ManifestArray: dropdownTemplate[];  
   constructor(
     public consigmentUploadService: ConsigmentUploadService,

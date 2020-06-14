@@ -33,11 +33,11 @@ export class AllocateShipmentComponent implements OnInit{
   userName: String;
   role_id: String;
   system: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   shipmentAllocateForm: FormGroup;
   ManifestArray: dropdownTemplate[];  
   constructor(

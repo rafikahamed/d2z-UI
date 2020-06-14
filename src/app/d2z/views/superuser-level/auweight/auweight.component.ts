@@ -31,11 +31,11 @@ export class AUweightComponent implements OnInit {
   errorMsg: string;
   show: Boolean;
   successMsg: String;
-  private gridOptions: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private defaultColDef;
+  public gridOptions: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public defaultColDef;
   userName: String;
   system: String;
   role_id: String;

@@ -17,15 +17,15 @@ export class SuperUserNotBilledComponent implements OnInit {
   role_id: String;
   errorMsg: string;
   successMsg: String;
-  private gridOptions: GridOptions;
-  private gridOptionsNonD2z: GridOptions;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private rowData: any[];
-  private rowDataNonD2z: any[];
+  public gridOptions: GridOptions;
+  public gridOptionsNonD2z: GridOptions;
+  public autoGroupColumnDef;
+  public rowGroupPanelShow;
+  public rowData: any[];
+  public rowDataNonD2z: any[];
   private notBilledList : any[];
   private notBilledNonD2zList : any [];
-  private defaultColDef;
+  public defaultColDef;
   system: String;
   constructor(
     public consigmentUploadService: ConsigmentUploadService,
