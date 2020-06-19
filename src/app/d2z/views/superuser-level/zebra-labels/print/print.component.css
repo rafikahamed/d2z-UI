@@ -16,7 +16,10 @@ body{
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     margin-top: 30px;
 }
+.utlities_print_search .row{
 
+    margin-top: 20px;
+}
 .successMsg{
     color:green; 
     font-size: 14px;

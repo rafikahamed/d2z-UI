@@ -27,18 +27,52 @@
 
                   <div> <p class="errMsg">{{errorMsg}}</p> </div>
 
-                  <form [formGroup]="trackingPrintForm">
-                    <div class="row">
+                  <form class="labelForm" [formGroup]="trackingPrintForm">
+                      <div class="row">
                       <div class="col-md-4" 
                             *ngIf="englishFlag"
                             style="font-size: 16px"> 
-                            Article Id or Reference Number :
+                            Identifier Type :
                       </div>
 
                       <div class="col-md-4"
                             *ngIf="chinessFlag"
                             style="font-size: 16px"> 
-                            条形码标签 或 参考编号 :
+                            标识符类型 :
+                      </div>
+
+                      <div class="col-md-4"  *ngIf="englishFlag"> 
+                          <label>
+                          <input type="radio" ng-model="identifier" name="identifier" 
+                                  value="articleId" checked formControlName="identifier"> Article ID
+                          </label>
+                          <label>
+                          <input type="radio" ng-model="identifier" name="identifier" 
+                                 value="reference_number" formControlName="identifier" style="margin-left: 20px"> Reference Number
+                          </label>
+                      </div>
+                       <div class="col-md-4" *ngIf="chinessFlag"> 
+                          <label>
+                          <input type="radio" ng-model="identifier" name="identifier" 
+                                  value="articleId" checked formControlName="identifier"> 文章编号
+                          </label>
+                          <label>
+                          <input type="radio" ng-model="identifier" name="identifier" 
+                                 value="reference_number" formControlName="identifier" style="margin-left: 20px"> 参考编号
+                          </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4" 
+                            *ngIf="englishFlag"
+                            style="font-size: 16px"> 
+                            Identifier :
+                      </div>
+
+                      <div class="col-md-4"
+                            *ngIf="chinessFlag"
+                            style="font-size: 16px"> 
+                            识别码
                       </div>
 
                       <div class="col-md-4"> 

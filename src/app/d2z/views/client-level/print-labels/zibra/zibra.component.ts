@@ -512,9 +512,9 @@ export class ZebraPdfFileUpload implements OnInit{
           this.spinner.hide();
           var pdfFile = new Blob([resp], {type: 'application/pdf'});
           var pdfUrl = URL.createObjectURL(pdfFile);
-          var printwWindow = window.open(pdfUrl);
-          printwWindow.print();
-          if(!resp){
+          var printWindow = window.open(pdfUrl);
+          printWindow.print();
+           if(!resp){
             this.successMsg = resp.message;
           }
           setTimeout(() => {

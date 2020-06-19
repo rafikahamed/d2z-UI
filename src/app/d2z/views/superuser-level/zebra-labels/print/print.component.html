@@ -32,11 +32,30 @@
               </div>
 
               <form [formGroup]="trackingPrintForm">
+                 <div class="row">
+                      <div class="col-md-4" 
+                            style="font-size: 16px"> 
+                            Identifier Type :
+                      </div>
+
+
+                      <div class="col-md-4"> 
+                           
+  <label>
+    <input type="radio" ng-model="identifier" name="identifier" value="articleId" checked formControlName="identifier">
+     Article ID
+  </label>
+  <label>
+    <input type="radio" ng-model="identifier" name="identifier" value="reference_number"  formControlName="identifier" style="margin-left: 20px">
+     Reference Number
+  </label>
+                      </div>
+                    </div>
                 <div class="row">
                   
                   <div class="col-md-4" 
                         style="font-size:16px"> 
-                        Article Id or Reference Number : 
+                        Identifier : 
                   </div>
                  
                   <div class="col-md-4"> 

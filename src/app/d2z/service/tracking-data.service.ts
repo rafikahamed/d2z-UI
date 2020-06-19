@@ -20,8 +20,8 @@ export class TrackingDataService implements OnInit{
 
   ngOnInit(){}
 
-  generateTrackLabel( referenceNum, callback ): any {
-      this.http.post(baseUrl+'/tracking-label', referenceNum, {responseType: 'arraybuffer'}
+  generateTrackLabel(identifier,referenceNum, callback ): any {
+      this.http.post(baseUrl+'/tracking-label/'+identifier, referenceNum, {responseType: 'arraybuffer'}
             ).subscribe((resp) => {
               callback(resp);
               if (resp) {
@@ -34,8 +34,8 @@ export class TrackingDataService implements OnInit{
             });
   };
 
-  generateSuperUserTrackLabel( referenceNum, callback ): any {
-    this.http.post(baseUrl+'/superUser-level/tracking-label', referenceNum, {responseType: 'arraybuffer'}
+  generateSuperUserTrackLabel(identifier, referenceNum, callback ): any {
+    this.http.post(baseUrl+'/superUser-level/tracking-label/'+identifier, referenceNum, {responseType: 'arraybuffer'}
           ).subscribe((resp) => {
             callback(resp);
             if (resp) {

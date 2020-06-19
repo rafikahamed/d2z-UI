@@ -26,6 +26,7 @@ export class SuperUserZebraScanPrint implements OnInit{
       ){
       this._compiler.clearCache();
       this.trackingPrintForm = new FormGroup({
+        identifier: new FormControl('articleId'),
         refBarNum: new FormControl()
       })
     }
@@ -48,15 +49,15 @@ export class SuperUserZebraScanPrint implements OnInit{
           if(e.keyCode == 13){
             if(that.trackingPrintForm.value.refBarNum != null && $("#print-Util").val().length > 1){
               that.spinner.show();
-              that.trackingDataService.generateSuperUserTrackLabel(that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
+              that.trackingDataService.generateSuperUserTrackLabel(that.trackingPrintForm.value.identifier,that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
                 that.spinner.hide();
                 if(resp.status === 500){
                   that.errorMsg =  ' Invalid "Reference Number" or "BarCode label number" ';
                 }else{
                   var pdfFile = new Blob([resp], {type: 'application/pdf'});
                   var pdfUrl = URL.createObjectURL(pdfFile);
-                  var printwWindow = window.open(pdfUrl);
-                  printwWindow.print();
+                  var printWindow = window.open(pdfUrl);
+                  printWindow.print();
                   that.successMsg = "Document Opened Successfully";
                   setTimeout(() => {that.spinner.hide()},5000);
                 }

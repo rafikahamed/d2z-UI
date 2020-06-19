@@ -14,9 +14,12 @@ body{
     padding: 20px;
     width: 96%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    margin-top: 30px;
+    margin-top: 20px;
 }
+.utlities_pdf_search .row{
 
+    margin-top: 20px;
+}
 .h3, h3 {
     font-size: 16px;
 }

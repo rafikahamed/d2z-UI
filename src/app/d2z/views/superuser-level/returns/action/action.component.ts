@@ -116,7 +116,7 @@ export class superUserReturnsActionComponent implements OnInit{
     var dateString = year+month+day+"-"+hour+minutes+seconds;
     if(resendRefNumber){
        this.spinner.show();
-        this.trackingDataService.generateTrackLabel(resendRefNumber.trim(), (resp) => {
+        this.trackingDataService.generateTrackLabel("reference_number",resendRefNumber.trim(), (resp) => {
           this.spinner.hide();
             if(resp.status === 500){
               this.errorMsg = ' Invalid "Reference Number" or "BarCode label number" ';

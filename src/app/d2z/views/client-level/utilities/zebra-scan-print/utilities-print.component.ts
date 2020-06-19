@@ -27,6 +27,7 @@ export class UtilitiesScanPrint implements OnInit{
       ){
       this._compiler.clearCache();
       this.trackingPrintForm = new FormGroup({
+        identifier: new FormControl('articleId'),
         refBarNum: new FormControl()
       })
     }
@@ -52,15 +53,15 @@ export class UtilitiesScanPrint implements OnInit{
           if(e.keyCode == 13){
             if(that.trackingPrintForm.value.refBarNum != null && $("#print-Util").val().length > 1){
               that.spinner.show();
-              that.trackingDataService.generateTrackLabel(that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
+              that.trackingDataService.generateTrackLabel(that.trackingPrintForm.value.identifier,that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
                 that.spinner.hide();
                 if(resp.status === 500){
                   that.errorMsg = that.englishFlag ? ' Invalid "Reference Number" or "BarCode label number" ' : '无效的"参考编号"或"条码标签编号"';
                 }else{
                   var pdfFile = new Blob([resp], {type: 'application/pdf'});
                   var pdfUrl = URL.createObjectURL(pdfFile);
-                  var printwWindow = window.open(pdfUrl);
-                  printwWindow.print();
+                  var printWindow = window.open(pdfUrl);
+                  printWindow.print();
                   that.successMsg = that.englishFlag ? "Document Opened Successfully" : '文档打开成功';
                   setTimeout(() => {that.spinner.hide()},5000);
                 }
