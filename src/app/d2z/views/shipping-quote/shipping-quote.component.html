@@ -20,7 +20,6 @@
                                 <li><a routerLink="/service">Services</a></li>
                                 <li><a routerLink="/about">About Us</a></li>
                                 <li><a routerLink="/whychoose">Why Choose</a></li>
-                                
                                 <li><a routerLink="/contact">Contact US</a></li>
                                 <li><a routerLink="/policy">Legal</a></li>
                                 <li><a routerLink="/track-parcel">Track Parcel</a></li>
@@ -106,6 +105,13 @@
 </div>
 <!--End Modal -->
 
+  <ngx-spinner
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#fff"
+      loadingText="Loading..."
+      type="ball-clip-rotate-multiple">
+  </ngx-spinner>
 
 
 
@@ -150,8 +156,8 @@
                                   <div class="col-md-6 inputGroupContainer">
 
                                       <input id="name" class="form-control" type="text" required  formControlName="name" >
-                                      <div *ngIf="name.errors.required"> Name is required.</div>
-                                      <div *ngIf="name.errors.maxlength"> Name can be max 100 characters long.</div>
+                                      <div *ngIf="name.errors?.required"> Name is required.</div>
+                                      <div *ngIf="name.errors?.maxlength"> Name can be max 100 characters long.</div>
 
                                   </div>
 
@@ -166,8 +172,8 @@
                                   <div class="col-md-6 inputGroupContainer">
 
                                       <input id="companyName" class="form-control"  type="text" required formControlName="companyName">
-                                      <div *ngIf="companyName.errors.required"> Company Name is required.</div>
-                                      <div *ngIf="companyName.errors.maxlength"> Company Name can be max 100 characters long.</div>
+                                      <div *ngIf="companyName.errors?.required"> Company Name is required.</div>
+                                      <div *ngIf="companyName.errors?.maxlength"> Company Name can be max 100 characters long.</div>
                                   </div>
 
                                   </div>
@@ -181,8 +187,8 @@
                                   <div class="col-md-6 inputGroupContainer">
 
                                       <input id="emailAddress" class="form-control" type="email" required formControlName="emailAddress">
-                                      <div *ngIf="emailAddress.errors.required"> Email Address is required.</div>
-                                      <div *ngIf="emailAddress.errors.maxlength"> Email Address can be max 100 characters long.</div>
+                                      <div *ngIf="emailAddress.errors?.required"> Email Address is required.</div>
+                                      <div *ngIf="emailAddress.errors?.maxlength"> Email Address can be max 100 characters long.</div>
                                   </div>
 </div>
 </fieldset>
