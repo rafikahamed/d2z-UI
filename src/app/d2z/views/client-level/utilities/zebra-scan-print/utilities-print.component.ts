@@ -62,6 +62,7 @@ export class UtilitiesScanPrint implements OnInit{
                   var pdfUrl = URL.createObjectURL(pdfFile);
                   var printWindow = window.open(pdfUrl);
                   printWindow.print();
+                  printWindow.onfocus = () => setTimeout(function () { printWindow.close(); }, 3000);
                   that.successMsg = that.englishFlag ? "Document Opened Successfully" : '文档打开成功';
                   setTimeout(() => {that.spinner.hide()},5000);
                 }

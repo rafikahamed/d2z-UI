@@ -115,13 +115,68 @@
 
 
 
-<section id="our-skill" class="section" style="padding:0px">
-        <div class="container">
+<section id="our-skill" class="section" style="padding:0px" >
+        <div class="container" *ngIf = showAir>
           <div class="row"> 
             <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+              <div class="section-title center">
+            <h2>Air Freight</h2></div>
+            <div style="text-align: justify;">
+            <p>For over 30 years D2Z continuously offers professional Airfreight Services globally.
+We have established an extensive global network of air freight agents capable of offer a wide range of services to ensure your shipment is carried and delivered as requested.</p>
+<p>Our universal coverage and local expertise enable us to offer competitive rates, flexible transit times with major airlines and seamless service. We have direct routings or deferred options. Our team of air freight specialists will tailor our services to suit your requirements and ensure the most convenient transit time for your goods.
+</p></div>
+<div class="section-title center"><h2 style="font-size: 20px;">Our Air Freight Services Include:</h2></div>
+<ul class="info-list">
+              <li><i class="fa fa-check"></i>Worldwide Import/Export Air Services.</li>
+              <li><i class="fa fa-check"></i>All-inclusive Door to Door Air Services.</li>
+              <li><i class="fa fa-check"></i>Over Dimensional Project Cargo Shipments by Air.</li>
+              <li><i class="fa fa-check"></i>Dangerous Goods Management & Documentation.</li>
+              <li><i class="fa fa-check"></i>Pick-up, Packing and Crating.</li>
+              <li><i class="fa fa-check"></i>Consolidation services.</li>
+            </ul> 
+
+          <p style="padding-top: 10px; "><a routerLink="/contact">Contact us</a> or fill in your enquiry now, one of our representatives will call you within 24 hours to discuss.</p>
               <div class="info-main">
-                <div class="section-title left">
-                  <h2 style="font-size: 20px; text-align: center">  
+                <div class="section-title center">
+                  <h2 style="font-size: 20px;">  
+                        <span> SHIPPING QUOTE - {{shippingQuoteMode}}</span></h2>
+                        <h4 class="modal-title text-success" style="font-size: 14px; text-align: center">{{successMsg}}</h4>
+
+                </div>
+              </div>
+              <div>
+              </div>
+            </div>    
+          </div>
+        </div>
+    </section>
+    <section id="our-skill" class="section" style="padding:0px">
+        <div class="container" *ngIf = showSea>
+          <div class="row"> 
+            <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
+              <div class="section-title center">
+            <h2>Sea Freight</h2></div>
+            <div style="text-align: justify;">
+            <p>Taking on the world by importing or exporting means coming face to face with complex international regulations. Our team provide a total service covering the sea freight movement of your product, customs clearance and tariff classification, coordinating pick-up and delivery, all operated by our professional team of international sea freight specialists.</p>
+<p>D2Z Logistics offer worldwide Import and Export Services to clients from every industry and for all types of cargo. We provide a dedicated, personalised service with competitive shipping rates, giving you peace of mind that your goods will arrive on time and within budget.</p></div>
+
+<div class="section-title center"><h2 style="font-size: 20px;">Our Sea Freight Services Include:</h2></div>
+<ul class="info-list">
+              <li><i class="fa fa-check"></i>LCL Consolidation Services.</li>
+              <li><i class="fa fa-check"></i>FCL Services via Direct and Transhipment Carriers.</li>
+              <li><i class="fa fa-check"></i>Door to Door Services.</li>
+              <li><i class="fa fa-check"></i>Breakbulk Project Cargo Shipments.</li>
+              <li><i class="fa fa-check"></i>Pick-up, Packing and Crating.</li>
+              <li><i class="fa fa-check"></i>Special Project, Dangerous Goods Management, Handling and Documentation.</li>
+              <li><i class="fa fa-check"></i>Port Handling & Inland Transportation.</li>
+              <li><i class="fa fa-check"></i>Letter of Credit Consignments.</li>
+            </ul> 
+
+          <p style="padding-top: 10px; "><a routerLink="/contact">Contact us</a> or fill in your enquiry now, one of our representatives will call you within 24 hours to discuss.</p>
+              <div class="info-main">
+                <div class="section-title center">
+                  <h2 style="font-size: 20px;">  
                         <span> SHIPPING QUOTE - {{shippingQuoteMode}}</span></h2>
                         <h4 class="modal-title text-success" style="font-size: 14px; text-align: center">{{successMsg}}</h4>
 
@@ -152,43 +207,43 @@
                               <div class="form-group">
                                  
 
-                                  <label class="col-md-3 control-label">NAME</label>
-                                  <div class="col-md-6 inputGroupContainer">
+                                  <label class="col-md-1 control-label">NAME</label>
+                                  <div class="col-md-2 inputGroupContainer">
 
                                       <input id="name" class="form-control" type="text" required  formControlName="name" >
-                                      <div *ngIf="name.errors?.required"> Name is required.</div>
-                                      <div *ngIf="name.errors?.maxlength"> Name can be max 100 characters long.</div>
+                                      <div class="errorMsg" *ngIf="name.touched && name.errors?.required"> Name is required.</div>
+                                      <div  class="errorMsg" *ngIf="name.errors?.maxlength"> Name can be max 100 characters long.</div>
 
                                   </div>
 
-                             </div>
+                             <!-- </div>
 
                               
 
-                              <div class="form-group">
+                              <div class="form-group"> -->
                                   
 
-                                  <label class="col-md-3 control-label">COMPANY NAME</label>
-                                  <div class="col-md-6 inputGroupContainer">
+                                  <label class="col-md-2 control-label">COMPANY NAME</label>
+                                  <div class="col-md-2 inputGroupContainer">
 
                                       <input id="companyName" class="form-control"  type="text" required formControlName="companyName">
-                                      <div *ngIf="companyName.errors?.required"> Company Name is required.</div>
-                                      <div *ngIf="companyName.errors?.maxlength"> Company Name can be max 100 characters long.</div>
+                                      <div class="errorMsg" *ngIf="companyName.touched && companyName.errors?.required"> Company Name is required.</div>
+                                      <div class="errorMsg" *ngIf="companyName.errors?.maxlength"> Company Name can be max 100 characters long.</div>
                                   </div>
 
-                                  </div>
+                                  <!-- </div>
 
                               
 
-                              <div class="form-group">
+                              <div class="form-group"> -->
                                
 
-                                  <label class="col-md-3 control-label">EMAIL ADDRESS</label>
-                                  <div class="col-md-6 inputGroupContainer">
+                                  <label class="col-md-2 control-label">EMAIL ADDRESS</label>
+                                  <div class="col-md-3 inputGroupContainer">
 
                                       <input id="emailAddress" class="form-control" type="email" required formControlName="emailAddress">
-                                      <div *ngIf="emailAddress.errors?.required"> Email Address is required.</div>
-                                      <div *ngIf="emailAddress.errors?.maxlength"> Email Address can be max 100 characters long.</div>
+                                      <div class="errorMsg" *ngIf="emailAddress.touched && emailAddress.errors?.required"> Email Address is required.</div>
+                                      <div class="errorMsg" *ngIf="emailAddress.errors?.maxlength"> Email Address can be max 100 characters long.</div>
                                   </div>
 </div>
 </fieldset>
@@ -205,7 +260,7 @@
                                   <div class="col-md-3 inputGroupContainer">
 
                                       <input id="departure" class="form-control" type="text"  formControlName="departure" required placeholder="City,Post Code,Country">
-                                      <div *ngIf="departure.invalid">Departure is required.</div>
+                                      <div class="errorMsg" *ngIf="departure.touched && departure.invalid">Departure is required.</div>
                                   </div>
 
                                   <label class="col-md-3 control-label">DEPARTURE TYPE</label>
@@ -227,7 +282,7 @@
                                   <div class="col-md-3 inputGroupContainer">
 
                                       <input id="arrival" class="form-control"  type="text"  formControlName="arrival" required placeholder="City,Post Code,Country">
-                                      <div *ngIf="arrival.invalid">Arrival is required.</div>
+                                      <div class="errorMsg" *ngIf="arrival.touched && arrival.invalid">Arrival is required.</div>
                                   </div>
 
                                      <label class="col-md-3 control-label">ARRIVAL TYPE</label>
@@ -377,7 +432,7 @@
                                 
                                   <button type="button" class="btn btn-info" (click)="submit()" style=" float:right; background-color: #16A085;  margin:10px;">
 
-                                      Submit
+                                      Get Quote
                                   </button>
 
                               

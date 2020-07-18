@@ -172,14 +172,7 @@ this.spinner.show();
     }
   }
 
-  routeShippingQuoteAir() {
-   this.global.setShippingQuote("AIR");
-   this.router.navigateByUrl('/shipping-quote');
-  }
-  routeShippingQuoteSea(){
-  this.global.setShippingQuote("SEA");
-   this.router.navigateByUrl('/shipping-quote');
-  }
+ 
 }
 
 export interface userMessage {

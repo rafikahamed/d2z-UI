@@ -1,7 +1,9 @@
 .success_msg{
     color:green; font-size: 16px;font-weight: 500; margin-left: 15px;
 }
-
+ #header{
+    background: #16A085;
+  }
 .err_msg{
     color: #ca2929; font-size:16px; font-weight:500; margin-left: 15px;
 }

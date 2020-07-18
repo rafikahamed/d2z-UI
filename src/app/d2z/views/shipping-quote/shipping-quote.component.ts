@@ -1,11 +1,10 @@
 import { Component, ElementRef, ViewChild, OnInit, Injectable} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginService } from 'app/d2z/service/login.service';
 import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.service';
 import { Global } from 'app/d2z/service/Global';
-
 declare var $: any;
 
 interface dropdownTemplate {
@@ -23,6 +22,8 @@ export class ShippingQuoteComponent implements OnInit {
   errorMsg: string;
     successMsg: String;
     shippingQuoteMode : String;
+    showAir: boolean;
+    showSea: boolean;
   loginForm: FormGroup;
   userMessage: userMessage;
   loginBut: boolean;
@@ -35,7 +36,7 @@ departureArrivalType:dropdownTemplate[];
     public loginservice: LoginService,
     public consigmentUploadService: ConsigmentUploadService,
        public global: Global,
-
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private spinner: NgxSpinnerService
   ){
@@ -95,7 +96,16 @@ departureArrivalType:dropdownTemplate[];
   ngOnInit(){
     console.log("inside the data");
 
-   this.shippingQuoteMode = this.global.getShippingQuote();
+   //this.shippingQuoteMode = this.global.getShippingQuote();
+   this.shippingQuoteMode = this.activatedRoute.snapshot.paramMap.get('shippingMode');
+   if(this.shippingQuoteMode === 'AIR'){
+   this.showAir = true;
+   this.showSea = false;
+   }
+   if(this.shippingQuoteMode === 'SEA'){
+   this.showAir = false;
+   this.showSea = true;
+   }
    this.departureArrivalType = [
    {"name" : "Residential","value" : "Residential"},
    {"name" : "Commercial","value" : "Commercial"}

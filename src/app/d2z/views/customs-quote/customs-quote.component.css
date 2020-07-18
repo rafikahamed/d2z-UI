@@ -16,10 +16,13 @@
     font-size: 17px;
     color: #16A085;
   }
-
+ .info-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  }
 
 .info-list li {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   font-weight: 400;
   color: #555;
 }
@@ -27,7 +30,6 @@
   margin:0;
 }
 .info-list li i {
-  border: 1px solid;
   width: 20px;
   height: 20px;
   font-size: 12px;
@@ -36,14 +38,11 @@
   text-align: center;
 }
 .grid-container {
-
-  width:90%;
+  width:100%;
   display: grid;
   grid-template-columns: auto auto auto auto;
-  margin-top: 20px;
-  margin-left:20px;
-  margin-right:20px;
-  margin-bottom: 10px;
+  margin:40px 20px 20px 20px;
+  align-items: center;
 }
 
 .item1 {
@@ -51,9 +50,12 @@
   grid-row: 1 / span 4;
 }
   
-
+.grid-container div{
+  text-align: center;
+}
 
 .grid-container > div > a{
+
   text-align: center;
 color:#000000;
 

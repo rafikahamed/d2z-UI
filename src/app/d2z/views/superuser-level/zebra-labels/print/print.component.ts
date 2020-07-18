@@ -58,6 +58,7 @@ export class SuperUserZebraScanPrint implements OnInit{
                   var pdfUrl = URL.createObjectURL(pdfFile);
                   var printWindow = window.open(pdfUrl);
                   printWindow.print();
+                  printWindow.onfocus = () => setTimeout(function () { printWindow.close(); }, 3000);
                   that.successMsg = "Document Opened Successfully";
                   setTimeout(() => {that.spinner.hide()},5000);
                 }

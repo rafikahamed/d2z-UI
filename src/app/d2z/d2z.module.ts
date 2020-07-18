@@ -95,7 +95,8 @@ import { superUserReturnsOutstandingComponent } from 'app/d2z/views/superuser-le
 import { superUserReturnsScanComponent } from 'app/d2z/views/superuser-level/returns/scan/scan.component';
 import { SuperHeldParcelComponent } from 'app/d2z/views/superuser-level/incomingJobs/held-parcel/held-parcel.component';
 import { SuperUpdateParcelComponent } from 'app/d2z/views/superuser-level/incomingJobs/update-parcel/update-parcel.component';
-import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incomingJobs/release-parcel/release-parcel.component'
+import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incomingJobs/release-parcel/release-parcel.component';
+import { InternationalCourierComponent } from 'app/d2z/views/international-courier/international-courier.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -158,8 +159,9 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
           { path: "whychoose",component:WhyChooseComponent},
           { path: "service", component : ServiceComponent},
           { path: "track-parcel", component: TrackParcelComponent},
-          { path: "shipping-quote", component: ShippingQuoteComponent},
+          { path: "shipping-quote/:shippingMode", component: ShippingQuoteComponent},
           { path: "customs-quote", component: CustomsQuoteComponent},
+          { path: "d2z-international-courier", component: InternationalCourierComponent},
           { path: "superuser/rates/add", component: SuperUserRatesAddComponent},
           { path: "superuser/rates/update", component: SuperUserRatesUpdateComponent},
           { path: "superuser/rates/d2z-rates", component: SuperUserD2ZRatesComponent},
@@ -274,8 +276,8 @@ import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incom
     SuperHeldParcelComponent,
     SuperUpdateParcelComponent,
     SuperReleaseParcelComponent,
-    SuperUserProfitLossReportComponent
-
+    SuperUserProfitLossReportComponent,
+    InternationalCourierComponent
   ],
   entryComponents: [],
   providers: [

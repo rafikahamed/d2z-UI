@@ -6,8 +6,12 @@ gst-service p{
   #header{
     background: #16A085;
   }
-  
-  
+  .section-title h4{
+    color: #16A085;
+  }
+  .errorMsg{
+    color: red;
+  }
   .article-png{
     text-align: center;
     margin-left: 100px;
@@ -20,8 +24,29 @@ gst-service p{
     font-size: 17px;
     color: #398039;
   }
+  #our-skill .info-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  }
+  #our-skill .info-list li {
+    margin-bottom: 5px;
+  font-weight: 400;
+  color: #555;
+}
+#our-skill .info-list li:last-child{
+  margin-bottom: 10px;
+}
+#our-skill .info-list li i {
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  margin-right: 10px;
+  line-height: 20px;
+  text-align: center;
+}
 
 .quoteForm{
+   color:#73879C;
     width :80%;
     margin-left: 10%;
     margin-top: 2px;

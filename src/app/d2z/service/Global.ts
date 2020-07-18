@@ -1,6 +1,5 @@
 export class Global{
     public  oustanding_InvoiceMAWB:boolean = false;
-    public shippingQuoteMode: String;
 
     setoustanding_InvoiceMAWB(value: boolean){
     	console.log("setting "+value);
@@ -13,11 +12,5 @@ export class Global{
 
     }
 
-    setShippingQuote(value : String){
-    this.shippingQuoteMode = value;
-    }
-
-    getShippingQuote(){
-    return this.shippingQuoteMode;
-    }
+   
 }
