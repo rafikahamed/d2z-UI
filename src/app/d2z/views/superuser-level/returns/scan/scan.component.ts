@@ -71,6 +71,7 @@ export class superUserReturnsScanComponent implements OnInit{
       this.reasonType = [
         {"name":"Unclaimed","value":"Unclaimed"},
         {"name":"Incorrect Address","value":"Incorrect Address"},
+        {"name":"Client Return","value":"Client Return"}
       ];
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
@@ -79,12 +80,14 @@ export class superUserReturnsScanComponent implements OnInit{
         window.scrollTo(0, 0)
       });
       this.newAttribute.type = this.scanType[0];
+      this.newAttribute.reason = this.reasonType[0];
   };
 
     addFieldValue() {
         this.fieldArray.push(this.newAttribute);
         this.newAttribute = {};
         this.newAttribute.type = this.scanType[0];
+        this.newAttribute.reason = this.reasonType[0];
         this.errorMsg = '';
     }
 
