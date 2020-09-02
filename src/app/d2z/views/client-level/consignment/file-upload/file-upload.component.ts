@@ -81,7 +81,8 @@ export class ZebraFileUpload implements OnInit{
         { "name": "eParcel", "value": "eParcel" },
         { "name": "Express", "value": "Express" },
         { "name": "Fastway", "value": "fastway" },
-        { "name": "STAR TRACK", "value": "StarTrack" }
+        { "name": "STAR TRACK", "value": "StarTrack" },
+        { "name": "NZ", "value": "NZ" }
        /** { "name": "Multi Carrier", "value": "multiCarrier" },
         { "name": "AuPost", "value":"aupost"} */
       ];
@@ -643,6 +644,12 @@ export class ZebraFileUpload implements OnInit{
 
           }
        
+        }
+        else if(selectedRows[k].carrier == 'NZ'){
+          if(selectedRows[k].serviceType != 'NZ'){
+            this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
+            break;
+          }
         }
       }
 

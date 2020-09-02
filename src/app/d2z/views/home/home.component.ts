@@ -43,12 +43,19 @@ export class HomeComponent implements OnInit{
         Subject: new FormControl(),
         Message: new FormControl()
       });
-      this.meta.addTag({ name: 'description', content: 'We are the best international logistics & freight forwarding specialists for ecommerce goods. Delivering first rate supply chain solutions & cost savings.' });
+    this.meta.addTag({ name: 'description', content: 'We are the best international logistics & freight forwarding specialists for ecommerce goods. Delivering first rate supply chain solutions & cost savings.' });
 
- this.meta.addTag( {name: 'keywords', content: 'eCommerce logistics, eCommerce specialist'});
+    this.meta.addTag( {name: 'keywords', content: 'eCommerce logistics, eCommerce specialist'});
 
- this.meta.addTag( {property: 'og:title', content: 'Freight Forwarder and eCommerce logistics| D2Z Pty Ltd'});
+    this.meta.addTag( {property: 'og:title', content: 'Freight Forwarder and eCommerce logistics| D2Z Pty Ltd'});
     
+    this.meta.addTag({ property: 'og:description', content: 'We are the best international logistics & freight forwarding specialists for ecommerce goods. Delivering first rate supply chain solutions & cost savings.' });
+
+
+    this.meta.addTag({ property: 'og:image', content: '../../../assets/img/slider/slider-bg1.jpg', itemprop: 'image' });
+    this.meta.addTag({ property: 'og:image:url', content: '../../../assets/img/slider/slider-bg1.jpg', itemprop: 'image' });
+    this.meta.addTag({ property: 'og:image:type', content: 'image/jpg' });
+    this.meta.addTag({ property: 'og:url', content:'https://www.d2z.com/' });
 
   }
 
