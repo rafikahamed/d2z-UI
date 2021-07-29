@@ -44,7 +44,7 @@ export class TrackParcelComponent implements OnInit {
       this.spinner.show();
       var trackingData = this.trackParcelForm.value.referenceNumber.split("\n");
       var result = trackingData.join(',');
-      this.trackingDataService.trackPracel(result, (resp) => {
+      this.trackingDataService.trackPracels(trackingData, (resp) => {
         this.spinner.hide();
         this.trackData = resp;
         if(resp){

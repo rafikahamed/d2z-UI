@@ -59,12 +59,13 @@ export class UtilitiesTrackParcel implements OnInit{
         this.spinner.show();
         var trackingData = this.trackParcelForm.value.trackingNumber.split("\n");
         var result = trackingData.join(',');
-        this.trackingDataService.trackPracel(result, (resp) => {
+        console.log(trackingData);
+        this.trackingDataService.trackPracels(trackingData, (resp) => {
           this.spinner.hide();
           this.trackEvents = resp;
           console.log(this.trackEvents);
-          this.showEvents = this.trackEvents[0].referenceNumber ? true : false;
-          this.showDownload = this.trackEvents[0].referenceNumber ? true : false;
+          this.showEvents = this.trackEvents[0].articleId ? true : false;
+          this.showDownload = this.trackEvents[0].articleId ? true : false;
           setTimeout(() => {this.spinner.hide()}, 5000);
         })
       }else{
@@ -89,8 +90,8 @@ export class UtilitiesTrackParcel implements OnInit{
             var trackdata = adminObj.trackingEvents[i];
                 var importObj = (
                 importObj={}, 
-                importObj[ReferenceNumber]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', importObj,
-                importObj[BarCodeLabelNumber]= adminObj.barcodelabelNumber != null ? adminObj.barcodelabelNumber: '', importObj,
+             //   importObj[ReferenceNumber]= adminObj.referenceNumber != null ? adminObj.referenceNumber: '', //importObj,
+                importObj[BarCodeLabelNumber]= adminObj.articleId != null ? adminObj.articleId: '', importObj,
                 importObj[EventTime]= trackdata.trackEventDateOccured != null ? "'"+trackdata.trackEventDateOccured+"'": '', importObj,
                 importObj[EventName]= trackdata.eventDetails != null ? trackdata.eventDetails: '', importObj);
                 trackingList.push(importObj)
@@ -107,7 +108,7 @@ export class UtilitiesTrackParcel implements OnInit{
                 decimalseparator: '.',
                 showLabels: true, 
                 useBom: true,
-                headers: [ 'Reference Number',  'Article Id' ,'Event Time','Event Name']
+                headers: ['Article Id' ,'Event Time','Event Name']
           };
           new Angular2Csv(trackingList, fileName, options);  
     }
@@ -116,6 +117,7 @@ export class UtilitiesTrackParcel implements OnInit{
 
 export interface TrackEvent {
   referenceNumber: string;
+  articleId: string;
   barcodelabelNumber: string;
   consignmentCreated: String;
   shipmentCreated: String;

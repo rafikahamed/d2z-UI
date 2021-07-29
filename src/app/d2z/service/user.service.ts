@@ -4,16 +4,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
+//const baseUrl = "https://d2ztracking.com.au/v1/d2z"; 
 const baseUrl = "https://"+hostname+"/v1/d2z";
-//const baseUrl = "http://18.220.140.225:8080/v1/d2z";
-// const baseUrl = "http://52.65.135.232:8080/v1/d2z";
-//const baseUrl = "http://54.252.222.216:5000/v1/d2z"; 
-//const baseUrl = "https://www.d2z.com.au/v1/d2z"; 
-//const baseUrl = "https://"+hostname+"/v1/"+apiName;
-//const baseUrl = "https://www.d2z.com.au"+"/v1/"+apiName;
-// const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
+//const baseUrl = "http://www.d2ztest.com.au:8080/v1/d2z"; 
 //const baseUrl = "http://localhost:8080/v1/d2z";
-//const baseUrl = "http://18.220.140.225:8080/v1/d2z"; 
 
 @Injectable()
 export class UserService {

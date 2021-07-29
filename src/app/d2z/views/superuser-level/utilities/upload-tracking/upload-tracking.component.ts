@@ -7,6 +7,8 @@ import { ConsigmentUploadService } from 'app/d2z/service/consignment-upload.serv
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackingDataService } from 'app/d2z/service/tracking-data.service';
 import * as XLSX from 'xlsx';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+
 declare var $: any;
 
 @Component({
@@ -23,7 +25,7 @@ export class SuperUserUploadTrackingComponent implements OnInit{
   childmenuFour:boolean;
   childmenuFive:boolean;
   public importList = [];
-  FileHeading = ['Reference Number', 'Article ID Number', 'Status', 'Status Time'];
+  FileHeading = ['Reference_number', 'ArticleID', 'TrackEventDetails', 'TrackEventDateOccurred','Location'];
   manifestNumber: string;
   arrayBuffer:any;
   file:File;
@@ -120,6 +122,7 @@ export class SuperUserUploadTrackingComponent implements OnInit{
       let trackEventDetails = 'trackEventDetails';
       let trackEventDateOccured = 'trackEventDateOccured';
       let fileName = 'fileName';
+      let location = 'location';
 
       var today = new Date();
       var day = today.getDate() + "";
@@ -165,10 +168,11 @@ export class SuperUserUploadTrackingComponent implements OnInit{
               if(this.errorMsg == null){
                 var importObj = (
                   importObj={}, 
-                  importObj[referenceNumber]= dataObj['Reference Number'] != undefined ? dataObj['Reference Number'] : '', importObj,
-                  importObj[connoteNo]= dataObj['Article ID Number'] != undefined ? dataObj['Article ID Number'] : '', importObj,
-                  importObj[trackEventDetails]= dataObj['Status'] != undefined ? dataObj['Status'] : '', importObj,
-                  importObj[trackEventDateOccured]= dataObj['Status Time'] != undefined ? dataObj['Status Time'] : '', importObj,
+                  importObj[referenceNumber]= dataObj['Reference_number'] != undefined ? dataObj['Reference_number'] : '', importObj,
+                  importObj[connoteNo]= dataObj['ArticleID'] != undefined ? dataObj['ArticleID'] : '', importObj,
+                  importObj[trackEventDetails]= dataObj['TrackEventDetails'] != undefined ? dataObj['TrackEventDetails'] : '', importObj,
+                  importObj[trackEventDateOccured]= dataObj['TrackEventDateOccurred'] != undefined ? dataObj['TrackEventDateOccurred'] : '', importObj,
+                  importObj['location']= dataObj['Location'] != undefined ? dataObj['Location'] : '', importObj,
                   importObj[fileName]= this.file.name+'-'+dateString, importObj
                 );
               this.importList.push(importObj)
@@ -217,6 +221,60 @@ clearDetails(){
     this.errorMsg = null;
   }
  
+ downloadtracking(){
+  let trackinglist = [];
+  this.spinner.show();
+    this.trackingDataService.downloadFDMTrackingNo((resp) => {
+      for(var tracking in resp){
+        var importObj = (
+          importObj={}, 
+          importObj['articleId']= resp[tracking].toString(), importObj
+        )
+      trackinglist.push(importObj);
+      }
+      this.spinner.hide();
+        var currentTime = new Date();
+        var fileName = "FDMTrackingList"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Article ID' ]
+          };
+        new Angular2Csv(trackinglist, fileName, options); 
+    })
+ }
+
+ downloadPending(){
+   
+  let trackinglist = [];
+  this.spinner.show();
+    this.trackingDataService.downloadPendingTrackingNo((resp) => {
+      console.log(resp)
+      for(var tracking in resp){
+        var importObj = (
+          importObj={}, 
+          importObj['articleId']= resp[tracking].articleId, importObj,
+          importObj['date']= "'"+resp[tracking].date+"'", importObj
+        )
+      trackinglist.push(importObj);
+      }
+      this.spinner.hide();
+        var currentTime = new Date();
+        var fileName = "Pending"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: [ 'Article ID','Event Date' ]
+          };
+        new Angular2Csv(trackinglist, fileName, options); 
+    })
+ }
 }
 
 

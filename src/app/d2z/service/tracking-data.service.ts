@@ -5,11 +5,11 @@ import 'rxjs/add/operator/map';
 
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
+//const baseUrl = "https://d2ztracking.com.au/v1/d2z"; 
 const baseUrl = "https://"+hostname+"/v1/d2z";
-// const baseUrl = "http://"+hostname+":8080/v1/"+apiName;
-// const baseUrl = "http://52.65.135.232:8080/v1/d2z";
-//const baseUrl = "http://localhost:8080/v1/d2z"
-//const baseUrl = "http://18.220.140.225:8080/v1/d2z"; 
+//const baseUrl = "http://www.d2ztest.com.au:8080/v1/d2z"; 
+//const baseUrl = "http://localhost:8080/v1/d2z";
+
 @Injectable()
 export class TrackingDataService implements OnInit{
   userMessage: userMessage;
@@ -74,6 +74,45 @@ export class TrackingDataService implements OnInit{
     });
   };
   
+  downloadFDMTrackingNo(callback):any{
+    this.http.get(baseUrl+'/superUser-level/downloadFDMdata').subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+
+  downloadPendingTrackingNo(callback):any{
+    this.http.get(baseUrl+'/superUser-level/downloadPendingTracking').subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  }
+  trackPracels(referenceNumberList, callback): any {
+    this.http.put(baseUrl+'/trackParcels',referenceNumberList).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      callback(error);
+    });
+  };
+
+
   etrackDetails(referenceNumberList, callback): any {
     this.http.get(baseUrl+'/superUser-level/track/etower/'+referenceNumberList).subscribe((resp) => {
       callback(resp);
@@ -461,7 +500,31 @@ shipmentAllocationArticleID( referenceNumbers, shipmentNumber, callback): any {
       callback(error);
     });
   };
+  superUserUploadMasterPostcode(data, callback) : any {
+    this.http.post(baseUrl+'/superUser-level/master-postcode', data).subscribe((resp) => {
+    callback(resp);
+    if (resp) {
+      
+    } else {
+        console.error("Not Found!")
+     }
+    }, (error) => {
+      callback(error);
+    });
+  };
 
+  superUserUploadMasterInvoicing(data, callback) : any {
+    this.http.post(baseUrl+'/superUser-level/master-invoicingZones', data).subscribe((resp) => {
+    callback(resp);
+    if (resp) {
+      
+    } else {
+        console.error("Not Found!")
+     }
+    }, (error) => {
+      callback(error);
+    });
+  };
   superUserArrialUpload(arrivalDetails, callback) : any {
     this.http.post(baseUrl+'/superUser-level/track-arrivalReportUpload', arrivalDetails).subscribe((resp) => {
     callback(resp);

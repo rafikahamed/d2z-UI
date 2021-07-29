@@ -59,7 +59,7 @@
                 
                                   
                             </div>
-                            <div class="col-md-4">
+                           <!-- <div class="col-md-4">
                                     <button type="button" 
                                             class="btn btn-info" 
                                             *ngIf="englishFlag"
@@ -67,6 +67,18 @@
                                             style="background-color: #16A085; float:right; margin:10px;">
                                             
                                             View
+                                    </button>
+                
+                                  
+                            </div>-->
+                           <div class="col-md-4">
+                                    <button type="button" 
+                                            class="btn btn-info" 
+                                            *ngIf="englishFlag"
+                                            (click)="generateReport()"
+                                            style="background-color: #16A085; float:right; margin:10px;">
+                                            
+                                            Shipment Summary Report
                                     </button>
                 
                                   

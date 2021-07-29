@@ -335,7 +335,9 @@ console.log("init:::"+this.selectedTab);
           let total = 'total';
           let serviceType = 'serviceType';
           let airwaybill ='airwaybill';
-          
+          let suburb = 'suburb';
+          let zone = 'zone';
+
            for(var downloadInvoice in downloadInvoiceData){
               var invoiceData = downloadInvoiceData[downloadInvoice];
               var invoiceObj = (
@@ -349,7 +351,9 @@ console.log("init:::"+this.selectedTab);
                 invoiceObj[fuelSurcharge]= invoiceData.fuelsurcharge != null ? invoiceData.fuelsurcharge : '', invoiceObj,
                 invoiceObj[total]= invoiceData.total != null ? invoiceData.total : '', invoiceObj,
                 invoiceObj[serviceType]= invoiceData.serviceType != null ? invoiceData.serviceType : '', invoiceObj,
-                 invoiceObj[airwaybill]= invoiceData.airwaybill != null ? invoiceData.airwaybill : '', invoiceObj
+                 invoiceObj[airwaybill]= invoiceData.airwaybill != null ? invoiceData.airwaybill : '', invoiceObj,
+                 invoiceObj[suburb]= invoiceData.suburb != null ? invoiceData.suburb : '', invoiceObj,
+              invoiceObj[zone]= invoiceData.zone != null ? invoiceData.zone : '', invoiceObj
 
               );
               invoiceDownloadFinalList.push(invoiceObj);
@@ -363,7 +367,7 @@ console.log("init:::"+this.selectedTab);
              decimalseparator: '.',
              showLabels: true, 
              useBom: true,
-             headers: [ 'Broker Name','Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill']
+             headers: [ 'Broker Name','Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill','Suburb','Zone']
              };
              new Angular2Csv(invoiceDownloadFinalList, fileName, options);   
              this.invoiceApproveFlag = true;
@@ -461,6 +465,8 @@ console.log("init:::"+this.selectedTab);
         let total = 'total';
         let serviceType = 'serviceType';
         let airwaybill ='airwaybill';
+        let suburb = 'suburb';
+        let zone = 'zone';
 
          for(var downloadApproveInvoice in downloadInvoiceApprovedData){
             var invoiceApprovedData = downloadInvoiceApprovedData[downloadApproveInvoice];
@@ -476,7 +482,9 @@ console.log("init:::"+this.selectedTab);
               invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
               invoiceApproveObj[total]= invoiceApprovedData.total != null ? invoiceApprovedData.total : '', invoiceApproveObj,
               invoiceApproveObj[serviceType]= invoiceApprovedData.serviceType != null ? invoiceApprovedData.serviceType : '', invoiceApproveObj,
-              invoiceApproveObj[airwaybill]= invoiceApprovedData.airwaybill != null ? invoiceApprovedData.airwaybill : '', invoiceApproveObj
+              invoiceApproveObj[airwaybill]= invoiceApprovedData.airwaybill != null ? invoiceApprovedData.airwaybill : '', invoiceApproveObj,
+              invoiceApproveObj[suburb]= invoiceApprovedData.suburb != null ? invoiceApprovedData.suburb : '', invoiceApproveObj,
+              invoiceApproveObj[zone]= invoiceApprovedData.zone != null ? invoiceApprovedData.zone : '', invoiceApproveObj
             );
             invoiceApprovedDownloadFinalList.push(invoiceApproveObj);
          };
@@ -489,7 +497,7 @@ console.log("init:::"+this.selectedTab);
             decimalseparator: '.',
             showLabels: true, 
             useBom: true,
-            headers: ['Broker Name','Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill']
+            headers: ['Broker Name','Tracking Number', 'Reference', 'Postcode', 'Weight', 'Postage', 'Fuel Surcharge', 'Total', 'Service Type','Airway Bill','Suburb','Zone']
           };
         new Angular2Csv(invoiceApprovedDownloadFinalList, fileName, options);   
         this.invoiceBilledFlag = true;

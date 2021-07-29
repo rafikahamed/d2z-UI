@@ -244,13 +244,21 @@ var that = this;
   };
 
     addFieldValue() {
+  this.errorMsg = "";
+   let weight = this.newAttribute.weight;
+        var pattern = /^\d+$/; 
+            if(pattern.test(weight)) {
  
   this.newAttribute.mlidDropdown = this.mlidDropdown1;
   this.newAttribute.consigneeDropdown = this.consigneeDropdown2;
  
         this.fieldArray.push(this.newAttribute)
         this.newAttribute = {};
+    }else{
+    this.errorMsg = "KG must be a valid number";
     }
+
+ }
 
     deleteFieldValue(index) {
         this.fieldArray.splice(index, 1);

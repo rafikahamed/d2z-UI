@@ -46,7 +46,7 @@ export class SuperUserZebraScanPrint implements OnInit{
       var elem = document.getElementById("print-Util");
       var that = this;
       elem.onkeyup = function(e){
-          if(e.keyCode == 13){
+          if(e.code == 'Enter'){
             if(that.trackingPrintForm.value.refBarNum != null && $("#print-Util").val().length > 1){
               that.spinner.show();
               that.trackingDataService.generateSuperUserTrackLabel(that.trackingPrintForm.value.identifier,that.trackingPrintForm.value.refBarNum.trim(), (resp) => {
@@ -58,7 +58,12 @@ export class SuperUserZebraScanPrint implements OnInit{
                   var pdfUrl = URL.createObjectURL(pdfFile);
                   var printWindow = window.open(pdfUrl);
                   printWindow.print();
-                  printWindow.onfocus = () => setTimeout(function () { printWindow.close(); }, 3000);
+                  printWindow.onfocus = () => setTimeout(function () { 
+                    printWindow.close();
+                    that.trackingPrintForm.patchValue({
+                      refBarNum: ''
+                    })
+                    }, 3000);
                   that.successMsg = "Document Opened Successfully";
                   setTimeout(() => {that.spinner.hide()},5000);
                 }
@@ -69,6 +74,7 @@ export class SuperUserZebraScanPrint implements OnInit{
             } 
           }
       }
+     
     }
  
 }

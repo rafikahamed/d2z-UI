@@ -310,7 +310,8 @@
                                       Invoices / Invoicing per MAWB
                                   </button>
                                   <div>
-                                   <button type="button" class="btn btn-info" [disabled]= "edit"  (click)="tab.outturn && tab.injectionDate>=tab.eta && tab.clearanceDate>=tab.eta?generateReport($event,index):errorMsg2='Shipment summary conditions not met'" style="background-color: #16A085; float:left; margin:10px; ">
+                                  <button type="button" class="btn btn-info" [disabled]= "edit"  
+                                   (click)="tab.outturn && tab.injectionDate>=tab.eta && tab.clearanceDate>=tab.eta?generateReport($event,index):errorMsg2='Shipment summary conditions not met'" style="background-color: #16A085; float:left; margin:10px; ">
 
                                       Shipment Summary
                                   </button>

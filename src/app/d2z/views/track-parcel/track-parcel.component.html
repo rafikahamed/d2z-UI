@@ -138,14 +138,21 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
                     <div>
                                 <p style="float:left; margin:15px 0px;"> 
-                                        Please enter the Reference Number to know the parcel status: </p>
+                                        Please enter the Tracking Number to know the parcel status: </p>
                                 <form [formGroup]="trackParcelForm">
                                         <div class="ui-g-8 ui-md-3">
-                                            <div class="ui-inputgroup" style="height:40px; margin-left: 20px">
-                                                <input type="text" 
-                                                        placeholder="Reference Number" 
+                                            <div class="ui-inputgroup" style="margin-left: 20px">
+                                               <!-- <input type="text" 
+                                                        placeholder="Tracking Number" 
                                                         class="input-text"
-                                                        formControlName="referenceNumber">    
+                                                        formControlName="referenceNumber">  -->
+                                                         <textarea rows="4" 
+                                            cols="50" 
+                                            style="border: 1px solid #ccc" 
+                                            id="trackId" 
+                                            placeholder="Tracking Number" 
+                                            formControlName="referenceNumber">
+                                </textarea>  
                                             </div>
                                         </div>   
                                 </form>
@@ -156,8 +163,9 @@
                                             Search
                                 </button>   
                     </div>
-                    <p style="color: green; font-size:13px"> (* If you want to search more than one reference number, provide reference number as , seperated) </p>
-                </div>		
+                 
+                </div>	
+                   <p style="color: green; font-size:13px;padding: 20px"> (* If you want to search multiple tracking numbers, please provide the tracking number in next line) </p>	
               </div>
             </div>
 
@@ -177,7 +185,7 @@
                               *ngFor="let track of trackData;let i = index" >
                                 <div class="col-md-8">
 
-                                    <p class="track-top"> {{i+1}} &nbsp;) &nbsp;   Reference Number : {{track.referenceNumber}}</p>
+                                    <p class="track-top"> {{i+1}} &nbsp;) &nbsp;   Tracking Number : {{track.articleId}}</p>
                                     <!-- <p class="track-top">  &nbsp; &nbsp; &nbsp; Bar Code Label Number :  {{track.barcodelabelNumber}} </p> -->
                                 </div>
                                 <div id="content">

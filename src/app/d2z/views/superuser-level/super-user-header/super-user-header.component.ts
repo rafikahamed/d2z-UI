@@ -53,11 +53,13 @@ export class SuperUserHeaderComponent implements OnInit {
   invoiceReconcile: boolean;
   invoiceNotBilled: boolean;
   invoiceNonD2z: boolean;
+  invoiceManual:boolean;
   reports: boolean;
   reportShipment: boolean;
   reportLog: boolean;
   reportZone: boolean;
   reportDelivery: boolean;
+  reportProfitLoss: boolean;
   labels: boolean;
   enquiry: boolean;
   returns: boolean;
@@ -70,9 +72,10 @@ export class SuperUserHeaderComponent implements OnInit {
   zebraPdf: boolean;
   superUserHome: boolean;
   superUserHomeInfo: boolean;
+  masterPostcode:boolean;
   userName: String;
   pageSwitch: String;
-
+  trackParcel:boolean;
   constructor(
     public consigmentUploadService: ConsigmentUploadService
   ){}
@@ -104,9 +107,10 @@ export class SuperUserHeaderComponent implements OnInit {
       this.mlid = true;
       this.auweight = false;
       this.clientUpdate = true;
-      this.tracking = false;
+      this.tracking = true;
       this.trackingUpload = true;
       this.trackingArrival = true;
+      this.trackParcel = true;
       this.rates= true;
       this.ratesAdd= true;
       this.ratesUpdate= true;
@@ -116,15 +120,17 @@ export class SuperUserHeaderComponent implements OnInit {
       this.invoiceReconcile= true;
       this.invoiceNotBilled= true;
       this.invoiceNonD2z= false;
+      this.invoiceManual= true;
       this.reports= true;
       this.reportShipment= true;
       this.reportLog= true;
       this.reportZone= true;
-      this.reportDelivery = true;
+      //this.reportDelivery = true;
+      this.reportProfitLoss = false;
       this.labels= true;
       this.zebraPrint= true;
       this.zebraPdf= true;
-
+      this.masterPostcode = true;
       this.incomingJob = true;
       this.addShipment = true;
       this.incomingShipment = true;
@@ -165,6 +171,8 @@ export class SuperUserHeaderComponent implements OnInit {
       this.releaseparcel=true;
       this.heldparcel=true;
       this.updateparcel=true;
+      this.tracking = true;
+      this.trackingUpload = true;
     }else if(role == 5){
       this.superUserHome = false;
       this.superUserHomeInfo = false;

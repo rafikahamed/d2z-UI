@@ -137,6 +137,15 @@
                             Upload Fastway/StarTrack Data
                     </button>
 
+                    <button type="button"
+                            class="btn btn-info" 
+                            *ngIf="fdmInvoice"
+                            (click)="uploadFdmData()"
+                            style="background-color: #16A085; float:right; margin-right:20px">
+                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                            Upload FDM Data
+                    </button>
+
                     <div *ngIf="suplier1Flag" style="padding:20px; margin-top:30px">
                       <p> Please select the below records to upload the UBI Data: </p>
                       <div class="col-md-10">
@@ -244,7 +253,32 @@
                             </ag-grid-angular>
                         </div>
                     </div>
-
+                    <div *ngIf="fdmInvoice" style="padding:20px; margin-top:30px">
+                        <p> Please select the below records to upload the FDM data: </p>
+                        <div class="col-md-10">
+                              <ag-grid-angular 
+                                        #agGrid style="width:100%; height:450px;" 
+                                        class="ag-theme-balham" 
+                                        [autoGroupColumnDef]="autoGroupColumnDef"
+                                        [rowData]="rowDataSupplier2"
+                                        [enableSorting]="true"
+                                        [enableFilter]="true"
+                                        [suppressRowClickSelection]="true"
+                                        [groupSelectsChildren]="true"
+                                        [debug]="true"
+                                        [rowSelection]="rowSelection"
+                                        [enableColResize]="true"
+                                        [rowGroupPanelShow]="rowGroupPanelShow"
+                                        [pivotPanelShow]="pivotPanelShow"
+                                        [enableRangeSelection]="true"
+                                        [pagination]="true"
+                                        [defaultColDef]="defaultColDef"
+                                        [gridOptions]="gridOptionsSuplier3" 
+                                        [pagination]="true"
+                                        >
+                              </ag-grid-angular>
+                          </div>
+                    </div>
                     <div class="col-md-2">
                         <button type="button"
                                 class="btn btn-info" 

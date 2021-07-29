@@ -82,9 +82,9 @@ export class ZebraFileUpload implements OnInit{
         { "name": "Express", "value": "Express" },
         { "name": "Fastway", "value": "fastway" },
         { "name": "STAR TRACK", "value": "StarTrack" },
-        { "name": "NZ", "value": "NZ" }
-       /** { "name": "Multi Carrier", "value": "multiCarrier" },
-        { "name": "AuPost", "value":"aupost"} */
+        { "name": "NZ", "value": "NZ" },
+      { "name": "Multi Carrier", "value": "multiCarrier" }
+      /*  { "name": "AuPost", "value":"aupost"} */
       ];
       this.selectedExportType = this.exportTypeDropdown[0];
       this.router.events.subscribe((evt) => {
@@ -583,14 +583,14 @@ export class ZebraFileUpload implements OnInit{
       this.showSuccess = false;
       this.show = false;
       var fastwayArray = ["FWS","FWM","FW","FW3"];
-      var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS"];
+      var multiCarrierArray = ["MCM","MCM1","MCM2","MCM3","MCS","MC1"];
       var nonEparcel = ["MCM","MCM1","MCM2","MCM3","MCS","FWS","FWM","1PME"];
-      var aupostArray = ["1PME","1PM"];
+      var aupostArray = ["1PME"];
       
       
       for(var k = 0; k != selectedRows.length; ++k){
         if(selectedRows[k].carrier == 'eParcel'){
-          if(nonEparcel.includes(selectedRows[k].serviceType)){
+          if(fastwayArray.includes(selectedRows[k].serviceType) || aupostArray.includes(selectedRows[k].serviceType) || selectedRows[k].serviceType.includes('MC')){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }
@@ -607,7 +607,7 @@ export class ZebraFileUpload implements OnInit{
           }
         }else if(selectedRows[k].carrier == 'multiCarrier'){
           console.log(multiCarrierArray.includes(selectedRows[k].serviceType));
-          if(!multiCarrierArray.includes(selectedRows[k].serviceType)){
+          if(!selectedRows[k].serviceType.includes('MC')){
             this.errorMsg = this.englishFlag ? "**Invalid service Type for selected Carrier Type" : "**所选运营商类型的服务类型无效";
             break;
           }

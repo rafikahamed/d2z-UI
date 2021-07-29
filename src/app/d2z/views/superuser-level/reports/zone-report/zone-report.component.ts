@@ -119,6 +119,7 @@ export class SuperUserZoneReportComponent implements OnInit{
 
   zoneSearch(){
     this.brokerRequestList =[];
+    let metroZones = ['N0','V0','Q0','S0','W0','T0','N1','V1','Q1','S1','W1','NT1'];
     var selectedbroker = this.gridOptionsBroker.api.getSelectedRows();
     if(selectedbroker.length == 0){
       this.errorMsg = "**Atleast one broker should be selected";
@@ -148,6 +149,7 @@ export class SuperUserZoneReportComponent implements OnInit{
         console.log(this.brokerRequestList);
         this.spinner.show()
         this.consignmenrServices.getZoneDetails(this.brokerRequestList, (resp) => {
+        console.log(resp);
           if(resp.zoneResponse && resp.zoneResponse.length > 0){
             var zoneDataDownloadedList = [];
             this.spinner.hide();
@@ -167,6 +169,7 @@ export class SuperUserZoneReportComponent implements OnInit{
             let category10 = 'category10';
             let totalCnt = 'totalCnt';
             let zonePerctange = 'zonePerctange';
+            let metro = 'metro'
             zoneData = zoneData.slice(0, zoneData.length - 1);
             var zoneDataLast = zoneDataFull.slice(-1);
             
@@ -186,7 +189,8 @@ export class SuperUserZoneReportComponent implements OnInit{
                   zoneFinalObj[category9]= zoneObj.category9 != null ? zoneObj.category9 : 0, zoneFinalObj,
                   zoneFinalObj[category10]= zoneObj.category10 != null ? zoneObj.category10 : 0, zoneFinalObj,
                   zoneFinalObj[totalCnt]= zoneObj.totalCnt != null ? zoneObj.totalCnt : 0, zoneFinalObj,
-                  zoneFinalObj[zonePerctange]= zoneObj.zonePerctange != null ? zoneObj.zonePerctange+"%" : 0+"%", zoneFinalObj
+                  zoneFinalObj[zonePerctange]= zoneObj.zonePerctange != null ? zoneObj.zonePerctange+"%" : 0+"%", zoneFinalObj,
+                  zoneFinalObj[metro] = metroZones.includes(zoneObj.zone)? 'Metro' : 'Not',zoneFinalObj
                 );
                 zoneDataDownloadedList.push(zoneFinalObj);
              };
@@ -208,6 +212,7 @@ export class SuperUserZoneReportComponent implements OnInit{
                 zoneLastObj[category10]= zoneLast.category10 != null ? zoneLast.category10 : 0, zoneLastObj,
                 zoneLastObj[totalCnt] = zoneLast.total != null ? zoneLast.total : 0, zoneLastObj,
                 zoneLastObj[zonePerctange]= zoneLast.total != null ? '' : '', zoneLastObj
+
               );
               zoneDataDownloadedList.push(zoneLastObj);
            };
@@ -228,7 +233,7 @@ export class SuperUserZoneReportComponent implements OnInit{
               categoryObj[category10]= categoryResp.category10 != null ? categoryResp.category10+"%" : 0+"%", categoryObj,
               categoryObj[totalCnt] = categoryResp.total != null ? '' : '', categoryObj,
               categoryObj[zonePerctange]= categoryResp.total != null ? '' : '', categoryObj
-            );
+              );
             zoneDataDownloadedList.push(categoryObj);
            }
 
@@ -243,7 +248,7 @@ export class SuperUserZoneReportComponent implements OnInit{
                   showLabels: true, 
                   title: brokervalue,
                   useBom: true,
-                  headers: [ 'Zone', '0.5', '1', '2', '3', '4', '5', '7','10','15','22','Total','%']
+                  headers: [ 'Zone', '0.5', '1', '2', '3', '4', '5', '7','10','15','22','Total','%','Metro']
                 };
             new Angular2Csv(zoneDataDownloadedList, fileName, options);   
           }else{

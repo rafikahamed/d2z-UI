@@ -97,6 +97,8 @@ import { SuperHeldParcelComponent } from 'app/d2z/views/superuser-level/incoming
 import { SuperUpdateParcelComponent } from 'app/d2z/views/superuser-level/incomingJobs/update-parcel/update-parcel.component';
 import { SuperReleaseParcelComponent } from 'app/d2z/views/superuser-level/incomingJobs/release-parcel/release-parcel.component';
 import { InternationalCourierComponent } from 'app/d2z/views/international-courier/international-courier.component';
+import { ManualComponent } from './views/superuser-level/invoices/manual/manual.component';
+import { MasterPostcodeComponent } from './views/superuser-level/client-management/master-postcode/master-postcode.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -149,6 +151,7 @@ import { InternationalCourierComponent } from 'app/d2z/views/international-couri
           { path: "superuser-main", component : SuperUserMainComponent},
           { path: "superuser/add-client", component : SuperUserAddClientComponent},
           { path: "superuser/update-client", component : SuperUserUpdateClientComponent},
+          { path: "superuser/master-postcode", component : MasterPostcodeComponent},
           { path: "superuser/arrival-report", component : SuperUserArrivalReportComponent},
           { path: "superuser/upload-tracking", component : SuperUserUploadTrackingComponent},
           { path: "superuser/invoice-report", component: SuperUserInvoiceComponent},
@@ -169,6 +172,7 @@ import { InternationalCourierComponent } from 'app/d2z/views/international-couri
           { path: "superuser/invoices/reconcile", component: SuperUserReconcileComponent},
           { path: "superuser/invoice/not-billed", component: SuperUserNotBilledComponent},
           { path: "superuser/invoice/non-d2zClient", component: SuperUserNonD2zClientComponent},
+          { path: "superuser/invoice/manual", component: ManualComponent},
           { path: "superuser/reports/delivery-report", component: SuperUserDeliveryReportComponent},
           { path: "superuser/mld", component:MLIDComponent},
           { path: "superuser/auweight", component:AUweightComponent},
@@ -277,7 +281,9 @@ import { InternationalCourierComponent } from 'app/d2z/views/international-couri
     SuperUpdateParcelComponent,
     SuperReleaseParcelComponent,
     SuperUserProfitLossReportComponent,
-    InternationalCourierComponent
+    InternationalCourierComponent,
+    ManualComponent,
+    MasterPostcodeComponent
   ],
   entryComponents: [],
   providers: [

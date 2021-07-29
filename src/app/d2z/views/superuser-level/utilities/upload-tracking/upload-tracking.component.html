@@ -67,6 +67,22 @@
 
                         <button type="button" 
                               class="btn btn-info" 
+                              (click)="downloadtracking()"
+                              style="background-color: #16A085; float:right; margin-right:20px">
+                              <span class="glyphicon glyphicon-cloud-download"></span>
+                              Download FDM TrackingNo
+                      </button>
+
+                      <button type="button" 
+                      class="btn btn-info" 
+                      (click)="downloadPending()"
+                      style="background-color: #16A085; float:right; margin-right:20px">
+                      <span class="glyphicon glyphicon-cloud-download"></span>
+                      Download Pending
+                     </button>
+
+                        <button type="button" 
+                              class="btn btn-info" 
                               (click)="clearDetails()"
                               style="background-color: #16A085; float:right; margin-right:40px">
                               <span class="glyphicon glyphicon-refresh"></span>

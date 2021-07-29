@@ -41,7 +41,7 @@
                                 <li *ngIf="reportDelivery"><a routerLink="/superuser/reports/delivery-report">Delivery Report</a></li>
                                 <li *ngIf="reportLog"><a routerLink="/superuser/reports/log-report">API Log Report</a></li>
                                 <li *ngIf="reportZone"><a routerLink="/superuser/reports/zone-report">Zone Report</a></li>
-                                <li *ngIf="reportZone"><a routerLink="/superuser/reports/profit-loss">Profit & Loss Report</a></li>
+                                <li *ngIf="reportProfitLoss"><a routerLink="/superuser/reports/profit-loss">Profit & Loss Report</a></li>
                                 </ul>
                             </li>
 
@@ -51,6 +51,8 @@
                                 <li *ngIf="invoiceReconcile"><a routerLink="/superuser/invoices/reconcile">Reconcile</a></li>
                                 <li *ngIf="invoiceNotBilled"><a routerLink="/superuser/invoice/not-billed">Not Billed</a></li>
                                 <li *ngIf="invoiceNonD2z"><a routerLink="/superuser/invoice/non-d2zClient">Non D2Z-Client</a></li>
+                                <li *ngIf="invoiceManual"><a routerLink="/superuser/invoice/manual">Manual Invoice</a></li>
+
                                 </ul>
                             </li>
 
@@ -82,17 +84,19 @@
                                 <li *ngIf="clientUpdate"><a routerLink="/superuser/update-client">Update Client</a></li>
 
                                 <li><a routerLink="/superuser/add-service">Add Service</a></li>
+                                <li *ngIf="masterPostcode"><a routerLink="/superuser/master-postcode">Upload Master Data</a></li>
                                 </ul>
                             </li>
 
-                           <!-- <li *ngIf="tracking"><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
+                            <li *ngIf="tracking"><a (click)="super_user_utils(arrow)"><i class="fa fa-universal-access"></i> TRACKING <span class="fa fa-chevron-down" #arrow></span></a>
                                 <ul class="nav child_menu" [ngStyle]="{'display': !childmenuSuperThree ? 'block' : 'none'}">
-                                <li *ngIf="trackingUpload"><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
-                                <li *ngIf="trackingArrival"><a routerLink="/superuser/arrival-report">Arrival Upload</a></li>
+                              <li *ngIf="trackingUpload"><a routerLink="/superuser/upload-tracking">Upload Tracking</a></li>
+                               <!--   <li *ngIf="trackingArrival"><a routerLink="/superuser/arrival-report">Arrival Upload</a></li>
                                  <li><a routerLink="/superuser/invoice-report">Export Report</a></li>
-                               <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>
+                               <li><a routerLink="/superuser/etrack">eTower Tracking</a></li>-->
+                               <li *ngIf="trackParcel"><a routerLink="/utilities/trackParcel">Track Parcels</a></li>
                                 </ul>
-                            </li>-->
+                            </li>
 
                            
 

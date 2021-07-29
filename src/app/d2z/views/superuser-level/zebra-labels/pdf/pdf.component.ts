@@ -46,7 +46,7 @@ export class SuperUserZebraScanPDF implements OnInit{
       var elem = document.getElementById("pdf-Util");
       var that = this;
       elem.onkeyup = function(e){
-          if(e.keyCode == 13){
+          if(e.code == 'Enter'){
             var numberOfLineBreaks = '';
             numberOfLineBreaks = (that.trackingPrintForm.value.refBarNum.match(/\n/g)||[]).length;
             if(that.trackingPrintForm.value.refBarNum != null && $("#pdf-Util").val().length > 1){
@@ -66,6 +66,9 @@ export class SuperUserZebraScanPDF implements OnInit{
                           a.download = fileName;
                           a.click();
                           that.successMsg = " Document Downloaded Successfully ";
+                          that.trackingPrintForm.patchValue({
+                            refBarNum: ''
+                          })
                       setTimeout(() => { that.spinner.hide() }, 5000);
                     }
                   })

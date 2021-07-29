@@ -367,7 +367,7 @@ export class SuperOutstandingJobComponent implements OnInit {
       console.log(enquiryObj);
       this.importIndividualList.push(enquiryObj);
       this.spinner.show();
-      this.consigmentUploadService.generateShipmentSummary(enquiryObj,(resp) => {
+      this.consigmentUploadService.generateShipmentSummary(this.importIndividualList,(resp) => {
           this.successMsg = resp.message;
           $('#brokerEnquiry').modal('show');
           this.consigmentUploadService.outstandingJob((resp) => {

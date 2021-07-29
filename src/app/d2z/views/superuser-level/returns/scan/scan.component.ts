@@ -143,6 +143,7 @@ export class superUserReturnsScanComponent implements OnInit{
                that.fieldArray.push(that.newAttribute);
                that.newAttribute = {};
                that.newAttribute.type = that.scanType[0];
+               that.newAttribute.reason = that.reasonType[0];
                that.errorMsg = '';
               
              });

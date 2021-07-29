@@ -34,6 +34,7 @@ export class SuperUserReconcileComponent implements OnInit {
   suplier1Flag: Boolean;
   suplier2Flag: Boolean;
   suplier3Flag: Boolean;
+  fdmInvoice: Boolean;
   pcaFlag: Boolean;
   ubiNonD2zFlag: Boolean;
   freiPostNonD2zFlag: Boolean;
@@ -243,7 +244,8 @@ this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
       { "name": "PFL Template", "value": "pflTemplate" },
       { "name": "APG Template", "value": "apgTemplate" },
       { "name": "PCA Fastway Invoice", "value": "PCAStarTrackInvoice" },
-      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" }
+      { "name": "PCA Star Track Invoice", "value": "PCAStarTrackInvoice" },
+      { "name": "FDM","value":"FDM"}
     ];
     this.supplierType = this.supplierTypeDropdown[0].value;
     this.nonD2zSupplierTypeDropdown = [
@@ -373,33 +375,79 @@ this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
               }
           }
         }
+    } else if(this.supplierType == 'FDM'){
+      this.supplierTwoList= [];
+      this.rowDataSupplier2  = [];
+      fileReader.readAsArrayBuffer(this.file);
+      let articleNo = 'articleNo';
+      let chargedWeight = 'chargedWeight';
+      let cost = 'cost';
+      let supplierType = 'supplierType';
+  
+      fileReader.onload = (e) => {
+          this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            var exportData = XLSX.utils.sheet_to_json(worksheet);
+            for (var importVal in exportData) {
+              var reconcile = exportData[importVal];
+              
+              if(this.errorMsg == null){
+                var reconcileTwoObj = (
+                  reconcileTwoObj={}, 
+                  reconcileTwoObj[articleNo]= reconcile['Reference'] != undefined ? reconcile['Reference'] : '', reconcileTwoObj,
+                  reconcileTwoObj[chargedWeight]= reconcile['Weight'] != undefined ? reconcile['Weight'] : '', reconcileTwoObj,
+                  reconcileTwoObj[cost]= reconcile['Freight Chg.'] != undefined ? reconcile['Freight Chg.'] : '', reconcileTwoObj,
+                  reconcileTwoObj[supplierType]= 'FDM', reconcileTwoObj
+                );
+              this.supplierTwoList.push(reconcileTwoObj)
+              this.rowDataSupplier2 = this.supplierTwoList;
+              }
+          }
+        }
+        console.log( this.rowDataSupplier2);
     }
   };
 
   onSuplierTypeChange(event){
     this.successMsg = null;
     this.downloadReconcile= false;
-    this.supplierType = event.value ? event.value.value : '';
+    this.supplierType = event.value.value;
     if(this.supplierType == 'UBITemplate'){
       this.suplier2Flag = false;
       this.suplier3Flag = false;
       this.suplier1Flag = true;
       this.pcaFlag = false;
+      this.fdmInvoice = false;
     }else if(this.supplierType == 'pflTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = true;
       this.suplier3Flag = false;
       this.pcaFlag = false;
+      this.fdmInvoice = false;
     }else if(this.supplierType == 'apgTemplate'){
       this.suplier1Flag = false;
       this.suplier2Flag = false;
       this.suplier3Flag = true;
       this.pcaFlag = false;
+      this.fdmInvoice = false;
     }else if(this.supplierType == 'PCAStarTrackInvoice'){
       this.suplier1Flag = false;
       this.suplier2Flag = false;
       this.suplier3Flag = false;
       this.pcaFlag = true;
+      this.fdmInvoice = false;
+    }else if(this.supplierType == 'FDM'){
+      this.fdmInvoice = true;
+      this.suplier1Flag = false;
+      this.suplier2Flag = false;
+      this.suplier3Flag = false;
+      this.pcaFlag = false;
     }
   };
 
@@ -439,6 +487,35 @@ this.gridOptionsSuplier3 = <GridOptions>{ rowSelection: "multiple" };
     if(supplier1Data.length > 0){
       this.spinner.show();
       this.consigmentUploadService.reconcileData(supplier1Data, (resp) => {
+          this.spinner.hide();
+          if(resp.error){
+            this.errorMsg = resp.error.errorMessage;
+            this.errorDetails = resp.error.errorDetails;
+            this.errorDetails1 = JSON.stringify(resp.error.errorDetails);
+            this.show = true;
+            $('#reconcileModal').modal('show');  
+          }else{
+            this.successMsg = resp.message;
+            this.downloadReconcile = true;
+            $('#reconcileModal').modal('show');  
+          }
+        })
+    }else{
+      this.errorMsg = '**Please select the below records to upload the reconcile data';
+    }
+  };
+
+   uploadFdmData(){
+    this.errorMsg = null;
+    this.successMsg = null;
+    this.errorDetails1 = null;
+    this.show = false;
+    var supplierData = [];
+    supplierData = this.gridOptionsSuplier3.api.getSelectedRows();
+    console.log(supplierData.length)
+    if(supplierData.length > 0){
+      this.spinner.show();
+      this.consigmentUploadService.reconcileData(supplierData, (resp) => {
           this.spinner.hide();
           if(resp.error){
             this.errorMsg = resp.error.errorMessage;
@@ -588,6 +665,14 @@ uploadSupplier3Data(){
         }
         }
         else if(this.supplierType == 'apgTemplate')
+        {
+         var supplier3Data = this.gridOptionsSuplier3.api.getSelectedRows();
+        for (var supplierThree in supplier3Data) {
+            var reconcile = supplier3Data[supplierThree];
+            reconcileNumbers.push(reconcile.articleNo);
+        }
+        
+    }else if(this.supplierType == 'FDM')
         {
          var supplier3Data = this.gridOptionsSuplier3.api.getSelectedRows();
         for (var supplierThree in supplier3Data) {
