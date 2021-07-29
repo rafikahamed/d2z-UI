@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 const hostname = document.location.hostname;
 const apiName = document.location.hostname.includes("speedcouriers.com.au") == true ? "speedcouriers" : "d2z";
 
+
 //const baseUrl = "https://d2ztracking.com.au/v1/d2z"; 
 const baseUrl = "https://"+hostname+"/v1/d2z";
 //const baseUrl = "http://www.d2ztest.com.au:8080/v1/d2z"; 
